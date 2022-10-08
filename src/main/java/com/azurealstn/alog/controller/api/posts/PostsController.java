@@ -2,10 +2,15 @@ package com.azurealstn.alog.controller.api.posts;
 
 import com.azurealstn.alog.dto.posts.PostsCreateRequestDto;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -13,26 +18,27 @@ import java.util.Map;
 public class PostsController {
 
     @PostMapping("/posts")
-    public Map<String, String> posts(@RequestBody PostsCreateRequestDto requestDto) throws Exception {
+    public Map<String, String> posts(@Valid @RequestBody PostsCreateRequestDto requestDto, BindingResult result) throws Exception {
         log.info("title={}, content={}", requestDto.getTitle(), requestDto.getContent());
 
         /**
-         * 아래 코드의 단점
-         * 1. 필드가 추가될 때마다 if문을 계속 추가주어야 한다. (노가다)
-         * 2. 개발팁) 무언가 3번이상 반복 작업을 하고 있다면 내가 뭔가 잘못하고 있는건 아닌지 의심한다.
-         * 3. 개발자가 까먹고 누락할 가능성이 있다.
-         * 4. 생각보다 검증해야할 것이 많다. (중요)
-         *  - {"title": ""} -> 정상적인 에러 발생
-         *  - {"title": "            "} -> 에러 발생 X
-         *  - {"title": "..........수백만의 글자"} -> 에러 발생 X
-         *  - 등등..
+         * BindingResult의 단점
+         * 1. 매번 매서드마다 값을 검증해야 한다.
+         *  -> 개발자가 까먹을 수도 있고, 반복되는 작업은 힘들다.
+         *  -> 검증 부분에서 버그가 발생할 여지가 높다.
+         *  -> 세 번이상의 반복적인 작업은 피해야 한다.
+         * 2. 응답값에 HashMap이 아닌 응답 클래스를 만들어주는 것이 좋다.
+         * 3. 현재는 get(0)으로 한 개만 가져오지만 여러 개의 에러를 처리해야 할 경우에 힘들다.
          */
-        if (requestDto.getTitle() == null || requestDto.getTitle().equals("")) {
-            throw new Exception("제목이 비어있습니다.");
-        }
+        if (result.hasErrors()) {
+            List<FieldError> fieldErrors = result.getFieldErrors();
+            FieldError fieldError = fieldErrors.get(0);
+            String fieldName = fieldError.getField();
+            String errorMessage = fieldError.getDefaultMessage();
 
-        if (requestDto.getContent() == null || requestDto.getContent().equals("")) {
-            throw new Exception("내용이 비어있습니다.");
+            Map<String, String> response = new HashMap<>();
+            response.put(fieldName, errorMessage);
+            return response;
         }
 
         return Map.of();
