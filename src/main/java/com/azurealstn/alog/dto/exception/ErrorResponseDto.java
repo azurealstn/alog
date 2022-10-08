@@ -1,12 +1,10 @@
 package com.azurealstn.alog.dto.exception;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * {
@@ -19,12 +17,17 @@ import java.util.Map;
  * }
  */
 @Getter
-@RequiredArgsConstructor
 public class ErrorResponseDto {
 
     private final String code;
     private final String message;
     private final List<ValidationDto> validation = new ArrayList<>();
+
+    @Builder
+    public ErrorResponseDto(String code, String message) {
+        this.code = code;
+        this.message = message;
+    }
 
     public void addValidation(String fieldName, String errorMessage) {
         ValidationDto validDto = ValidationDto.builder()

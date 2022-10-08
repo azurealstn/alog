@@ -18,7 +18,7 @@ public class PostsApiController {
     private final PostsService postsService;
 
     @PostMapping("/api/v1/posts")
-    public void posts(@Valid @RequestBody PostsCreateRequestDto requestDto) throws Exception {
-        postsService.create(requestDto);
+    public Long posts(@Valid @RequestBody PostsCreateRequestDto requestDto) throws Exception {
+        return postsService.create(requestDto);
     }
 }

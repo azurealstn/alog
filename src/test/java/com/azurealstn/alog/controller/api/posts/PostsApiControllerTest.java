@@ -4,6 +4,7 @@ import com.azurealstn.alog.domain.Posts;
 import com.azurealstn.alog.dto.exception.ValidationDto;
 import com.azurealstn.alog.dto.posts.PostsCreateRequestDto;
 import com.azurealstn.alog.repository.posts.PostsRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
@@ -20,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
@@ -40,6 +42,9 @@ class PostsApiControllerTest {
     private MockMvc mockMvc;
 
     @Autowired
+    private ObjectMapper objectMapper;
+
+    @Autowired
     private TestRestTemplate restTemplate;
 
     @Autowired
@@ -53,24 +58,27 @@ class PostsApiControllerTest {
     @Test
     @DisplayName("/posts 게시글 등록시 데이터 검증")
     void posts_create_api_validate() throws Exception {
-        String body = "{\"title\": \"\", \"content\": \"\"}";
+        //given
+        PostsCreateRequestDto requestDto = PostsCreateRequestDto.builder()
+                .title("")
+                .content("")
+                .build();
+        String body = objectMapper.writeValueAsString(requestDto);
         String code = "400";
         String message = "잘못된 요청입니다.";
-        List<ValidationDto> list = new ArrayList<>();
-        list.add(new ValidationDto("content", "내용이 비어있습니다."));
-        list.add(new ValidationDto("title", "제목이 비어있습니다."));
 
-        mockMvc.perform(post("/posts")
+        //then
+        mockMvc.perform(post("/api/v1/posts")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(body))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.code", is(code)))
                 .andExpect(jsonPath("$.message", is(message)))
                 .andExpect(jsonPath("$.validation").isNotEmpty())
-                .andExpect(jsonPath("$.validation[0].fieldName", is(list.get(0).getFieldName())))
-                .andExpect(jsonPath("$.validation[0].errorMessage", is(list.get(0).getErrorMessage())))
-                .andExpect(jsonPath("$.validation[1].fieldName", is(list.get(1).getFieldName())))
-                .andExpect(jsonPath("$.validation[1].errorMessage", is(list.get(1).getErrorMessage())))
+                .andExpect(jsonPath("$.validation[0].fieldName").exists())
+                .andExpect(jsonPath("$.validation[0].errorMessage").exists())
+                .andExpect(jsonPath("$.validation[1].fieldName").exists())
+                .andExpect(jsonPath("$.validation[1].errorMessage").exists())
                 .andDo(print());
 
     }
