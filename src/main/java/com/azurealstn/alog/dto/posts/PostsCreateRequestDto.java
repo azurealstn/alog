@@ -1,5 +1,6 @@
 package com.azurealstn.alog.dto.posts;
 
+import com.azurealstn.alog.domain.Posts;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,6 +21,13 @@ public class PostsCreateRequestDto {
     public PostsCreateRequestDto(String title, String content) {
         this.title = title;
         this.content = content;
+    }
+
+    public Posts toEntity() {
+        return Posts.builder()
+                .title(title)
+                .content(content)
+                .build();
     }
 }
 
