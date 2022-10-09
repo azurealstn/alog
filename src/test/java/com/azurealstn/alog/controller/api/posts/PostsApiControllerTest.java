@@ -21,6 +21,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -134,34 +136,55 @@ class PostsApiControllerTest {
     }
 
     @Test
-    @DisplayName("/api/v1/posts/{postsId} 요청시 글 단건 조회")
-    void findAll_posts() throws Exception {
+    @DisplayName("글 목록 첫번째 페이지 조회")
+    void findAll_posts_first_page() throws Exception {
         //given
-        PostsCreateRequestDto requestDto1 = PostsCreateRequestDto.builder()
-                .title("foo1")
-                .content("bar1")
-                .build();
+        List<Posts> collect = IntStream.range(0, 30)
+                .mapToObj(i -> Posts.builder()
+                        .title("test 제목 - " + (i + 1))
+                        .content("뭐로 할까 - " + (i + 1))
+                        .build())
+                .collect(Collectors.toList());
+        postsRepository.saveAll(collect);
 
-        PostsCreateRequestDto requestDto2 = PostsCreateRequestDto.builder()
-                .title("foo2")
-                .content("bar2")
-                .build();
-
-        //when
-        postsService.create(requestDto1);
-        postsService.create(requestDto2);
-
-        //then
-        mockMvc.perform(get("/api/v1/posts")
+        //expected
+        mockMvc.perform(get("/api/v1/posts?page=0")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.length()", is(2)))
-                .andExpect(jsonPath("$[0].id").value(1))
-                .andExpect(jsonPath("$[0].title").value("foo1"))
-                .andExpect(jsonPath("$[0].content").value("bar1"))
-                .andExpect(jsonPath("$[1].id").value(2))
-                .andExpect(jsonPath("$[1].title").value("foo2"))
-                .andExpect(jsonPath("$[1].content").value("bar2"))
+                .andExpect(jsonPath("$.length()", is(9)))
+                .andExpect(jsonPath("$[0].id").value(30))
+                .andExpect(jsonPath("$[0].title").value("test 제목 - 30"))
+                .andExpect(jsonPath("$[0].content").value("뭐로 할까 - 30"))
+                .andExpect(jsonPath("$[8].id").value(22))
+                .andExpect(jsonPath("$[8].title").value("test 제목 - 22"))
+                .andExpect(jsonPath("$[8].content").value("뭐로 할까 - 22"))
+                .andDo(print());
+
+    }
+
+    @Test
+    @DisplayName("글 목록 두번째 페이지 조회")
+    void findAll_posts_second_page() throws Exception {
+        //given
+        List<Posts> collect = IntStream.range(0, 30)
+                .mapToObj(i -> Posts.builder()
+                        .title("test 제목 - " + (i + 1))
+                        .content("뭐로 할까 - " + (i + 1))
+                        .build())
+                .collect(Collectors.toList());
+        postsRepository.saveAll(collect);
+
+        //expected
+        mockMvc.perform(get("/api/v1/posts?page=1")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.length()", is(9)))
+                .andExpect(jsonPath("$[0].id").value(21))
+                .andExpect(jsonPath("$[0].title").value("test 제목 - 21"))
+                .andExpect(jsonPath("$[0].content").value("뭐로 할까 - 21"))
+                .andExpect(jsonPath("$[8].id").value(13))
+                .andExpect(jsonPath("$[8].title").value("test 제목 - 13"))
+                .andExpect(jsonPath("$[8].content").value("뭐로 할까 - 13"))
                 .andDo(print());
 
     }

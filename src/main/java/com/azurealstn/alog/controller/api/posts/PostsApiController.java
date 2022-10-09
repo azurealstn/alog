@@ -6,6 +6,9 @@ import com.azurealstn.alog.dto.posts.PostsResponseDto;
 import com.azurealstn.alog.service.posts.PostsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -29,7 +32,7 @@ public class PostsApiController {
     }
 
     @GetMapping("/api/v1/posts")
-    public List<PostsResponseDto> posts() {
-        return postsService.findAll();
+    public List<PostsResponseDto> posts(@PageableDefault(size = 9, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+        return postsService.findAll(pageable);
     }
 }

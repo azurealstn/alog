@@ -7,8 +7,14 @@ import com.azurealstn.alog.repository.posts.PostsRepository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -81,25 +87,29 @@ class PostsServiceTest {
     }
 
     @Test
-    @DisplayName("글 전체 조회 테스트")
+    @DisplayName("글 목록 첫번째 페이지 조회 서비스")
     void findAll_posts() throws Exception {
         //given
-        PostsCreateRequestDto requestDto1 = PostsCreateRequestDto.builder()
-                .title("제목입니다.")
-                .content("내용입니다.")
-                .build();
-        PostsCreateRequestDto requestDto2 = PostsCreateRequestDto.builder()
-                .title("foo")
-                .content("bar")
-                .build();
+        List<Posts> collect = IntStream.range(0, 30)
+                .mapToObj(i -> Posts.builder()
+                        .title("test 제목 - " + (i + 1))
+                        .content("뭐로 할까 - " + (i + 1))
+                        .build())
+                .collect(Collectors.toList());
+        postsRepository.saveAll(collect);
 
-        postsService.create(requestDto1);
-        postsService.create(requestDto2);
+        Pageable pageable = PageRequest.of(0, 9, Sort.by(Sort.Direction.DESC, "id"));
 
         //when
-        List<PostsResponseDto> posts = postsService.findAll();
+        Page<Posts> all = postsRepository.findAll(pageable);
 
         //then
-        assertThat(2).isEqualTo(posts.size());
+        assertThat(all.getSize()).isEqualTo(9); //한 페이지당 row 수
+        assertThat(all.getTotalElements()).isEqualTo(30); //총 row 수
+        assertThat(all.getTotalPages()).isEqualTo(4); //총 페이지 수
+        assertThat(all.isFirst()).isTrue(); //첫번째 페이지
+        assertThat(all.isLast()).isFalse(); //마지막 페이지
+        assertThat(all.hasNext()).isTrue(); //다음 페이지 존재여부
+        assertThat(all.hasPrevious()).isFalse(); //이전 페이지 존재여부
     }
 }

@@ -9,3 +9,16 @@ spring:
     username: sa
     password:
     dirver-class-name: org.h2.Driver
+
+  data:
+    web:
+      pageable:
+        one-indexed-parameters: true
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        #show_sql: true
+        format_sql: true
