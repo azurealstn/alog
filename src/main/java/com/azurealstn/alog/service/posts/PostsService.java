@@ -3,12 +3,11 @@ package com.azurealstn.alog.service.posts;
 import com.azurealstn.alog.domain.posts.Posts;
 import com.azurealstn.alog.dto.posts.PostsCreateRequestDto;
 import com.azurealstn.alog.dto.posts.PostsResponseDto;
+import com.azurealstn.alog.dto.posts.PostsModifyRequestDto;
 import com.azurealstn.alog.repository.posts.PostsRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -44,6 +43,7 @@ public class PostsService {
      * 3. 다른 리소스에서는 title 길이를 최대 100글자로 처리해달라는 요구사항이 오면 해결할 수가 없다.
      * 도메인 클래스에는 절대 서비스의 정책을 넣지 말아야 한다!
      */
+    @Transactional(readOnly = true)
     public PostsResponseDto findById(Long postsId) {
         Posts posts = postsRepository.findById(postsId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 글이 없습니다. id=" + postsId));
@@ -58,9 +58,33 @@ public class PostsService {
      * - limit: 출력할 행의 수
      * - offset: 몇번째 row부터 출력할지
      */
+    @Transactional(readOnly = true)
     public List<PostsResponseDto> findAll(Pageable pageable) {
         return postsRepository.findAll(pageable).stream()
                 .map(posts -> new PostsResponseDto(posts))
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * 게시글 수정 API
+     */
+    @Transactional
+    public Long modify(Long postsId, PostsModifyRequestDto requestDto) {
+        Posts posts = postsRepository.findById(postsId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 글이 없습니다. id=" + postsId));
+
+        posts.modify(requestDto.getTitle(), requestDto.getContent());
+
+        return postsId;
+    }
+
+    /**
+     * 게시글 삭제 API
+     */
+    @Transactional
+    public void delete(Long postsId) {
+        Posts posts = postsRepository.findById(postsId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 글이 없습니다. id=" + postsId));
+        postsRepository.delete(posts);
     }
 }

@@ -26,4 +26,12 @@ public class Posts {
         this.title = title;
         this.content = content;
     }
+
+    /**
+     * setter를 사용하는 것보다는 수정되는 항목에 대해서만 정의하는 메서드를 만드는 것이 좋다. (명확하다.)
+     */
+    public void modify(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
 }

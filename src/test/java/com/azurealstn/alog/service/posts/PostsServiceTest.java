@@ -3,6 +3,7 @@ package com.azurealstn.alog.service.posts;
 import com.azurealstn.alog.domain.posts.Posts;
 import com.azurealstn.alog.dto.posts.PostsCreateRequestDto;
 import com.azurealstn.alog.dto.posts.PostsResponseDto;
+import com.azurealstn.alog.dto.posts.PostsModifyRequestDto;
 import com.azurealstn.alog.repository.posts.PostsRepository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,11 @@ class PostsServiceTest {
         postsRepository.deleteAll();
     }
 
+    @AfterEach
+    public void afterEach() throws Exception {
+        postsRepository.deleteAll();
+    }
+
     @Test
     @DisplayName("글 작성 비즈니스 로직 테스트")
     void create_posts_service_test() throws Exception {
@@ -50,8 +56,8 @@ class PostsServiceTest {
         //then
         assertThat(1L).isEqualTo(postsRepository.count());
         assertThat(1).isEqualTo(all.size());
-        assertThat("제목입니다.").isEqualTo(posts.getTitle());
-        assertThat("내용입니다.").isEqualTo(posts.getContent());
+        assertThat(posts.getTitle()).isEqualTo("제목입니다.");
+        assertThat(posts.getContent()).isEqualTo("내용입니다.");
     }
 
     @Test
@@ -69,8 +75,8 @@ class PostsServiceTest {
 
         //then
         assertThat(1).isEqualTo(postsRepository.count());
-        assertThat("제목입니다.").isEqualTo(findPosts.getTitle());
-        assertThat("내용입니다.").isEqualTo(findPosts.getContent());
+        assertThat(findPosts.getTitle()).isEqualTo("제목입니다.");
+        assertThat(findPosts.getContent()).isEqualTo("내용입니다.");
     }
 
     @Test
@@ -111,5 +117,46 @@ class PostsServiceTest {
         assertThat(all.isLast()).isFalse(); //마지막 페이지
         assertThat(all.hasNext()).isTrue(); //다음 페이지 존재여부
         assertThat(all.hasPrevious()).isFalse(); //이전 페이지 존재여부
+    }
+
+    @Test
+    @DisplayName("글 수정 로직 테스트")
+    void modify_posts() {
+        //given
+        Posts posts = Posts.builder()
+                .title("foo")
+                .content("bar")
+                .build();
+        postsRepository.save(posts);
+
+        //when
+        PostsModifyRequestDto requestDto = PostsModifyRequestDto.builder()
+                .title("foo 수정 제목")
+                .content("bar 수정 내용")
+                .build();
+        Long modifiedId = postsService.modify(posts.getId(), requestDto);
+        PostsResponseDto responseDto = postsService.findById(modifiedId);
+
+        //then
+        assertThat(responseDto.getTitle()).isEqualTo("foo 수정 제목");
+        assertThat(responseDto.getContent()).isEqualTo("bar 수정 내용");
+
+    }
+
+    @Test
+    @DisplayName("글 삭제 로직 테스트")
+    void delete_posts() {
+        //given
+        PostsCreateRequestDto requestDto = PostsCreateRequestDto.builder()
+                .title("제목입니다.")
+                .content("내용입니다.")
+                .build();
+        Long deletedId = postsService.create(requestDto);
+
+        //when
+        postsService.delete(deletedId);
+
+        //then
+        assertThat(postsRepository.count()).isEqualTo(0);
     }
 }
