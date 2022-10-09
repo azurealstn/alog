@@ -1,4 +1,4 @@
-package com.azurealstn.alog.domain;
+package com.azurealstn.alog.domain.posts;
 
 import lombok.AccessLevel;
 import lombok.Builder;
