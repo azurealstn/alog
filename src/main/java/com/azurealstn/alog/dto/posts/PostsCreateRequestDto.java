@@ -1,6 +1,6 @@
 package com.azurealstn.alog.dto.posts;
 
-import com.azurealstn.alog.domain.Posts;
+import com.azurealstn.alog.domain.posts.Posts;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
