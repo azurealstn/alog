@@ -6,6 +6,7 @@ import com.azurealstn.alog.dto.exception.ErrorResponseDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -34,7 +35,24 @@ public class ExceptionApiController {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ErrorResponseDto methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
         String code = "400";
-        String message = "잘못된 요청입니다.";
+        String message = "클라이언트의 잘못된 요청이 있습니다. (application/json)";
+        ErrorResponseDto responseDto = ErrorResponseDto.builder()
+                .code(code)
+                .message(message)
+                .build();
+
+        for (FieldError fieldError : e.getFieldErrors()) {
+            responseDto.addValidation(fieldError.getField(), fieldError.getDefaultMessage());
+        }
+
+        return responseDto;
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(BindException.class)
+    public ErrorResponseDto bindException(BindException e) {
+        String code = "400";
+        String message = "클라이언트의 잘못된 요청이 있습니다. (x-www-form-urlencoded)";
         ErrorResponseDto responseDto = ErrorResponseDto.builder()
                 .code(code)
                 .message(message)
