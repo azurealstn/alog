@@ -2,6 +2,7 @@ package com.azurealstn.alog.controller.api.posts;
 
 import com.azurealstn.alog.domain.posts.Posts;
 import com.azurealstn.alog.dto.posts.PostsCreateRequestDto;
+import com.azurealstn.alog.dto.posts.PostsModifyRequestDto;
 import com.azurealstn.alog.dto.posts.PostsResponseDto;
 import com.azurealstn.alog.service.posts.PostsService;
 import lombok.RequiredArgsConstructor;
@@ -34,5 +35,15 @@ public class PostsApiController {
     @GetMapping("/api/v1/posts")
     public List<PostsResponseDto> posts(@PageableDefault(size = 9, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
         return postsService.findAll(pageable);
+    }
+
+    @PutMapping("/api/v1/posts/{postsId}")
+    public Long posts(@PathVariable Long postsId, @Valid @RequestBody PostsModifyRequestDto requestDto) {
+        return postsService.modify(postsId, requestDto);
+    }
+
+    @DeleteMapping("/api/v1/posts/{postsId}")
+    public void posts(@PathVariable Long postsId) {
+        postsService.delete(postsId);
     }
 }
