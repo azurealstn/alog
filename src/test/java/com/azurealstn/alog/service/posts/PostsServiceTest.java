@@ -1,5 +1,6 @@
 package com.azurealstn.alog.service.posts;
 
+import com.azurealstn.alog.Infra.exception.PostsNotFound;
 import com.azurealstn.alog.domain.posts.Posts;
 import com.azurealstn.alog.dto.posts.PostsCreateRequestDto;
 import com.azurealstn.alog.dto.posts.PostsResponseDto;
@@ -85,11 +86,9 @@ class PostsServiceTest {
         //given
         Long postsId = 1L; //글을 작성하지 않은 상태
 
-        //when
-        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> postsService.findById(postsId));
+        //expected
+        assertThrows(PostsNotFound.class, () -> postsService.findById(postsId));
 
-        //then
-        assertThat(e.getMessage()).isEqualTo("해당 글이 없습니다. id=" + postsId);
     }
 
     @Test
@@ -120,8 +119,8 @@ class PostsServiceTest {
     }
 
     @Test
-    @DisplayName("글 수정 로직 테스트")
-    void modify_posts() {
+    @DisplayName("글 수정 로직 성공 테스트")
+    void modify_posts_o() {
         //given
         Posts posts = Posts.builder()
                 .title("foo")
@@ -144,8 +143,28 @@ class PostsServiceTest {
     }
 
     @Test
-    @DisplayName("글 삭제 로직 테스트")
-    void delete_posts() {
+    @DisplayName("글 수정 로직 실패 테스트")
+    void modify_posts_x() {
+        //given
+        Posts posts = Posts.builder()
+                .title("foo")
+                .content("bar")
+                .build();
+        postsRepository.save(posts);
+
+        //expected
+        PostsModifyRequestDto requestDto = PostsModifyRequestDto.builder()
+                .title("foo 수정 제목")
+                .content("bar 수정 내용")
+                .build();
+
+        assertThrows(PostsNotFound.class, () -> postsService.modify(posts.getId() + 1, requestDto));
+
+    }
+
+    @Test
+    @DisplayName("글 삭제 로직 성공 테스트")
+    void delete_posts_o() {
         //given
         PostsCreateRequestDto requestDto = PostsCreateRequestDto.builder()
                 .title("제목입니다.")
@@ -158,5 +177,20 @@ class PostsServiceTest {
 
         //then
         assertThat(postsRepository.count()).isEqualTo(0);
+    }
+
+    @Test
+    @DisplayName("글 삭제 로직 실패 테스트")
+    void delete_posts_x() {
+        //given
+        PostsCreateRequestDto requestDto = PostsCreateRequestDto.builder()
+                .title("제목입니다.")
+                .content("내용입니다.")
+                .build();
+        Long deletedId = postsService.create(requestDto);
+
+        //expected
+        assertThrows(PostsNotFound.class, () -> postsService.delete(deletedId + 1));
+
     }
 }

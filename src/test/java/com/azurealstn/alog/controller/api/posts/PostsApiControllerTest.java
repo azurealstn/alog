@@ -15,6 +15,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.*;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,9 +23,9 @@ import java.util.stream.IntStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -106,8 +107,29 @@ class PostsApiControllerTest {
     }
 
     @Test
-    @DisplayName("/api/v1/posts/{postsId} 요청시 글 단건 조회")
-    void select_posts() throws Exception {
+    @DisplayName("/posts 게시글 등록시 DB 저장 mockmvc")
+    void create_posts_mock() throws Exception {
+        //given
+        String title = "제목입니다.";
+        String content = "내용입니다.";
+        PostsCreateRequestDto requestDto = PostsCreateRequestDto.builder()
+                .title(title)
+                .content(content)
+                .build();
+
+        //expected
+        mockMvc.perform(post("/api/v1/posts")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(requestDto)))
+                .andExpect(status().isOk())
+                .andExpect(content().string("1"))
+                .andDo(print());
+
+    }
+
+    @Test
+    @DisplayName("/api/v1/posts/{postsId} 요청시 글 단건 조회 성공")
+    void select_posts_o() throws Exception {
         //given
         Posts posts = Posts.builder()
                 .title("foo")
@@ -127,6 +149,20 @@ class PostsApiControllerTest {
                 .andExpect(jsonPath("$.id").value(savedId))
                 .andExpect(jsonPath("$.title", is(expectedTitle)))
                 .andExpect(jsonPath("$.content", is(expectedContent)))
+                .andDo(print());
+
+    }
+
+    @Test
+    @DisplayName("/api/v1/posts/{postsId} 요청시 글 단건 조회 실패")
+    void select_posts_x() throws Exception {
+        //given
+        Long postsId = 1L;
+
+        //expected
+        mockMvc.perform(get("/api/v1/posts/{postsId}", postsId)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound())
                 .andDo(print());
 
     }
@@ -182,8 +218,8 @@ class PostsApiControllerTest {
     }
 
     @Test
-    @DisplayName("게시글 수정시 DB 수정")
-    void modify_posts_api() throws Exception {
+    @DisplayName("게시글 수정시 DB 수정 성공")
+    void modify_posts_api_o() throws Exception {
         //given
         Posts posts = Posts.builder()
                 .title("foo")
@@ -216,6 +252,58 @@ class PostsApiControllerTest {
     }
 
     @Test
+    @DisplayName("게시글 수정시 DB 수정 성공 mockmvc")
+    void modify_posts_api_o_mock() throws Exception {
+        //given
+        Posts posts = Posts.builder()
+                .title("foo")
+                .content("bar")
+                .build();
+
+        Long modifiedId = postsRepository.save(posts).getId();
+
+        String expectedTitle = "제목입니다.";
+        String expectedContent = "내용입니다.";
+        PostsModifyRequestDto modifyRequestDto = PostsModifyRequestDto.builder()
+                .title(expectedTitle)
+                .content(expectedContent)
+                .build();
+
+        //expected
+        mockMvc.perform(put("/api/v1/posts/{posts_id}", modifiedId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(modifyRequestDto)))
+                .andExpect(status().isOk())
+                .andDo(print());
+    }
+
+    @Test
+    @DisplayName("게시글 수정시 DB 수정 실패")
+    void modify_posts_api_x() throws Exception {
+        //given
+        Posts posts = Posts.builder()
+                .title("foo")
+                .content("bar")
+                .build();
+
+        Long modifiedId = postsRepository.save(posts).getId();
+
+        String expectedTitle = "제목입니다.";
+        String expectedContent = "내용입니다.";
+        PostsModifyRequestDto modifyRequestDto = PostsModifyRequestDto.builder()
+                .title(expectedTitle)
+                .content(expectedContent)
+                .build();
+
+        //expected
+        mockMvc.perform(put("/api/v1/posts/{postsId}", modifiedId + 1)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(modifyRequestDto)))
+                .andExpect(status().isNotFound())
+                .andDo(print());
+    }
+
+    @Test
     @DisplayName("게시글 삭제시 DB 삭제")
     void delete_posts_api() {
         //given
@@ -238,5 +326,41 @@ class PostsApiControllerTest {
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(all.size()).isEqualTo(0);
         assertThat(postsRepository.count()).isEqualTo(0);
+    }
+
+    @Test
+    @DisplayName("게시글 삭제시 DB 삭제 mockmvc")
+    void delete_posts_api_mock() throws Exception {
+        //given
+        Posts posts = Posts.builder()
+                .title("foo")
+                .content("bar")
+                .build();
+
+        Long deletedId = postsRepository.save(posts).getId();
+
+        //expected
+        mockMvc.perform(delete("/api/v1/posts/{posts_id}", deletedId)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andDo(print());
+    }
+
+    @Test
+    @DisplayName("게시글 삭제시 DB 삭제 실패")
+    void delete_posts_api_x() throws Exception {
+        //given
+        Posts posts = Posts.builder()
+                .title("foo")
+                .content("bar")
+                .build();
+
+        Long deletedId = postsRepository.save(posts).getId();
+
+        //expected
+        mockMvc.perform(delete("/api/v1/posts/{postsId}", deletedId + 1)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound())
+                .andDo(print());
     }
 }

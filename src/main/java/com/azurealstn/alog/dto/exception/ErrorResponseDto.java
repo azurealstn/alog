@@ -1,5 +1,6 @@
 package com.azurealstn.alog.dto.exception;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -14,9 +15,11 @@ import java.util.*;
  *         "title": "제목이 비어있습니다.",
  *         "content": "내용이 비어있습니다."
  *     }
+ *     @JsonInclude: 비어있는 값도 하나의 정보이기 때문에 팀마다 다를 수 있다.
  * }
  */
 @Getter
+//@JsonInclude(value = JsonInclude.Include.NON_EMPTY) //비어있지 않은 JSON만 출력
 public class ErrorResponseDto {
 
     private final String code;

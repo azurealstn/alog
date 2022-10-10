@@ -1,5 +1,6 @@
 package com.azurealstn.alog.service.posts;
 
+import com.azurealstn.alog.Infra.exception.PostsNotFound;
 import com.azurealstn.alog.domain.posts.Posts;
 import com.azurealstn.alog.dto.posts.PostsCreateRequestDto;
 import com.azurealstn.alog.dto.posts.PostsResponseDto;
@@ -46,7 +47,7 @@ public class PostsService {
     @Transactional(readOnly = true)
     public PostsResponseDto findById(Long postsId) {
         Posts posts = postsRepository.findById(postsId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 글이 없습니다. id=" + postsId));
+                .orElseThrow(() -> new PostsNotFound());
         return new PostsResponseDto(posts);
     }
 
@@ -71,7 +72,7 @@ public class PostsService {
     @Transactional
     public Long modify(Long postsId, PostsModifyRequestDto requestDto) {
         Posts posts = postsRepository.findById(postsId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 글이 없습니다. id=" + postsId));
+                .orElseThrow(() -> new PostsNotFound());
 
         posts.modify(requestDto.getTitle(), requestDto.getContent());
 
@@ -84,7 +85,7 @@ public class PostsService {
     @Transactional
     public void delete(Long postsId) {
         Posts posts = postsRepository.findById(postsId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 글이 없습니다. id=" + postsId));
+                .orElseThrow(() -> new PostsNotFound());
         postsRepository.delete(posts);
     }
 }
