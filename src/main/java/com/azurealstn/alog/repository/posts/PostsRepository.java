@@ -4,5 +4,5 @@ import com.azurealstn.alog.domain.posts.Posts;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface PostsRepository extends JpaRepository<Posts, Long> {
+public interface PostsRepository extends JpaRepository<Posts, Long>, PostsRepositoryCustom {
 }

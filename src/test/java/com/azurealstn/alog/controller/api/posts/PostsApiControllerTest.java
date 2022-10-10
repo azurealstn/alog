@@ -180,7 +180,7 @@ class PostsApiControllerTest {
         postsRepository.saveAll(collect);
 
         //expected
-        mockMvc.perform(get("/api/v1/posts?page=1")
+        mockMvc.perform(get("/api/v1/posts?page=1&size=9")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()", is(9)))
@@ -205,7 +205,7 @@ class PostsApiControllerTest {
         postsRepository.saveAll(collect);
 
         //expected
-        mockMvc.perform(get("/api/v1/posts?page=2")
+        mockMvc.perform(get("/api/v1/posts?page=2&size=9")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()", is(9)))
@@ -215,6 +215,30 @@ class PostsApiControllerTest {
                 .andExpect(jsonPath("$[8].content").value("뭐로 할까 - 13"))
                 .andDo(print());
 
+    }
+
+    @Test
+    @DisplayName("?page=1이 아닌 ?page=0으로 요청해도 첫 페이지를 가져온다.")
+    void first_page_zero() throws Exception {
+        //given
+        List<Posts> collect = IntStream.range(0, 30)
+                .mapToObj(i -> Posts.builder()
+                        .title("test 제목 - " + (i + 1))
+                        .content("뭐로 할까 - " + (i + 1))
+                        .build())
+                .collect(Collectors.toList());
+        postsRepository.saveAll(collect);
+
+        //expected
+        mockMvc.perform(get("/api/v1/posts?page=0&size=9")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.length()", is(9)))
+                .andExpect(jsonPath("$[0].title").value("test 제목 - 30"))
+                .andExpect(jsonPath("$[0].content").value("뭐로 할까 - 30"))
+                .andExpect(jsonPath("$[8].title").value("test 제목 - 22"))
+                .andExpect(jsonPath("$[8].content").value("뭐로 할까 - 22"))
+                .andDo(print());
     }
 
     @Test

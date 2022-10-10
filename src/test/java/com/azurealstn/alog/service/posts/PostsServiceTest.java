@@ -5,6 +5,7 @@ import com.azurealstn.alog.domain.posts.Posts;
 import com.azurealstn.alog.dto.posts.PostsCreateRequestDto;
 import com.azurealstn.alog.dto.posts.PostsResponseDto;
 import com.azurealstn.alog.dto.posts.PostsModifyRequestDto;
+import com.azurealstn.alog.dto.posts.PostsSearchDto;
 import com.azurealstn.alog.repository.posts.PostsRepository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,19 +104,25 @@ class PostsServiceTest {
                 .collect(Collectors.toList());
         postsRepository.saveAll(collect);
 
-        Pageable pageable = PageRequest.of(0, 9, Sort.by(Sort.Direction.DESC, "id"));
+        PostsSearchDto searchDto = PostsSearchDto.builder()
+                .page(1)
+                .size(9)
+                .build();
 
         //when
-        Page<Posts> all = postsRepository.findAll(pageable);
+        List<Posts> postsList = postsRepository.findAll(searchDto);
 
         //then
-        assertThat(all.getSize()).isEqualTo(9); //한 페이지당 row 수
-        assertThat(all.getTotalElements()).isEqualTo(30); //총 row 수
-        assertThat(all.getTotalPages()).isEqualTo(4); //총 페이지 수
-        assertThat(all.isFirst()).isTrue(); //첫번째 페이지
-        assertThat(all.isLast()).isFalse(); //마지막 페이지
-        assertThat(all.hasNext()).isTrue(); //다음 페이지 존재여부
-        assertThat(all.hasPrevious()).isFalse(); //이전 페이지 존재여부
+        assertThat(postsList.size()).isEqualTo(9);
+        assertThat(postsList.get(0).getTitle()).isEqualTo("test 제목 - 30");
+        assertThat(postsList.get(8).getTitle()).isEqualTo("test 제목 - 22");
+//        assertThat(all.getSize()).isEqualTo(9); //한 페이지당 row 수
+//        assertThat(all.getTotalElements()).isEqualTo(30); //총 row 수
+//        assertThat(all.getTotalPages()).isEqualTo(4); //총 페이지 수
+//        assertThat(all.isFirst()).isTrue(); //첫번째 페이지
+//        assertThat(all.isLast()).isFalse(); //마지막 페이지
+//        assertThat(all.hasNext()).isTrue(); //다음 페이지 존재여부
+//        assertThat(all.hasPrevious()).isFalse(); //이전 페이지 존재여부
     }
 
     @Test
