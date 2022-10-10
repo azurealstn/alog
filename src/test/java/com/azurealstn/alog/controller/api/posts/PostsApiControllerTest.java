@@ -63,7 +63,7 @@ class PostsApiControllerTest {
                 .build();
         String body = objectMapper.writeValueAsString(requestDto);
         String code = "400";
-        String message = "잘못된 요청입니다.";
+        String message = "클라이언트의 잘못된 요청이 있습니다. (application/json)";
 
         //expected
         mockMvc.perform(post("/api/v1/posts")

@@ -35,3 +35,17 @@ velog(벨로그)는 velopert님이 만든 개발자를 위한 블로그 서비�
    - API가 개발되면 Test Case 작성과 통과하는 것이 굉장히 중요
 
 ![apiDocs](https://user-images.githubusercontent.com/55525868/194799370-bbbf6b5f-7980-4043-8664-6c6f2fa0a51c.PNG)
+
+### asciidoctor 실행
+
+![asciidoctor](https://user-images.githubusercontent.com/55525868/194816059-8f7487d2-db03-4532-8d23-1334eea06b33.PNG)
+
+1. asciidoctor 실행
+
+![build](https://user-images.githubusercontent.com/55525868/194810511-9e5d75ad-898f-45ce-863e-4554a1046624.PNG)
+
+2. build 실행
+
+- asciidoctor는 test를 실행 후 성공하면 build 폴더에 snippets, html을 생성
+- gradle build시 bootJar가 실행되면서 build 폴더에 있던 html을 /resources/static/docs 로 복사
+

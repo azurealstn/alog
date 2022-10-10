@@ -1,0 +1,71 @@
+= Posts API 문서
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+:sectlinks:
+
+== [글 단건 조회]
+
+=== HTTP 요청
+
+include::{snippets}/posts-findById/http-request.adoc[]
+
+=== 요청 쿼리 파라미터
+
+include::{snippets}/posts-findById/path-parameters.adoc[]
+
+=== HTTP 응답
+
+include::{snippets}/posts-findById/http-response.adoc[]
+
+=== 응답 메시지 바디 파라미터
+
+include::{snippets}/posts-findById/response-fields.adoc[]
+
+== [글 작성]
+
+=== HTTP 요청
+
+include::{snippets}/posts-create/http-request.adoc[]
+
+=== 요청 메시지 바디 파라미터
+
+include::{snippets}/posts-create/request-fields.adoc[]
+
+=== HTTP 응답
+
+include::{snippets}/posts-create/http-response.adoc[]
+
+== [글 수정]
+
+=== HTTP 요청
+
+include::{snippets}/posts-modify/http-request.adoc[]
+
+=== 요청 쿼리 파라미터
+
+include::{snippets}/posts-modify/path-parameters.adoc[]
+
+=== 요청 메시지 바디 파라미터
+
+include::{snippets}/posts-modify/request-fields.adoc[]
+
+=== HTTP 응답
+
+include::{snippets}/posts-modify/http-response.adoc[]
+
+== [글 삭제]
+
+=== HTTP 요청
+
+include::{snippets}/posts-delete/http-request.adoc[]
+
+=== 요청 쿼리 파라미터
+
+include::{snippets}/posts-delete/path-parameters.adoc[]
+
+=== HTTP 응답
+
+include::{snippets}/posts-delete/http-response.adoc[]
