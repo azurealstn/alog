@@ -5,10 +5,10 @@ import com.azurealstn.alog.domain.posts.Posts;
 import com.azurealstn.alog.dto.posts.PostsCreateRequestDto;
 import com.azurealstn.alog.dto.posts.PostsResponseDto;
 import com.azurealstn.alog.dto.posts.PostsModifyRequestDto;
+import com.azurealstn.alog.dto.posts.PostsSearchDto;
 import com.azurealstn.alog.repository.posts.PostsRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -60,8 +60,8 @@ public class PostsService {
      * - offset: 몇번째 row부터 출력할지
      */
     @Transactional(readOnly = true)
-    public List<PostsResponseDto> findAll(Pageable pageable) {
-        return postsRepository.findAll(pageable).stream()
+    public List<PostsResponseDto> findAll(PostsSearchDto searchDto) {
+        return postsRepository.findAll(searchDto).stream()
                 .map(posts -> new PostsResponseDto(posts))
                 .collect(Collectors.toList());
     }

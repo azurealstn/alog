@@ -1,15 +1,12 @@
 package com.azurealstn.alog.controller.api.posts;
 
-import com.azurealstn.alog.domain.posts.Posts;
 import com.azurealstn.alog.dto.posts.PostsCreateRequestDto;
 import com.azurealstn.alog.dto.posts.PostsModifyRequestDto;
 import com.azurealstn.alog.dto.posts.PostsResponseDto;
+import com.azurealstn.alog.dto.posts.PostsSearchDto;
 import com.azurealstn.alog.service.posts.PostsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -33,8 +30,8 @@ public class PostsApiController {
     }
 
     @GetMapping("/api/v1/posts")
-    public List<PostsResponseDto> posts(@PageableDefault(size = 9, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
-        return postsService.findAll(pageable);
+    public List<PostsResponseDto> posts(@ModelAttribute PostsSearchDto searchDto) {
+        return postsService.findAll(searchDto);
     }
 
     @PutMapping("/api/v1/posts/{postsId}")
