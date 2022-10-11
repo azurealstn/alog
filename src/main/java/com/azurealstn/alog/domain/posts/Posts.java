@@ -1,6 +1,7 @@
 package com.azurealstn.alog.domain.posts;
 
 import com.azurealstn.alog.domain.BaseTimeEntity;
+import com.azurealstn.alog.domain.member.Member;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,9 +19,15 @@ public class Posts extends BaseTimeEntity {
     @Column(name = "posts_id")
     private Long id;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    @Column(nullable = false)
     private String title;
 
     @Lob
+    @Column(nullable = false)
     private String content;
 
     @Builder
