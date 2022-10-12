@@ -25,7 +25,7 @@ public class OAuthAttributesDto {
         this.picture = picture;
     }
 
-    public static OAuthAttributesDto of (String registrationId, String userNameAttributeName, Map<String, Object> attributes) {
+    public static OAuthAttributesDto of(String registrationId, String userNameAttributeName, Map<String, Object> attributes) {
         return ofGoogle(userNameAttributeName, attributes);
     }
 
