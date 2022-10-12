@@ -22,3 +22,7 @@ spring:
       hibernate:
         #show_sql: true
         format_sql: true
+
+  #DB를 세션저장소로 사용
+  session:
+    store-type: jdbc
