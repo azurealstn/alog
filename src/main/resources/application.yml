@@ -10,11 +10,6 @@ spring:
     password:
     dirver-class-name: org.h2.Driver
 
-  data:
-    web:
-      pageable:
-        one-indexed-parameters: true
-
   jpa:
     hibernate:
       ddl-auto: create
@@ -25,3 +20,11 @@ spring:
 
   profiles:
     include: oauth
+
+  session:
+    store-type: jdbc
+
+server:
+  servlet:
+    encoding:
+      force-response: true
