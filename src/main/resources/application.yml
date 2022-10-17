@@ -23,6 +23,8 @@ spring:
 
   session:
     store-type: jdbc
+    jdbc:
+      initialize-schema: always
 
 server:
   servlet:
