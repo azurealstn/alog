@@ -44,10 +44,12 @@
 
     <!-- Font -->
     <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
-    <link href="https://fonts.googleapis.com/css2?family=Fuzzy+Bubbles:wght@700&family=Silkscreen&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Concert+One&family=Fuzzy+Bubbles:wght@700&family=Silkscreen&display=swap" rel="stylesheet">
 
     <!-- CSS load -->
     <link rel="stylesheet" href="css/style.css">
+
+    <script src="js/index.js" defer></script>
 
 </head>
 <body>
@@ -63,8 +65,9 @@
                     <a href="/search">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </a>
-                    <button class="new-posts">새 글 작성</button>
-                    <div class="thumbnail-profile">
+                    <button class="head-btn head-login" id="show-btn">로그인</button>
+                    <button class="head-btn new-posts" style="display: none;">새 글 작성</button>
+                    <div class="thumbnail-profile" style="display: none;">
                         <img src="images/ex-thumbnail-profile.jpg" alt="thumbnail-profile">
                     </div>
                 </div>
