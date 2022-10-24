@@ -50,66 +50,24 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 
     <!-- CSS load -->
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/error.css">
 
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous" defer></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js" defer></script>
-    <script src="/js/index.js" defer></script>
 
 </head>
 <body>
 <!-- header -->
 <div class="root">
-    <header>
-        <div class="header">
-            <div class="head-container">
-                <div class="head-logo">
-                    <a href="/">alog</a>
-                </div>
-                <div class="head-content">
-                    <a href="/search" class="search">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </a>
-                    {{^member}}
-                        <button class="head-btn head-login" id="show-btn">로그인</button>
-                    {{/member}}
-                    {{#member}}
-                        <button class="head-btn new-posts" style="margin-right: 1.25rem;">새 글 작성</button>
-                        <div class="thumbnail-profile">
-                            <img src="/images/ex-thumbnail-profile.jpg" alt="thumbnail-profile">
-                            <i class="fa-solid fa-sort-down"></i>
-                        </div>
-                        <div class="menu hide">
-                            <div class="menu-wrapper">
-                                <a href="/" class="menu-item">
-                                    <div class="menu-name">
-                                        내 에이로그
-                                    </div>
-                                </a>
-                                <a href="/" class="menu-item">
-                                    <div class="menu-name">
-                                        임시 글
-                                    </div>
-                                </a>
-                                <a href="/" class="menu-item">
-                                    <div class="menu-name">
-                                        읽기 목록
-                                    </div>
-                                </a>
-                                <a href="/" class="menu-item">
-                                    <div class="menu-name">
-                                        설정
-                                    </div>
-                                </a>
-                                <a href="/logout" class="menu-item">
-                                    <div class="menu-name">
-                                        로그아웃
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    {{/member}}
-                </div>
-            </div>
+
+    <div class="error-page-container">
+        <img src="/images/error-icon.png" alt="error-icon">
+        <div class="message">링크의 유효 시간이 지났습니다!</div>
+        <div class="button-wrapper">
+            <button class="home"><a href="/">홈으로</a></button>
         </div>
-    </header>
+    </div>
+
+</div>
+</body>
+</html>

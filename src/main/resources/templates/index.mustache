@@ -1,6 +1,12 @@
 {{>layout/header}}
 
 <!-- main section -->
+{{#member}}
+    <div>{{member.email}}</div>
+{{/member}}
+{{^member}}
+    <div>세션없음</div>
+{{/member}}
 <section class="main">
     <div class="main-container">
         <main class="main-content">
@@ -26,7 +32,7 @@
                     </div>
                     <div class="bottom-info">
                         <div class="user-info">
-                            <img src="images/ex-thumbnail-profile.jpg" alt="user thumbnail of minsu">
+                            <img src="/images/ex-thumbnail-profile.jpg" alt="user thumbnail of minsu">
                             <span>by <b>minsu</b></span>
                         </div>
                         <div class="likes">
@@ -56,7 +62,7 @@
                     </div>
                     <div class="bottom-info">
                         <div class="user-info">
-                            <img src="images/ex-thumbnail-profile.jpg" alt="user thumbnail of minsu">
+                            <img src="/images/ex-thumbnail-profile.jpg" alt="user thumbnail of minsu">
                             <span>by <b>minsu</b></span>
                         </div>
                         <div class="likes">
@@ -86,7 +92,7 @@
                     </div>
                     <div class="bottom-info">
                         <div class="user-info">
-                            <img src="images/ex-thumbnail-profile.jpg" alt="user thumbnail of minsu">
+                            <img src="/images/ex-thumbnail-profile.jpg" alt="user thumbnail of minsu">
                             <span>by <b>minsu</b></span>
                         </div>
                         <div class="likes">
@@ -116,7 +122,7 @@
                     </div>
                     <div class="bottom-info">
                         <div class="user-info">
-                            <img src="images/ex-thumbnail-profile.jpg" alt="user thumbnail of minsu">
+                            <img src="/images/ex-thumbnail-profile.jpg" alt="user thumbnail of minsu">
                             <span>by <b>minsu</b></span>
                         </div>
                         <div class="likes">
@@ -146,7 +152,7 @@
                     </div>
                     <div class="bottom-info">
                         <div class="user-info">
-                            <img src="images/ex-thumbnail-profile.jpg" alt="user thumbnail of minsu">
+                            <img src="/images/ex-thumbnail-profile.jpg" alt="user thumbnail of minsu">
                             <span>by <b>minsu</b></span>
                         </div>
                         <div class="likes">
@@ -176,7 +182,7 @@
                     </div>
                     <div class="bottom-info">
                         <div class="user-info">
-                            <img src="images/ex-thumbnail-profile.jpg" alt="user thumbnail of minsu">
+                            <img src="/images/ex-thumbnail-profile.jpg" alt="user thumbnail of minsu">
                             <span>by <b>minsu</b></span>
                         </div>
                         <div class="likes">
@@ -196,7 +202,7 @@
     <div class="wrapper">
         <div class="gray-block">
             <div>
-                <img src="images/pumpkin.png" alt="welcome">
+                <img src="/images/pumpkin.png" alt="welcome">
                 <div class="welcome">Welcome!</div>
             </div>
         </div>
@@ -207,22 +213,28 @@
             <div class="block-content">
                 <div class="content-wrapper">
                     <div class="upper-wrapper">
-                        <h2>로그인</h2>
+                        <h2 class="change-login">로그인</h2>
                         <section>
-                            <h4>이메일로 <span>로그인</span></h4>
-                            <form class="login-form">
-                                <input type="text" placeholder="이메일을 입력하세요." value="">
-                                <button class="login-btn">로그인</button>
+                            <h4>이메일로 <span class="change-login">로그인</span></h4>
+                            <form class="login-form" onsubmit="return false">
+                                <input autocomplete="off" type="text" id="email" name="email" placeholder="이메일을 입력하세요.">
+                                <button class="login-btn change-login" id="login-btn">로그인</button>
                             </form>
+                            <div class="message" style="display: none;">
+                                <i class="fa-solid fa-check"></i>
+                                <div class="message-description">
+                                    <span class="emailCheck">회원가입</span> 링크가 이메일로 전송되었습니다.
+                                </div>
+                            </div>
                         </section>
                         <section>
-                            <h4>소셜 계정으로 <span>로그인</span></h4>
+                            <h4>소셜 계정으로 <span class="change-login">로그인</span></h4>
                             <div class="social-login">
-                                <a href="/" class="social-link" style="background: white;">
-                                    <img class="google" src="images/social-google.png" alt="google">
+                                <a href="/oauth2/authorization/google" class="social-link" style="background: white;">
+                                    <img class="google" src="/images/social-google.png" alt="google">
                                 </a>
                                 <a href="/" class="social-link">
-                                    <img src="images/social-naver.png" alt="naver">
+                                    <img src="/images/social-naver.png" alt="naver">
                                 </a>
                             </div>
                         </section>

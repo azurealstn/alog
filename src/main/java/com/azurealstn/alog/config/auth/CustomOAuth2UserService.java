@@ -1,6 +1,8 @@
 package com.azurealstn.alog.config.auth;
 
+import com.azurealstn.alog.Infra.exception.MemberNotFound;
 import com.azurealstn.alog.domain.member.Member;
+import com.azurealstn.alog.domain.member.Role;
 import com.azurealstn.alog.dto.auth.OAuthAttributesDto;
 import com.azurealstn.alog.dto.auth.SessionMemberDto;
 import com.azurealstn.alog.repository.member.MemberRepository;
@@ -29,6 +31,8 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
     private final MemberRepository memberRepository;
     private final HttpSession httpSession;
 
+    OAuthAttributesDto attributes = null;
+
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         OAuth2UserService<OAuth2UserRequest, OAuth2User> oAuth2UserService = new DefaultOAuth2UserService();
@@ -38,18 +42,19 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         String registrationId = userRequest.getClientRegistration().getRegistrationId();
 
         //OAuth2 로그인 진행시 키가 되는 필드값 (Primary Key와 같은 의미)
+        //구글은 기본적으로 코드를 지원하지만, 네어버 카카오 등은 기본 지원을 하지 않는다. (구글의 기본코드: sub)
         String userNameAttributeName = userRequest.getClientRegistration().getProviderDetails().getUserInfoEndpoint().getUserNameAttributeName();
 
-        OAuthAttributesDto attributes = OAuthAttributesDto.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
+        attributes = OAuthAttributesDto.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
 
-        Member member = saveOrUpdate(attributes);
+//        Member member = saveOrUpdate(attributes);
 
         //세션에 값을 저장하려면 클래스가 직렬화되어야 한다.
         //Entity 클래스인 Member 대신 Dto 클래스를 하나 생성했다.
-        httpSession.setAttribute("member", new SessionMemberDto(member));
+//        httpSession.setAttribute("member", new SessionMemberDto(member));
 
         return new DefaultOAuth2User(
-                Collections.singleton(new SimpleGrantedAuthority(member.getRoleKey())),
+                Collections.singleton(new SimpleGrantedAuthority("ROLE_MEMBER")),
                 attributes.getAttributes(),
                 attributes.getNameAttributeKey()
         );
@@ -62,5 +67,14 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
                 .orElse(attributes.toEntity());
 
         return memberRepository.save(member);
+    }
+
+    //oauth2을 통한 사용자 정보를 반환
+    public Member getSnsMemberInfo() {
+        return Member.builder()
+                .name(attributes.getName())
+                .email(attributes.getEmail())
+                .picture(attributes.getPicture())
+                .build();
     }
 }

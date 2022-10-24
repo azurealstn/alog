@@ -4,9 +4,11 @@ import com.azurealstn.alog.domain.member.Member;
 import com.azurealstn.alog.domain.member.Role;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.util.Map;
 
+@ToString
 @Getter
 public class OAuthAttributesDto {
 
@@ -60,6 +62,7 @@ public class OAuthAttributesDto {
                 .email(email)
                 .picture(picture)
                 .role(Role.MEMBER)
+                .emailAuth(true)
                 .build();
     }
 }

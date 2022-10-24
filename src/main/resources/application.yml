@@ -19,7 +19,9 @@ spring:
         format_sql: true
 
   profiles:
-    include: oauth
+    include:
+      - oauth
+      - mail
 
   session:
     store-type: jdbc
@@ -30,3 +32,12 @@ server:
   servlet:
     encoding:
       force-response: true
+
+  error:
+    include-exception: true
+    include-stacktrace: always
+    include-binding-errors: always
+    include-message: always
+    path: /api/v1/auth/error
+    white:
+      enabled: false

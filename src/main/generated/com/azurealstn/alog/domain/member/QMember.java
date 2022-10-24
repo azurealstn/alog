@@ -26,6 +26,8 @@ public class QMember extends EntityPathBase<Member> {
 
     public final StringPath email = createString("email");
 
+    public final BooleanPath emailAuth = createBoolean("emailAuth");
+
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     //inherited
@@ -36,6 +38,10 @@ public class QMember extends EntityPathBase<Member> {
     public final StringPath picture = createString("picture");
 
     public final EnumPath<Role> role = createEnum("role", Role.class);
+
+    public final StringPath shortBio = createString("shortBio");
+
+    public final StringPath username = createString("username");
 
     public QMember(String variable) {
         super(Member.class, forVariable(variable));

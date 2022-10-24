@@ -23,7 +23,7 @@ public class SecurityConfig {
                 .headers().frameOptions().disable()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/", "/css/**", "/images/**", "/js/**", "/h2-console/**")
+                .antMatchers("/", "/css/**", "/images/**", "/js/**", "/h2-console/**", "/api/v1/auth/**")
                 .permitAll()
                 .antMatchers("/api/v1/**")
                 .hasAnyRole(Role.ADMIN.name(), Role.MEMBER.name())
@@ -33,6 +33,7 @@ public class SecurityConfig {
                 .logoutSuccessUrl("/")
                 .and()
                 .oauth2Login()
+                .defaultSuccessUrl("/api/v1/auth/sns-create-member-login")
                 .userInfoEndpoint()
                 .userService(customOAuth2UserService);
 

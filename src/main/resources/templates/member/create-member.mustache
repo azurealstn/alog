@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO -->
+    <meta name="description" content="이 사이트는 velog를 클론코딩한 alog 입니다. 이제 react가 아닌 mustache를 더한">
+    <meta name="keywords" content="프론트엔드, 백엔드, 풀스택, alog, velog, 클론코딩, 사이드 프로젝트">
+    <meta name="author" content="azurealstn">
+    <title>alog</title>
+
+    <!-- Open Graph (Facebook, Linkedin) -->
+    <meta property="og:url" content="https://velog.io/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="velog 클론코딩한 alog">
+    <meta property="og:description" content="이 사이트는 velog를 클론코딩한 alog 입니다. 이제 react가 아닌 mustache를 더한">
+    <meta property="og:image" content="/images/online.jpg">
+    <meta property="og:image:secure_url" content="/images/online.jpg">
+    <meta property="og:site_name" content="velog 클론코딩">
+    <meta property="og:locale" content="ko-KR">
+
+    <!-- twitter card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="velog 클론코딩한 alog">
+    <meta name="twitter:description" content="이 사이트는 velog를 클론코딩한 alog 입니다. 이제 react가 아닌 mustache를 더한">
+    <meta name="twitter:image" content="/images/online.jpg">
+    <meta name="twitter:url" content="https://velog.io/">
+    <meta name="twitter:site" content="@azurealstn">
+    <meta name="twitter:creator" content="@azurealstn">
+
+    <!-- fabicon -->
+    <link rel="icon" type="image/png" sizes="512x512" href="/images/leaf-fabicon.png">
+
+    <!-- apple fabicon -->
+    <link rel="apple-touch-icon" sizes="512x512" href="/images/leaf-fabicon.png">
+
+    <!-- CSS Reset -->
+    <link rel="stylesheet" href="/css/normalize.css">
+
+    <!-- FontAwesome -->
+    <script src="https://kit.fontawesome.com/32f48298df.js" crossorigin="anonymous"></script>
+
+    <!-- Font -->
+    <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css2?family=Concert+One&family=Fuzzy+Bubbles:wght@700&family=Silkscreen&display=swap" rel="stylesheet">
+
+    <!-- CSS load -->
+    <link rel="stylesheet" href="/css/member.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous" defer></script>
+    <script src="/js/member.js" defer></script>
+
+</head>
+<body>
+<!-- header -->
+<div class="root">
+    <div class="create-member">
+        <h1>Welcome!</h1>
+        <div class="description">기본 회원 정보를 등록해주세요.</div>
+        <div class="contents">
+            <div class="wrapper">
+                <div class="input-area">
+                    <label>이름</label>
+                    <div class="group">
+                        <div class="input-wrapper">
+                            {{^member.name}}
+                                <input type="text" autocomplete="off" name="name" id="name" placeholder="이름을 입력하세요" size="20">
+                            {{/member.name}}
+                            {{#member.name}}
+                                <input type="text" autocomplete="off" name="name" id="name" placeholder="이름을 입력하세요"
+                                       size="20" value="{{member.name}}">
+                            {{/member.name}}
+                            {{^member.picture}}
+                                <input type="hidden" name="picture" id="picture" placeholder="사진을 입력하세요" size="20">
+                            {{/member.picture}}
+                            {{#member.picture}}
+                                <input type="hidden" name="picture" id="picture" placeholder="사진을 입력하세요"
+                                       size="20" value="{{member.picture}}">
+                            {{/member.picture}}
+                        </div>
+                        <div class="width-marker">이름을 입력하세요</div>
+                    </div>
+                </div>
+                <div class="input-area">
+                    <label>이메일</label>
+                    <div class="group">
+                        <div class="input-wrapper">
+                            {{#member.email}}
+                                <input type="text" name="email" id="email" placeholder="이메일을 입력하세요" disabled size="25" value="{{member.email}}">
+                            {{/member.email}}
+                            <i class="fa-solid fa-lock"></i>
+                        </div>
+                        <div class="width-marker">이메일을 입력하세요</div>
+                    </div>
+                </div>
+                <div class="input-area">
+                    <label>아이디</label>
+                    <div class="group">
+                        <div class="input-wrapper">
+                            <input type="text" autocomplete="off" name="username" id="username" placeholder="아이디를 입력하세요" size="16">
+                        </div>
+                        <div class="width-marker">아이디를 입력하세요</div>
+                    </div>
+                </div>
+                <div class="input-area">
+                    <label>한 줄 소개</label>
+                    <div class="group">
+                        <div class="input-wrapper">
+                            <input type="text" autocomplete="off" name="shortBio" id="shortBio" placeholder="당신을 한 줄로 소개해보세요" size="30">
+                        </div>
+                        <div class="width-marker">당신을 한 줄로 소개해보세요</div>
+                    </div>
+                </div>
+                <div class="form-bottom">
+                    <div class="error-message" style="display: none;">이름은 최대 45자까지 입력할 수 있습니다.</div>
+                    <div class="buttons">
+                        <button class="cancel">취소</button>
+                        <button class="next">다음</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+</body>
+</html>
