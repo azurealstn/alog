@@ -69,11 +69,10 @@ public class ExceptionApiController {
      * 에러가 발생했을 때 이 클래스에서 정의한 예외가 아닌 다른 예외가 터지면 PostsNotFound 예외가 터진다.
      * 하지만 PostsNotFound 예외는 RuntimeException을 상속받았기 때문에 무조건 서버에러(500)를 발생시킨다.
      * 따라서 발생한 에러에 대한 정확한 HTTP 상태코드를 발생시켜줘야 한다.
-     * PostsNotFound 예외는 404 상태코드를 반환한다.
      * @ResponseStatus 대신에 ResponseEntity 클래스를 응답받는다.
      */
     @ExceptionHandler(GlobalException.class)
-    public ResponseEntity<ErrorResponseDto> globalException(PostsNotFound e) {
+    public ResponseEntity<ErrorResponseDto> globalException(GlobalException e) {
         int statusCode = e.getStatusCode();
         ErrorResponseDto errorResponseDto = ErrorResponseDto.builder()
                 .code(String.valueOf(statusCode))

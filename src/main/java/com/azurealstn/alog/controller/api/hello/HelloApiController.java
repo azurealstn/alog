@@ -1,6 +1,6 @@
 package com.azurealstn.alog.controller.api.hello;
 
-import com.azurealstn.alog.dto.hello.HelloDto;
+import com.azurealstn.alog.dto.posts.hello.HelloDto;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RestController;

@@ -1,4 +1,4 @@
-package com.azurealstn.alog.dto.hello;
+package com.azurealstn.alog.dto.posts.hello;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

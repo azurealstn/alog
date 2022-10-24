@@ -10,12 +10,17 @@
   --text8: #D9D9D9;
   --text9: #ACACAC;
   --text10: #ECECEC;
+  --text11: #868E96;
 
-  --primary1: #96F2D7;
-  --primary2: #ea8f4f;
+  --primary1: #db8056;
+  --primary2: #db6e3d;
 
   --button-text1: #121212;
   --button-text2: #D9D9D9;
+
+  --message-text1: #fbc88d;
+  --message-text2: #e66a00;
+  --message-text3: #ab3907;
 
   /* background color */
   --bg-page1: #F8F9FA;
@@ -28,11 +33,13 @@
   --bg-element5: #fff;
   --bg-element6: #303740;
   --bg-element7: #1E1E1E;
+  --bg-element8: #F8F9FA;
 
   --bg-modal1: rgba(0,0,0,0.85);
 
   /* border color */
   --border1: #F1F3F5;
+  --border2: #A0A0A0;
 
 
   /* padding */
@@ -48,6 +55,7 @@
   --font-fuzzy-bubbles: 'Fuzzy Bubbles', cursive;
   --font-silkscreen: 'Silkscreen', cursive;
   --font-concert-one: 'Concert One', cursive;
+  --font-nanum-gothic: 'Nanum Gothic', sans-serif;
 
   /* font size */
   --font-more-large: 26px;
@@ -129,6 +137,7 @@ header .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 }
 
 .head-container .head-logo {
@@ -146,7 +155,7 @@ header .header {
   align-items: center;
 }
 
-.head-container .head-content a {
+.head-container .head-content .search {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -161,7 +170,7 @@ header .header {
   font-size: calc(var(--font-small) * 2);
 }
 
-.head-container .head-content a:hover {
+.head-container .head-content .search:hover {
   background: var(--bg-element1);
 }
 
@@ -187,6 +196,12 @@ header .header {
   color: var(--text3);
 }
 
+.head-container .head-content .thumbnail-profile {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
 .head-container .head-content .thumbnail-profile img {
   display: block;
   height: 2.5rem;
@@ -195,13 +210,62 @@ header .header {
   border-radius: 50%;
   object-fit: cover;
   transition: all 0.125s ease-in 0s;
-  margin-left: var(--margin-side);
 }
 
 .head-container .head-content .thumbnail-profile:hover img {
   box-shadow: rgb(0 0 0 / 10%) 0px 0px 12px;
 }
+
+.head-container .head-content .thumbnail-profile i {
+  font-size: var(--size-small);
+  margin-left: calc(var(--size-small) / 2);
+  color: var(--text11);
+  transition: all 0.125s ease-in 0s;
+}
+
+.head-container .head-content .thumbnail-profile i:hover {
+  color: var(--text1);
+}
 /* header end */
+
+/* menu start */
+.menu.hide {
+  display: none;
+}
+.menu {
+  position: absolute;
+  top: 100%;
+  right: 0px;
+}
+
+.menu .menu-wrapper {
+  position: relative;
+  z-index: 5;
+  width: calc(var(--size-small) * 12);
+  background: var(--bg-element5);
+  box-shadow: rgb(0 0 0 / 10%) 0px 0px 8px;
+}
+
+.menu .menu-wrapper .menu-item {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.menu .menu-wrapper .menu-item .menu-name {
+  color: var(--text1);
+  padding: var(--size-micro) var(--size-small);
+  font-weight: 500;
+  cursor: pointer;
+  line-height: 1.5;
+}
+
+.menu .menu-wrapper .menu-item .menu-name:hover {
+  background: var(--bg-element8);
+  color: var(--primary2);
+}
+
+/* menu end */
 
 /* main section start */
 section.main {
@@ -377,13 +441,14 @@ footer.footer {
   text-align: center;
   font-size: calc(var(--size-small));
   background-color: var(--bg-element6);
-  font-family: var(--font-Silkscreen);
+  font-family: var(--font-silkscreen);
 }
 
 .footer p {
   word-spacing: 0.1rem calc(var(--size-small) / 10);
   color: var(--text6);
   margin-bottom: 0;
+  line-height: 1.5
 }
 
 .footer p .strong {
@@ -539,6 +604,30 @@ footer.footer {
   width: calc(var(--size-small) * 6);
   word-break: keep-all;
   cursor: pointer;
+}
+
+.upper-wrapper .message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--message-text1);
+  border: 1px solid var(--message-text2);
+  color: var(--message-text3);
+  padding-left: var(--size-micro);
+  padding-right: var(--size-micro);
+  height: calc(var(--size-small) * 3);
+  font-family: var(--font-nanum-gothic);
+}
+
+.upper-wrapper .message .fa-check {
+  font-size: var(--size-large);
+  color: var(--message-text3);
+}
+
+.upper-wrapper .message .message-description {
+  font-size: 0.875rem;
+  flex: 1 1 0%;
+  text-align: center;
 }
 
 .upper-wrapper .social-login {
