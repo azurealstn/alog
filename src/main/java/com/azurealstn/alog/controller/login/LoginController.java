@@ -1,4 +1,4 @@
-package com.azurealstn.alog.controller;
+package com.azurealstn.alog.controller.login;
 
 import com.azurealstn.alog.dto.email.EmailAuthRequestDto;
 import com.azurealstn.alog.dto.login.LoginRequestDto;

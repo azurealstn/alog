@@ -16,18 +16,33 @@ velog(벨로그)는 velopert님이 만든 개발자를 위한 블로그 서비�
 ## 기능 구현
 
 - 로그인/회원가입
+  - 이메일 인증을 통한 로그인/회원가입
+  - OAuth2 Client를 이용한 소셜로그인
 
-### 로그인/회원가입
+### 로그인
 
-- 로그인은 이메일 인증 방식으로 진행
-- 
+![login](https://user-images.githubusercontent.com/55525868/197791392-a1b3880f-c14f-427b-afa9-0415b4583235.png)
 
+### 회원가입
+
+![create-member](https://user-images.githubusercontent.com/55525868/197791383-5dbaff23-8d67-4389-be9f-b9fc7d38017e.png)
+
+### 소셜로그인
+
+![sns-login](https://user-images.githubusercontent.com/55525868/197791402-8f0ab835-1d4c-4b36-98b9-19592a20cc06.png)
+  
 ## 트러블 슈팅
 
 - @ModelAttribute가 바인딩 되지 않는 문제
   - https://velog.io/@tsi0521/ModelAttribute-%EB%B0%94%EC%9D%B8%EB%94%A9-%EB%90%98%EC%A7%80-%EC%95%8A%EB%8A%94-%EB%AC%B8%EC%A0%9C
 - @Email은 null을 유효하다고 판단
 - Cannot construct instance of XXXDto - InvalidDefinitionException
+- 세션에 저장할 때 User 클래스를 사용하지 않은 이유
+- could not initialize proxy - no Session
+- Are you referring to request attributes outside of an actual web request
+- https://stackoverflow.com/questions/40274353/how-to-use-localdatetime-requestparam-in-spring-i-get-failed-to-convert-string
+- https://backtony.github.io/spring/2021-07-14-spring-test-1/
+- REST Docs configuration not found
 
 ## API 문서
 

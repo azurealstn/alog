@@ -36,8 +36,6 @@ public class MemberController {
         Member member = customOAuth2UserService.getSnsMemberInfo();
         boolean existsByEmail = loginService.existsByEmail(member.getEmail());
 
-        log.info("picture={}", member.getPicture());
-
         model.addAttribute("member", member);
 
         if (existsByEmail) {

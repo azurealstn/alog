@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * email: 가입 이메일
@@ -22,7 +23,7 @@ import java.time.LocalDateTime;
 @Entity
 public class EmailAuth extends BaseTimeEntity {
 
-    private static final Long MAX_EXPIRE_TIME = 1L;
+    private static final Long MAX_EXPIRE_TIME = 5L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,7 +51,7 @@ public class EmailAuth extends BaseTimeEntity {
         this.email = email;
         this.authToken = authToken;
         this.expired = expired;
-        this.expiredDate = LocalDateTime.now().plusMinutes(MAX_EXPIRE_TIME);
+        this.expiredDate = LocalDateTime.parse(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).plusMinutes(MAX_EXPIRE_TIME);
     }
 
     public void useToken() {

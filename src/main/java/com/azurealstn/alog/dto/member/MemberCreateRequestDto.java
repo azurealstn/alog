@@ -16,7 +16,6 @@ public class MemberCreateRequestDto {
     @Size(max = 45, message = "이름은 최대 45자까지 입력 할 수 있습니다.")
     private String name;
 
-    @NotBlank(message = "이메일이 비어있습니다.")
     @Email(message = "잘못된 이메일 형식입니다.")
     private String email;
 
