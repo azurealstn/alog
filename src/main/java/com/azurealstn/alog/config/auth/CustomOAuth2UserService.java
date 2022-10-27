@@ -1,10 +1,7 @@
 package com.azurealstn.alog.config.auth;
 
-import com.azurealstn.alog.Infra.exception.MemberNotFound;
 import com.azurealstn.alog.domain.member.Member;
-import com.azurealstn.alog.domain.member.Role;
 import com.azurealstn.alog.dto.auth.OAuthAttributesDto;
-import com.azurealstn.alog.dto.auth.SessionMemberDto;
 import com.azurealstn.alog.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -47,26 +44,11 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
         attributes = OAuthAttributesDto.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
 
-//        Member member = saveOrUpdate(attributes);
-
-        //세션에 값을 저장하려면 클래스가 직렬화되어야 한다.
-        //Entity 클래스인 Member 대신 Dto 클래스를 하나 생성했다.
-//        httpSession.setAttribute("member", new SessionMemberDto(member));
-
         return new DefaultOAuth2User(
                 Collections.singleton(new SimpleGrantedAuthority("ROLE_MEMBER")),
                 attributes.getAttributes(),
                 attributes.getNameAttributeKey()
         );
-    }
-
-    //구글 사용자 정보가 업데이트 되었을 때를 대비하여 update 기능 추가
-    private Member saveOrUpdate(OAuthAttributesDto attributes) {
-        Member member = memberRepository.findByEmail(attributes.getEmail())
-                .map(entity -> entity.update(attributes.getName(), attributes.getPicture()))
-                .orElse(attributes.toEntity());
-
-        return memberRepository.save(member);
     }
 
     //oauth2을 통한 사용자 정보를 반환

@@ -11,7 +11,6 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 public class LoginRequestDto {
 
-    @NotBlank(message = "이메일이 비어있습니다.")
     @Email(message = "잘못된 이메일 형식입니다.")
     private String email;
     private String authToken;

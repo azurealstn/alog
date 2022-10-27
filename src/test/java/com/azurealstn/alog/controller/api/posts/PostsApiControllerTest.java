@@ -1,8 +1,12 @@
 package com.azurealstn.alog.controller.api.posts;
 
+import com.azurealstn.alog.domain.member.Member;
 import com.azurealstn.alog.domain.posts.Posts;
+import com.azurealstn.alog.dto.auth.SessionMemberDto;
+import com.azurealstn.alog.dto.member.MemberCreateRequestDto;
 import com.azurealstn.alog.dto.posts.PostsCreateRequestDto;
 import com.azurealstn.alog.dto.posts.PostsModifyRequestDto;
+import com.azurealstn.alog.repository.member.MemberRepository;
 import com.azurealstn.alog.repository.posts.PostsRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,19 +14,33 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.*;
+import org.springframework.mock.web.MockHttpSession;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
+import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.request.RequestContextListener;
+import org.springframework.web.filter.CharacterEncodingFilter;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -37,6 +55,8 @@ class PostsApiControllerTest {
     private int port;
 
     @Autowired
+    private WebApplicationContext context;
+
     private MockMvc mockMvc;
 
     @Autowired
@@ -48,18 +68,36 @@ class PostsApiControllerTest {
     @Autowired
     private PostsRepository postsRepository;
 
+    @Autowired
+    private MemberRepository memberRepository;
+
     @BeforeEach
     void beforeEach() throws Exception {
+        mockMvc = MockMvcBuilders
+                .webAppContextSetup(context)
+                .addFilters(new CharacterEncodingFilter("UTF-8", true))
+                .build();
         postsRepository.deleteAll();
+        memberRepository.deleteAll();
     }
 
     @Test
-    @DisplayName("/posts 게시글 등록시 데이터 검증")
-    void posts_create_api_validate() throws Exception {
+    @DisplayName("/posts 게시글 등록시 데이터 검증 제목")
+    @WithMockUser("MEMBER")
+    @Transactional
+    void posts_create_api_validate_title() throws Exception {
         //given
+        MemberCreateRequestDto memberCreateRequestDto = getMemberCreateRequestDto();
+
+        Member savedMember = memberRepository.save(memberCreateRequestDto.toEntity());
+
+        MockHttpSession mockHttpSession = new MockHttpSession();
+        mockHttpSession.setAttribute("member", new SessionMemberDto(savedMember));
+
         PostsCreateRequestDto requestDto = PostsCreateRequestDto.builder()
                 .title("")
-                .content("")
+                .content("안녕하세요?")
+                .member(savedMember)
                 .build();
         String body = objectMapper.writeValueAsString(requestDto);
         String code = "400";
@@ -67,73 +105,103 @@ class PostsApiControllerTest {
 
         //expected
         mockMvc.perform(post("/api/v1/posts")
+                        .session(mockHttpSession)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(body))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.code", is(code)))
                 .andExpect(jsonPath("$.message", is(message)))
-                .andExpect(jsonPath("$.validation.length()", is(2)))
+                .andExpect(jsonPath("$.validation.length()", is(1)))
                 .andExpect(jsonPath("$.validation").isNotEmpty())
-                .andExpect(jsonPath("$.validation[0].fieldName").exists())
-                .andExpect(jsonPath("$.validation[0].errorMessage").exists())
-                .andExpect(jsonPath("$.validation[1].fieldName").exists())
-                .andExpect(jsonPath("$.validation[1].errorMessage").exists())
+                .andExpect(jsonPath("$.validation[0].fieldName").value("title"))
+                .andExpect(jsonPath("$.validation[0].errorMessage").value("제목이 비어있습니다."))
                 .andDo(print());
+    }
+    @Test
+    @DisplayName("/posts 게시글 등록시 데이터 검증 내용")
+    @WithMockUser("MEMBER")
+    @Transactional
+    void posts_create_api_validate_content() throws Exception {
+        //given
+        MemberCreateRequestDto memberCreateRequestDto = getMemberCreateRequestDto();
 
+        Member savedMember = memberRepository.save(memberCreateRequestDto.toEntity());
+
+        MockHttpSession mockHttpSession = new MockHttpSession();
+        mockHttpSession.setAttribute("member", new SessionMemberDto(savedMember));
+
+        PostsCreateRequestDto requestDto = PostsCreateRequestDto.builder()
+                .title("안녕하세요")
+                .content("")
+                .member(savedMember)
+                .build();
+        String body = objectMapper.writeValueAsString(requestDto);
+        String code = "400";
+        String message = "클라이언트의 잘못된 요청이 있습니다. (application/json)";
+
+        //expected
+        mockMvc.perform(post("/api/v1/posts")
+                        .session(mockHttpSession)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(body))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code", is(code)))
+                .andExpect(jsonPath("$.message", is(message)))
+                .andExpect(jsonPath("$.validation.length()", is(1)))
+                .andExpect(jsonPath("$.validation").isNotEmpty())
+                .andExpect(jsonPath("$.validation[0].fieldName").value("content"))
+                .andExpect(jsonPath("$.validation[0].errorMessage").value("내용이 비어있습니다."))
+                .andDo(print());
     }
 
     @Test
     @DisplayName("/posts 게시글 등록시 DB 저장")
+    @WithMockUser("MEMBER")
+    @Transactional
     void create_posts() throws Exception {
         //given
+        MemberCreateRequestDto memberCreateRequestDto = getMemberCreateRequestDto();
+
+        Member savedMember = memberRepository.save(memberCreateRequestDto.toEntity());
+
+        MockHttpSession mockHttpSession = new MockHttpSession();
+        mockHttpSession.setAttribute("member", new SessionMemberDto(savedMember));
+
         String title = "제목입니다.";
         String content = "내용입니다.";
         PostsCreateRequestDto requestDto = PostsCreateRequestDto.builder()
                 .title(title)
                 .content(content)
-                .build();
-
-        String url = "http://localhost:" + port + "/api/v1/posts";
-
-        //when
-        ResponseEntity<Long> responseEntity = restTemplate.postForEntity(url, requestDto, Long.class);
-        List<Posts> all = postsRepository.findAll();
-
-        //then
-        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(postsRepository.count()).isEqualTo(1);
-        assertThat(all.get(0).getTitle()).isEqualTo(title);
-        assertThat(all.get(0).getContent()).isEqualTo(content);
-    }
-
-    @Test
-    @DisplayName("/posts 게시글 등록시 DB 저장 mockmvc")
-    void create_posts_mock() throws Exception {
-        //given
-        String title = "제목입니다.";
-        String content = "내용입니다.";
-        PostsCreateRequestDto requestDto = PostsCreateRequestDto.builder()
-                .title(title)
-                .content(content)
+                .member(savedMember)
                 .build();
 
         //expected
         mockMvc.perform(post("/api/v1/posts")
+                        .session(mockHttpSession)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(requestDto)))
                 .andExpect(status().isOk())
-                .andExpect(content().string("1"))
                 .andDo(print());
 
     }
 
     @Test
     @DisplayName("/api/v1/posts/{postsId} 요청시 글 단건 조회 성공")
+    @WithMockUser("MEMBER")
+    @Transactional
     void select_posts_o() throws Exception {
         //given
+        MemberCreateRequestDto memberCreateRequestDto = getMemberCreateRequestDto();
+
+        Member savedMember = memberRepository.save(memberCreateRequestDto.toEntity());
+
+        MockHttpSession mockHttpSession = new MockHttpSession();
+        mockHttpSession.setAttribute("member", new SessionMemberDto(savedMember));
+
         Posts posts = Posts.builder()
                 .title("foo")
                 .content("bar")
+                .member(savedMember)
                 .build();
 
         String expectedTitle = "foo";
@@ -144,43 +212,68 @@ class PostsApiControllerTest {
 
         //then
         mockMvc.perform(get("/api/v1/posts/{postsId}", savedId)
+                        .session(mockHttpSession)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(savedId))
                 .andExpect(jsonPath("$.title", is(expectedTitle)))
                 .andExpect(jsonPath("$.content", is(expectedContent)))
                 .andDo(print());
-
     }
 
     @Test
     @DisplayName("/api/v1/posts/{postsId} 요청시 글 단건 조회 실패")
+    @WithMockUser("MEMBER")
+    @Transactional
     void select_posts_x() throws Exception {
         //given
-        Long postsId = 1L;
+        MemberCreateRequestDto memberCreateRequestDto = getMemberCreateRequestDto();
+
+        Member savedMember = memberRepository.save(memberCreateRequestDto.toEntity());
+
+        MockHttpSession mockHttpSession = new MockHttpSession();
+        mockHttpSession.setAttribute("member", new SessionMemberDto(savedMember));
+
+        Posts posts = Posts.builder()
+                .title("foo")
+                .content("bar")
+                .member(savedMember)
+                .build();
+        Long savedId = postsRepository.save(posts).getId();
 
         //expected
-        mockMvc.perform(get("/api/v1/posts/{postsId}", postsId)
+        mockMvc.perform(get("/api/v1/posts/{postsId}", savedId + 1)
+                        .session(mockHttpSession)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound())
                 .andDo(print());
-
     }
 
     @Test
     @DisplayName("글 목록 첫번째 페이지 조회")
+    @WithMockUser("MEMBER")
+    @Transactional
     void findAll_posts_first_page() throws Exception {
         //given
+        MemberCreateRequestDto memberCreateRequestDto = getMemberCreateRequestDto();
+
+        Member savedMember = memberRepository.save(memberCreateRequestDto.toEntity());
+
+        MockHttpSession mockHttpSession = new MockHttpSession();
+        mockHttpSession.setAttribute("member", new SessionMemberDto(savedMember));
+
         List<Posts> collect = IntStream.range(0, 30)
                 .mapToObj(i -> Posts.builder()
                         .title("test 제목 - " + (i + 1))
                         .content("뭐로 할까 - " + (i + 1))
+                        .member(savedMember)
                         .build())
                 .collect(Collectors.toList());
         postsRepository.saveAll(collect);
 
         //expected
         mockMvc.perform(get("/api/v1/posts?page=1&size=9")
+                        .session(mockHttpSession)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()", is(9)))
@@ -194,12 +287,22 @@ class PostsApiControllerTest {
 
     @Test
     @DisplayName("글 목록 두번째 페이지 조회")
+    @WithMockUser("MEMBER")
+    @Transactional
     void findAll_posts_second_page() throws Exception {
         //given
+        MemberCreateRequestDto memberCreateRequestDto = getMemberCreateRequestDto();
+
+        Member savedMember = memberRepository.save(memberCreateRequestDto.toEntity());
+
+        MockHttpSession mockHttpSession = new MockHttpSession();
+        mockHttpSession.setAttribute("member", new SessionMemberDto(savedMember));
+
         List<Posts> collect = IntStream.range(0, 30)
                 .mapToObj(i -> Posts.builder()
                         .title("test 제목 - " + (i + 1))
                         .content("뭐로 할까 - " + (i + 1))
+                        .member(savedMember)
                         .build())
                 .collect(Collectors.toList());
         postsRepository.saveAll(collect);
@@ -219,12 +322,22 @@ class PostsApiControllerTest {
 
     @Test
     @DisplayName("?page=1이 아닌 ?page=0으로 요청해도 첫 페이지를 가져온다.")
+    @WithMockUser("MEMBER")
+    @Transactional
     void first_page_zero() throws Exception {
         //given
+        MemberCreateRequestDto memberCreateRequestDto = getMemberCreateRequestDto();
+
+        Member savedMember = memberRepository.save(memberCreateRequestDto.toEntity());
+
+        MockHttpSession mockHttpSession = new MockHttpSession();
+        mockHttpSession.setAttribute("member", new SessionMemberDto(savedMember));
+
         List<Posts> collect = IntStream.range(0, 30)
                 .mapToObj(i -> Posts.builder()
                         .title("test 제목 - " + (i + 1))
                         .content("뭐로 할까 - " + (i + 1))
+                        .member(savedMember)
                         .build())
                 .collect(Collectors.toList());
         postsRepository.saveAll(collect);
@@ -243,45 +356,21 @@ class PostsApiControllerTest {
 
     @Test
     @DisplayName("게시글 수정시 DB 수정 성공")
+    @WithMockUser("MEMBER")
+    @Transactional
     void modify_posts_api_o() throws Exception {
         //given
+        MemberCreateRequestDto memberCreateRequestDto = getMemberCreateRequestDto();
+
+        Member savedMember = memberRepository.save(memberCreateRequestDto.toEntity());
+
+        MockHttpSession mockHttpSession = new MockHttpSession();
+        mockHttpSession.setAttribute("member", new SessionMemberDto(savedMember));
+
         Posts posts = Posts.builder()
                 .title("foo")
                 .content("bar")
-                .build();
-
-        Long modifiedId = postsRepository.save(posts).getId();
-
-        //when
-        String expectedTitle = "제목입니다.";
-        String expectedContent = "내용입니다.";
-        PostsModifyRequestDto modifyRequestDto = PostsModifyRequestDto.builder()
-                .title(expectedTitle)
-                .content(expectedContent)
-                .build();
-
-        String url = "http://localhost:" + port + "/api/v1/posts/" + modifiedId;
-
-        HttpEntity<PostsModifyRequestDto> httpEntity = new HttpEntity<>(modifyRequestDto);
-
-        //when
-        ResponseEntity<Long> responseEntity = restTemplate.exchange(url, HttpMethod.PUT, httpEntity, Long.class);
-        List<Posts> all = postsRepository.findAll();
-
-        //then
-        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(postsRepository.count()).isEqualTo(1);
-        assertThat(all.get(0).getTitle()).isEqualTo(expectedTitle);
-        assertThat(all.get(0).getContent()).isEqualTo(expectedContent);
-    }
-
-    @Test
-    @DisplayName("게시글 수정시 DB 수정 성공 mockmvc")
-    void modify_posts_api_o_mock() throws Exception {
-        //given
-        Posts posts = Posts.builder()
-                .title("foo")
-                .content("bar")
+                .member(savedMember)
                 .build();
 
         Long modifiedId = postsRepository.save(posts).getId();
@@ -295,6 +384,7 @@ class PostsApiControllerTest {
 
         //expected
         mockMvc.perform(put("/api/v1/posts/{posts_id}", modifiedId)
+                        .session(mockHttpSession)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(modifyRequestDto)))
                 .andExpect(status().isOk())
@@ -303,11 +393,21 @@ class PostsApiControllerTest {
 
     @Test
     @DisplayName("게시글 수정시 DB 수정 실패")
+    @WithMockUser("MEMBER")
+    @Transactional
     void modify_posts_api_x() throws Exception {
         //given
+        MemberCreateRequestDto memberCreateRequestDto = getMemberCreateRequestDto();
+
+        Member savedMember = memberRepository.save(memberCreateRequestDto.toEntity());
+
+        MockHttpSession mockHttpSession = new MockHttpSession();
+        mockHttpSession.setAttribute("member", new SessionMemberDto(savedMember));
+
         Posts posts = Posts.builder()
                 .title("foo")
                 .content("bar")
+                .member(savedMember)
                 .build();
 
         Long modifiedId = postsRepository.save(posts).getId();
@@ -321,6 +421,7 @@ class PostsApiControllerTest {
 
         //expected
         mockMvc.perform(put("/api/v1/posts/{postsId}", modifiedId + 1)
+                        .session(mockHttpSession)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(modifyRequestDto)))
                 .andExpect(status().isNotFound())
@@ -329,42 +430,28 @@ class PostsApiControllerTest {
 
     @Test
     @DisplayName("게시글 삭제시 DB 삭제")
-    void delete_posts_api() {
+    @WithMockUser("MEMBER")
+    @Transactional
+    void delete_posts_api() throws Exception {
         //given
+        MemberCreateRequestDto memberCreateRequestDto = getMemberCreateRequestDto();
+
+        Member savedMember = memberRepository.save(memberCreateRequestDto.toEntity());
+
+        MockHttpSession mockHttpSession = new MockHttpSession();
+        mockHttpSession.setAttribute("member", new SessionMemberDto(savedMember));
+
         Posts posts = Posts.builder()
                 .title("foo")
                 .content("bar")
-                .build();
-
-        Long deletedId = postsRepository.save(posts).getId();
-
-        String url = "http://localhost:" + port + "/api/v1/posts/" + deletedId;
-
-        HttpEntity<Posts> httpEntity = new HttpEntity<>(posts);
-
-        //when
-        ResponseEntity<Long> responseEntity = restTemplate.exchange(url, HttpMethod.DELETE, httpEntity, Long.class);
-        List<Posts> all = postsRepository.findAll();
-
-        //then
-        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(all.size()).isEqualTo(0);
-        assertThat(postsRepository.count()).isEqualTo(0);
-    }
-
-    @Test
-    @DisplayName("게시글 삭제시 DB 삭제 mockmvc")
-    void delete_posts_api_mock() throws Exception {
-        //given
-        Posts posts = Posts.builder()
-                .title("foo")
-                .content("bar")
+                .member(savedMember)
                 .build();
 
         Long deletedId = postsRepository.save(posts).getId();
 
         //expected
         mockMvc.perform(delete("/api/v1/posts/{posts_id}", deletedId)
+                        .session(mockHttpSession)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andDo(print());
@@ -372,19 +459,46 @@ class PostsApiControllerTest {
 
     @Test
     @DisplayName("게시글 삭제시 DB 삭제 실패")
+    @WithMockUser("MEMBER")
+    @Transactional
     void delete_posts_api_x() throws Exception {
         //given
+        MemberCreateRequestDto memberCreateRequestDto = getMemberCreateRequestDto();
+
+        Member savedMember = memberRepository.save(memberCreateRequestDto.toEntity());
+
+        MockHttpSession mockHttpSession = new MockHttpSession();
+        mockHttpSession.setAttribute("member", new SessionMemberDto(savedMember));
+
         Posts posts = Posts.builder()
                 .title("foo")
                 .content("bar")
+                .member(savedMember)
                 .build();
 
         Long deletedId = postsRepository.save(posts).getId();
 
         //expected
         mockMvc.perform(delete("/api/v1/posts/{postsId}", deletedId + 1)
+                        .session(mockHttpSession)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound())
                 .andDo(print());
+    }
+
+    private MemberCreateRequestDto getMemberCreateRequestDto() {
+        String name = "슬로우스타터";
+        String email = "azurealstn@naver.com";
+        String username = "haha";
+        String shortBio = "안녕하세요!";
+        String picture = "test.jpg";
+
+        return MemberCreateRequestDto.builder()
+                .name(name)
+                .email(email)
+                .username(username)
+                .shortBio(shortBio)
+                .picture(picture)
+                .build();
     }
 }
