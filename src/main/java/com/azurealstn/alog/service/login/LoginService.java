@@ -12,10 +12,17 @@ import com.azurealstn.alog.repository.email.EmailAuthRepository;
 import com.azurealstn.alog.repository.member.MemberRepository;
 import com.azurealstn.alog.service.email.EmailService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -46,6 +53,10 @@ public class LoginService {
     public void emailLogin(EmailAuthRequestDto requestDto) {
         Member member = memberRepository.findByEmail(requestDto.getEmail())
                 .orElseThrow(() -> new MemberNotFound());
+        List<GrantedAuthority> roles = new ArrayList<>();
+        roles.add(new SimpleGrantedAuthority(member.getRoleKey()));
+        Authentication authentication = new UsernamePasswordAuthenticationToken(new SessionMemberDto(member), null, roles);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
         httpSession.setAttribute("member", new SessionMemberDto(member));
     }
 

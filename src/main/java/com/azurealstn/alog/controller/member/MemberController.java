@@ -45,6 +45,9 @@ public class MemberController {
         }
     }
 
-
+    @GetMapping("/api/v1/setting")
+    public String setting() {
+        return "member/setting";
+    }
 
 }
