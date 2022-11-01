@@ -55,7 +55,7 @@ public class LoginService {
                 .orElseThrow(() -> new MemberNotFound());
         List<GrantedAuthority> roles = new ArrayList<>();
         roles.add(new SimpleGrantedAuthority(member.getRoleKey()));
-        Authentication authentication = new UsernamePasswordAuthenticationToken(new SessionMemberDto(member), null, roles);
+        Authentication authentication = new UsernamePasswordAuthenticationToken(member.getEmail(), null, roles);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         httpSession.setAttribute("member", new SessionMemberDto(member));
     }

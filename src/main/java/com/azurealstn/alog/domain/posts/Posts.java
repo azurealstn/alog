@@ -30,11 +30,15 @@ public class Posts extends BaseTimeEntity {
     @Column(nullable = false)
     private String content;
 
+    @Column(nullable = false)
+    private String description;
+
     @Builder
-    public Posts(String title, String content, Member member) {
+    public Posts(String title, String content, Member member, String description) {
         this.title = title;
         this.content = content;
         this.member = member;
+        this.description = description;
     }
 
     /**

@@ -79,6 +79,7 @@ class PostsServiceTest {
                 .title("제목입니다.")
                 .content("내용입니다.")
                 .member(savedMember)
+                .description("글을 소개합니다.")
                 .build();
 
         //when
@@ -93,6 +94,7 @@ class PostsServiceTest {
         assertThat(posts.getContent()).isEqualTo("내용입니다.");
         assertThat(posts.getMember().getEmail()).isEqualTo(email);
         assertThat(posts.getMember().getUsername()).isEqualTo(username);
+        assertThat(posts.getDescription()).isEqualTo("글을 소개합니다.");
     }
 
     @Test
@@ -350,5 +352,19 @@ class PostsServiceTest {
                 .shortBio(shortBio)
                 .picture(picture)
                 .build();
+    }
+
+    @Test
+    @DisplayName("이전 페이지 없음")
+    void prev_page_X() {
+        //given
+        String url = "/";
+        httpSession.setAttribute("prevUrl", url);
+
+        //when
+        String prevPageUrl = (String) httpSession.getAttribute("prevUrl");
+
+        //then
+        assertThat(prevPageUrl).isEqualTo("/");
     }
 }

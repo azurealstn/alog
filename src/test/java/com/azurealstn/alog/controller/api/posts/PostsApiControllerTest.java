@@ -47,7 +47,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class PostsApiControllerTest {
 
@@ -117,6 +116,7 @@ class PostsApiControllerTest {
                 .andExpect(jsonPath("$.validation[0].errorMessage").value("제목이 비어있습니다."))
                 .andDo(print());
     }
+
     @Test
     @DisplayName("/posts 게시글 등록시 데이터 검증 내용")
     @WithMockUser("MEMBER")
@@ -155,6 +155,48 @@ class PostsApiControllerTest {
     }
 
     @Test
+    @DisplayName("/posts 게시글 등록시 데이터 검증 소개")
+    @WithMockUser("MEMBER")
+    @Transactional
+    void posts_create_api_validate_description() throws Exception {
+        //given
+        MemberCreateRequestDto memberCreateRequestDto = getMemberCreateRequestDto();
+
+        Member savedMember = memberRepository.save(memberCreateRequestDto.toEntity());
+
+        MockHttpSession mockHttpSession = new MockHttpSession();
+        mockHttpSession.setAttribute("member", new SessionMemberDto(savedMember));
+
+        String description = "글자가다섯글자가다섯글자가다섯글자가다섯글자가다섯글자가다섯글자가다섯글자가다섯글자가다섯글자가다섯" +
+                "글자가다섯글자가다섯글자가다섯글자가다섯글자가다섯글자가다섯글자가다섯글자가다섯글자가다섯글자가다섯" +
+                "글자가다섯글자가다섯글자가다섯글자가다섯글자가다섯글자가다섯글자가다섯글자가다섯글자가다섯글자가다섯" +
+                "글자가다섯글자가다섯글자가다섯글자가다섯글자가다섯글자가다섯글자가다섯글자가다섯글자가다섯글자가다섯";
+        PostsCreateRequestDto requestDto = PostsCreateRequestDto.builder()
+                .title("안녕하세요")
+                .content("제목입니다.")
+                .member(savedMember)
+                .description(description)
+                .build();
+        String body = objectMapper.writeValueAsString(requestDto);
+        String code = "400";
+        String message = "클라이언트의 잘못된 요청이 있습니다. (application/json)";
+
+        //expected
+        mockMvc.perform(post("/api/v1/posts")
+                        .session(mockHttpSession)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(body))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code", is(code)))
+                .andExpect(jsonPath("$.message", is(message)))
+                .andExpect(jsonPath("$.validation.length()", is(1)))
+                .andExpect(jsonPath("$.validation").isNotEmpty())
+                .andExpect(jsonPath("$.validation[0].fieldName").value("description"))
+                .andExpect(jsonPath("$.validation[0].errorMessage").value("포스트 소개 글을 150자 내로 적어주세요."))
+                .andDo(print());
+    }
+
+    @Test
     @DisplayName("/posts 게시글 등록시 DB 저장")
     @WithMockUser("MEMBER")
     @Transactional
@@ -169,10 +211,12 @@ class PostsApiControllerTest {
 
         String title = "제목입니다.";
         String content = "내용입니다.";
+        String description = "소개입니다.";
         PostsCreateRequestDto requestDto = PostsCreateRequestDto.builder()
                 .title(title)
                 .content(content)
                 .member(savedMember)
+                .description(description)
                 .build();
 
         //expected
