@@ -121,6 +121,13 @@ const main = {
         dangerToast.showToast();
       });
     });
+  },
+  write: function() {
+    const newPosts = document.querySelector('.new-posts');
+
+    newPosts.addEventListener('click', () => {
+      location.href = '/api/v1/write';
+    });
   }
 };
 
@@ -139,4 +146,7 @@ $(function() {
 
   //로그인
   main.login();
+
+  //게시글 작성 페이지
+  main.write();
 });

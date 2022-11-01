@@ -1,17 +1,23 @@
 package com.azurealstn.alog.service.posts;
 
+import com.azurealstn.alog.Infra.exception.MemberNotFound;
 import com.azurealstn.alog.Infra.exception.PostsNotFound;
+import com.azurealstn.alog.domain.member.Member;
 import com.azurealstn.alog.domain.posts.Posts;
+import com.azurealstn.alog.dto.auth.SessionMemberDto;
 import com.azurealstn.alog.dto.posts.PostsCreateRequestDto;
 import com.azurealstn.alog.dto.posts.PostsResponseDto;
 import com.azurealstn.alog.dto.posts.PostsModifyRequestDto;
 import com.azurealstn.alog.dto.posts.PostsSearchDto;
+import com.azurealstn.alog.repository.member.MemberRepository;
 import com.azurealstn.alog.repository.posts.PostsRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,6 +27,8 @@ import java.util.stream.Collectors;
 public class PostsService {
 
     private final PostsRepository postsRepository;
+    private final HttpSession httpSession;
+    private final MemberRepository memberRepository;
 
     /**
      * 게시글 등록 API
@@ -31,6 +39,10 @@ public class PostsService {
         //Case 2. 저장한 데이터의 primary_id → response 응답
         //  - Client에서는 수신한 id를 posts 조회 API를 통해서 글 데이터를 수신받음
         //Case 3. 응답 필요 없음 -> 클라이언트에서 모든 POST(글) 데이터 context를 잘 관리함
+        SessionMemberDto sessionMemberDto = (SessionMemberDto) httpSession.getAttribute("member");
+        Member member = memberRepository.findByEmail(sessionMemberDto.getEmail())
+                .orElseThrow(() -> new MemberNotFound());
+        requestDto.updateMember(member);
         Posts posts = requestDto.toEntity();
         return postsRepository.save(posts).getId();
     }
@@ -87,5 +99,18 @@ public class PostsService {
         Posts posts = postsRepository.findById(postsId)
                 .orElseThrow(() -> new PostsNotFound());
         postsRepository.delete(posts);
+    }
+
+    /**
+     * 이전 페이지 URL -> 세션 저장
+     */
+    @Transactional
+    public void savePrevPage(HttpServletRequest request) {
+        String url = request.getHeader("Referer");
+        if (url != null) {
+            httpSession.setAttribute("prevUrl", url);
+        } else {
+            httpSession.setAttribute("prevUrl", "/");
+        }
     }
 }

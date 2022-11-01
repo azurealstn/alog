@@ -34,13 +34,15 @@
   --bg-element6: #303740;
   --bg-element7: #1E1E1E;
   --bg-element8: #F8F9FA;
+  --bg-element9: #0c0c0c;
 
   --bg-modal1: rgba(0,0,0,0.85);
+  --bg-modal2: #252525;
 
   /* border color */
   --border1: #F1F3F5;
   --border2: #A0A0A0;
-
+  --border3: #595959;
 
   /* padding */
   --padding-side: 5rem;
