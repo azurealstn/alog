@@ -1,17 +1,16 @@
 package com.azurealstn.alog.service.member;
 
-import com.azurealstn.alog.Infra.exception.AlreadyExistsUsername;
-import com.azurealstn.alog.Infra.exception.EmailAuthTokenNotFountException;
-import com.azurealstn.alog.Infra.exception.GlobalException;
+import com.azurealstn.alog.Infra.exception.member.AlreadyExistsUsername;
+import com.azurealstn.alog.Infra.exception.member.MemberNotFound;
 import com.azurealstn.alog.domain.email.EmailAuth;
 import com.azurealstn.alog.domain.member.Member;
 import com.azurealstn.alog.domain.member.Role;
 import com.azurealstn.alog.dto.login.LoginRequestDto;
 import com.azurealstn.alog.dto.member.MemberCreateRequestDto;
+import com.azurealstn.alog.dto.member.MemberResponseDto;
 import com.azurealstn.alog.repository.email.EmailAuthRepository;
 import com.azurealstn.alog.repository.member.MemberRepository;
 import com.azurealstn.alog.service.login.LoginService;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -158,5 +157,62 @@ class MemberServiceTest {
 
         //then
         assertThat(validAuthByEmail).isEmpty();
+    }
+
+    @Test
+    @DisplayName("회원 단 건 조회 성공")
+    void findById_member_o() {
+        //given
+        String name = "슬로우스타터";
+        String email = "azurealstn@naver.com";
+        String username = "haha";
+        String shortBio = "안녕하세요!";
+        String picture = "test.jpg";
+
+        MemberCreateRequestDto requestDto = MemberCreateRequestDto.builder()
+                .name(name)
+                .email(email)
+                .username(username)
+                .shortBio(shortBio)
+                .picture(picture)
+                .build();
+
+        Member member = requestDto.toEntity();
+        Long savedId = memberRepository.save(member).getId();
+
+        //when
+        MemberResponseDto responseDto = memberService.findById(savedId);
+
+        //then
+        assertThat(responseDto.getName()).isEqualTo(name);
+        assertThat(responseDto.getEmail()).isEqualTo(email);
+        assertThat(responseDto.getShortBio()).isEqualTo(shortBio);
+        assertThat(responseDto.getPicture()).isEqualTo(picture);
+        assertThat(responseDto.getRole()).isEqualTo(Role.MEMBER);
+    }
+
+    @Test
+    @DisplayName("회원 단 건 조회 실패")
+    void findById_member_x() {
+        //given
+        String name = "슬로우스타터";
+        String email = "azurealstn@naver.com";
+        String username = "haha";
+        String shortBio = "안녕하세요!";
+        String picture = "test.jpg";
+
+        MemberCreateRequestDto requestDto = MemberCreateRequestDto.builder()
+                .name(name)
+                .email(email)
+                .username(username)
+                .shortBio(shortBio)
+                .picture(picture)
+                .build();
+
+        Member member = requestDto.toEntity();
+        Long savedId = memberRepository.save(member).getId();
+
+        //expected
+        assertThrows(MemberNotFound.class, () -> memberService.findById(savedId + 1));
     }
 }

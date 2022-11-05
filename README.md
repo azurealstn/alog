@@ -33,16 +33,77 @@ velog(벨로그)는 velopert님이 만든 개발자를 위한 블로그 서비�
   
 ## 트러블 슈팅
 
-- @ModelAttribute가 바인딩 되지 않는 문제
-  - https://velog.io/@tsi0521/ModelAttribute-%EB%B0%94%EC%9D%B8%EB%94%A9-%EB%90%98%EC%A7%80-%EC%95%8A%EB%8A%94-%EB%AC%B8%EC%A0%9C
-- @Email은 null을 유효하다고 판단
-- Cannot construct instance of XXXDto - InvalidDefinitionException
-- 세션에 저장할 때 User 클래스를 사용하지 않은 이유
-- could not initialize proxy - no Session
-- Are you referring to request attributes outside of an actual web request
+### @ModelAttribute가 바인딩 되지 않는 문제
+
+첫번째. DTO 클래스에 `@NoArgsConstructor`와 `@AllArgsConstructor ` 둘 다 있는 경우 `NoArgsConstructor`를 호출하고, setter를 호출한 다음에 param을 필드에 각각 초기화를 한다.
+
+두번째. 하지만 `@AllArgsConstructor`만 있는 경우 `@AllArgsConstructor`를 호출하고 param을 각각 초기화한 뒤에야 setter를 호출하여 다시 param 초기화를 덮어씌운다.
+
+여기서 핵심은 첫번째는 setter를 먼저 호출하기 때문에 `@setter`가 있어야 한다. 따라서 이를 해결하기 위해 `@NoArgsConstructor`를 제거하면 된다.
+
+- https://steady-coding.tistory.com/489
+
+###  @Email은 null을 유효하다고 판단
+
+Spring Boot의 validation 라이브러리의 `@Email`을 사용하면 빈 값(null)을 사용하면 유효성 체크에서 걸러지는줄 알았지만 `@Email`은 `null`을 허용한다.
+
+- https://bellog.tistory.com/134
+
+### Cannot construct instance of XXXDto - InvalidDefinitionException
+
+DTO 클래스에 `@NoArgsConstructor`를 추가하면 해결 (생성자가 없어서 그런 것 같다.)
+
+- https://yoo11052.tistory.com/158
+
+### 세션에 저장할 때 Member 클래스를 사용하지 않은 이유
+
+세션에 객체를 저장할 때는 직렬화를 구현해주어야 하는데 Member 클래스는 엔티티이기 때문에 도메인의 핵심이다. 그래서 따로 DTO 클래스를 만들어서 그 DTO에 직렬화를 구현해주면 된다. 
+
+### could not initialize proxy - no Session
+
+JPA에서 1대N 매핑 관계에서 Lazy 로딩이면 해당 객체가 필요로하면 그 때 가져온다. 이 에러가 나는 이유는 영속성 컨텍스트에서 관리되지 않는데 필요한 값을 가져오려 할 때 프록시 객체를 사용못한다는 의미이다.
+
+그래서 전략을 Eager 로딩으로 변경하거나(비추천), 서비스단에 `@Transactional`을 추가한다. 
+
+- https://cantcoding.tistory.com/78
+
+### Failed to convert String to LocalDateTime
+
+`String`에서 `LocalDateTime` 타입으로 변환이 잘 안된다면 `@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)`를 사용해보자.
+
 - https://stackoverflow.com/questions/40274353/how-to-use-localdatetime-requestparam-in-spring-i-get-failed-to-convert-string
+
+### MockMvc와 SpringBootTest 같이 사용하기
+
 - https://backtony.github.io/spring/2021-07-14-spring-test-1/
-- REST Docs configuration not found
+
+### REST Docs configuration not found
+
+`REST Docs configuration not found`와 같은 에러가 난다면 아래 사이트를 참고
+
+- [https://sejoung.github.io](https://sejoung.github.io/2021/08/2021-08-11-spring_restdocs_REST_Docs_configuration_not_found/#junit-mockmvc-%ED%95%9C%EA%B8%80%EA%B9%A8%EC%A7%90-%EC%B2%98%EB%A6%AC%EC%8B%9C-restdocs-%EC%97%90%EB%9F%AC)
+
+### cannot deserialize from Object value (no delegate- or property-based Creator)
+
+`@Transactional` 붙여서 해결
+
+- [https://velog.io/@sileeee](https://velog.io/@sileeee/JUnit%ED%85%8C%EC%8A%A4%ED%8A%B8-%EC%8B%A4%ED%96%89%EC%A4%91-%EB%A7%88%EC%A3%BC%EC%B9%9C-%EC%98%A4%EB%A5%98)
+
+### No serializer found for class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor
+
+`@JsonIgnore`로 해결
+
+- https://csy7792.tistory.com/26
+
+### Spring Security 강제 로그인
+
+Spring Security에서 로그인할 때 로그인 폼을 거치지 않고 비밀번호 없이 로그인하는 방법이다.
+
+- http://yoonbumtae.com/?p=1841
+  
+### ajax parseerror
+
+위와 같은 ajax 에러가 발생한다면 `dataType`을 확인하자.
 
 ## API 문서
 

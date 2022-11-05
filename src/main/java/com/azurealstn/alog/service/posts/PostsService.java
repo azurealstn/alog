@@ -1,7 +1,7 @@
 package com.azurealstn.alog.service.posts;
 
-import com.azurealstn.alog.Infra.exception.MemberNotFound;
-import com.azurealstn.alog.Infra.exception.PostsNotFound;
+import com.azurealstn.alog.Infra.exception.member.MemberNotFound;
+import com.azurealstn.alog.Infra.exception.posts.PostsNotFound;
 import com.azurealstn.alog.domain.member.Member;
 import com.azurealstn.alog.domain.posts.Posts;
 import com.azurealstn.alog.dto.auth.SessionMemberDto;
@@ -86,7 +86,7 @@ public class PostsService {
         Posts posts = postsRepository.findById(postsId)
                 .orElseThrow(() -> new PostsNotFound());
 
-        posts.modify(requestDto.getTitle(), requestDto.getContent());
+        posts.modify(requestDto.getTitle(), requestDto.getContent(), requestDto.getDescription());
 
         return postsId;
     }

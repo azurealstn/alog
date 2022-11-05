@@ -1,4 +1,6 @@
-package com.azurealstn.alog.Infra.exception;
+package com.azurealstn.alog.Infra.exception.member;
+
+import com.azurealstn.alog.Infra.exception.GlobalException;
 
 /**
  * Member 테이블에서 이메일 조회 -> null

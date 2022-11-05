@@ -44,8 +44,9 @@ public class Posts extends BaseTimeEntity {
     /**
      * setter를 사용하는 것보다는 수정되는 항목에 대해서만 정의하는 메서드를 만드는 것이 좋다. (명확하다.)
      */
-    public void modify(String title, String content) {
+    public void modify(String title, String content, String description) {
         this.title = title;
         this.content = content;
+        this.description = description;
     }
 }

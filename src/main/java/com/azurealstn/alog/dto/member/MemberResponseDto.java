@@ -10,6 +10,8 @@ public class MemberResponseDto {
     private Long id;
     private String email;
     private String name;
+    private String username;
+    private String shortBio;
     private String picture;
     private Role role;
     private Boolean emailAuth;
@@ -19,6 +21,8 @@ public class MemberResponseDto {
         this.id = entity.getId();
         this.email = entity.getEmail();
         this.name = entity.getName();
+        this.username = entity.getUsername();
+        this.shortBio = entity.getShortBio();
         this.picture = entity.getPicture();
         this.role = entity.getRole();
         this.emailAuth = entity.getEmailAuth();
