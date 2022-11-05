@@ -1,17 +1,17 @@
 package com.azurealstn.alog.service.login;
 
-import com.azurealstn.alog.Infra.exception.MemberNotFound;
+import com.azurealstn.alog.Infra.exception.member.MemberNotFound;
 import com.azurealstn.alog.domain.email.EmailAuth;
 import com.azurealstn.alog.domain.member.Member;
 import com.azurealstn.alog.dto.auth.SessionMemberDto;
 import com.azurealstn.alog.dto.email.EmailAuthRequestDto;
 import com.azurealstn.alog.dto.login.LoginRequestDto;
 import com.azurealstn.alog.dto.login.LoginResponseDto;
-import com.azurealstn.alog.dto.member.MemberSelectRequestDto;
 import com.azurealstn.alog.repository.email.EmailAuthRepository;
 import com.azurealstn.alog.repository.member.MemberRepository;
 import com.azurealstn.alog.service.email.EmailService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class LoginService {
@@ -39,6 +40,7 @@ public class LoginService {
         boolean existsByEmail = memberRepository.existsByEmail(requestDto.getEmail());
         EmailAuth emailAuth = createEmailAuth(requestDto);
         EmailAuth savedEmailAuth = emailAuthRepository.save(emailAuth);
+
         if (existsByEmail) { //이메일 있음 O -> 로그인
             emailService.send(savedEmailAuth.getEmail(), savedEmailAuth.getAuthToken(), true);
             return new LoginResponseDto(savedEmailAuth.getEmail(), true);
@@ -53,11 +55,14 @@ public class LoginService {
     public void emailLogin(EmailAuthRequestDto requestDto) {
         Member member = memberRepository.findByEmail(requestDto.getEmail())
                 .orElseThrow(() -> new MemberNotFound());
-        List<GrantedAuthority> roles = new ArrayList<>();
-        roles.add(new SimpleGrantedAuthority(member.getRoleKey()));
-        Authentication authentication = new UsernamePasswordAuthenticationToken(member.getEmail(), null, roles);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        httpSession.setAttribute("member", new SessionMemberDto(member));
+        forceLoginAuth(member);
+    }
+
+    @Transactional
+    public void createAfterLogin(Long memberId) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new MemberNotFound());
+        forceLoginAuth(member);
     }
 
     @Transactional
@@ -78,5 +83,13 @@ public class LoginService {
                 .authToken(UUID.randomUUID().toString())
                 .expired(false)
                 .build();
+    }
+
+    private void forceLoginAuth(Member member) {
+        List<GrantedAuthority> roles = new ArrayList<>();
+        roles.add(new SimpleGrantedAuthority(member.getRoleKey()));
+        Authentication authentication = new UsernamePasswordAuthenticationToken(member.getEmail(), null, roles);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        httpSession.setAttribute("member", new SessionMemberDto(member));
     }
 }

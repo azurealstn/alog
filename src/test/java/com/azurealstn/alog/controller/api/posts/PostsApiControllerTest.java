@@ -97,6 +97,7 @@ class PostsApiControllerTest {
                 .title("")
                 .content("안녕하세요?")
                 .member(savedMember)
+                .description("소개글")
                 .build();
         String body = objectMapper.writeValueAsString(requestDto);
         String code = "400";
@@ -134,6 +135,7 @@ class PostsApiControllerTest {
                 .title("안녕하세요")
                 .content("")
                 .member(savedMember)
+                .description("소개글")
                 .build();
         String body = objectMapper.writeValueAsString(requestDto);
         String code = "400";
@@ -246,10 +248,12 @@ class PostsApiControllerTest {
                 .title("foo")
                 .content("bar")
                 .member(savedMember)
+                .description("소개글")
                 .build();
 
         String expectedTitle = "foo";
         String expectedContent = "bar";
+        String expectedDescription = "소개글";
 
         //when
         Long savedId = postsRepository.save(posts).getId();
@@ -262,6 +266,7 @@ class PostsApiControllerTest {
                 .andExpect(jsonPath("$.id").value(savedId))
                 .andExpect(jsonPath("$.title", is(expectedTitle)))
                 .andExpect(jsonPath("$.content", is(expectedContent)))
+                .andExpect(jsonPath("$.description", is(expectedDescription)))
                 .andDo(print());
     }
 
@@ -282,6 +287,7 @@ class PostsApiControllerTest {
                 .title("foo")
                 .content("bar")
                 .member(savedMember)
+                .description("소개글")
                 .build();
         Long savedId = postsRepository.save(posts).getId();
 
@@ -310,6 +316,7 @@ class PostsApiControllerTest {
                 .mapToObj(i -> Posts.builder()
                         .title("test 제목 - " + (i + 1))
                         .content("뭐로 할까 - " + (i + 1))
+                        .description("소개글 - " + (i + 1))
                         .member(savedMember)
                         .build())
                 .collect(Collectors.toList());
@@ -323,8 +330,10 @@ class PostsApiControllerTest {
                 .andExpect(jsonPath("$.length()", is(9)))
                 .andExpect(jsonPath("$[0].title").value("test 제목 - 30"))
                 .andExpect(jsonPath("$[0].content").value("뭐로 할까 - 30"))
+                .andExpect(jsonPath("$[0].description").value("소개글 - 30"))
                 .andExpect(jsonPath("$[8].title").value("test 제목 - 22"))
                 .andExpect(jsonPath("$[8].content").value("뭐로 할까 - 22"))
+                .andExpect(jsonPath("$[8].description").value("소개글 - 22"))
                 .andDo(print());
 
     }
@@ -346,6 +355,7 @@ class PostsApiControllerTest {
                 .mapToObj(i -> Posts.builder()
                         .title("test 제목 - " + (i + 1))
                         .content("뭐로 할까 - " + (i + 1))
+                        .description("소개글 - " + (i + 1))
                         .member(savedMember)
                         .build())
                 .collect(Collectors.toList());
@@ -358,8 +368,10 @@ class PostsApiControllerTest {
                 .andExpect(jsonPath("$.length()", is(9)))
                 .andExpect(jsonPath("$[0].title").value("test 제목 - 21"))
                 .andExpect(jsonPath("$[0].content").value("뭐로 할까 - 21"))
+                .andExpect(jsonPath("$[0].description").value("소개글 - 21"))
                 .andExpect(jsonPath("$[8].title").value("test 제목 - 13"))
                 .andExpect(jsonPath("$[8].content").value("뭐로 할까 - 13"))
+                .andExpect(jsonPath("$[8].description").value("소개글 - 13"))
                 .andDo(print());
 
     }
@@ -381,6 +393,7 @@ class PostsApiControllerTest {
                 .mapToObj(i -> Posts.builder()
                         .title("test 제목 - " + (i + 1))
                         .content("뭐로 할까 - " + (i + 1))
+                        .description("소개글 - " + (i + 1))
                         .member(savedMember)
                         .build())
                 .collect(Collectors.toList());
@@ -393,8 +406,10 @@ class PostsApiControllerTest {
                 .andExpect(jsonPath("$.length()", is(9)))
                 .andExpect(jsonPath("$[0].title").value("test 제목 - 30"))
                 .andExpect(jsonPath("$[0].content").value("뭐로 할까 - 30"))
+                .andExpect(jsonPath("$[0].description").value("소개글 - 30"))
                 .andExpect(jsonPath("$[8].title").value("test 제목 - 22"))
                 .andExpect(jsonPath("$[8].content").value("뭐로 할까 - 22"))
+                .andExpect(jsonPath("$[8].description").value("소개글 - 22"))
                 .andDo(print());
     }
 
@@ -415,15 +430,18 @@ class PostsApiControllerTest {
                 .title("foo")
                 .content("bar")
                 .member(savedMember)
+                .description("소개글")
                 .build();
 
         Long modifiedId = postsRepository.save(posts).getId();
 
         String expectedTitle = "제목입니다.";
         String expectedContent = "내용입니다.";
+        String expectedDescription = "소개글입니다.";
         PostsModifyRequestDto modifyRequestDto = PostsModifyRequestDto.builder()
                 .title(expectedTitle)
                 .content(expectedContent)
+                .description(expectedDescription)
                 .build();
 
         //expected
@@ -452,15 +470,18 @@ class PostsApiControllerTest {
                 .title("foo")
                 .content("bar")
                 .member(savedMember)
+                .description("소개글")
                 .build();
 
         Long modifiedId = postsRepository.save(posts).getId();
 
         String expectedTitle = "제목입니다.";
         String expectedContent = "내용입니다.";
+        String expectedDescription = "소개글입니다.";
         PostsModifyRequestDto modifyRequestDto = PostsModifyRequestDto.builder()
                 .title(expectedTitle)
                 .content(expectedContent)
+                .description(expectedDescription)
                 .build();
 
         //expected
@@ -469,6 +490,104 @@ class PostsApiControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(modifyRequestDto)))
                 .andExpect(status().isNotFound())
+                .andDo(print());
+    }
+
+    @Test
+    @DisplayName("게시글 수정시 DB 수정 실패 데이터 검증 제목")
+    @WithMockUser("MEMBER")
+    @Transactional
+    void modify_posts_api_x_title() throws Exception {
+        //given
+        MemberCreateRequestDto memberCreateRequestDto = getMemberCreateRequestDto();
+
+        Member savedMember = memberRepository.save(memberCreateRequestDto.toEntity());
+
+        MockHttpSession mockHttpSession = new MockHttpSession();
+        mockHttpSession.setAttribute("member", new SessionMemberDto(savedMember));
+
+        Posts posts = Posts.builder()
+                .title("foo")
+                .content("bar")
+                .member(savedMember)
+                .description("소개글")
+                .build();
+
+        Long modifiedId = postsRepository.save(posts).getId();
+
+        String expectedTitle = "    ";
+        String expectedContent = "내용입니다.";
+        String expectedDescription = "소개글입니다.";
+        PostsModifyRequestDto modifyRequestDto = PostsModifyRequestDto.builder()
+                .title(expectedTitle)
+                .content(expectedContent)
+                .description(expectedDescription)
+                .build();
+
+        String code = "400";
+        String message = "클라이언트의 잘못된 요청이 있습니다. (application/json)";
+
+        //expected
+        mockMvc.perform(put("/api/v1/posts/{postsId}", modifiedId)
+                        .session(mockHttpSession)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(modifyRequestDto)))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code", is(code)))
+                .andExpect(jsonPath("$.message", is(message)))
+                .andExpect(jsonPath("$.validation.length()", is(1)))
+                .andExpect(jsonPath("$.validation").isNotEmpty())
+                .andExpect(jsonPath("$.validation[0].fieldName").value("title"))
+                .andExpect(jsonPath("$.validation[0].errorMessage").value("제목이 비어있습니다."))
+                .andDo(print());
+    }
+
+    @Test
+    @DisplayName("게시글 수정시 DB 수정 실패 데이터 검증 내용")
+    @WithMockUser("MEMBER")
+    @Transactional
+    void modify_posts_api_x_content() throws Exception {
+        //given
+        MemberCreateRequestDto memberCreateRequestDto = getMemberCreateRequestDto();
+
+        Member savedMember = memberRepository.save(memberCreateRequestDto.toEntity());
+
+        MockHttpSession mockHttpSession = new MockHttpSession();
+        mockHttpSession.setAttribute("member", new SessionMemberDto(savedMember));
+
+        Posts posts = Posts.builder()
+                .title("foo")
+                .content("bar")
+                .member(savedMember)
+                .description("소개글")
+                .build();
+
+        Long modifiedId = postsRepository.save(posts).getId();
+
+        String expectedTitle = "제목입니다.";
+        String expectedContent = "     ";
+        String expectedDescription = "소개글입니다.";
+        PostsModifyRequestDto modifyRequestDto = PostsModifyRequestDto.builder()
+                .title(expectedTitle)
+                .content(expectedContent)
+                .description(expectedDescription)
+                .build();
+
+        String code = "400";
+        String message = "클라이언트의 잘못된 요청이 있습니다. (application/json)";
+
+        //expected
+        mockMvc.perform(put("/api/v1/posts/{postsId}", modifiedId)
+                        .session(mockHttpSession)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(modifyRequestDto)))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code", is(code)))
+                .andExpect(jsonPath("$.message", is(message)))
+                .andExpect(jsonPath("$.validation.length()", is(1)))
+                .andExpect(jsonPath("$.validation").isNotEmpty())
+                .andExpect(jsonPath("$.validation[0].fieldName").value("content"))
+                .andExpect(jsonPath("$.validation[0].errorMessage").value("내용이 비어있습니다."))
                 .andDo(print());
     }
 
@@ -489,6 +608,7 @@ class PostsApiControllerTest {
                 .title("foo")
                 .content("bar")
                 .member(savedMember)
+                .description("소개글")
                 .build();
 
         Long deletedId = postsRepository.save(posts).getId();
@@ -518,6 +638,7 @@ class PostsApiControllerTest {
                 .title("foo")
                 .content("bar")
                 .member(savedMember)
+                .description("소개글")
                 .build();
 
         Long deletedId = postsRepository.save(posts).getId();

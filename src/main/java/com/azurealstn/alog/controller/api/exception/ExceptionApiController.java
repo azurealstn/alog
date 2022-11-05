@@ -1,7 +1,6 @@
 package com.azurealstn.alog.controller.api.exception;
 
 import com.azurealstn.alog.Infra.exception.GlobalException;
-import com.azurealstn.alog.Infra.exception.PostsNotFound;
 import com.azurealstn.alog.dto.exception.ErrorResponseDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

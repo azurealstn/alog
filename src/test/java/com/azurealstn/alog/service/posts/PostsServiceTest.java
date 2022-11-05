@@ -1,6 +1,6 @@
 package com.azurealstn.alog.service.posts;
 
-import com.azurealstn.alog.Infra.exception.PostsNotFound;
+import com.azurealstn.alog.Infra.exception.posts.PostsNotFound;
 import com.azurealstn.alog.domain.member.Member;
 import com.azurealstn.alog.domain.posts.Posts;
 import com.azurealstn.alog.dto.auth.SessionMemberDto;
@@ -14,10 +14,6 @@ import com.azurealstn.alog.repository.posts.PostsRepository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -123,6 +119,7 @@ class PostsServiceTest {
                 .title("제목입니다.")
                 .content("내용입니다.")
                 .member(savedMember)
+                .description("소개글입니다.")
                 .build();
         Long savedId = postsService.create(requestDto);
 
@@ -133,6 +130,7 @@ class PostsServiceTest {
         assertThat(1).isEqualTo(postsRepository.count());
         assertThat(findPosts.getTitle()).isEqualTo("제목입니다.");
         assertThat(findPosts.getContent()).isEqualTo("내용입니다.");
+        assertThat(findPosts.getDescription()).isEqualTo("소개글입니다.");
         assertThat(findPosts.getMember().getEmail()).isEqualTo(email);
         assertThat(findPosts.getMember().getUsername()).isEqualTo(username);
     }
@@ -175,6 +173,7 @@ class PostsServiceTest {
                         .title("test 제목 - " + (i + 1))
                         .content("뭐로 할까 - " + (i + 1))
                         .member(savedMember)
+                        .description("소개글 - " + (i + 1))
                         .build())
                 .collect(Collectors.toList());
         postsRepository.saveAll(collect);
@@ -193,6 +192,8 @@ class PostsServiceTest {
         assertThat(postsList.get(8).getTitle()).isEqualTo("test 제목 - 22");
         assertThat(postsList.get(0).getContent()).isEqualTo("뭐로 할까 - 30");
         assertThat(postsList.get(8).getContent()).isEqualTo("뭐로 할까 - 22");
+        assertThat(postsList.get(0).getDescription()).isEqualTo("소개글 - 30");
+        assertThat(postsList.get(8).getDescription()).isEqualTo("소개글 - 22");
         assertThat(postsList.get(0).getMember().getEmail()).isEqualTo(email);
         assertThat(postsList.get(8).getMember().getUsername()).isEqualTo(username);
     }
@@ -223,6 +224,7 @@ class PostsServiceTest {
                 .title("foo")
                 .content("bar")
                 .member(savedMember)
+                .description("소개글")
                 .build();
         postsRepository.save(posts);
 
@@ -230,6 +232,7 @@ class PostsServiceTest {
         PostsModifyRequestDto requestDto = PostsModifyRequestDto.builder()
                 .title("foo 수정 제목")
                 .content("bar 수정 내용")
+                .description("소개글 수정")
                 .build();
         Long modifiedId = postsService.modify(posts.getId(), requestDto);
         PostsResponseDto responseDto = postsService.findById(modifiedId);
@@ -237,6 +240,7 @@ class PostsServiceTest {
         //then
         assertThat(responseDto.getTitle()).isEqualTo("foo 수정 제목");
         assertThat(responseDto.getContent()).isEqualTo("bar 수정 내용");
+        assertThat(responseDto.getDescription()).isEqualTo("소개글 수정");
         assertThat(responseDto.getMember().getEmail()).isEqualTo(email);
         assertThat(responseDto.getMember().getUsername()).isEqualTo(username);
     }
@@ -255,6 +259,7 @@ class PostsServiceTest {
                 .title("foo")
                 .content("bar")
                 .member(savedMember)
+                .description("소개글")
                 .build();
         postsRepository.save(posts);
 
@@ -262,6 +267,7 @@ class PostsServiceTest {
         PostsModifyRequestDto requestDto = PostsModifyRequestDto.builder()
                 .title("foo 수정 제목")
                 .content("bar 수정 내용")
+                .description("소개글 수정")
                 .build();
 
         assertThrows(PostsNotFound.class, () -> postsService.modify(posts.getId() + 1, requestDto));
@@ -294,6 +300,7 @@ class PostsServiceTest {
                 .title("제목입니다.")
                 .content("내용입니다.")
                 .member(savedMember)
+                .description("소개글")
                 .build();
         Long deletedId = postsService.create(requestDto);
 
@@ -330,6 +337,7 @@ class PostsServiceTest {
                 .title("제목입니다.")
                 .content("내용입니다.")
                 .member(savedMember)
+                .description("소개글")
                 .build();
         Long deletedId = postsService.create(requestDto);
 

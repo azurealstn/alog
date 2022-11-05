@@ -55,7 +55,17 @@ const main = {
         data: JSON.stringify(data)
       }).done(function(res) {
         errorMessage.style.display = 'none';
-        location.href = '/';
+        const memberId = res;
+        console.log(memberId);
+
+        $.ajax({
+          type: 'GET',
+          url: '/api/v1/auth/login-after-create/' + memberId
+        }).done(function(res) {
+          location.href = '/';
+        }).fail(function(err) {
+          console.log(err);
+        });
       }).fail(function(err) {
         errorMessage.style.display = 'block';
         if (err.responseJSON.validation.length === 0) {

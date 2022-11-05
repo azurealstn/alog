@@ -1,13 +1,12 @@
 package com.azurealstn.alog.service.login;
 
-import com.azurealstn.alog.Infra.exception.MemberNotFound;
+import com.azurealstn.alog.Infra.exception.member.MemberNotFound;
 import com.azurealstn.alog.domain.email.EmailAuth;
 import com.azurealstn.alog.domain.member.Member;
 import com.azurealstn.alog.dto.login.LoginRequestDto;
 import com.azurealstn.alog.dto.member.MemberCreateRequestDto;
 import com.azurealstn.alog.repository.email.EmailAuthRepository;
 import com.azurealstn.alog.repository.member.MemberRepository;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,7 +16,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class LoginServiceTest {

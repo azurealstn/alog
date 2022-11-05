@@ -96,6 +96,7 @@ public class PostsApiControllerDocTest {
                 .title("foo")
                 .content("bar")
                 .member(savedMember)
+                .description("소개글")
                 .build();
 
         //when
@@ -114,6 +115,7 @@ public class PostsApiControllerDocTest {
                                 fieldWithPath("id").description("게시글 ID"),
                                 fieldWithPath("title").description("게시글 제목"),
                                 fieldWithPath("content").description("게시글 내용"),
+                                fieldWithPath("description").description("게시글 한 줄 소개"),
                                 fieldWithPath("member").type(JsonFieldType.OBJECT).description("회원 정보"),
                                 fieldWithPath("member.id").type(JsonFieldType.NUMBER).description("회원 ID"),
                                 fieldWithPath("member.email").type(JsonFieldType.STRING).description("회원 이메일"),
@@ -145,11 +147,13 @@ public class PostsApiControllerDocTest {
 
         String title = "글 제목";
         String content = "글 내용";
+        String description = "글 소개";
 
         PostsCreateRequestDto requestDto = PostsCreateRequestDto.builder()
                 .title(title)
                 .content(content)
                 .member(savedMember)
+                .description(description)
                 .build();
 
         //expected
@@ -164,6 +168,7 @@ public class PostsApiControllerDocTest {
                         requestFields(
                                 fieldWithPath("title").type(JsonFieldType.STRING).description("게시글 제목"),
                                 fieldWithPath("content").type(JsonFieldType.STRING).description("게시글 내용"),
+                                fieldWithPath("description").type(JsonFieldType.STRING).description("게시글 한 줄 소개"),
                                 fieldWithPath("member").type(JsonFieldType.OBJECT).description("회원 정보"),
                                 fieldWithPath("member.id").type(JsonFieldType.NUMBER).description("회원 ID"),
                                 fieldWithPath("member.email").type(JsonFieldType.STRING).description("회원 이메일"),
@@ -199,16 +204,19 @@ public class PostsApiControllerDocTest {
                 .title("foo")
                 .content("bar")
                 .member(savedMember)
+                .description("소개")
                 .build();
 
         Long modifiedId = postsRepository.save(posts).getId();
 
         String expectedTitle = "수정된 제목";
         String expectedContent = "수정된 내용";
+        String expectedDescription = "수정된 소개";
 
         PostsModifyRequestDto requestDto = PostsModifyRequestDto.builder()
                 .title(expectedTitle)
                 .content(expectedContent)
+                .description(expectedDescription)
                 .build();
 
         //expected
@@ -225,7 +233,8 @@ public class PostsApiControllerDocTest {
                         ),
                         requestFields(
                                 fieldWithPath("title").description("게시글 제목"),
-                                fieldWithPath("content").description("게시글 내용")
+                                fieldWithPath("content").description("게시글 내용"),
+                                fieldWithPath("description").description("게시글 한 줄 소개")
                         )
                 ));
     }
@@ -247,6 +256,7 @@ public class PostsApiControllerDocTest {
                 .title("foo")
                 .content("bar")
                 .member(savedMember)
+                .description("소개")
                 .build();
 
         Long deletedId = postsRepository.save(posts).getId();

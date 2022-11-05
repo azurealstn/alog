@@ -1,4 +1,6 @@
-package com.azurealstn.alog.Infra.exception;
+package com.azurealstn.alog.Infra.exception.member;
+
+import com.azurealstn.alog.Infra.exception.GlobalException;
 
 public class AlreadyExistsUsername extends GlobalException {
 

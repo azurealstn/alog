@@ -44,7 +44,6 @@ class LoginApiControllerTest {
                         .content(objectMapper.writeValueAsString(requestDto)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.email").value(email))
-                .andExpect(jsonPath("$.existsEmail").value(false))
                 .andDo(print());
     }
     @Test

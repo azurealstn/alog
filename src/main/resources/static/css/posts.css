@@ -135,6 +135,7 @@ a:hover {
   width: 100%;
   height: 100%;
   display: flex;
+  flex-direction: column;
   animation: 0.5s ease 0s 1 normal forwards running appear1;
 }
 
@@ -158,7 +159,7 @@ a:hover {
 
 .left-container > .wrapper {
   min-height: 0px;
-  padding-bottom: calc(var(--size-small) * 4);
+  padding-bottom: var(--size-small);
   flex: 1 1 0%;
   display: flex;
   flex-direction: column;
@@ -309,6 +310,39 @@ a:hover {
 
 .title-header #editor {
   margin-bottom: calc(var(--size-small) * 3);
+}
+
+.posts .posts-container .right {
+  min-width: 0px;
+  flex: 1 1 0%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background-color: var(--bg-element9);
+}
+
+.right .preview-container {
+  word-break: break-word;
+  padding: calc(var(--size-small) * 3);
+  flex: 1 1 0%;
+  overflow-y: auto;
+  color: var(--text10);
+}
+
+.right .preview-container .title {
+  font-size: calc(var(--size-medium) * 2);
+  margin-bottom: calc(var(--size-small) * 4);
+  font-weight: 800;
+}
+
+.right .preview-container .content-container {
+  font-size: 1.125rem;
+  color: var(--text10);
+  transition: color 0.125s ease-in 0s;
+  line-height: 1.7;
+  letter-spacing: -0.004em;
+  word-break: keep-all;
+  overflow-wrap: break-word;
 }
 /* posts end */
 

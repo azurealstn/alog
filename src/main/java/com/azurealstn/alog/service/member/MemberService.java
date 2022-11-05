@@ -1,8 +1,8 @@
 package com.azurealstn.alog.service.member;
 
-import com.azurealstn.alog.Infra.exception.AlreadyExistsUsername;
-import com.azurealstn.alog.Infra.exception.EmailAuthTokenNotFountException;
-import com.azurealstn.alog.Infra.exception.MemberNotFound;
+import com.azurealstn.alog.Infra.exception.member.AlreadyExistsUsername;
+import com.azurealstn.alog.Infra.exception.emailauth.EmailAuthTokenNotFountException;
+import com.azurealstn.alog.Infra.exception.member.MemberNotFound;
 import com.azurealstn.alog.domain.email.EmailAuth;
 import com.azurealstn.alog.domain.member.Member;
 import com.azurealstn.alog.dto.auth.SessionMemberDto;
@@ -55,7 +55,6 @@ public class MemberService {
         validateExistsUsername(existsByUsername);
 
         Member member = requestDto.toEntity();
-        httpSession.setAttribute("member", new SessionMemberDto(member));
         return memberRepository.save(member).getId();
     }
 
@@ -63,6 +62,13 @@ public class MemberService {
         if (existsByUsername) {
             throw new AlreadyExistsUsername();
         }
+    }
+
+    @Transactional
+    public MemberResponseDto findById(Long memberId) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new MemberNotFound());
+        return new MemberResponseDto(member);
     }
 
 }

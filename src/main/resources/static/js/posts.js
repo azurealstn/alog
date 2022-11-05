@@ -6,16 +6,29 @@ const main = {
   initEditor: function() {
     const { Editor } = toastui;
     const { codeSyntaxHighlight, colorSyntax } = Editor.plugin;
-
-    editor = new Editor({
+    const toolbarItems = [
+      ['heading', 'bold', 'italic', 'strike'],
+      ['hr'],
+      ['ul', 'ol', 'task'],
+      ['table', 'link'],
+      ['image'],
+      ['code'],
+      ['scrollSync'],
+    ];
+    const options = {
       el: document.querySelector('#editor'),
-      previewStyle: 'tab',
-      height: '500px',
+      height: '100%',
       initialEditType: 'markdown',
       theme: 'dark',
+      hideModeSwitch: true,
+      usageStatistics: false,
       placeholder: '내용을 입력해주세요 :)',
+      toolbarItems: toolbarItems,
       plugins: [[codeSyntaxHighlight, { highlighter: Prism }], colorSyntax]
-    });
+    }
+    options.previewStyle = document.documentElement.clientWidth > 1024 ? 'vertical' : 'tab';
+
+    editor = new Editor(options);
 
   },
   autoGrow: function(element) {
@@ -81,7 +94,6 @@ const main = {
       const data = {
         title: $('#title').val(),
         content: editor.getMarkdown(),
-        memberId: $('#memberId').val(),
         description: $('#description').val()
       };
 
@@ -116,8 +128,139 @@ const main = {
         dangerToast.showToast();
       });
     });
-  }
+  },
+  tempSave: function() {
+    const postsContainer = document.querySelector('.posts-container');
+    const tempSaveBtn = document.querySelector('.temp-save');
 
+    function debounce(callback, limit = 100) {
+      let timeout;
+      return function(...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+          callback.apply(this, args);
+        }, limit);
+      };
+    }
+
+    const debounceTempSave = () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const data = {
+        title: $('#title').val(),
+        content: editor.getMarkdown(),
+      };
+
+      if (urlParams.has('tempCode')) { //수정
+        const tempCode = urlParams.get('tempCode');
+
+        $.ajax({
+          type: 'PUT',
+          url: '/api/v1/temp-save/' + tempCode,
+          dataType: 'json',
+          contentType: 'application/json; charset=utf-8',
+          data: JSON.stringify(data)
+        }).done(function(res) {
+          const infoToast = Toastify({
+            text: "포스트가 임시저장되었습니다.",
+            duration: 3000,
+            close: true,
+            gravity: "top", // `top` or `bottom`
+            position: "right", // `left`, `center` or `right`
+            stopOnFocus: true, // Prevents dismissing of toast on hover
+            style: {
+              background: "#07bc0c",
+              zIndex: 30,
+            },
+          });
+          infoToast.showToast();
+        }).fail(function(err) {
+          let message = null;
+          if (err.responseJSON.validation.length === 0) {
+            message = err.responseJSON.message;
+          } else {
+            message = err.responseJSON.validation[0].errorMessage;
+          }
+
+          const dangerToast = Toastify({
+            text: message,
+            duration: 3000,
+            close: true,
+            gravity: "top", // `top` or `bottom`
+            position: "right", // `left`, `center` or `right`
+            stopOnFocus: true, // Prevents dismissing of toast on hover
+            style: {
+              background: "#e74c3c",
+              zIndex: 30,
+            },
+          });
+          dangerToast.showToast();
+        });
+      } else { //추가
+        $.ajax({
+          type: 'POST',
+          url: '/api/v1/temp-save',
+          dataType: 'json',
+          contentType: 'application/json; charset=utf-8',
+          data: JSON.stringify(data)
+        }).done(function(res) {
+          console.log(res);
+          const tempSaveId = res;
+          $.ajax({
+            type: 'GET',
+            url: '/api/v1/temp-save/' + tempSaveId,
+            dataType: 'json'
+          }).done(function(res) {
+            const tempCode = res.tempCode;
+            const queryString = '?tempCode=' + tempCode;
+            history.replaceState(null, null, queryString);
+          }).fail(function(err) {
+            console.log(err);
+          });
+
+          const infoToast = Toastify({
+            text: "포스트가 임시저장되었습니다.",
+            duration: 3000,
+            close: true,
+            gravity: "top", // `top` or `bottom`
+            position: "right", // `left`, `center` or `right`
+            stopOnFocus: true, // Prevents dismissing of toast on hover
+            style: {
+              background: "#07bc0c",
+              zIndex: 30,
+            },
+          });
+          infoToast.showToast();
+        }).fail(function(err) {
+          let message = null;
+          if (err.responseJSON.validation.length === 0) {
+            message = err.responseJSON.message;
+          } else {
+            message = err.responseJSON.validation[0].errorMessage;
+          }
+
+          const dangerToast = Toastify({
+            text: message,
+            duration: 3000,
+            close: true,
+            gravity: "top", // `top` or `bottom`
+            position: "right", // `left`, `center` or `right`
+            stopOnFocus: true, // Prevents dismissing of toast on hover
+            style: {
+              background: "#e74c3c",
+              zIndex: 30,
+            },
+          });
+          dangerToast.showToast();
+        });
+      }
+    };
+
+    //사용자가 제목 또는 제목을 입력했을 때
+    postsContainer.addEventListener('input', debounce(debounceTempSave, 5000));
+
+    //사용자가 임시저장 버트늘 클릭했을 때
+    tempSaveBtn.addEventListener('click', debounceTempSave);
+  }
 }
 
 $(function() {
@@ -138,4 +281,7 @@ $(function() {
 
   //글 작성
   main.write();
+
+  //임시저장
+  main.tempSave();
 });

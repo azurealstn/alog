@@ -1,4 +1,6 @@
-package com.azurealstn.alog.Infra.exception;
+package com.azurealstn.alog.Infra.exception.posts;
+
+import com.azurealstn.alog.Infra.exception.GlobalException;
 
 /**
  * 메서드마다 new IllegalArgumentException("") 리턴하면 메시지가 수정됐을 때 모두 수정해야 한다.
