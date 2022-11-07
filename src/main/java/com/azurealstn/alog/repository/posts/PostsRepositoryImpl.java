@@ -25,4 +25,11 @@ public class PostsRepositoryImpl implements PostsRepositoryCustom {
                 .fetch();
     }
 
+    @Override
+    public int findAllCount() {
+        return jpaQueryFactory
+                .selectFrom(posts)
+                .fetch().size();
+    }
+
 }

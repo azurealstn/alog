@@ -104,7 +104,7 @@ const main = {
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(data)
       }).done(function(res) {
-        console.log(res);
+        location.href = '/';
       }).fail(function(err) {
         let message = null;
         if (err.responseJSON.validation.length === 0) {

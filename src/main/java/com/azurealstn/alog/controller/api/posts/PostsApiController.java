@@ -1,16 +1,25 @@
 package com.azurealstn.alog.controller.api.posts;
 
+import com.azurealstn.alog.domain.member.Member;
+import com.azurealstn.alog.domain.posts.Posts;
+import com.azurealstn.alog.dto.auth.SessionMemberDto;
 import com.azurealstn.alog.dto.posts.PostsCreateRequestDto;
 import com.azurealstn.alog.dto.posts.PostsModifyRequestDto;
 import com.azurealstn.alog.dto.posts.PostsResponseDto;
 import com.azurealstn.alog.dto.posts.PostsSearchDto;
+import com.azurealstn.alog.repository.posts.PostsRepository;
 import com.azurealstn.alog.service.posts.PostsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -18,6 +27,7 @@ import java.util.List;
 public class PostsApiController {
 
     private final PostsService postsService;
+    private final PostsRepository postsRepository;
 
     @PostMapping("/api/v1/posts")
     public Long posts(@Valid @RequestBody PostsCreateRequestDto requestDto) throws Exception {

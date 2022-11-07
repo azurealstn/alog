@@ -7,5 +7,7 @@ import java.util.List;
 
 public interface PostsRepositoryCustom {
 
-    List<Posts> findAll(PostsSearchDto postsSearchDto);
+    List<Posts> findAll(PostsSearchDto searchDto);
+
+    int findAllCount();
 }

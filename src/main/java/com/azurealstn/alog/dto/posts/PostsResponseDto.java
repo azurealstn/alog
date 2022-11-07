@@ -3,9 +3,13 @@ package com.azurealstn.alog.dto.posts;
 import com.azurealstn.alog.domain.member.Member;
 import com.azurealstn.alog.domain.posts.Posts;
 import lombok.Getter;
+import lombok.ToString;
 
+import java.io.Serializable;
+
+@ToString
 @Getter
-public class PostsResponseDto {
+public class PostsResponseDto implements Serializable {
     private final Long id;
     private final String title;
     private final String content;

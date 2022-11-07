@@ -12,6 +12,8 @@
   --text10: #ECECEC;
   --text11: #868E96;
 
+  --page-text1: #363636;
+
   --primary1: #db8056;
   --primary2: #db6e3d;
 
@@ -43,6 +45,8 @@
   --border1: #F1F3F5;
   --border2: #A0A0A0;
   --border3: #595959;
+  --border4: #dbdbdb;
+  --border5: #b5b5b5;
 
   /* padding */
   --padding-side: 5rem;
@@ -281,7 +285,6 @@ section.main {
 }
 
 .main .main-container {
-  display: flex;
   margin-top: calc(var(--size-small) * 6);
 }
 
@@ -434,6 +437,73 @@ section.main {
 }
 
 /* main section end */
+
+/* pagination start */
+.pagination {
+  font-size: var(--size-micro);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-top: calc(var(--size-small) * 4);
+}
+
+.pagination .move-page {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--border4);
+  border-radius: 4px;
+  box-shadow: none;
+  line-height: 1.5;
+  padding: calc(0.375rem - 1px) calc(0.625rem - 1px);
+  position: relative;
+  cursor: pointer;
+  color: var(--page-text1);
+  white-space: nowrap;
+  margin: 4px;
+}
+
+.pagination .move-page:hover {
+  border: 1px solid var(--border5);
+}
+
+.pagination .pagination-list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  list-style: none;
+  padding-left: 0px;
+  margin: 0px 2rem;
+}
+
+.pagination .pagination-list .pagination-link {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--border4);
+  border-radius: 4px;
+  box-shadow: none;
+  line-height: 1.5;
+  padding: calc(0.375rem - 1px) calc(0.625rem - 1px);
+  position: relative;
+  cursor: pointer;
+  color: var(--page-text1);
+  vertical-align: top;
+  margin: 4px;
+}
+
+.pagination .pagination-list .pagination-link:hover {
+  border: 1px solid var(--border5);
+}
+.pagination .pagination-list .pagination-link.is-current {
+  background-color: var(--primary1);
+  border-color: var(--primary2);
+  color: #fff;
+}
+
+/* pagination end */
 
 /* footer start */
 footer.footer {
@@ -700,6 +770,31 @@ footer.footer {
 
   .posts-content .card {
     width: calc(50% - var(--size-small) * 2);
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .main .main-container .main-content .posts-content {
+    margin: 0;
+  }
+
+  .posts-content .card {
+    margin: 0;
+    width: 100%;
+  }
+
+  .posts-content .card .posts-info .title h4 {
+    white-space: initial;
+  }
+}
+
+@media screen and (max-width: 589px) {
+  .pagination .pagination-list .doublePrev {
+    display: none;
+  }
+
+  .pagination .pagination-list .doubleNext {
+    display: none;
   }
 }
 /* @media end */

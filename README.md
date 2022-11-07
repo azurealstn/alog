@@ -1,4 +1,4 @@
-# alog (velog 짝퉁)
+d# alog (velog 짝퉁)
 
 velog(벨로그)는 velopert님이 만든 개발자를 위한 블로그 서비스입니다.  
 실제로 velog를 자주 보는 이유는 velog에 올라오는 글들의 퀄리티가 너무 괜찮고 보다보면 얻어가는 것이 더 많기 때문에 주로 눈팅(?)을 많이 합니다.
@@ -18,6 +18,7 @@ velog(벨로그)는 velopert님이 만든 개발자를 위한 블로그 서비�
 - 로그인/회원가입
   - 이메일 인증을 통한 로그인/회원가입
   - OAuth2 Client를 이용한 소셜로그인
+- 
 
 ### 로그인
 
@@ -104,6 +105,51 @@ Spring Security에서 로그인할 때 로그인 폼을 거치지 않고 비밀�
 ### ajax parseerror
 
 위와 같은 ajax 에러가 발생한다면 `dataType`을 확인하자.
+
+### No key, method or field with name
+
+mustache에서 사용하려는 DTO 클래스의 필드 값이 `null`을 경우에 나는 에러이다. 이런 에러가 나면 분기문 처리로 `null`일 경우와 아닐 경우를 나누어서 출력하면 된다.
+
+- `null`일 경우: `{{^DTO}}NO{{/DTO}}`
+- [https://velog.io/@wijoonwu](https://velog.io/@wijoonwu/Spring-Boot-No-key-method-or-field-with-name-%EC%98%A4%EB%A5%98-%ED%95%B4%EA%B2%B0-%EB%B0%A9%EB%B2%95)
+
+### fetchCount() deprecated
+
+'전체 로우 수'를 구할 때 `fetchCount()`를 사용했는데 `deprecated` 되어서 더 이상 사용하면 안된다. 이럴 때는 `fetch().size()`를 사용하면 된다.
+
+### mustache의 불편한 점
+
+mustache의 장점은 쉽고 간단하게 사용할 수 있는 템플릿이다. 하지만 복잡한 연산이나 로직이 들어갈 때는 적합하지 않다.
+
+```java
+List<PostsResponseDto> postsList = postsService.findAll(searchDto);
+
+//==페이징 처리 start==//
+List<Integer> pagination = new ArrayList<>();
+int startPage = searchDto.getBasePageDto().getStartPage();
+int endPage = searchDto.getBasePageDto().getEndPage();
+for (int i = startPage; i <= endPage; i++) {
+pagination.add(i);
+}
+
+boolean hasDoublePrevPage = (searchDto.getPage() / 10) > 0;
+boolean hasDoubleNextPage = (searchDto.getPage() / 10) < (searchDto.getBasePageDto().getTotalPageCount() / 10);
+int doublePrevPage = startPage - 10;
+int doubleNextPage = startPage + 10;
+
+//==페이징 처리 end==//
+
+model.addAttribute("postsList", postsList);
+model.addAttribute("movePrevPage", searchDto.getPage() - 1);
+model.addAttribute("moveNextPage", searchDto.getPage() + 1);
+model.addAttribute("pagination", pagination);
+model.addAttribute("hasDoubleNextPage", hasDoubleNextPage);
+model.addAttribute("doubleNextPage", doubleNextPage);
+model.addAttribute("hasDoublePrevPage", hasDoublePrevPage);
+model.addAttribute("doublePrevPage", doublePrevPage);
+```
+
+예를 들어, 페이징을 구현하는데 보통 View단에서 반복문 처리를 하거나 연산을 직접 처리할 수 있는데 mustache는 그게 안되서 java단에서 미리 구해서 모델로 값을 일일이 넘겨야 한다. (사실 간단한 경우에 사용한다고 했는데 이정도도 불편하면 그냥 잘 사용을 안할 것 같다.)
 
 ## API 문서
 

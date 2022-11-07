@@ -15,6 +15,8 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.annotation.Commit;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpSession;
@@ -42,12 +44,12 @@ class PostsServiceTest {
     @Autowired
     private HttpSession httpSession;
 
-    @BeforeEach
-    public void beforeEach() throws Exception {
-        postsRepository.deleteAll();
-        memberRepository.deleteAll();
-        httpSession.invalidate();
-    }
+//    @BeforeEach
+//    public void beforeEach() throws Exception {
+//        postsRepository.deleteAll();
+//        memberRepository.deleteAll();
+//        httpSession.invalidate();
+//    }
 
     @Test
     @DisplayName("글 작성 비즈니스 로직 테스트")
@@ -178,10 +180,7 @@ class PostsServiceTest {
                 .collect(Collectors.toList());
         postsRepository.saveAll(collect);
 
-        PostsSearchDto searchDto = PostsSearchDto.builder()
-                .page(1)
-                .size(9)
-                .build();
+        PostsSearchDto searchDto = new PostsSearchDto(1, 9);
 
         //when
         List<Posts> postsList = postsRepository.findAll(searchDto);
@@ -375,4 +374,37 @@ class PostsServiceTest {
         //then
         assertThat(prevPageUrl).isEqualTo("/");
     }
+
+    @Test
+    @Rollback(value = false)
+    void test() {
+        //given
+        String name = "슬로우스타터";
+        String email = "azurealstn@naver.com";
+        String username = "haha";
+        String shortBio = "안녕하세요!";
+        String picture = "test.jpg";
+
+        MemberCreateRequestDto memberCreateRequestDto = MemberCreateRequestDto.builder()
+                .name(name)
+                .email(email)
+                .username(username)
+                .shortBio(shortBio)
+                .picture(picture)
+                .build();
+
+        Member savedMember = memberRepository.save(memberCreateRequestDto.toEntity());
+        httpSession.setAttribute("member", new SessionMemberDto(savedMember));
+
+        List<Posts> collect = IntStream.range(100, 200)
+                .mapToObj(i -> Posts.builder()
+                        .title("test 제목 - " + (i + 1))
+                        .content("뭐로 할까 - " + (i + 1))
+                        .member(savedMember)
+                        .description("소개글 - " + (i + 1))
+                        .build())
+                .collect(Collectors.toList());
+        postsRepository.saveAll(collect);
+    }
+
 }

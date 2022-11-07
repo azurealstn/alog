@@ -1,6 +1,7 @@
 package com.azurealstn.alog.domain.member;
 
 import com.azurealstn.alog.domain.BaseTimeEntity;
+import com.azurealstn.alog.dto.auth.SessionMemberDto;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;

@@ -4,6 +4,7 @@ import com.azurealstn.alog.Infra.exception.member.MemberNotFound;
 import com.azurealstn.alog.Infra.exception.posts.PostsNotFound;
 import com.azurealstn.alog.domain.member.Member;
 import com.azurealstn.alog.domain.posts.Posts;
+import com.azurealstn.alog.dto.BasePageDto;
 import com.azurealstn.alog.dto.auth.SessionMemberDto;
 import com.azurealstn.alog.dto.posts.PostsCreateRequestDto;
 import com.azurealstn.alog.dto.posts.PostsResponseDto;
@@ -73,6 +74,9 @@ public class PostsService {
      */
     @Transactional(readOnly = true)
     public List<PostsResponseDto> findAll(PostsSearchDto searchDto) {
+        int totalRowCount = postsRepository.findAllCount();
+        BasePageDto basePageDto = new BasePageDto(searchDto.getPage(), searchDto.getSize(), totalRowCount);
+        searchDto.setBasePageDto(basePageDto);
         return postsRepository.findAll(searchDto).stream()
                 .map(posts -> new PostsResponseDto(posts))
                 .collect(Collectors.toList());
