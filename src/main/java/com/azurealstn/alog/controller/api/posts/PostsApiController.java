@@ -30,11 +30,11 @@ public class PostsApiController {
     private final PostsRepository postsRepository;
 
     @PostMapping("/api/v1/posts")
-    public Long posts(@Valid @RequestBody PostsCreateRequestDto requestDto) throws Exception {
+    public Long create(@Valid @RequestBody PostsCreateRequestDto requestDto) throws Exception {
         return postsService.create(requestDto);
     }
 
-    @GetMapping("/api/v1/posts/{postsId}")
+    @GetMapping("/api/v1/auth/posts-data/{postsId}")
     public PostsResponseDto findById(@PathVariable Long postsId) {
         return postsService.findById(postsId);
     }
@@ -45,7 +45,7 @@ public class PostsApiController {
     }
 
     @PutMapping("/api/v1/posts/{postsId}")
-    public Long posts(@PathVariable Long postsId, @Valid @RequestBody PostsModifyRequestDto requestDto) {
+    public Long modify(@PathVariable Long postsId, @Valid @RequestBody PostsModifyRequestDto requestDto) {
         return postsService.modify(postsId, requestDto);
     }
 

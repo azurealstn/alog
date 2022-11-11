@@ -2,7 +2,7 @@
 
 let editor = null;
 
-const main = {
+const postsMain = {
   initEditor: function() {
     const { Editor } = toastui;
     const { codeSyntaxHighlight, colorSyntax } = Editor.plugin;
@@ -15,21 +15,35 @@ const main = {
       ['code'],
       ['scrollSync'],
     ];
-    const options = {
-      el: document.querySelector('#editor'),
-      height: '100%',
-      initialEditType: 'markdown',
-      theme: 'dark',
-      hideModeSwitch: true,
-      usageStatistics: false,
-      placeholder: '내용을 입력해주세요 :)',
-      toolbarItems: toolbarItems,
-      plugins: [[codeSyntaxHighlight, { highlighter: Prism }], colorSyntax]
+    const postsId = document.querySelector('#postsId').value;
+    let initialValue = null;
+
+    if (postsId != null) {
+      $.ajax({
+        type: 'GET',
+        url: '/api/v1/auth/posts-data/' + postsId,
+      }).done(function(res) {
+        initialValue = res.content;
+
+        const options = {
+          el: document.querySelector('#editor'),
+          height: '100%',
+          initialEditType: 'markdown',
+          theme: 'dark',
+          previewStyle: 'vertical',
+          hideModeSwitch: true,
+          usageStatistics: false,
+          initialValue: (initialValue === null) ? '' : initialValue,
+          placeholder: '내용을 입력해주세요 :)',
+          toolbarItems: toolbarItems,
+          plugins: [[codeSyntaxHighlight, { highlighter: Prism }], colorSyntax]
+        };
+
+        editor = new Editor(options);
+      }).fail(function(err) {
+        console.log(err);
+      });
     }
-    options.previewStyle = document.documentElement.clientWidth > 1024 ? 'vertical' : 'tab';
-
-    editor = new Editor(options);
-
   },
   autoGrow: function(element) {
     element.style.height = '66px';
@@ -90,44 +104,47 @@ const main = {
   write: function() {
     const publish = document.querySelector('.foot .publish');
 
-    publish.addEventListener('click', () => {
-      const data = {
-        title: $('#title').val(),
-        content: editor.getMarkdown(),
-        description: $('#description').val()
-      };
+    if (publish != null) {
+      publish.addEventListener('click', () => {
+        const data = {
+          title: $('#title').val(),
+          content: editor.getMarkdown(),
+          description: $('#description').val()
+        };
 
-      $.ajax({
-        type: 'POST',
-        url: '/api/v1/posts',
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(data)
-      }).done(function(res) {
-        location.href = '/';
-      }).fail(function(err) {
-        let message = null;
-        if (err.responseJSON.validation.length === 0) {
-          message = err.responseJSON.message;
-        } else {
-          message = err.responseJSON.validation[0].errorMessage;
-        }
+        $.ajax({
+          type: 'POST',
+          url: '/api/v1/posts',
+          dataType: 'json',
+          contentType: 'application/json; charset=utf-8',
+          data: JSON.stringify(data)
+        }).done(function(res) {
+          const savedId = res;
+          location.href = '/api/v1/auth/posts/' + savedId;
+        }).fail(function(err) {
+          let message = null;
+          if (err.responseJSON.validation.length === 0) {
+            message = err.responseJSON.message;
+          } else {
+            message = err.responseJSON.validation[0].errorMessage;
+          }
 
-        const dangerToast = Toastify({
-          text: message,
-          duration: 3000,
-          close: true,
-          gravity: "top", // `top` or `bottom`
-          position: "right", // `left`, `center` or `right`
-          stopOnFocus: true, // Prevents dismissing of toast on hover
-          style: {
-            background: "#e74c3c",
-            zIndex: 30,
-          },
+          const dangerToast = Toastify({
+            text: message,
+            duration: 3000,
+            close: true,
+            gravity: "top", // `top` or `bottom`
+            position: "right", // `left`, `center` or `right`
+            stopOnFocus: true, // Prevents dismissing of toast on hover
+            style: {
+              background: "#e74c3c",
+              zIndex: 30,
+            },
+          });
+          dangerToast.showToast();
         });
-        dangerToast.showToast();
       });
-    });
+    }
   },
   tempSave: function() {
     const postsContainer = document.querySelector('.posts-container');
@@ -260,28 +277,77 @@ const main = {
 
     //사용자가 임시저장 버트늘 클릭했을 때
     tempSaveBtn.addEventListener('click', debounceTempSave);
+  },
+  modify: function() {
+    const modifyPublish = document.querySelector('.foot .modify-publish');
+    const postsId = document.querySelector('#postsId').value;
+
+    if (modifyPublish != null) {
+      modifyPublish.addEventListener('click', () => {
+        const data = {
+          title: $('#title').val(),
+          content: editor.getMarkdown(),
+          description: $('#description').val()
+        };
+
+        $.ajax({
+          type: 'PUT',
+          url: '/api/v1/posts/' + postsId,
+          dataType: 'json',
+          contentType: 'application/json; charset=utf-8',
+          data: JSON.stringify(data)
+        }).done(function(res) {
+          const modifiedId = res;
+          location.href = '/api/v1/auth/posts/' + modifiedId;
+        }).fail(function(err) {
+          let message = null;
+          if (err.responseJSON.validation.length === 0) {
+            message = err.responseJSON.message;
+          } else {
+            message = err.responseJSON.validation[0].errorMessage;
+          }
+
+          const dangerToast = Toastify({
+            text: message,
+            duration: 3000,
+            close: true,
+            gravity: "top", // `top` or `bottom`
+            position: "right", // `left`, `center` or `right`
+            stopOnFocus: true, // Prevents dismissing of toast on hover
+            style: {
+              background: "#e74c3c",
+              zIndex: 30,
+            },
+          });
+          dangerToast.showToast();
+        });
+      });
+    }
   }
 }
 
 $(function() {
   //text editor init
-  main.initEditor();
+  postsMain.initEditor();
 
   //이전 페이지로 이동
-  main.exit();
+  postsMain.exit();
 
   //모달 띄우기
-  main.show();
+  postsMain.show();
 
   //모달 숨기기
-  main.hide();
+  postsMain.hide();
 
   //글자수 제한
-  main.countLetter();
+  postsMain.countLetter();
 
   //글 작성
-  main.write();
+  postsMain.write();
 
   //임시저장
-  main.tempSave();
+  postsMain.tempSave();
+
+  postsMain.modify();
+
 });

@@ -2,6 +2,7 @@ package com.azurealstn.alog.service.posts;
 
 import com.azurealstn.alog.Infra.exception.member.MemberNotFound;
 import com.azurealstn.alog.Infra.exception.posts.PostsNotFound;
+import com.azurealstn.alog.Infra.utils.DateUtils;
 import com.azurealstn.alog.domain.member.Member;
 import com.azurealstn.alog.domain.posts.Posts;
 import com.azurealstn.alog.dto.BasePageDto;
@@ -116,5 +117,27 @@ public class PostsService {
         } else {
             httpSession.setAttribute("prevUrl", "/");
         }
+    }
+
+    @Transactional
+    public String previousPostsDate(Long postsId) {
+        Posts posts = postsRepository.findById(postsId)
+                .orElseThrow(() -> new PostsNotFound());
+
+        return DateUtils.previousTimeCalc(posts.getCreatedDate());
+    }
+
+    @Transactional(readOnly = true)
+    public Boolean isAuthenticated(SessionMemberDto member, PostsResponseDto posts) {
+        Boolean isAuthenticated = null;
+        if (member != null && posts != null) {
+            if (member.getEmail().equals(posts.getMember().getEmail())) {
+                isAuthenticated = true;
+            } else {
+                isAuthenticated = false;
+            }
+        }
+
+        return isAuthenticated;
     }
 }

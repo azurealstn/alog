@@ -44,12 +44,12 @@ class PostsServiceTest {
     @Autowired
     private HttpSession httpSession;
 
-//    @BeforeEach
-//    public void beforeEach() throws Exception {
-//        postsRepository.deleteAll();
-//        memberRepository.deleteAll();
-//        httpSession.invalidate();
-//    }
+    @BeforeEach
+    public void beforeEach() throws Exception {
+        postsRepository.deleteAll();
+        memberRepository.deleteAll();
+        httpSession.invalidate();
+    }
 
     @Test
     @DisplayName("글 작성 비즈니스 로직 테스트")
@@ -376,35 +376,28 @@ class PostsServiceTest {
     }
 
     @Test
-    @Rollback(value = false)
-    void test() {
+    @DisplayName("글을 수정이나 삭제할 수 있는 권한이 있는 사람인지 체크")
+    void isAuthenticated() {
         //given
-        String name = "슬로우스타터";
-        String email = "azurealstn@naver.com";
-        String username = "haha";
-        String shortBio = "안녕하세요!";
-        String picture = "test.jpg";
-
-        MemberCreateRequestDto memberCreateRequestDto = MemberCreateRequestDto.builder()
-                .name(name)
-                .email(email)
-                .username(username)
-                .shortBio(shortBio)
-                .picture(picture)
-                .build();
+        MemberCreateRequestDto memberCreateRequestDto = getMemberCreateRequestDto();
 
         Member savedMember = memberRepository.save(memberCreateRequestDto.toEntity());
         httpSession.setAttribute("member", new SessionMemberDto(savedMember));
 
-        List<Posts> collect = IntStream.range(100, 200)
-                .mapToObj(i -> Posts.builder()
-                        .title("test 제목 - " + (i + 1))
-                        .content("뭐로 할까 - " + (i + 1))
-                        .member(savedMember)
-                        .description("소개글 - " + (i + 1))
-                        .build())
-                .collect(Collectors.toList());
-        postsRepository.saveAll(collect);
+        Posts posts = Posts.builder()
+                .title("foo")
+                .content("bar")
+                .member(savedMember)
+                .description("소개글")
+                .build();
+        postsRepository.save(posts);
+        PostsResponseDto postsResponseDto = new PostsResponseDto(posts);
+
+        //when
+        SessionMemberDto member = (SessionMemberDto) httpSession.getAttribute("member");
+
+        //then
+        assertThat(postsService.isAuthenticated(member, postsResponseDto)).isTrue();
     }
 
 }
