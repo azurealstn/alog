@@ -65,6 +65,24 @@ class PostsControllerTest {
                 .andDo(print());
     }
 
+    @Test
+    @DisplayName("/api/v1/auth/posts/{postsId} 요청시 글 상세 화면")
+    void posts_detail() throws Exception {
+        //given
+        MemberCreateRequestDto memberCreateRequestDto = getMemberCreateRequestDto();
+
+        Member savedMember = memberRepository.save(memberCreateRequestDto.toEntity());
+
+        MockHttpSession mockHttpSession = new MockHttpSession();
+        mockHttpSession.setAttribute("member", new SessionMemberDto(savedMember));
+
+        //expected
+        mockMvc.perform(get("/api/v1/auth/posts/{postsId}", savedMember.getId())
+                        .session(mockHttpSession))
+                .andExpect(status().isOk())
+                .andDo(print());
+    }
+
     private MemberCreateRequestDto getMemberCreateRequestDto() {
         String name = "슬로우스타터";
         String email = "azurealstn@naver.com";

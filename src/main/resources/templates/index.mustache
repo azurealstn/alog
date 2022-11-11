@@ -14,13 +14,13 @@
             <div class="posts-content">
                 {{#postsList}}
                     <div class="card">
-                        <a class="card-thumbnail" href="/">
+                        <a class="card-thumbnail" href="/api/v1/auth/posts/{{id}}">
                             <div class="card-wrap">
                                 <img src="https://www.fun-coding.org/style/images/blog.jpg" alt="thumbnail-basic-img">
                             </div>
                         </a>
                         <div class="posts-info">
-                            <a href="/" class="title">
+                            <a href="/api/v1/auth/posts/{{id}}" class="title">
                                 <h4>{{title}}</h4>
                                 <div class="description">
                                     <p>{{description}}</p>

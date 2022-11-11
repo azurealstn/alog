@@ -69,6 +69,7 @@
 <body>
 <div class="root">
     <input type="hidden" id="prevUrl" value="/"/>
+    <input type="hidden" id="postsId" value="{{posts.id}}"/>
     <div class="posts">
         <div class="posts-container">
             <div class="left">
@@ -77,7 +78,7 @@
                         <div>
                             <div class="title-header">
                                 <textarea name="title" id="title" placeholder="제목을 입력하세요" style="height: 66px;"
-                                          oninput="postsMain.autoGrow(this)" maxlength="200"></textarea>
+                                          oninput="postsMain.autoGrow(this)" maxlength="200">{{posts.title}}</textarea>
                                 <div class="line"></div>
                                 <div class="tag">
                                     <input type="text" class="tag-input" placeholder="태그를 입력하세요">
@@ -96,7 +97,7 @@
                     </button>
                     <div class="write-area">
                         <buttom class="temp-save">임시저장</buttom>
-                        <button class="create-posts">출간하기</button>
+                        <button class="create-posts">수정하기</button>
                     </div>
                 </div>
             </div>
@@ -126,7 +127,7 @@
                         <div class="description">
                             <h4></h4>
                             <textarea name="description" id="description" maxlength="150"
-                                      placeholder="당신의 포스트를 짧게 소개해보세요."></textarea>
+                                      placeholder="당신의 포스트를 짧게 소개해보세요.">{{posts.description}}</textarea>
                             <div class="limit">
                                 <span class="count">0</span>
                                 <span>/150</span>
@@ -157,7 +158,7 @@
                 </div>
                 <div class="foot">
                     <button class="cancel">취소</button>
-                    <button class="publish">출간하기</button>
+                    <button class="modify-publish">수정하기</button>
                 </div>
             </div>
         </div>

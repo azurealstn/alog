@@ -1,0 +1,231 @@
+{{>layout/header-dark}}
+
+<div class="detail">
+    <div class="detail-top">
+        <input type="hidden" id="postsId" value="{{posts.id}}">
+        <div class="head-wrapper">
+            <h1>{{posts.title}}</h1>
+            {{#isAuthenticated}}
+                <div class="modify-posts-buttons">
+                    <button id="update-btn">수정</button>
+                    <button id="delete-btn">삭제</button>
+                </div>
+            {{/isAuthenticated}}
+            <div class="posts-info">
+                <div class="information">
+            <span class="username">
+              <a href="#">{{posts.member.name}}</a>
+            </span>
+                    <span class="separator">·</span>
+                    <span>{{previousPostsDate}}</span>
+                </div>
+                <div class="posts-likes">
+                    <button class="like-btn">
+                        <i class="fa-solid fa-heart"></i>
+                        <span>224</span>
+                    </button>
+                </div>
+            </div>
+            <div class="posts-tags">
+                <a href="#" class="tag">기술면접</a>
+                <a href="#" class="tag">백엔드</a>
+            </div>
+            <div class="quick-menu">
+                <div class="menu">
+                    <div class="menu-container">
+                        <div class="like-heart" style="transform: scale(1);">
+                            <i class="fa-solid fa-heart"></i>
+                        </div>
+                        <div class="like-count">224</div>
+                        <div class="share">
+                            <div class="positioner">
+                                <div class="share-sns facebook" style="opacity: 0; transform: translate(0px, 0px);">
+                                    <div class="positioner-container">
+                                        <i class="fa-brands fa-facebook"></i>
+                                    </div>
+                                </div>
+                                <div class="share-sns twitter" style="opacity: 0; transform: translate(0px);">
+                                    <div class="positioner-container">
+                                        <i class="fa-brands fa-twitter"></i>
+                                    </div>
+                                </div>
+                                <div class="share-sns link-copy" style="opacity: 0; transform: translate(0px, 0px);">
+                                    <div class="positioner-container">
+                                        <i class="fa-solid fa-link"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="share-container">
+                                <i class="fa-solid fa-share-nodes"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <img src="/images/thumbnail.jpg" alt="posts-thumbnail" class="thumbnail-img">
+    </div>
+    <div class="detail-bottom">
+        <div class="posts-body">
+            <!-- toast ui editor viewer -->
+            <div id="viewer">
+
+            </div>
+        </div>
+    </div>
+    <div class="member-info">
+        <div class="member-container">
+            <div class="info">
+                <a href="#">
+                    <img src="/images/ex-thumbnail-profile.jpg" alt="프로필 사진">
+                </a>
+                <div class="sub-info">
+                    <div class="name">
+                        <a href="#">민수</a>
+                    </div>
+                    <div class="{{posts.member.shortBio}}"></div>
+                </div>
+            </div>
+            <div class="divide"></div>
+            <div class="member-sns">
+                <a href="#" target="_blank" rel="noopener noreferrer">
+                    <i class="fa-brands fa-github"></i>
+                </a>
+                <a href="#" target="_blank" rel="noopener noreferrer" class="mb">
+                    <i class="fa-solid fa-house"></i>
+                </a>
+                <a href="#" class="mb">
+                    <i class="fa-solid fa-envelope"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="replay">
+        <h4>
+            <span>15</span>
+            <span>개의 댓글</span>
+        </h4>
+        <div class="replay-container">
+            <div class="replay-write">
+                <textarea name="content" id="content" class="replay-content" placeholder="댓글을 작성하세요"></textarea>
+                <div class="buttons-wrapper">
+                    <button class="write-btn">댓글 작성</button>
+                </div>
+            </div>
+            <div class="replay-list">
+                <div class="replay-list-container">
+                    <div class="comment">
+                        <div class="comment-member">
+                            <div class="profile">
+                                <a href="#">
+                                    <img src="/images/ex-thumbnail-profile.jpg" alt="comment user thumbnail">
+                                </a>
+                                <div class="comment-info">
+                                    <div class="username">
+                                        <a href="#">minsu</a>
+                                    </div>
+                                    <div class="date">2022년 11월 2일</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comment-content">
+                            <div class="atom-one">
+                                <p>키워드 얻어갑니다.^^</p>
+                            </div>
+                        </div>
+                        <div class="comment-reply">
+                            <div class="reply-area">
+                                <i class="fa-solid fa-square-plus"></i>
+                                <span>1</span>
+                                <span>개의 답글</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="comment">
+                        <div class="comment-member">
+                            <div class="profile">
+                                <a href="#">
+                                    <img src="/images/ex-thumbnail-profile.jpg" alt="comment user thumbnail">
+                                </a>
+                                <div class="comment-info">
+                                    <div class="username">
+                                        <a href="#">minsu</a>
+                                    </div>
+                                    <div class="date">2022년 11월 2일</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comment-content">
+                            <div class="atom-one">
+                                <p>키워드 얻어갑니다.^^</p>
+                            </div>
+                        </div>
+                        <div class="comment-reply">
+                            <div class="reply-area">
+                                <i class="fa-solid fa-square-plus"></i>
+                                <span>1</span>
+                                <span>개의 답글</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="comment">
+                        <div class="comment-member">
+                            <div class="profile">
+                                <a href="#">
+                                    <img src="/images/ex-thumbnail-profile.jpg" alt="comment user thumbnail">
+                                </a>
+                                <div class="comment-info">
+                                    <div class="username">
+                                        <a href="#">minsu</a>
+                                    </div>
+                                    <div class="date">2022년 11월 2일</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comment-content">
+                            <div class="atom-one">
+                                <p>키워드 얻어갑니다.^^</p>
+                            </div>
+                        </div>
+                        <div class="comment-reply">
+                            <div class="reply-area">
+                                <i class="fa-solid fa-square-plus"></i>
+                                <span>1</span>
+                                <span>개의 답글</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="comment">
+                        <div class="comment-member">
+                            <div class="profile">
+                                <a href="#">
+                                    <img src="/images/ex-thumbnail-profile.jpg" alt="comment user thumbnail">
+                                </a>
+                                <div class="comment-info">
+                                    <div class="username">
+                                        <a href="#">minsu</a>
+                                    </div>
+                                    <div class="date">2022년 11월 2일</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comment-content">
+                            <div class="atom-one">
+                                <p>키워드 얻어갑니다.^^</p>
+                            </div>
+                        </div>
+                        <div class="comment-reply">
+                            <div class="reply-area">
+                                <i class="fa-solid fa-square-plus"></i>
+                                <span>1</span>
+                                <span>개의 답글</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

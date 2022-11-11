@@ -73,7 +73,6 @@ class MemberApiControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(requestDto)))
                 .andExpect(status().isOk())
-                .andExpect(content().string("1"))
                 .andDo(print());
     }
 
