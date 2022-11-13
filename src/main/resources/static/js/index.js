@@ -25,34 +25,38 @@ const main = {
     const loginForm = document.querySelector('.login-form');
     const message = document.querySelector('.message');
 
-    hideModal.addEventListener('click', () => {
-      body.style.overflowY = 'initial';
-      modalBg.id = 'modal-bg-hide';
-      modalContainer.id = 'modal-container-hide';
-      loginForm.style.display = 'flex';
-      message.style.display = 'none';
-    });
+    if (hideModal != null) {
+      hideModal.addEventListener('click', () => {
+        body.style.overflowY = 'initial';
+        modalBg.id = 'modal-bg-hide';
+        modalContainer.id = 'modal-container-hide';
+        loginForm.style.display = 'flex';
+        message.style.display = 'none';
+      });
+    }
   },
   change: function() {
     const link = document.querySelector('.foot .link');
     const changeLoginAll = document.querySelectorAll('.change-login');
     const member = document.querySelector('.foot .member');
 
-    link.addEventListener('click', () => {
-      if (link.innerText === '회원가입') {
-        changeLoginAll.forEach(function (element) {
-          element.innerText = '회원가입';
-        });
-        link.innerText = '로그인';
-        member.innerText = '계정이 이미 있으신가요?';
-      } else if (link.innerText === '로그인') {
-        changeLoginAll.forEach(function (element) {
-          element.innerText = '로그인';
-        });
-        link.innerText = '회원가입';
-        member.innerText = '아직 회원이 아니신가요?';
-      }
-    });
+    if (link != null) {
+      link.addEventListener('click', () => {
+        if (link.innerText === '회원가입') {
+          changeLoginAll.forEach(function (element) {
+            element.innerText = '회원가입';
+          });
+          link.innerText = '로그인';
+          member.innerText = '계정이 이미 있으신가요?';
+        } else if (link.innerText === '로그인') {
+          changeLoginAll.forEach(function (element) {
+            element.innerText = '로그인';
+          });
+          link.innerText = '회원가입';
+          member.innerText = '아직 회원이 아니신가요?';
+        }
+      });
+    }
   },
   menu: function() {
     const menu = document.querySelector('.menu');
@@ -80,47 +84,49 @@ const main = {
     const message = document.querySelector('.message');
     const emailCheck = document.querySelector('.message-description .emailCheck');
 
-    loginBtn.addEventListener('click', () => {
-      const data = {
-        email: $('#email').val()
-      };
+    if (loginBtn != null) {
+        loginBtn.addEventListener('click', () => {
+          const data = {
+            email: $('#email').val()
+          };
 
-      $.ajax({
-        type: 'POST',
-        url: '/api/v1/auth/login',
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(data)
-      }).done(function(res) {
-        if (res.existsEmail) {
-          emailCheck.innerText = '로그인'
-        } else {
-          emailCheck.innerText = '회원가입'
-        }
-        loginForm.style.display = 'none';
-        message.style.display = 'flex';
-      }).fail(function(err) {
-        let message = null;
-        if (err.responseJSON.validation.length === 0) {
-          message = err.responseJSON.message;
-        } else {
-          message = err.responseJSON.validation[0].errorMessage;
-        }
+          $.ajax({
+            type: 'POST',
+            url: '/api/v1/auth/login',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+          }).done(function(res) {
+            if (res.existsEmail) {
+              emailCheck.innerText = '로그인'
+            } else {
+              emailCheck.innerText = '회원가입'
+            }
+            loginForm.style.display = 'none';
+            message.style.display = 'flex';
+          }).fail(function(err) {
+            let message = null;
+            if (err.responseJSON.validation.length === 0) {
+              message = err.responseJSON.message;
+            } else {
+              message = err.responseJSON.validation[0].errorMessage;
+            }
 
-        const dangerToast = Toastify({
-          text: message,
-          duration: 3000,
-          close: true,
-          gravity: "top", // `top` or `bottom`
-          position: "right", // `left`, `center` or `right`
-          stopOnFocus: true, // Prevents dismissing of toast on hover
-          style: {
-            background: "#e74c3c",
-          },
+            const dangerToast = Toastify({
+              text: message,
+              duration: 3000,
+              close: true,
+              gravity: "top", // `top` or `bottom`
+              position: "right", // `left`, `center` or `right`
+              stopOnFocus: true, // Prevents dismissing of toast on hover
+              style: {
+                background: "#e74c3c",
+              },
+            });
+            dangerToast.showToast();
+          });
         });
-        dangerToast.showToast();
-      });
-    });
+    }
   },
   write: function() {
     const newPosts = document.querySelector('.new-posts');
@@ -149,7 +155,9 @@ const main = {
         }
       });
     } else {
-      linkList[0].classList.add('is-current');
+      if (linkList[0] != null) {
+        linkList[0].classList.add('is-current');
+      }
     }
   },
   mediaQuery: function() {

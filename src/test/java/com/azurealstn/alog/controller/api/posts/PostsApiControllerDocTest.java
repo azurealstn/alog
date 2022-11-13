@@ -11,6 +11,7 @@ import com.azurealstn.alog.repository.posts.PostsRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -77,6 +78,13 @@ public class PostsApiControllerDocTest {
                 .addFilters(new CharacterEncodingFilter("UTF-8", true))
                 .build();
         postsRepository.deleteAll();
+        memberRepository.deleteAll();
+    }
+
+    @AfterEach
+    void afterEach() {
+        postsRepository.deleteAll();
+        memberRepository.deleteAll();
     }
 
     @Test
@@ -102,7 +110,7 @@ public class PostsApiControllerDocTest {
         //when
         Long savedId = postsRepository.save(posts).getId();
 
-        mockMvc.perform(get("/api/v1/posts/{posts_id}", savedId)
+        mockMvc.perform(get("/api/v1/auth/posts-data/{posts_id}", savedId)
                         .session(mockHttpSession)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON))

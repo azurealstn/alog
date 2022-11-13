@@ -13,6 +13,9 @@ import java.io.Serializable;
 @Getter
 public class SessionMemberDto implements Serializable {
 
+    private static final long serialVersionUID = 3547776047799682310L;
+
+    private final Long id;
     private final String name;
     private final String email;
     private final String picture;
@@ -20,6 +23,7 @@ public class SessionMemberDto implements Serializable {
     private final String shortBio;
 
     public SessionMemberDto(Member member) {
+        this.id = member.getId();
         this.name = member.getName();
         this.email = member.getEmail();
         this.picture = member.getPicture();

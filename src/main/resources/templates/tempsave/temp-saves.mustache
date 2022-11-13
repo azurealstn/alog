@@ -50,14 +50,16 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 
     <!-- CSS load -->
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/temp-save.css">
 
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous" defer></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js" defer></script>
-    <script src="/js/index.js" defer></script>
+    <script src="/js/header.js" defer></script>
+    <script src="/js/temp-save.js" defer></script>
 
 </head>
-<body>
+<body style="overflow-y: visible;">
 <!-- header -->
 <div class="root">
     <header>
@@ -70,46 +72,68 @@
                     <a href="/search" class="search">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </a>
-                    {{^member}}
-                        <button class="head-btn head-login" id="show-btn">로그인</button>
-                    {{/member}}
-                    {{#member}}
-                        <button class="head-btn new-posts" style="margin-right: 1.25rem;">새 글 작성</button>
-                        <div class="thumbnail-profile">
-                            <img src="/images/ex-thumbnail-profile.jpg" alt="thumbnail-profile">
-                            <i class="fa-solid fa-sort-down"></i>
+                    <button class="head-btn new-posts" style="margin-right: 1.25rem;">새 글 작성</button>
+                    <div class="thumbnail-profile">
+                        <img src="/images/ex-thumbnail-profile.jpg" alt="thumbnail-profile">
+                        <i class="fa-solid fa-sort-down"></i>
+                    </div>
+                    <div class="menu hide">
+                        <div class="menu-wrapper">
+                            <a href="/" class="menu-item">
+                                <div class="menu-name">
+                                    내 에이로그
+                                </div>
+                            </a>
+                            <a href="/api/v1/temp-saves" class="menu-item">
+                                <div class="menu-name">
+                                    임시 글
+                                </div>
+                            </a>
+                            <a href="/" class="menu-item">
+                                <div class="menu-name">
+                                    읽기 목록
+                                </div>
+                            </a>
+                            <a href="/api/v1/setting" class="menu-item">
+                                <div class="menu-name">
+                                    설정
+                                </div>
+                            </a>
+                            <a href="/logout" class="menu-item">
+                                <div class="menu-name">
+                                    로그아웃
+                                </div>
+                            </a>
                         </div>
-                        <div class="menu hide">
-                            <div class="menu-wrapper">
-                                <a href="/" class="menu-item">
-                                    <div class="menu-name">
-                                        내 에이로그
-                                    </div>
-                                </a>
-                                <a href="/api/v1/temp-saves" class="menu-item">
-                                    <div class="menu-name">
-                                        임시 글
-                                    </div>
-                                </a>
-                                <a href="/" class="menu-item">
-                                    <div class="menu-name">
-                                        읽기 목록
-                                    </div>
-                                </a>
-                                <a href="/api/v1/setting" class="menu-item">
-                                    <div class="menu-name">
-                                        설정
-                                    </div>
-                                </a>
-                                <a href="/logout" class="menu-item">
-                                    <div class="menu-name">
-                                        로그아웃
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    {{/member}}
+                    </div>
                 </div>
             </div>
         </div>
     </header>
+
+    <div class="temp-save">
+        <h1>임시 글 목록</h1>
+        <div class="temp-save-contents">
+            {{#tempSaveList}}
+                <div class="temp-content">
+                <h3>
+                    <a href="/api/v1/write?tempCode={{tempCode}}">{{title}}</a>
+                </h3>
+                <p>
+                    <a href="/api/v1/write?tempCode={{tempCode}}">{{content}}</a>
+                </p>
+                <section>
+                    <div class="time">{{previousTime}}</div>
+                    <button class="remove" onclick="tempSave.delete({{id}})">삭제</button>
+                </section>
+            </div>
+            {{/tempSaveList}}
+            {{^tempSaveList}}
+                <div class="no-temp-save">임시 저장한 글이 없습니다.</div>
+            {{/tempSaveList}}
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

@@ -8,6 +8,7 @@ import com.azurealstn.alog.repository.member.MemberRepository;
 import com.azurealstn.alog.service.login.LoginService;
 import com.azurealstn.alog.service.member.MemberService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -51,6 +52,11 @@ class MemberControllerTest {
 
     @BeforeEach
     void beforeEach() throws Exception {
+        memberRepository.deleteAll();
+    }
+
+    @AfterEach
+    void afterEach() {
         memberRepository.deleteAll();
     }
 

@@ -11,12 +11,14 @@ import com.azurealstn.alog.dto.member.MemberResponseDto;
 import com.azurealstn.alog.repository.email.EmailAuthRepository;
 import com.azurealstn.alog.repository.member.MemberRepository;
 import com.azurealstn.alog.service.login.LoginService;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -46,8 +48,14 @@ class MemberServiceTest {
         memberRepository.deleteAll();
     }
 
+    @AfterEach
+    void afterEach() {
+        memberRepository.deleteAll();
+    }
+
     @Test
     @DisplayName("회원가입")
+    @Transactional
     void create_member() {
         //given
         String name = "슬로우스타터";
@@ -83,6 +91,7 @@ class MemberServiceTest {
 
     @Test
     @DisplayName("username 존재 확인")
+    @Transactional
     void exists_username() {
         //given
         String name = "슬로우스타터";
@@ -111,6 +120,7 @@ class MemberServiceTest {
 
     @Test
     @DisplayName("username 존재시 에러 발생")
+    @Transactional
     void already_exists_username() {
         //given
         String name = "슬로우스타터";
@@ -144,6 +154,7 @@ class MemberServiceTest {
 
     @Test
     @DisplayName("이메일 인증이 유효한지 체크")
+    @Transactional
     void confirm_email_auth() {
         //given
         String email = "azurealstn@naver.com";
@@ -161,6 +172,7 @@ class MemberServiceTest {
 
     @Test
     @DisplayName("회원 단 건 조회 성공")
+    @Transactional
     void findById_member_o() {
         //given
         String name = "슬로우스타터";
@@ -193,6 +205,7 @@ class MemberServiceTest {
 
     @Test
     @DisplayName("회원 단 건 조회 실패")
+    @Transactional
     void findById_member_x() {
         //given
         String name = "슬로우스타터";

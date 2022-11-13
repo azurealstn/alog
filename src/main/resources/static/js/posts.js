@@ -15,16 +15,59 @@ const postsMain = {
       ['code'],
       ['scrollSync'],
     ];
-    const postsId = document.querySelector('#postsId').value;
+    const postsIdEle = document.querySelector('#postsId');
     let initialValue = null;
 
-    if (postsId != null) {
-      $.ajax({
-        type: 'GET',
-        url: '/api/v1/auth/posts-data/' + postsId,
-      }).done(function(res) {
-        initialValue = res.content;
+    const postsId = (postsIdEle === null) ? '' : postsIdEle.value;
+    $.ajax({
+      type: 'GET',
+      url: '/api/v1/auth/posts-data/' + postsId,
+    }).done(function(res) {
+      initialValue = res.content;
 
+      const options = {
+        el: document.querySelector('#editor'),
+        height: '100%',
+        initialEditType: 'markdown',
+        theme: 'dark',
+        previewStyle: 'vertical',
+        hideModeSwitch: true,
+        usageStatistics: false,
+        initialValue: (initialValue === null) ? '' : initialValue,
+        toolbarItems: toolbarItems,
+        plugins: [[codeSyntaxHighlight, { highlighter: Prism }], colorSyntax]
+      };
+
+      editor = new Editor(options);
+    }).fail(function(err) {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.has('tempCode')) {
+        const tempCode = urlParams.get('tempCode');
+
+        $.ajax({
+          type: 'GET',
+          url: '/api/v1/temp-save-code/' + tempCode,
+          dataType: 'json',
+        }).done(function(res) {
+          initialValue = res.content;
+          const options = {
+            el: document.querySelector('#editor'),
+            height: '100%',
+            initialEditType: 'markdown',
+            theme: 'dark',
+            previewStyle: 'vertical',
+            hideModeSwitch: true,
+            usageStatistics: false,
+            initialValue: (initialValue === null) ? '' : initialValue,
+            toolbarItems: toolbarItems,
+            plugins: [[codeSyntaxHighlight, { highlighter: Prism }], colorSyntax]
+          };
+
+          editor = new Editor(options);
+        }).fail(function(err) {
+          console.log(err);
+        });
+      } else {
         const options = {
           el: document.querySelector('#editor'),
           height: '100%',
@@ -33,17 +76,15 @@ const postsMain = {
           previewStyle: 'vertical',
           hideModeSwitch: true,
           usageStatistics: false,
-          initialValue: (initialValue === null) ? '' : initialValue,
           placeholder: '내용을 입력해주세요 :)',
           toolbarItems: toolbarItems,
           plugins: [[codeSyntaxHighlight, { highlighter: Prism }], colorSyntax]
         };
-
         editor = new Editor(options);
-      }).fail(function(err) {
-        console.log(err);
-      });
-    }
+      }
+    });
+
+
   },
   autoGrow: function(element) {
     element.style.height = '66px';
@@ -280,7 +321,7 @@ const postsMain = {
   },
   modify: function() {
     const modifyPublish = document.querySelector('.foot .modify-publish');
-    const postsId = document.querySelector('#postsId').value;
+    const postsIdEle = document.querySelector('#postsId');
 
     if (modifyPublish != null) {
       modifyPublish.addEventListener('click', () => {
@@ -290,37 +331,40 @@ const postsMain = {
           description: $('#description').val()
         };
 
-        $.ajax({
-          type: 'PUT',
-          url: '/api/v1/posts/' + postsId,
-          dataType: 'json',
-          contentType: 'application/json; charset=utf-8',
-          data: JSON.stringify(data)
-        }).done(function(res) {
-          const modifiedId = res;
-          location.href = '/api/v1/auth/posts/' + modifiedId;
-        }).fail(function(err) {
-          let message = null;
-          if (err.responseJSON.validation.length === 0) {
-            message = err.responseJSON.message;
-          } else {
-            message = err.responseJSON.validation[0].errorMessage;
-          }
+        if (postsIdEle != null) {
+            const postsId = postsIdEle.value;
+            $.ajax({
+              type: 'PUT',
+              url: '/api/v1/posts/' + postsId,
+              dataType: 'json',
+              contentType: 'application/json; charset=utf-8',
+              data: JSON.stringify(data)
+            }).done(function(res) {
+              const modifiedId = res;
+              location.href = '/api/v1/auth/posts/' + modifiedId;
+            }).fail(function(err) {
+              let message = null;
+              if (err.responseJSON.validation.length === 0) {
+                message = err.responseJSON.message;
+              } else {
+                message = err.responseJSON.validation[0].errorMessage;
+              }
 
-          const dangerToast = Toastify({
-            text: message,
-            duration: 3000,
-            close: true,
-            gravity: "top", // `top` or `bottom`
-            position: "right", // `left`, `center` or `right`
-            stopOnFocus: true, // Prevents dismissing of toast on hover
-            style: {
-              background: "#e74c3c",
-              zIndex: 30,
-            },
-          });
-          dangerToast.showToast();
-        });
+              const dangerToast = Toastify({
+                text: message,
+                duration: 3000,
+                close: true,
+                gravity: "top", // `top` or `bottom`
+                position: "right", // `left`, `center` or `right`
+                stopOnFocus: true, // Prevents dismissing of toast on hover
+                style: {
+                  background: "#e74c3c",
+                  zIndex: 30,
+                },
+              });
+              dangerToast.showToast();
+            });
+        }
       });
     }
   }
@@ -348,6 +392,7 @@ $(function() {
   //임시저장
   postsMain.tempSave();
 
+  //글 수정
   postsMain.modify();
 
 });

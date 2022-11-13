@@ -9,6 +9,7 @@ import com.azurealstn.alog.dto.posts.PostsModifyRequestDto;
 import com.azurealstn.alog.repository.member.MemberRepository;
 import com.azurealstn.alog.repository.posts.PostsRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -76,6 +77,12 @@ class PostsApiControllerTest {
                 .webAppContextSetup(context)
                 .addFilters(new CharacterEncodingFilter("UTF-8", true))
                 .build();
+        postsRepository.deleteAll();
+        memberRepository.deleteAll();
+    }
+
+    @AfterEach
+    void afterEach() {
         postsRepository.deleteAll();
         memberRepository.deleteAll();
     }
@@ -259,7 +266,7 @@ class PostsApiControllerTest {
         Long savedId = postsRepository.save(posts).getId();
 
         //then
-        mockMvc.perform(get("/api/v1/posts/{postsId}", savedId)
+        mockMvc.perform(get("/api/v1/auth/posts-data/{postsId}", savedId)
                         .session(mockHttpSession)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -292,7 +299,7 @@ class PostsApiControllerTest {
         Long savedId = postsRepository.save(posts).getId();
 
         //expected
-        mockMvc.perform(get("/api/v1/posts/{postsId}", savedId + 1)
+        mockMvc.perform(get("/api/v1/auth/posts-data/{postsId}", savedId + 1)
                         .session(mockHttpSession)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound())

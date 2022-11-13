@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface TempSaveRepository extends JpaRepository<TempSave, Long> {
+public interface TempSaveRepository extends JpaRepository<TempSave, Long>, TempSaveRepositoryCustom {
 
     Optional<TempSave> findByTempCode(String tempCode);
 }

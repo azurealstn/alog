@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -38,6 +39,7 @@ class EmailServiceTest {
 
     @Test
     @DisplayName("이메일 존재 여부에 따라 링크가 달라진다. (이메일 존재O)")
+    @Transactional
     void if_exists_email_return_different_link_O() throws Exception {
         //given
         String email = "azurealstn@naver.com";
@@ -76,6 +78,7 @@ class EmailServiceTest {
 
     @Test
     @DisplayName("이메일 존재 여부에 따라 링크가 달라진다. (이메일 존재X)")
+    @Transactional
     void if_exists_email_return_different_link_X() throws Exception {
         //given
         String email = "azurealstn@naver.com";
