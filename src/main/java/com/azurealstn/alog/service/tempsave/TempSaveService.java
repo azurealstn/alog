@@ -16,6 +16,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -50,6 +52,16 @@ public class TempSaveService {
     }
 
     /**
+     * 임시저장 단건 조회 (TempCode) API
+     */
+    @Transactional(readOnly = true)
+    public TempSaveResponseDto findByTempCode(String tempCode) {
+        TempSave tempSave = tempSaveRepository.findByTempCode(tempCode)
+                .orElseThrow(() -> new TempSaveNotFound());
+        return new TempSaveResponseDto(tempSave);
+    }
+
+    /**
      * 임시저장 수정 API
      */
     @Transactional
@@ -58,5 +70,25 @@ public class TempSaveService {
                 .orElseThrow(() -> new TempSaveNotFound());
         tempSave.update(requestDto.getTitle(), requestDto.getContent());
         return tempSave.getId();
+    }
+
+    /**
+     * 임시저장 전체 조회 API
+     */
+    public List<TempSaveResponseDto> findAll(Long memberId) {
+        List<TempSave> tempSaveList = tempSaveRepository.findAll(memberId);
+        return tempSaveList.stream()
+                .map(tempSave -> new TempSaveResponseDto(tempSave))
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * 임시저장 삭제 API
+     */
+    public Long delete(Long tempSaveId) {
+        TempSave tempSave = tempSaveRepository.findById(tempSaveId)
+                .orElseThrow(() -> new TempSaveNotFound());
+        tempSaveRepository.delete(tempSave);
+        return tempSaveId;
     }
 }

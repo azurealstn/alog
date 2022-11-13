@@ -7,6 +7,7 @@ import com.azurealstn.alog.dto.member.MemberCreateRequestDto;
 import com.azurealstn.alog.repository.email.EmailAuthRepository;
 import com.azurealstn.alog.repository.member.MemberRepository;
 import com.azurealstn.alog.service.login.LoginService;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -38,6 +39,12 @@ class LoginControllerTest {
 
     @BeforeEach
     void beforeEach() throws Exception {
+        memberRepository.deleteAll();
+        emailAuthRepository.deleteAll();
+    }
+
+    @AfterEach
+    void afterEach() {
         memberRepository.deleteAll();
         emailAuthRepository.deleteAll();
     }

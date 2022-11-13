@@ -8,7 +8,7 @@
             {{#isAuthenticated}}
                 <div class="modify-posts-buttons">
                     <button id="update-btn">수정</button>
-                    <button id="delete-btn">삭제</button>
+                    <button id="delete-btn" onclick="postsMain.deletePosts({{posts.id}})">삭제</button>
                 </div>
             {{/isAuthenticated}}
             <div class="posts-info">
@@ -83,9 +83,9 @@
                 </a>
                 <div class="sub-info">
                     <div class="name">
-                        <a href="#">민수</a>
+                        <a href="#">{{posts.member.name}}</a>
                     </div>
-                    <div class="{{posts.member.shortBio}}"></div>
+                    <div>{{posts.member.shortBio}}</div>
                 </div>
             </div>
             <div class="divide"></div>
@@ -223,6 +223,59 @@
                                 <span>개의 답글</span>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal -->
+<div class="modal-bg" id="modal-bg-hide"></div>
+<div class="modal-container-detail" id="modal-container-hide">
+    <div class="wrapper">
+        <div class="gray-block">
+            <div>
+                <img src="/images/pumpkin.png" alt="welcome">
+                <div class="welcome">Welcome!</div>
+            </div>
+        </div>
+        <div class="white-block">
+            <div class="exit-wrapper">
+                <button id="hide-btn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="block-content">
+                <div class="content-wrapper">
+                    <div class="upper-wrapper">
+                        <h2 class="change-login">로그인</h2>
+                        <section>
+                            <h4>이메일로 <span class="change-login">로그인</span></h4>
+                            <form class="login-form" onsubmit="return false">
+                                <input autocomplete="off" type="text" id="email" name="email" placeholder="이메일을 입력하세요.">
+                                <button class="login-btn change-login" id="login-btn">로그인</button>
+                            </form>
+                            <div class="message" style="display: none;">
+                                <i class="fa-solid fa-check"></i>
+                                <div class="message-description">
+                                    <span class="emailCheck">회원가입</span> 링크가 이메일로 전송되었습니다.
+                                </div>
+                            </div>
+                        </section>
+                        <section>
+                            <h4>소셜 계정으로 <span class="change-login">로그인</span></h4>
+                            <div class="social-login">
+                                <a href="/oauth2/authorization/google" class="social-link" style="background: white;">
+                                    <img class="google" src="/images/social-google.png" alt="google">
+                                </a>
+                                <a href="/" class="social-link">
+                                    <img src="/images/social-naver.png" alt="naver">
+                                </a>
+                            </div>
+                        </section>
+                    </div>
+                    <div class="foot">
+                        <span class="member">아직 회원이 아니신가요?</span>
+                        <div class="link">회원가입</div>
                     </div>
                 </div>
             </div>

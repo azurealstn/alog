@@ -68,7 +68,7 @@
 </head>
 <body>
 <div class="root">
-    <input type="hidden" id="prevUrl" value="/"/>
+    <input type="hidden" id="prevUrl" value="{{prevUrl}}"/>
     <div class="posts">
         <div class="posts-container">
             <div class="left">
@@ -76,8 +76,14 @@
                     <div class="wrapper">
                         <div>
                             <div class="title-header">
+                                {{#tempSave}}
+                                <textarea name="title" id="title" placeholder="제목을 입력하세요" style="height: 66px;"
+                                          oninput="postsMain.autoGrow(this)" maxlength="200">{{tempSave.title}}</textarea>
+                                {{/tempSave}}
+                                {{^tempSave}}
                                 <textarea name="title" id="title" placeholder="제목을 입력하세요" style="height: 66px;"
                                           oninput="postsMain.autoGrow(this)" maxlength="200"></textarea>
+                                {{/tempSave}}
                                 <div class="line"></div>
                                 <div class="tag">
                                     <input type="text" class="tag-input" placeholder="태그를 입력하세요">

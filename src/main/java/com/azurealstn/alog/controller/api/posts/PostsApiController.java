@@ -27,7 +27,6 @@ import java.util.stream.Stream;
 public class PostsApiController {
 
     private final PostsService postsService;
-    private final PostsRepository postsRepository;
 
     @PostMapping("/api/v1/posts")
     public Long create(@Valid @RequestBody PostsCreateRequestDto requestDto) throws Exception {

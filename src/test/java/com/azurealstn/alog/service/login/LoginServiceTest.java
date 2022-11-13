@@ -12,6 +12,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -36,6 +37,7 @@ class LoginServiceTest {
 
     @Test
     @DisplayName("login 가상 테스트")
+    @Transactional
     void login_virtual_test() {
         //given
         String name = "슬로우스타터";
@@ -69,6 +71,7 @@ class LoginServiceTest {
 
     @Test
     @DisplayName("email로 회원 조회하기")
+    @Transactional
     void find_by_email() throws Exception {
         //given
         String name = "슬로우스타터";
@@ -97,6 +100,7 @@ class LoginServiceTest {
 
     @Test
     @DisplayName("email로 회원 조회하기 실패")
+    @Transactional
     void find_by_email_fail() throws Exception {
         //given
         String name = "슬로우스타터";

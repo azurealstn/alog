@@ -151,6 +151,25 @@ model.addAttribute("doublePrevPage", doublePrevPage);
 
 예를 들어, 페이징을 구현하는데 보통 View단에서 반복문 처리를 하거나 연산을 직접 처리할 수 있는데 mustache는 그게 안되서 java단에서 미리 구해서 모델로 값을 일일이 넘겨야 한다. (사실 간단한 경우에 사용한다고 했는데 이정도도 불편하면 그냥 잘 사용을 안할 것 같다.)
 
+### local class incompatible
+
+자바에서는 `serializable` 인터페이스를 통해 쉽게 '직렬화', '역직렬화' 할 수 있는데 주의해야 할게 있다.
+
+Serializable 인터페이스를 `implements`한 클래스에 아래와 같은 변수 값이 지정되어 있지 않으면 JVM이 클래스 구조 정보를 토대로 해싱값을 만들어 낸다. (따라서 사용하는 JVM에 따라 값이 다를 수 있다.)
+
+```java
+private static final long serialVersionUID = ?L
+```
+
+그리고 직렬화 -역직렬화 시에 이 값을 키 값으로 사용해서 객체의 호환을 따진다. 즉, 이 값이 같아야 데이터가 다시 역직렬화되는 것이다.
+
+`local class incompatible` 이 에러는 `serialVersionUID`의 값이 매칭이 되지 않아서 생기는 에러이다.
+
+이를 해결하기 위해서는 위 코드처럼 `static`으로 `serialVersionUID` 의 값을 지정해주면 서로 같은 값을 사용하게 되어 매칭이 되지 않은 일은 발생하지 않는다.
+
+- https://stackoverflow.com/questions/10378855/java-io-invalidclassexception-local-class-incompatible
+- https://hevton.tistory.com/164
+
 ## API 문서
 
 클라이언트 입장에서는 어떤 API가 있는지 모르기 때문에 백엔드에서 API를 잘 정리해서 전달할 필요가 있습니다. 백엔드에서 개발한 실제 코드를 토대로 자동으로 API 문서화를 만들어주는 툴들이 있습니다.

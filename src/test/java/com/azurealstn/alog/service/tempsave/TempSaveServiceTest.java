@@ -9,8 +9,10 @@ import com.azurealstn.alog.dto.tempsave.TempSaveCreateRequestDto;
 import com.azurealstn.alog.dto.tempsave.TempSaveResponseDto;
 import com.azurealstn.alog.dto.tempsave.TempSaveUpdateRequestDto;
 import com.azurealstn.alog.repository.member.MemberRepository;
+import com.azurealstn.alog.repository.posts.PostsRepository;
 import com.azurealstn.alog.repository.tempsave.TempSaveRepository;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,6 +24,9 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.servlet.http.HttpSession;
 
 import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -42,10 +47,22 @@ class TempSaveServiceTest {
     @Autowired
     private TempSaveService tempSaveService;
 
+    @Autowired
+    private PostsRepository postsRepository;
+
     @BeforeEach
     public void beforeEach() throws Exception {
         tempSaveRepository.deleteAll();
         memberRepository.deleteAll();
+        postsRepository.deleteAll();
+        httpSession.invalidate();
+    }
+
+    @AfterEach
+    public void afterEach() throws Exception {
+        tempSaveRepository.deleteAll();
+        memberRepository.deleteAll();
+        postsRepository.deleteAll();
         httpSession.invalidate();
     }
 
@@ -228,5 +245,103 @@ class TempSaveServiceTest {
 
         //then
         assertThrows(TempSaveNotFound.class, () -> tempSaveService.update(tempSave.getTempCode() + 123, requestDto));
+    }
+
+    @Test
+    @DisplayName("임시저장 글 목록 기능")
+    @Transactional
+    void temp_save_list() {
+        //given
+        MemberCreateRequestDto memberCreateRequestDto = getMemberCreateRequestDto();
+
+        Member savedMember = memberRepository.save(memberCreateRequestDto.toEntity());
+        httpSession.setAttribute("member", new SessionMemberDto(savedMember));
+
+        List<TempSave> collect = IntStream.range(0, 10)
+                .mapToObj(i -> TempSave.builder()
+                        .title("임시 제목" + (i + 1))
+                        .content("임시 내용" + (i + 1))
+                        .member(savedMember)
+                        .build())
+                .collect(Collectors.toList());
+        tempSaveRepository.saveAll(collect);
+
+        //when
+        List<TempSave> tempSaveList = tempSaveRepository.findAll();
+
+        //then
+        assertThat(tempSaveList.size()).isEqualTo(10);
+        assertThat(tempSaveList.get(0).getTitle()).isEqualTo("임시 제목1");
+        assertThat(tempSaveList.get(0).getContent()).isEqualTo("임시 내용1");
+        assertThat(tempSaveList.get(0).getMember().getEmail()).isEqualTo(savedMember.getEmail());
+        assertThat(tempSaveList.get(0).getMember().getName()).isEqualTo(savedMember.getName());
+    }
+
+    @Test
+    @DisplayName("임시저장 삭제 성공")
+    @Transactional
+    void temp_save_delete_o() {
+        //given
+        MemberCreateRequestDto memberCreateRequestDto = getMemberCreateRequestDto();
+
+        Member savedMember = memberRepository.save(memberCreateRequestDto.toEntity());
+        httpSession.setAttribute("member", new SessionMemberDto(savedMember));
+
+        TempSave tempSave = TempSave.builder()
+                .title("제목입니다")
+                .content("내용입니다.")
+                .member(savedMember)
+                .tempCode(UUID.randomUUID().toString())
+                .build();
+
+        Long tempSaveId = tempSaveRepository.save(tempSave).getId();
+
+        //when
+        tempSaveService.delete(tempSaveId);
+
+        //then
+        assertThat(tempSaveRepository.count()).isEqualTo(0);
+
+    }
+
+    @Test
+    @DisplayName("임시저장 삭제 실패")
+    @Transactional
+    void temp_save_delete_x() {
+        //given
+        MemberCreateRequestDto memberCreateRequestDto = getMemberCreateRequestDto();
+
+        Member savedMember = memberRepository.save(memberCreateRequestDto.toEntity());
+        httpSession.setAttribute("member", new SessionMemberDto(savedMember));
+
+        TempSave tempSave = TempSave.builder()
+                .title("제목입니다")
+                .content("내용입니다.")
+                .member(savedMember)
+                .tempCode(UUID.randomUUID().toString())
+                .build();
+
+        Long tempSaveId = tempSaveRepository.save(tempSave).getId();
+
+        //expected
+        assertThrows(TempSaveNotFound.class, () -> tempSaveService.delete(tempSaveId + 1));
+
+    }
+
+    private MemberCreateRequestDto getMemberCreateRequestDto() {
+        String name = "슬로우스타터";
+        String email = "azurealstn@naver.com";
+        String username = "haha";
+        String shortBio = "안녕하세요!";
+        String picture = "test.jpg";
+
+        return MemberCreateRequestDto.builder()
+                .name(name)
+                .email(email)
+                .username(username)
+                .shortBio(shortBio)
+                .picture(picture)
+                .build();
+
     }
 }

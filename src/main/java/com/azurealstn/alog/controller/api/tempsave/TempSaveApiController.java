@@ -27,9 +27,18 @@ public class TempSaveApiController {
         return tempSaveService.findById(tempSaveId);
     }
 
+    @GetMapping("/api/v1/temp-save-code/{tempCode}")
+    public TempSaveResponseDto findByTempCode(@PathVariable String tempCode) {
+        return tempSaveService.findByTempCode(tempCode);
+    }
+
     @PutMapping("/api/v1/temp-save/{tempCode}")
     public Long update(@Valid @RequestBody TempSaveUpdateRequestDto requestDto, @PathVariable String tempCode) {
         return tempSaveService.update(tempCode, requestDto);
     }
 
+    @DeleteMapping("/api/v1/temp-save/{tempSaveId}")
+    public Long delete(@PathVariable Long tempSaveId) {
+        return tempSaveService.delete(tempSaveId);
+    }
 }

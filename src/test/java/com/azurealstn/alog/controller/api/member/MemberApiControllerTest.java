@@ -5,6 +5,7 @@ import com.azurealstn.alog.domain.member.Role;
 import com.azurealstn.alog.dto.member.MemberCreateRequestDto;
 import com.azurealstn.alog.repository.member.MemberRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -47,6 +48,11 @@ class MemberApiControllerTest {
                 .webAppContextSetup(context)
                 .addFilters(new CharacterEncodingFilter("UTF-8", true))
                 .build();
+        memberRepository.deleteAll();
+    }
+
+    @AfterEach
+    void afterEach() {
         memberRepository.deleteAll();
     }
 

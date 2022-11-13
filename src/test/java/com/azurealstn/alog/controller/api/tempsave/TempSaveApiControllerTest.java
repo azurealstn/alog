@@ -7,8 +7,10 @@ import com.azurealstn.alog.dto.member.MemberCreateRequestDto;
 import com.azurealstn.alog.dto.tempsave.TempSaveCreateRequestDto;
 import com.azurealstn.alog.dto.tempsave.TempSaveUpdateRequestDto;
 import com.azurealstn.alog.repository.member.MemberRepository;
+import com.azurealstn.alog.repository.posts.PostsRepository;
 import com.azurealstn.alog.repository.tempsave.TempSaveRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -51,12 +53,23 @@ class TempSaveApiControllerTest {
     @Autowired
     private TempSaveRepository tempSaveRepository;
 
+    @Autowired
+    private PostsRepository postsRepository;
+
     @BeforeEach
     void beforeEach() throws Exception {
         mockMvc = MockMvcBuilders
                 .webAppContextSetup(context)
                 .addFilters(new CharacterEncodingFilter("UTF-8", true))
                 .build();
+        tempSaveRepository.deleteAll();
+        memberRepository.deleteAll();
+        postsRepository.deleteAll();
+    }
+
+    @AfterEach
+    void afterEach() {
+        postsRepository.deleteAll();
         tempSaveRepository.deleteAll();
         memberRepository.deleteAll();
     }
@@ -481,5 +494,82 @@ class TempSaveApiControllerTest {
                         .content(objectMapper.writeValueAsString(requestDto)))
                 .andExpect(status().isOk())
                 .andDo(print());
+    }
+
+    @Test
+    @DisplayName("임시저장 삭제 성공")
+    @Transactional
+    void temp_save_delete_o() throws Exception {
+        //given
+        MemberCreateRequestDto memberCreateRequestDto = getMemberCreateRequestDto();
+
+        Member savedMember = memberRepository.save(memberCreateRequestDto.toEntity());
+
+        MockHttpSession mockHttpSession = new MockHttpSession();
+        mockHttpSession.setAttribute("member", new SessionMemberDto(savedMember));
+
+        TempSave tempSave = TempSave.builder()
+                .title("제목입니다")
+                .content("내용입니다.")
+                .member(savedMember)
+                .tempCode(UUID.randomUUID().toString())
+                .build();
+
+        Long tempSaveId = tempSaveRepository.save(tempSave).getId();
+
+        //expected
+        mockMvc.perform(delete("/api/v1/temp-save/{tempSaveId}", tempSaveId)
+                        .session(mockHttpSession)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andDo(print());
+
+    }
+
+    @Test
+    @DisplayName("임시저장 삭제 실패")
+    @Transactional
+    void temp_save_delete_x() throws Exception {
+        //given
+        MemberCreateRequestDto memberCreateRequestDto = getMemberCreateRequestDto();
+
+        Member savedMember = memberRepository.save(memberCreateRequestDto.toEntity());
+
+        MockHttpSession mockHttpSession = new MockHttpSession();
+        mockHttpSession.setAttribute("member", new SessionMemberDto(savedMember));
+
+        TempSave tempSave = TempSave.builder()
+                .title("제목입니다")
+                .content("내용입니다.")
+                .member(savedMember)
+                .tempCode(UUID.randomUUID().toString())
+                .build();
+
+        Long tempSaveId = tempSaveRepository.save(tempSave).getId();
+
+        //expected
+        mockMvc.perform(delete("/api/v1/temp-save/{tempSaveId}", tempSaveId + 1)
+                        .session(mockHttpSession)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound())
+                .andDo(print());
+
+    }
+
+    private MemberCreateRequestDto getMemberCreateRequestDto() {
+        String name = "슬로우스타터";
+        String email = "azurealstn@naver.com";
+        String username = "haha";
+        String shortBio = "안녕하세요!";
+        String picture = "test.jpg";
+
+        return MemberCreateRequestDto.builder()
+                .name(name)
+                .email(email)
+                .username(username)
+                .shortBio(shortBio)
+                .picture(picture)
+                .build();
+
     }
 }
