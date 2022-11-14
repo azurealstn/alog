@@ -1,10 +1,15 @@
 package com.azurealstn.alog.domain.member;
 
 import com.azurealstn.alog.domain.BaseTimeEntity;
+import com.azurealstn.alog.domain.posts.Posts;
+import com.azurealstn.alog.domain.tempsave.TempSave;
 import com.azurealstn.alog.dto.auth.SessionMemberDto;
 import lombok.*;
+import org.hibernate.annotations.ColumnTransformer;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @ToString
 @Getter
@@ -20,7 +25,7 @@ public class Member extends BaseTimeEntity {
     @Column(nullable = false)
     private String email;
 
-    @Column(nullable = false)
+    @Column
     private String name;
 
     @Column
@@ -39,6 +44,12 @@ public class Member extends BaseTimeEntity {
     @Column
     private String shortBio; //한 줄 소개
 
+    @OneToMany(mappedBy = "member", cascade = {CascadeType.ALL}, orphanRemoval = true)
+    private List<Posts> postsList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = {CascadeType.ALL}, orphanRemoval = true)
+    private List<TempSave> tempSaveList = new ArrayList<>();
+
     @Builder
     public Member(String email, String name, String picture, Role role, Boolean emailAuth, String username, String shortBio) {
         this.email = email;
@@ -51,9 +62,14 @@ public class Member extends BaseTimeEntity {
     }
 
     //네이버 프로필 변경시 Member 테이블 업데이트
-    public Member update(String name, String picture) {
+    public Member modify_name(String name, String shortBio) {
         this.name = name;
-        this.picture = picture;
+        this.shortBio = shortBio;
+        return this;
+    }
+
+    public Member modify_username(String username) {
+        this.username = username;
         return this;
     }
 

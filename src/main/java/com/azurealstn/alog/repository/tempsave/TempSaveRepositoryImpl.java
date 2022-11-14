@@ -21,4 +21,12 @@ public class TempSaveRepositoryImpl implements TempSaveRepositoryCustom {
                 .where(tempSave.member.id.eq(memberId))
                 .fetch();
     }
+
+    @Override
+    public void deleteByTempCode(String tempCode) {
+        jpaQueryFactory
+                .delete(tempSave)
+                .where(tempSave.tempCode.eq(tempCode))
+                .execute();
+    }
 }

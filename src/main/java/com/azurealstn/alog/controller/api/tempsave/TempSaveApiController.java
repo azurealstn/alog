@@ -41,4 +41,9 @@ public class TempSaveApiController {
     public Long delete(@PathVariable Long tempSaveId) {
         return tempSaveService.delete(tempSaveId);
     }
+
+    @DeleteMapping("/api/v1/temp-save-code/{tempCode}")
+    public String deleteByTempCode(@PathVariable String tempCode) {
+        return tempSaveService.deleteByTempCode(tempCode);
+    }
 }

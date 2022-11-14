@@ -7,6 +7,7 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -37,9 +38,13 @@ public class QMember extends EntityPathBase<Member> {
 
     public final StringPath picture = createString("picture");
 
+    public final ListPath<com.azurealstn.alog.domain.posts.Posts, com.azurealstn.alog.domain.posts.QPosts> postsList = this.<com.azurealstn.alog.domain.posts.Posts, com.azurealstn.alog.domain.posts.QPosts>createList("postsList", com.azurealstn.alog.domain.posts.Posts.class, com.azurealstn.alog.domain.posts.QPosts.class, PathInits.DIRECT2);
+
     public final EnumPath<Role> role = createEnum("role", Role.class);
 
     public final StringPath shortBio = createString("shortBio");
+
+    public final ListPath<com.azurealstn.alog.domain.tempsave.TempSave, com.azurealstn.alog.domain.tempsave.QTempSave> tempSaveList = this.<com.azurealstn.alog.domain.tempsave.TempSave, com.azurealstn.alog.domain.tempsave.QTempSave>createList("tempSaveList", com.azurealstn.alog.domain.tempsave.TempSave.class, com.azurealstn.alog.domain.tempsave.QTempSave.class, PathInits.DIRECT2);
 
     public final StringPath username = createString("username");
 

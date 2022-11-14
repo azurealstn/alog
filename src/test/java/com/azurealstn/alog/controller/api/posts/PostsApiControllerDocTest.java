@@ -135,7 +135,9 @@ public class PostsApiControllerDocTest {
                                 fieldWithPath("member.shortBio").type(JsonFieldType.STRING).description("회원 한 줄 소개"),
                                 fieldWithPath("member.roleKey").type(JsonFieldType.STRING).description("회원 권한 키"),
                                 fieldWithPath("member.createdDate").type(JsonFieldType.STRING).description("회원 생성날짜"),
-                                fieldWithPath("member.modifiedDate").type(JsonFieldType.STRING).description("회원 수정날짜")
+                                fieldWithPath("member.modifiedDate").type(JsonFieldType.STRING).description("회원 수정날짜"),
+                                fieldWithPath("member.postsList").type(JsonFieldType.ARRAY).description("글 리스트"),
+                                fieldWithPath("member.tempSaveList").type(JsonFieldType.ARRAY).description("임시저장 리스트")
                         )
                 ));
     }
@@ -188,7 +190,9 @@ public class PostsApiControllerDocTest {
                                 fieldWithPath("member.shortBio").type(JsonFieldType.STRING).description("회원 한 줄 소개"),
                                 fieldWithPath("member.roleKey").type(JsonFieldType.STRING).description("회원 권한 키"),
                                 fieldWithPath("member.createdDate").type(JsonFieldType.STRING).description("회원 생성날짜"),
-                                fieldWithPath("member.modifiedDate").type(JsonFieldType.STRING).description("회원 수정날짜")
+                                fieldWithPath("member.modifiedDate").type(JsonFieldType.STRING).description("회원 수정날짜"),
+                                fieldWithPath("member.postsList").type(JsonFieldType.ARRAY).description("글 리스트"),
+                                fieldWithPath("member.tempSaveList").type(JsonFieldType.ARRAY).description("임시저장 리스트")
 
                         )
                 ));

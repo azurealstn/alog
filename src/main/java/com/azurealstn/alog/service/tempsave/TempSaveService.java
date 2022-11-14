@@ -75,6 +75,7 @@ public class TempSaveService {
     /**
      * 임시저장 전체 조회 API
      */
+    @Transactional(readOnly = true)
     public List<TempSaveResponseDto> findAll(Long memberId) {
         List<TempSave> tempSaveList = tempSaveRepository.findAll(memberId);
         return tempSaveList.stream()
@@ -85,10 +86,20 @@ public class TempSaveService {
     /**
      * 임시저장 삭제 API
      */
+    @Transactional
     public Long delete(Long tempSaveId) {
         TempSave tempSave = tempSaveRepository.findById(tempSaveId)
                 .orElseThrow(() -> new TempSaveNotFound());
         tempSaveRepository.delete(tempSave);
         return tempSaveId;
+    }
+
+    /**
+     * 임시저장 삭제 by tempCode API
+     */
+    @Transactional
+    public String deleteByTempCode(String tempCode) {
+        tempSaveRepository.deleteByTempCode(tempCode);
+        return tempCode;
     }
 }

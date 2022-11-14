@@ -40,9 +40,9 @@ const main = {
 
     next.addEventListener('click', () => {
       const data = {
-        name: $('#name').val(),
+        name: $('#name').val().trim(),
         email: $('#email').val(),
-        username: $('#username').val(),
+        username: $('#username').val().trim(),
         shortBio: $('#shortBio').val(),
         picture: $('#picture').val()
       };
@@ -56,7 +56,6 @@ const main = {
       }).done(function(res) {
         errorMessage.style.display = 'none';
         const memberId = res;
-        console.log(memberId);
 
         $.ajax({
           type: 'GET',

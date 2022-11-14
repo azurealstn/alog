@@ -7,4 +7,6 @@ import java.util.List;
 public interface TempSaveRepositoryCustom {
 
     List<TempSave> findAll(Long memberId);
+
+    void deleteByTempCode(String tempCode);
 }

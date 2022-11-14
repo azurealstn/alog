@@ -21,6 +21,7 @@ public class MemberCreateRequestDto {
 
     @Pattern(regexp = "^[A-Za-z0-9_-]{3,16}$", message = "아이디는 3~16자의 알파벳,숫자,혹은 - _ 으로 이루어져야 합니다.")
     private String username;
+
     private String shortBio;
     private String picture;
     private Role role;
