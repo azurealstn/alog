@@ -8,4 +8,5 @@ import java.util.Optional;
 public interface TempSaveRepository extends JpaRepository<TempSave, Long>, TempSaveRepositoryCustom {
 
     Optional<TempSave> findByTempCode(String tempCode);
+
 }

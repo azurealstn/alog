@@ -27,6 +27,7 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -54,16 +55,16 @@ class TempSaveControllerTest {
                 .webAppContextSetup(context)
                 .addFilters(new CharacterEncodingFilter("UTF-8", true))
                 .build();
-        memberRepository.deleteAll();
-        postsRepository.deleteAll();
         tempSaveRepository.deleteAll();
+        postsRepository.deleteAll();
+        memberRepository.deleteAll();
     }
 
     @AfterEach
     void afterEach() {
-        memberRepository.deleteAll();
         postsRepository.deleteAll();
         tempSaveRepository.deleteAll();
+        memberRepository.deleteAll();
     }
 
     @Test
@@ -88,7 +89,7 @@ class TempSaveControllerTest {
         tempSaveRepository.save(tempSave);
 
         //expected
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/temp-saves")
+        mockMvc.perform(get("/api/v1/temp-saves")
                         .session(mockHttpSession))
                 .andExpect(status().isOk())
                 .andDo(print());

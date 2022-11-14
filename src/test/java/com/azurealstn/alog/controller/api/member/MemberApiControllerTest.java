@@ -2,8 +2,11 @@ package com.azurealstn.alog.controller.api.member;
 
 import com.azurealstn.alog.domain.member.Member;
 import com.azurealstn.alog.domain.member.Role;
+import com.azurealstn.alog.dto.auth.SessionMemberDto;
 import com.azurealstn.alog.dto.member.MemberCreateRequestDto;
+import com.azurealstn.alog.dto.member.MemberModifyRequestDto;
 import com.azurealstn.alog.repository.member.MemberRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,6 +17,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -22,8 +26,7 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
 import static org.hamcrest.Matchers.is;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -280,5 +283,193 @@ class MemberApiControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound())
                 .andDo(print());
+    }
+
+    @Test
+    @DisplayName("회원 name 수정시 성공")
+    @Transactional
+    void modify_member_o() throws Exception {
+        //given
+        MemberCreateRequestDto memberCreateRequestDto = getMemberCreateRequestDto();
+
+        Member savedMember = memberRepository.save(memberCreateRequestDto.toEntity());
+
+        String expectedName = "새로운 이름";
+        String expectedShortBio = "새로운 소개";
+
+        MemberModifyRequestDto requestDto = MemberModifyRequestDto.builder()
+                .name(expectedName)
+                .shortBio(expectedShortBio)
+                .build();
+
+        //expected
+        mockMvc.perform(patch("/api/v1/member-name/{memberId}", savedMember.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(requestDto)))
+                .andExpect(status().isOk())
+                .andDo(print());
+    }
+
+    @Test
+    @DisplayName("회원 name 수정시 실패")
+    @Transactional
+    void modify_member_x() throws Exception {
+        //given
+        MemberCreateRequestDto memberCreateRequestDto = getMemberCreateRequestDto();
+
+        Member savedMember1 = memberRepository.save(memberCreateRequestDto.toEntity());
+
+        String name = "새로운 이름";
+        String email = "azurealstn123@naver.com";
+        String username = "haha123";
+        String shortBio = "안녕하세요!";
+        String picture = "test.jpg";
+
+        MemberCreateRequestDto createRequestDto = MemberCreateRequestDto.builder()
+                .name(name)
+                .email(email)
+                .username(username)
+                .shortBio(shortBio)
+                .picture(picture)
+                .build();
+
+        Member savedMember2 = memberRepository.save(createRequestDto.toEntity());
+
+        MockHttpSession mockHttpSession = new MockHttpSession();
+        mockHttpSession.setAttribute("member", new SessionMemberDto(savedMember2));
+
+        String expectedName = "슬로우스타터";
+        String expectedShortBio = "새로운 소개";
+
+        MemberModifyRequestDto requestDto = MemberModifyRequestDto.builder()
+                .name(expectedName)
+                .shortBio(expectedShortBio)
+                .build();
+
+        //expected
+        mockMvc.perform(patch("/api/v1/member-name/{memberId}", savedMember2.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(requestDto)))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code", is("400")))
+                .andExpect(jsonPath("$.message", is("이미 존재하는 이름입니다.")))
+                .andExpect(jsonPath("$.validation.length()", is(0)))
+                .andExpect(jsonPath("$.validation").isEmpty())
+                .andDo(print());
+    }
+
+    @Test
+    @DisplayName("회원 username 수정시 성공")
+    @Transactional
+    void modify_member_username_o() throws Exception {
+        //given
+        MemberCreateRequestDto memberCreateRequestDto = getMemberCreateRequestDto();
+
+        Member savedMember = memberRepository.save(memberCreateRequestDto.toEntity());
+
+        String expectedUsername = "abcde";
+
+        MemberModifyRequestDto requestDto = MemberModifyRequestDto.builder()
+                .username(expectedUsername)
+                .build();
+
+        //expected
+        mockMvc.perform(patch("/api/v1/member-name/{memberId}", savedMember.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(requestDto)))
+                .andExpect(status().isOk())
+                .andDo(print());
+    }
+
+    @Test
+    @DisplayName("회원 username 수정시 실패")
+    @Transactional
+    void modify_member_username_x() throws Exception {
+        //given
+        MemberCreateRequestDto memberCreateRequestDto = getMemberCreateRequestDto();
+
+        Member savedMember1 = memberRepository.save(memberCreateRequestDto.toEntity());
+
+        String name = "새로운 이름";
+        String email = "azurealstn123@naver.com";
+        String username = "haha123";
+        String shortBio = "안녕하세요!";
+        String picture = "test.jpg";
+
+        MemberCreateRequestDto createRequestDto = MemberCreateRequestDto.builder()
+                .name(name)
+                .email(email)
+                .username(username)
+                .shortBio(shortBio)
+                .picture(picture)
+                .build();
+
+        Member savedMember2 = memberRepository.save(createRequestDto.toEntity());
+
+        MockHttpSession mockHttpSession = new MockHttpSession();
+        mockHttpSession.setAttribute("member", new SessionMemberDto(savedMember2));
+
+        String expectedUsername = "haha";
+
+        MemberModifyRequestDto requestDto = MemberModifyRequestDto.builder()
+                .username(expectedUsername)
+                .build();
+
+        //expected
+        mockMvc.perform(patch("/api/v1/member-username/{memberId}", savedMember2.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(requestDto)))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code", is("400")))
+                .andExpect(jsonPath("$.message", is("이미 존재하는 아이디입니다.")))
+                .andExpect(jsonPath("$.validation.length()", is(0)))
+                .andExpect(jsonPath("$.validation").isEmpty())
+                .andDo(print());
+    }
+
+    @Test
+    @DisplayName("회원 삭제 성공")
+    void member_delete_o() throws Exception {
+        //given
+        MemberCreateRequestDto memberCreateRequestDto = getMemberCreateRequestDto();
+
+        Member savedMember = memberRepository.save(memberCreateRequestDto.toEntity());
+
+        //expected
+        mockMvc.perform(delete("/api/v1/member/{memberId}", savedMember.getId())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andDo(print());
+    }
+
+    @Test
+    @DisplayName("회원 삭제 실패")
+    void member_delete_x() throws Exception {
+        //given
+        MemberCreateRequestDto memberCreateRequestDto = getMemberCreateRequestDto();
+
+        Member savedMember = memberRepository.save(memberCreateRequestDto.toEntity());
+
+        //expected
+        mockMvc.perform(delete("/api/v1/member/{memberId}", savedMember.getId() + 1)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound())
+                .andDo(print());
+    }
+
+    private MemberCreateRequestDto getMemberCreateRequestDto() {
+        String name = "슬로우스타터";
+        String email = "azurealstn@naver.com";
+        String username = "haha";
+        String shortBio = "안녕하세요!";
+        String picture = "test.jpg";
+
+        return MemberCreateRequestDto.builder()
+                .name(name)
+                .email(email)
+                .username(username)
+                .shortBio(shortBio)
+                .picture(picture)
+                .build();
     }
 }

@@ -42,10 +42,6 @@ public class EmailAuth extends BaseTimeEntity {
     @Column
     private LocalDateTime expiredDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
-
     @Builder
     public EmailAuth(String email, String authToken, Boolean expired) {
         this.email = email;

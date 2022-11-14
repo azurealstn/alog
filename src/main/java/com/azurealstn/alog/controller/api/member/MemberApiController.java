@@ -1,6 +1,7 @@
 package com.azurealstn.alog.controller.api.member;
 
 import com.azurealstn.alog.dto.member.MemberCreateRequestDto;
+import com.azurealstn.alog.dto.member.MemberModifyRequestDto;
 import com.azurealstn.alog.dto.member.MemberResponseDto;
 import com.azurealstn.alog.dto.member.MemberSelectRequestDto;
 import com.azurealstn.alog.service.member.MemberService;
@@ -25,5 +26,20 @@ public class MemberApiController {
     @GetMapping("/api/v1/member/{memberId}")
     public MemberResponseDto findById(@PathVariable Long memberId) {
         return memberService.findById(memberId);
+    }
+
+    @PatchMapping("/api/v1/member-name/{memberId}")
+    public MemberResponseDto modify_name(@PathVariable Long memberId, @RequestBody MemberModifyRequestDto requestDto) {
+        return memberService.modify_name(memberId, requestDto);
+    }
+
+    @PatchMapping("/api/v1/member-username/{memberId}")
+    public MemberResponseDto modify_username(@PathVariable Long memberId, @RequestBody MemberModifyRequestDto requestDto) {
+        return memberService.modify_username(memberId, requestDto);
+    }
+
+    @DeleteMapping("/api/v1/member/{memberId}")
+    public Long delete(@PathVariable Long memberId) {
+        return memberService.delete(memberId);
     }
 }

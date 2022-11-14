@@ -161,7 +161,20 @@ const postsMain = {
           data: JSON.stringify(data)
         }).done(function(res) {
           const savedId = res;
-          location.href = '/api/v1/auth/posts/' + savedId;
+          const urlParams = new URLSearchParams(window.location.search);
+          if (urlParams.has('tempCode')) {
+            const tempCode = urlParams.get('tempCode');
+            $.ajax({
+              type: 'DELETE',
+              url: '/api/v1/temp-save-code/' + tempCode
+            }).done(function(res) {
+              location.href = '/api/v1/auth/posts/' + savedId;
+            }).fail(function(err) {
+              console.log(err);
+            });
+          } else {
+            location.href = '/api/v1/auth/posts/' + savedId;
+          }
         }).fail(function(err) {
           let message = null;
           if (err.responseJSON.validation.length === 0) {
