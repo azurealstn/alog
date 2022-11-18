@@ -59,7 +59,7 @@
     <link rel="stylesheet" href="https://uicdn.toast.com/editor-plugin-code-syntax-highlight/latest/toastui-editor-plugin-code-syntax-highlight.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <link rel="stylesheet" href="/css/header.css">
-    <link rel="stylesheet" href="/css/setting-member.css">
+    <link rel="stylesheet" href="/css/my-alog.css">
 
     <!-- JavaScript load -->
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous" defer></script>
@@ -69,7 +69,7 @@
     <script src="https://uicdn.toast.com/editor-plugin-code-syntax-highlight/latest/toastui-editor-plugin-code-syntax-highlight-all.min.js" defer></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js" defer></script>
     <script src="/js/index.js" defer></script>
-    <script src="/js/setting-member.js" defer></script>
+    <script src="/js/my-alog.js" defer></script>
 
 </head>
 <body>
@@ -128,121 +128,153 @@
             </div>
         </div>
     </header>
-    <main class="setting">
-        <input type="hidden" id="nameId" value="{{member.name}}">
-        {{#member.shortBio}}
-        <input type="hidden" id="shortBioId" value="{{member.shortBio}}">
-        {{/member.shortBio}}
-        <input type="hidden" id="usernameId" value="{{member.username}}">
-        <input type="hidden" id="memberId" value="{{member.id}}">
-        <section class="profile-top">
-            <div class="thumbnail-area">
-                <img src="/images/ex-thumbnail-profile.jpg" alt="profile">
-                <button class="image-upload">이미지 업로드</button>
-                <button class="image-remove">이미지 제거</button>
-            </div>
-            <div class="info-area">
-                <h2>{{member.name}}</h2>
-                {{#member.shortBio}}
-                <p>{{member.shortBio}}</p>
-                {{/member.shortBio}}
-                <button class="info-update">수정</button>
-            </div>
-        </section>
-        <section class="profile-bottom">
-            <div class="member-info">
-                <div class="wrapper">
-                    <div class="title-wrapper">
-                        <h3>에이로그 제목</h3>
-                    </div>
-                    <div class="block-for-mobile title-block">
-                        <div class="contents">{{member.username}}.log</div>
-                        <div class="edit-wrapper">
-                            <button class="title-update">수정</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="description">개인 페이지의 좌측 상단에 나타나는 페이지 제목입니다.</div>
-            </div>
-            <div class="member-info">
-                <div class="wrapper">
-                    <div class="title-wrapper">
-                        <h3>이메일 주소</h3>
-                    </div>
-                    <div class="block-for-mobile">
-                        <div class="contents">{{member.email}}</div>
-                    </div>
-                </div>
-                <div class="description">회원 인증 또는 시스템에서 발송하는 이메일을 수신하는 주소입니다.</div>
-            </div>
-            <div class="member-info">
-                <div class="wrapper">
-                    <div class="title-wrapper">
-                        <h3>회원 탈퇴</h3>
-                    </div>
-                    <div class="block-for-mobile">
-                        <div class="contents">
-                            <button class="member-delete">회원 탈퇴</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="description">탈퇴 시 작성하신 포스트 및 댓글이 모두 삭제되며 복구되지 않습니다.</div>
-            </div>
-        </section>
 
-        <!-- modal -->
-        <div class="modal-bg" id="modal-bg-hide"></div>
-        <div class="modal-container" id="modal-container-hide">
-            <div class="wrapper">
-                <div class="gray-block">
-                    <div>
-                        <img src="/images/pumpkin.png" alt="welcome">
-                        <div class="welcome">Welcome!</div>
+    <div class="my-alog">
+        <div class="my-alog-top">
+            <div class="member-info">
+                <a href="#">
+                    <img src="/images/ex-thumbnail-profile.jpg" alt="profile">
+                </a>
+                <div class="member-name">
+                    <div class="name">
+                        <a href="/api/v1/my-alog/{{member.id}}">{{member.name}}</a>
+                    </div>
+                    <div class="description">{{member.shortBio}}</div>
+                </div>
+            </div>
+            <div class="line-area"></div>
+            <div class="line"></div>
+        </div>
+        <div class="my-alog-middle"></div>
+        <div class="my-alog-bottom">
+            <div class="category">
+                <a href="/api/v1/my-alog/{{member.id}}" class="lists active" id="public-posts">전체글</a>
+                <a href="/api/v1/my-alog/{{member.id}}/secret" class="lists" id="secret-posts">비밀글</a>
+                <div class="underline" style="left: 0%;"></div>
+            </div>
+        </div>
+        <div>
+            <div class="search-area">
+                <section class="search">
+                    <div class="search-box focus">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" placeholder="검색어를 입력하세요">
+                    </div>
+                </section>
+            </div>
+            <div class="tag-area">
+                <div class="tag-side">
+                    <div class="tag-side-area">
+                        <div>
+                            <div class="title">태그 목록</div>
+                            <ul>
+                                <li class="tag-li select">
+                                    <a href="#">전체보기</a>
+                                    <span>(3)</span>
+                                </li>
+                                <li class="tag-li non-select">
+                                    <a href="#">tag</a>
+                                    <span>(2)</span>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-                <div class="white-block">
-                    <div class="exit-wrapper">
-                        <button id="hide-btn"><i class="fa-solid fa-xmark"></i></button>
-                    </div>
-                    <div class="block-content">
-                        <div class="content-wrapper">
-                            <div class="upper-wrapper">
-                                <h2 class="change-login">로그인</h2>
-                                <section>
-                                    <h4>이메일로 <span class="change-login">로그인</span></h4>
-                                    <form class="login-form" onsubmit="return false">
-                                        <input autocomplete="off" type="text" id="email" name="email" placeholder="이메일을 입력하세요.">
-                                        <button class="login-btn change-login" id="login-btn">로그인</button>
-                                    </form>
-                                    <div class="message" style="display: none;">
-                                        <i class="fa-solid fa-check"></i>
-                                        <div class="message-description">
-                                            <span class="emailCheck">회원가입</span> 링크가 이메일로 전송되었습니다.
-                                        </div>
-                                    </div>
-                                </section>
-                                <section>
-                                    <h4>소셜 계정으로 <span class="change-login">로그인</span></h4>
-                                    <div class="social-login">
-                                        <a href="/oauth2/authorization/google" class="social-link" style="background: white;">
-                                            <img class="google" src="/images/social-google.png" alt="google">
-                                        </a>
-                                        <a href="/" class="social-link">
-                                            <img src="/images/social-naver.png" alt="naver">
-                                        </a>
-                                    </div>
-                                </section>
+                <div class="tag-center">
+                    <a href="#" class="tag-total select-v">
+                        전체보기
+                        <span>(3)</span>
+                    </a>
+                    <a href="#" class="tag-total non-select-v">
+                        tag
+                        <span>(2)</span>
+                    </a>
+                </div>
+            </div>
+            <div class="posts-area">
+                <div class="inner">
+                    {{#postsListByMember}}
+                    {{^secret}}
+                        <div class="posts">
+                            <a href="#">
+                                <h2>{{title}}</h2>
+                            </a>
+                            <p>tag</p>
+                            <div class="tags-wrapper">
+                                <a href="#" class="tag-name">{{content}}</a>
                             </div>
-                            <div class="foot">
-                                <span class="member">아직 회원이 아니신가요?</span>
-                                <div class="link">회원가입</div>
+                            <div class="subinfo">
+                                <span>{{previousTime}}</span>
+                                <div class="separator">·</div>
+                                <span>0</span>
+                                <span>개의 댓글</span>
+                                <div class="separator">·</div>
+                                <span class="likes">
+                                  <i class="fa-solid fa-heart"></i>
+                                  <span>0</span>
+                                </span>
                             </div>
+                        </div>
+                    {{/secret}}
+                    {{/postsListByMember}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- modal -->
+    <div class="modal-bg" id="modal-bg-hide"></div>
+    <div class="modal-container" id="modal-container-hide">
+        <div class="wrapper">
+            <div class="gray-block">
+                <div>
+                    <img src="/images/pumpkin.png" alt="welcome">
+                    <div class="welcome">Welcome!</div>
+                </div>
+            </div>
+            <div class="white-block">
+                <div class="exit-wrapper">
+                    <button id="hide-btn"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="block-content">
+                    <div class="content-wrapper">
+                        <div class="upper-wrapper">
+                            <h2 class="change-login">로그인</h2>
+                            <section>
+                                <h4>이메일로 <span class="change-login">로그인</span></h4>
+                                <form class="login-form" onsubmit="return false">
+                                    <input autocomplete="off" type="text" id="email" name="email" placeholder="이메일을 입력하세요.">
+                                    <button class="login-btn change-login" id="login-btn">로그인</button>
+                                </form>
+                                <div class="message" style="display: none;">
+                                    <i class="fa-solid fa-check"></i>
+                                    <div class="message-description">
+                                        <span class="emailCheck">회원가입</span> 링크가 이메일로 전송되었습니다.
+                                    </div>
+                                </div>
+                            </section>
+                            <section>
+                                <h4>소셜 계정으로 <span class="change-login">로그인</span></h4>
+                                <div class="social-login">
+                                    <a href="/oauth2/authorization/google" class="social-link" style="background: white;">
+                                        <img class="google" src="/images/social-google.png" alt="google">
+                                    </a>
+                                    <a href="/" class="social-link">
+                                        <img src="/images/social-naver.png" alt="naver">
+                                    </a>
+                                </div>
+                            </section>
+                        </div>
+                        <div class="foot">
+                            <span class="member">아직 회원이 아니신가요?</span>
+                            <div class="link">회원가입</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </main>
+    </div>
 </div>
 </body>
 </html>

@@ -3,6 +3,7 @@ package com.azurealstn.alog.config.auth;
 import com.azurealstn.alog.domain.member.Member;
 import com.azurealstn.alog.dto.auth.OAuthAttributesDto;
 import com.azurealstn.alog.repository.member.MemberRepository;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -28,7 +29,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
     private final MemberRepository memberRepository;
     private final HttpSession httpSession;
 
-    OAuthAttributesDto attributes = null;
+    public OAuthAttributesDto attributes = null;
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {

@@ -27,6 +27,7 @@ public class TempSaveController {
         List<TempSaveResponseDto> tempSaveList = tempSaveService.findAll(member.getId());
 
         model.addAttribute("tempSaveList", tempSaveList);
+        model.addAttribute("member", member);
 
         return "tempsave/temp-saves";
     }

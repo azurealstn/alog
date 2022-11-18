@@ -91,7 +91,7 @@ public class PostsService {
         Posts posts = postsRepository.findById(postsId)
                 .orElseThrow(() -> new PostsNotFound());
 
-        posts.modify(requestDto.getTitle(), requestDto.getContent(), requestDto.getDescription());
+        posts.modify(requestDto.getTitle(), requestDto.getContent(), requestDto.getDescription(), requestDto.getSecret());
 
         return postsId;
     }
@@ -139,5 +139,12 @@ public class PostsService {
         }
 
         return isAuthenticated;
+    }
+
+    @Transactional(readOnly = true)
+    public List<PostsResponseDto> findAllByMember(Long memberId) {
+        return postsRepository.findAllByMember(memberId).stream()
+                .map(posts -> new PostsResponseDto(posts))
+                .collect(Collectors.toList());
     }
 }

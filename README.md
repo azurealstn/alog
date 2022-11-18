@@ -170,6 +170,15 @@ private static final long serialVersionUID = ?L
 - https://stackoverflow.com/questions/10378855/java-io-invalidclassexception-local-class-incompatible
 - https://hevton.tistory.com/164
 
+### Cannot call sendError() after the response has been committed
+
+`JSON` 타입 변환 과정 중 일어난 에러.  
+원인은 JPA에서 테이블과 테이블간의 연관 관계(양방향)에 있으며 이를 **무한 순환 참조**라 한다.
+
+해결법은 `@JsonIgnore` 를 사용한다. - 하지만 이게 정말 확실한 방법인지는 의문이다..
+
+- https://to-moneyking.tistory.com/m/67
+
 ## API 문서
 
 클라이언트 입장에서는 어떤 API가 있는지 모르기 때문에 백엔드에서 API를 잘 정리해서 전달할 필요가 있습니다. 백엔드에서 개발한 실제 코드를 토대로 자동으로 API 문서화를 만들어주는 툴들이 있습니다.

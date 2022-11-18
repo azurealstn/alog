@@ -658,6 +658,42 @@ class PostsApiControllerTest {
                 .andDo(print());
     }
 
+    @Test
+    @DisplayName("회원별로 글 목록")
+    @WithMockUser("MEMBER")
+    @Transactional
+    void findAll_posts_by_member() throws Exception {
+        //given
+        MemberCreateRequestDto memberCreateRequestDto = getMemberCreateRequestDto();
+
+        Member savedMember = memberRepository.save(memberCreateRequestDto.toEntity());
+
+        MockHttpSession mockHttpSession = new MockHttpSession();
+        mockHttpSession.setAttribute("member", new SessionMemberDto(savedMember));
+
+        List<Posts> collect = IntStream.range(0, 30)
+                .mapToObj(i -> Posts.builder()
+                        .title("test 제목 - " + (i + 1))
+                        .content("뭐로 할까 - " + (i + 1))
+                        .description("소개글 - " + (i + 1))
+                        .member(savedMember)
+                        .build())
+                .collect(Collectors.toList());
+        postsRepository.saveAll(collect);
+
+        //expected
+        mockMvc.perform(get("/api/v1/posts/by-member")
+                        .session(mockHttpSession)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.length()", is(30)))
+                .andExpect(jsonPath("$[0].title").value("test 제목 - 30"))
+                .andExpect(jsonPath("$[0].content").value("뭐로 할까 - 30"))
+                .andExpect(jsonPath("$[0].description").value("소개글 - 30"))
+                .andDo(print());
+
+    }
+
     private MemberCreateRequestDto getMemberCreateRequestDto() {
         String name = "슬로우스타터";
         String email = "azurealstn@naver.com";

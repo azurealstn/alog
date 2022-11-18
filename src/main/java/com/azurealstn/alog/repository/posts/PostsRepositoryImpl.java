@@ -21,6 +21,7 @@ public class PostsRepositoryImpl implements PostsRepositoryCustom {
                 .selectFrom(posts)
                 .limit(searchDto.getSize())
                 .offset(searchDto.getOffset())
+                .where(posts.secret.eq(false))
                 .orderBy(posts.id.desc())
                 .fetch();
     }
@@ -29,7 +30,17 @@ public class PostsRepositoryImpl implements PostsRepositoryCustom {
     public int findAllCount() {
         return jpaQueryFactory
                 .selectFrom(posts)
+                .where(posts.secret.eq(false))
                 .fetch().size();
+    }
+
+    @Override
+    public List<Posts> findAllByMember(Long memberId) {
+        return jpaQueryFactory
+                .selectFrom(posts)
+                .where(posts.member.id.eq(memberId))
+                .orderBy(posts.id.desc())
+                .fetch();
     }
 
 }

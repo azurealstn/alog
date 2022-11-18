@@ -1,5 +1,6 @@
 package com.azurealstn.alog.dto.posts;
 
+import com.azurealstn.alog.Infra.utils.DateUtils;
 import com.azurealstn.alog.domain.member.Member;
 import com.azurealstn.alog.domain.posts.Posts;
 import lombok.Getter;
@@ -15,6 +16,8 @@ public class PostsResponseDto implements Serializable {
     private final String content;
     private final Member member;
     private final String description;
+    private final Boolean secret;
+    private final String previousTime;
 
     public PostsResponseDto(Posts entity) {
         this.id = entity.getId();
@@ -22,5 +25,7 @@ public class PostsResponseDto implements Serializable {
         this.content = entity.getContent();
         this.member = entity.getMember();
         this.description = entity.getDescription();
+        this.secret = entity.getSecret();
+        this.previousTime = DateUtils.previousTimeCalc(entity.getCreatedDate());
     }
 }

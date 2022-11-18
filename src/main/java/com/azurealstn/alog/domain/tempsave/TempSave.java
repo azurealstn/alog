@@ -2,6 +2,7 @@ package com.azurealstn.alog.domain.tempsave;
 
 import com.azurealstn.alog.domain.BaseTimeEntity;
 import com.azurealstn.alog.domain.member.Member;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;

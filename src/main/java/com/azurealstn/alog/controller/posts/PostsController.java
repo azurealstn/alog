@@ -52,6 +52,7 @@ public class PostsController {
         model.addAttribute("posts", posts);
         model.addAttribute("previousPostsDate", previousPostsDate);
         model.addAttribute("isAuthenticated", isAuthenticated);
+        model.addAttribute("isSecret", posts.getSecret());
 
         return "posts/detailed-posts";
     }

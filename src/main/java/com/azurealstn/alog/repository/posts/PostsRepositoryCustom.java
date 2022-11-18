@@ -10,4 +10,7 @@ public interface PostsRepositoryCustom {
     List<Posts> findAll(PostsSearchDto searchDto);
 
     int findAllCount();
+
+    List<Posts> findAllByMember(Long memberId);
+
 }

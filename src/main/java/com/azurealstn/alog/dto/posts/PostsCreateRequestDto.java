@@ -1,11 +1,13 @@
 package com.azurealstn.alog.dto.posts;
 
+import com.azurealstn.alog.Infra.convert.BooleanToYNConverter;
 import com.azurealstn.alog.domain.member.Member;
 import com.azurealstn.alog.domain.posts.Posts;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Convert;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -25,12 +27,15 @@ public class PostsCreateRequestDto {
     @Size(max = 150, message = "포스트 소개 글을 150자 내로 적어주세요.")
     private String description;
 
+    private Boolean secret;
+
     @Builder
-    public PostsCreateRequestDto(String title, String content, Member member, String description) {
+    public PostsCreateRequestDto(String title, String content, Member member, String description, Boolean secret) {
         this.title = title;
         this.content = content;
         this.member = member;
         this.description = description;
+        this.secret = secret;
     }
 
     public Posts toEntity() {
@@ -39,6 +44,7 @@ public class PostsCreateRequestDto {
                 .content(content)
                 .member(member)
                 .description(description)
+                .secret(secret)
                 .build();
     }
 

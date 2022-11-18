@@ -3,6 +3,7 @@
 <div class="detail">
     <div class="detail-top">
         <input type="hidden" id="postsId" value="{{posts.id}}">
+        <input type="hidden" id="secret" value="{{posts.secret}}">
         <div class="head-wrapper">
             <h1>{{posts.title}}</h1>
             {{#isAuthenticated}}
@@ -13,11 +14,18 @@
             {{/isAuthenticated}}
             <div class="posts-info">
                 <div class="information">
-            <span class="username">
-              <a href="#">{{posts.member.name}}</a>
-            </span>
+                    <span class="username">
+                      <a href="#">{{posts.member.name}}</a>
+                    </span>
                     <span class="separator">·</span>
                     <span>{{previousPostsDate}}</span>
+                    {{#isSecret}}
+                        <span class="separator">·</span>
+                        <div class="isSecret-area">
+                            <i class="fa-solid fa-lock"></i>
+                            <span>비공개</span>
+                        </div>
+                    {{/isSecret}}
                 </div>
                 <div class="posts-likes">
                     <button class="like-btn">
