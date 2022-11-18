@@ -27,6 +27,7 @@ import java.util.stream.Stream;
 public class PostsApiController {
 
     private final PostsService postsService;
+    private final HttpSession httpSession;
 
     @PostMapping("/api/v1/posts")
     public Long create(@Valid @RequestBody PostsCreateRequestDto requestDto) throws Exception {
@@ -51,5 +52,11 @@ public class PostsApiController {
     @DeleteMapping("/api/v1/posts/{postsId}")
     public void posts(@PathVariable Long postsId) {
         postsService.delete(postsId);
+    }
+
+    @GetMapping("/api/v1/posts/by-member")
+    public List<PostsResponseDto> postsListByMember() {
+        SessionMemberDto member = (SessionMemberDto) httpSession.getAttribute("member");
+        return postsService.findAllByMember(member.getId());
     }
 }

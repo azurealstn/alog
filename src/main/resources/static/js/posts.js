@@ -150,7 +150,8 @@ const postsMain = {
         const data = {
           title: $('#title').val(),
           content: editor.getMarkdown(),
-          description: $('#description').val()
+          description: $('#description').val(),
+          secret: $('#secret').val()
         };
 
         $.ajax({
@@ -341,7 +342,8 @@ const postsMain = {
         const data = {
           title: $('#title').val(),
           content: editor.getMarkdown(),
-          description: $('#description').val()
+          description: $('#description').val(),
+          secret: $('#secret').val()
         };
 
         if (postsIdEle != null) {
@@ -380,6 +382,32 @@ const postsMain = {
         }
       });
     }
+  },
+  secret: function() {
+    const publicBtn = document.querySelector('.secret-section .public');
+    const secretBtn = document.querySelector('.secret-section .secret');
+    const secretInput = document.querySelector('#secret');
+
+    publicBtn.addEventListener('click', () => {
+      publicBtn.classList.remove('non-active');
+      secretBtn.classList.remove('active');
+      publicBtn.classList.add('active');
+      secretBtn.classList.add('non-active');
+      secretInput.value = 'false';
+    });
+
+    secretBtn.addEventListener('click', () => {
+      publicBtn.classList.remove('active');
+      secretBtn.classList.remove('non-active');
+      publicBtn.classList.add('non-active');
+      secretBtn.classList.add('active');
+      secretInput.value = 'true';
+    });
+  },
+  tagInput: function() {
+    const tagInput = document.querySelector('.title-header .tag .tag-input');
+    const tagify = new Tagify(tagInput);
+
   }
 }
 
@@ -408,4 +436,8 @@ $(function() {
   //글 수정
   postsMain.modify();
 
+  //비밀글 조작
+  postsMain.secret();
+
+  postsMain.tagInput();
 });

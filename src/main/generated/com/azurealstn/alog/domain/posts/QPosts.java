@@ -38,6 +38,8 @@ public class QPosts extends EntityPathBase<Posts> {
     //inherited
     public final DateTimePath<java.time.LocalDateTime> modifiedDate = _super.modifiedDate;
 
+    public final BooleanPath secret = createBoolean("secret");
+
     public final StringPath title = createString("title");
 
     public QPosts(String variable) {

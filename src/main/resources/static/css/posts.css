@@ -322,6 +322,37 @@ a:hover {
   color: var(--text10);
 }
 
+.tag .tag-input {
+  background: transparent;
+  display: inline-flex;
+  outline: none;
+  border: none;
+  cursor: text;
+  font-size: 1.125rem;
+  line-height: calc(var(--size-small) * 2);
+  margin-bottom: calc(var(--size-small) * 2);
+  min-width: calc(var(--size-small) * 8);
+  color: var(--text9);
+}
+
+.tagify--empty .tagify__input::before,
+.tagify__input:focus:empty::before {
+  color: var(--text9);
+}
+
+.tagify__tag>div::before {
+  box-shadow: 0 0 0 var(--tag-inset-shadow-size) var(--bg-element7) inset;
+  border-radius: 1rem;
+}
+
+.tagify__tag__removeBtn::after {
+  color: var(--primary1);
+}
+
+.tagify__tag>div>* {
+  color: var(--primary1);
+}
+
 .title-header #editor {
   margin-bottom: calc(var(--size-small) * 3);
 }
@@ -799,7 +830,6 @@ a:hover {
   color: var(--text9);
   cursor: pointer;
   border: solid 1px transparent;
-  margin-left: var(--size-small);
 }
 
 .secret-section .contents button.non-active:hover {
@@ -815,6 +845,10 @@ a:hover {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.secret-section .contents button + button {
+  margin-left: var(--size-small);
 }
 
 .secret-area .foot {
@@ -1048,6 +1082,23 @@ a:hover {
 .information .separator {
   margin-left: calc(var(--size-small) / 4);
   margin-right: calc(var(--size-small) / 4);
+}
+
+.information .isSecret-area {
+  background: rgb(52, 58, 64);
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-weight: bold;
+  display: inline-flex;
+  align-items: center;
+}
+
+.information .isSecret-area i {
+  margin-right: 0.5rem;
+  width: 0.875rem;
+  height: 0.75rem;
+  font-size: 0.3rem;
 }
 
 .posts-info .posts-likes {

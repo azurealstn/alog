@@ -4,6 +4,8 @@ import com.azurealstn.alog.domain.BaseTimeEntity;
 import com.azurealstn.alog.domain.posts.Posts;
 import com.azurealstn.alog.domain.tempsave.TempSave;
 import com.azurealstn.alog.dto.auth.SessionMemberDto;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.ColumnTransformer;
 
@@ -44,9 +46,11 @@ public class Member extends BaseTimeEntity {
     @Column
     private String shortBio; //한 줄 소개
 
+    @JsonIgnore
     @OneToMany(mappedBy = "member", cascade = {CascadeType.ALL}, orphanRemoval = true)
     private List<Posts> postsList = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "member", cascade = {CascadeType.ALL}, orphanRemoval = true)
     private List<TempSave> tempSaveList = new ArrayList<>();
 

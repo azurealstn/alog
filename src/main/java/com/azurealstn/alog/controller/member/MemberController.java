@@ -2,11 +2,14 @@ package com.azurealstn.alog.controller.member;
 
 import com.azurealstn.alog.config.auth.CustomOAuth2UserService;
 import com.azurealstn.alog.domain.member.Member;
+import com.azurealstn.alog.domain.posts.Posts;
 import com.azurealstn.alog.dto.auth.SessionMemberDto;
 import com.azurealstn.alog.dto.email.EmailAuthRequestDto;
 import com.azurealstn.alog.dto.member.MemberResponseDto;
+import com.azurealstn.alog.dto.posts.PostsResponseDto;
 import com.azurealstn.alog.service.login.LoginService;
 import com.azurealstn.alog.service.member.MemberService;
+import com.azurealstn.alog.service.posts.PostsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -25,7 +29,7 @@ public class MemberController {
     private final MemberService memberService;
     private final CustomOAuth2UserService customOAuth2UserService;
     private final LoginService loginService;
-    private final HttpSession httpSession;
+    private final PostsService postsService;
 
     @GetMapping("/api/v1/auth/create-member")
     public String createMember(@ModelAttribute EmailAuthRequestDto requestDto, Model model) {
@@ -57,6 +61,17 @@ public class MemberController {
         model.addAttribute("member", member);
 
         return "member/setting";
+    }
+
+    @GetMapping("/api/v1/my-alog/{memberId}")
+    public String myAlog(Model model, @PathVariable Long memberId) {
+        MemberResponseDto member = memberService.findById(memberId);
+        List<PostsResponseDto> postsListByMember = postsService.findAllByMember(memberId);
+
+        model.addAttribute("member", member);
+        model.addAttribute("postsListByMember", postsListByMember);
+
+        return "member/my-alog";
     }
 
 }

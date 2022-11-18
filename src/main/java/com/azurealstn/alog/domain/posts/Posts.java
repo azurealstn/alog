@@ -1,7 +1,9 @@
 package com.azurealstn.alog.domain.posts;
 
+import com.azurealstn.alog.Infra.convert.BooleanToYNConverter;
 import com.azurealstn.alog.domain.BaseTimeEntity;
 import com.azurealstn.alog.domain.member.Member;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -30,23 +32,28 @@ public class Posts extends BaseTimeEntity {
     @Column(nullable = false)
     private String content;
 
-    @Column(nullable = false)
+    @Column
     private String description;
 
+    @Column
+    private Boolean secret;
+
     @Builder
-    public Posts(String title, String content, Member member, String description) {
+    public Posts(String title, String content, Member member, String description, Boolean secret) {
         this.title = title;
         this.content = content;
         this.member = member;
         this.description = description;
+        this.secret = secret;
     }
 
     /**
      * setter를 사용하는 것보다는 수정되는 항목에 대해서만 정의하는 메서드를 만드는 것이 좋다. (명확하다.)
      */
-    public void modify(String title, String content, String description) {
+    public void modify(String title, String content, String description, Boolean secret) {
         this.title = title;
         this.content = content;
         this.description = description;
+        this.secret = secret;
     }
 }
