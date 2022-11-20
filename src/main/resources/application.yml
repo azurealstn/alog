@@ -41,3 +41,9 @@ server:
     path: /api/v1/auth/error
     white:
       enabled: false
+
+logging:
+  level:
+    org:
+      hibernate:
+        type: trace

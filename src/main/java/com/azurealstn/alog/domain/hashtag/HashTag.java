@@ -26,4 +26,8 @@ public class HashTag extends BaseTimeEntity {
     public HashTag(String name) {
         this.name = name;
     }
+
+    public void modify(String name) {
+        this.name = name;
+    }
 }

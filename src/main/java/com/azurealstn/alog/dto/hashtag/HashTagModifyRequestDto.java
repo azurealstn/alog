@@ -7,12 +7,12 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class HashTagRequestDto {
+public class HashTagModifyRequestDto {
 
     private String name;
 
     @Builder
-    public HashTagRequestDto(String name) {
+    public HashTagModifyRequestDto(String name) {
         this.name = name;
     }
 

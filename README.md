@@ -179,6 +179,12 @@ private static final long serialVersionUID = ?L
 
 - https://to-moneyking.tistory.com/m/67
 
+### No validator could be found for constraint 'javax.validation.constraints.NotBlank'
+
+`@NotEmpty`, `@NotBlank` 는 String 타입에 사용하는 어노테이션이다. 따라서 `@NotNull` 을 사용하여 해결할 수 있다.
+
+- https://www.inflearn.com/questions/16953
+
 ## API 문서
 
 클라이언트 입장에서는 어떤 API가 있는지 모르기 때문에 백엔드에서 API를 잘 정리해서 전달할 필요가 있습니다. 백엔드에서 개발한 실제 코드를 토대로 자동으로 API 문서화를 만들어주는 툴들이 있습니다.

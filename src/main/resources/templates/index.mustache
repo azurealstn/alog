@@ -27,19 +27,19 @@
                                 </div>
                             </a>
                             <div class="sub-info">
-                                <span>6일 전</span>
+                                <span>{{previousTime}}</span>
                                 <span class="separator">.</span>
                                 <span>1 개의 댓글</span>
                             </div>
                         </div>
                         <div class="bottom-info">
-                            <div class="user-info">
+                            <a href="/api/v1/my-alog/{{member.id}}" class="user-info">
                                 <img src="/images/ex-thumbnail-profile.jpg" alt="user thumbnail of minsu">
                                 <span>by <b>{{member.name}}</b></span>
-                            </div>
+                            </a>
                             <div class="likes">
                                 <i class="fa-solid fa-heart"></i>
-                                <span>45</span>
+                                <span>{{likeCount}}</span>
                             </div>
                         </div>
                     </div>

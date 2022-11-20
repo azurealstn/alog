@@ -1119,6 +1119,11 @@ a:hover {
   cursor: pointer;
 }
 
+.posts-likes .like-btn.active {
+  background: var(--primary1);
+  border-color: var(--primary2);
+}
+
 .posts-likes .like-btn i {
   width: var(--size-micro);
   height: var(--size-micro);
@@ -1127,10 +1132,18 @@ a:hover {
   font-size: var(--size-micro);
 }
 
+.posts-likes .like-btn i.active {
+  color: white;
+}
+
 .posts-likes .like-btn span {
   font-size: var(--size-micro);
   font-weight: bold;
   color: var(--text9);
+}
+
+.posts-likes .like-btn span.active {
+  color: white;
 }
 
 .head-wrapper .posts-tags {
@@ -1176,12 +1189,12 @@ a:hover {
   margin-top: calc(var(--size-small) * 2);
 }
 
-.quick-menu .menu {
+.quick-menu .menu-like {
   position: absolute;
   left: -7rem;
 }
 
-.quick-menu .menu .menu-container {
+.quick-menu .menu-like .menu-container {
   width: calc(var(--size-small) * 4);
   background: var(--bg-element7);
   border: 1px solid var(--border6);
@@ -1209,6 +1222,16 @@ a:hover {
 .menu-container .like-heart:hover {
   color: var(--text10);
   border-color: var(--text10);
+}
+
+.menu-container .like-heart.active {
+  background: var(--primary1);
+  border-color: var(--primary2);
+  color: var(--button-text1);
+}
+
+.menu-container .like-heart.active:hover {
+  opacity: 0.75;
 }
 
 .menu-container .like-heart i {

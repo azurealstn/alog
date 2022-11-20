@@ -3,6 +3,12 @@
 <div class="detail">
     <div class="detail-top">
         <input type="hidden" id="postsId" value="{{posts.id}}">
+        {{#member}}
+        <input type="hidden" id="memberId" value="{{member.id}}">
+        {{/member}}
+        {{^member}}
+        <input type="hidden" id="memberId" value="">
+        {{/member}}
         <input type="hidden" id="secret" value="{{posts.secret}}">
         <div class="head-wrapper">
             <h1>{{posts.title}}</h1>
@@ -15,7 +21,7 @@
             <div class="posts-info">
                 <div class="information">
                     <span class="username">
-                      <a href="#">{{posts.member.name}}</a>
+                      <a href="/api/v1/my-alog/{{posts.member.id}}">{{posts.member.name}}</a>
                     </span>
                     <span class="separator">·</span>
                     <span>{{previousPostsDate}}</span>
@@ -28,47 +34,41 @@
                     {{/isSecret}}
                 </div>
                 <div class="posts-likes">
-                    <button class="like-btn">
-                        <i class="fa-solid fa-heart"></i>
-                        <span>224</span>
+                    {{#existHeart}}
+                    <button class="like-btn active">
+                        <i class="fa-solid fa-heart active"></i>
+                        <span class="active">{{likeCount}}</span>
                     </button>
+                    {{/existHeart}}
+                    {{^existHeart}}
+                        <button class="like-btn">
+                            <i class="fa-solid fa-heart"></i>
+                            <span class="">{{likeCount}}</span>
+                        </button>
+                    {{/existHeart}}
                 </div>
             </div>
             <div class="posts-tags">
-                <a href="#" class="tag">기술면접</a>
-                <a href="#" class="tag">백엔드</a>
+                {{#hashTagList}}
+                <a href="/api/v1/auth/tags/{{name}}" class="tag">{{name}}</a>
+                {{/hashTagList}}
+                {{^hashTagList}}
+                {{/hashTagList}}
             </div>
             <div class="quick-menu">
-                <div class="menu">
+                <div class="menu-like">
                     <div class="menu-container">
-                        <div class="like-heart" style="transform: scale(1);">
+                        {{#existHeart}}
+                        <div class="like-heart active">
                             <i class="fa-solid fa-heart"></i>
                         </div>
-                        <div class="like-count">224</div>
-                        <div class="share">
-                            <div class="positioner">
-                                <div class="share-sns facebook" style="opacity: 0; transform: translate(0px, 0px);">
-                                    <div class="positioner-container">
-                                        <i class="fa-brands fa-facebook"></i>
-                                    </div>
-                                </div>
-                                <div class="share-sns twitter" style="opacity: 0; transform: translate(0px);">
-                                    <div class="positioner-container">
-                                        <i class="fa-brands fa-twitter"></i>
-                                    </div>
-                                </div>
-                                <div class="share-sns link-copy" style="opacity: 0; transform: translate(0px, 0px);">
-                                    <div class="positioner-container">
-                                        <i class="fa-solid fa-link"></i>
-                                    </div>
-                                </div>
+                        {{/existHeart}}
+                        {{^existHeart}}
+                            <div class="like-heart">
+                                <i class="fa-solid fa-heart"></i>
                             </div>
-                        </div>
-                        <div>
-                            <div class="share-container">
-                                <i class="fa-solid fa-share-nodes"></i>
-                            </div>
-                        </div>
+                        {{/existHeart}}
+                        <div class="like-count">{{likeCount}}</div>
                     </div>
                 </div>
             </div>
@@ -97,17 +97,6 @@
                 </div>
             </div>
             <div class="divide"></div>
-            <div class="member-sns">
-                <a href="#" target="_blank" rel="noopener noreferrer">
-                    <i class="fa-brands fa-github"></i>
-                </a>
-                <a href="#" target="_blank" rel="noopener noreferrer" class="mb">
-                    <i class="fa-solid fa-house"></i>
-                </a>
-                <a href="#" class="mb">
-                    <i class="fa-solid fa-envelope"></i>
-                </a>
-            </div>
         </div>
     </div>
     <div class="replay">

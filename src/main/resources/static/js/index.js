@@ -167,7 +167,9 @@ const main = {
     const pagination = document.querySelector('.pagination');
 
     if (matchMedia('screen and (max-width: 767px)').matches) {
-      paginationList.style.margin = '0px 0.5rem';
+      if (paginationList != null) {
+        paginationList.style.margin = '0px 0.5rem';
+      }
       if (prevPage != null) {
         prevPage.innerHTML = '<i class="fa-solid fa-chevron-left"></i>';
         prevPage.style.padding = 'calc(0.575rem - 1px) calc(0.625rem - 1px)';

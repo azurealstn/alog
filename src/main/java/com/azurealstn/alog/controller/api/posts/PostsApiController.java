@@ -1,13 +1,17 @@
 package com.azurealstn.alog.controller.api.posts;
 
+import com.azurealstn.alog.domain.hashtag.HashTag;
 import com.azurealstn.alog.domain.member.Member;
 import com.azurealstn.alog.domain.posts.Posts;
 import com.azurealstn.alog.dto.auth.SessionMemberDto;
+import com.azurealstn.alog.dto.hashtag.HashTagResponseDto;
 import com.azurealstn.alog.dto.posts.PostsCreateRequestDto;
 import com.azurealstn.alog.dto.posts.PostsModifyRequestDto;
 import com.azurealstn.alog.dto.posts.PostsResponseDto;
 import com.azurealstn.alog.dto.posts.PostsSearchDto;
 import com.azurealstn.alog.repository.posts.PostsRepository;
+import com.azurealstn.alog.service.hashtag.HashTagService;
+import com.azurealstn.alog.service.like.PostsLikeService;
 import com.azurealstn.alog.service.posts.PostsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +31,8 @@ import java.util.stream.Stream;
 public class PostsApiController {
 
     private final PostsService postsService;
+    private final PostsLikeService postsLikeService;
+    private final HashTagService hashTagService;
     private final HttpSession httpSession;
 
     @PostMapping("/api/v1/posts")
@@ -57,6 +63,21 @@ public class PostsApiController {
     @GetMapping("/api/v1/posts/by-member")
     public List<PostsResponseDto> postsListByMember() {
         SessionMemberDto member = (SessionMemberDto) httpSession.getAttribute("member");
-        return postsService.findAllByMember(member.getId());
+        List<PostsResponseDto> postsList = postsService.findAllByMember(member.getId());
+
+        for (PostsResponseDto postsResponseDto : postsList) {
+            List<HashTagResponseDto> tags = hashTagService.findByTags(postsResponseDto.getId());
+            List<HashTag> hashTags = tags.stream()
+                    .map(tag -> HashTag.builder()
+                            .name(tag.getName())
+                            .build())
+                    .collect(Collectors.toList());
+
+            for (HashTag hashTag : hashTags) {
+                postsResponseDto.addHashTag(hashTag);
+            }
+        }
+
+        return postsList;
     }
 }

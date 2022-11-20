@@ -11,19 +11,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PostsHashTagRequestDto {
 
-    private Posts posts;
-    private HashTag hashTag;
+    private Long postsId;
+    private Long hashtagId;
 
     @Builder
-    public PostsHashTagRequestDto(Posts posts, HashTag hashTag) {
-        this.posts = posts;
-        this.hashTag = hashTag;
+    public PostsHashTagRequestDto(Long postsId, Long hashtagId) {
+        this.postsId = postsId;
+        this.hashtagId = hashtagId;
     }
 
-    public PostsHashTagMap toEntity() {
-        return PostsHashTagMap.builder()
-                .posts(posts)
-                .hashTag(hashTag)
-                .build();
-    }
 }

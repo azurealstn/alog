@@ -12,6 +12,7 @@ import javax.validation.constraints.NotBlank;
 public class LoginRequestDto {
 
     @Email(message = "잘못된 이메일 형식입니다.")
+    @NotBlank(message = "잘못된 이메일 형식입니다.")
     private String email;
     private String authToken;
     private boolean existsEmail;

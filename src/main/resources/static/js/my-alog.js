@@ -21,6 +21,7 @@ const myAlogMain = {
                     inner.removeChild(inner.firstChild);
                 }
                 res.forEach((posts, index) => {
+                    const htmlArr = makeTagHtml(posts.hashTagNames);
                     if (posts.secret) {
                         const html = `
                             <div class="posts">
@@ -29,7 +30,7 @@ const myAlogMain = {
                                 </a>
                                 <p>${posts.content}</p>
                                 <div class="tags-wrapper">
-                                    <a href="#" class="tag-name">tag</a>
+                                    ${htmlArr}
                                 </div>
                                 <div class="subinfo">
                                     <span>${posts.previousTime}</span>
@@ -73,15 +74,16 @@ const myAlogMain = {
                     inner.removeChild(inner.firstChild);
                 }
                 res.forEach((posts, index) => {
+                    const htmlArr = makeTagHtml(posts.hashTagNames);
                     if (!posts.secret) {
                         const html = `
                             <div class="posts">
-                                <a href="#">
+                                <a href="/api/v1/auth/posts/${posts.id}">
                                     <h2>${posts.title}</h2>
                                 </a>
                                 <p>${posts.content}</p>
                                 <div class="tags-wrapper">
-                                    <a href="#" class="tag-name">tag</a>
+                                    ${htmlArr}
                                 </div>
                                 <div class="subinfo">
                                     <span>${posts.previousTime}</span>
@@ -104,6 +106,16 @@ const myAlogMain = {
             });
         });
     }
+}
+
+function makeTagHtml(hashTagNames) {
+    const htmlArr = [];
+    hashTagNames.forEach((hashTagName, index) => {
+        const html = '<a href="/api/v1/auth/tags/' + hashTagName.name + '"' + 'class="tag-name">' + hashTagName.name + '</a>';
+        htmlArr.push(html);
+    });
+
+    return htmlArr.join(' ');
 }
 
 $(function() {
