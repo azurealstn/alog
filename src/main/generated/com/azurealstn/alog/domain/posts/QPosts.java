@@ -38,6 +38,8 @@ public class QPosts extends EntityPathBase<Posts> {
     //inherited
     public final DateTimePath<java.time.LocalDateTime> modifiedDate = _super.modifiedDate;
 
+    public final ListPath<com.azurealstn.alog.domain.hashtag.PostsHashTagMap, com.azurealstn.alog.domain.hashtag.QPostsHashTagMap> postsHashTagMapList = this.<com.azurealstn.alog.domain.hashtag.PostsHashTagMap, com.azurealstn.alog.domain.hashtag.QPostsHashTagMap>createList("postsHashTagMapList", com.azurealstn.alog.domain.hashtag.PostsHashTagMap.class, com.azurealstn.alog.domain.hashtag.QPostsHashTagMap.class, PathInits.DIRECT2);
+
     public final BooleanPath secret = createBoolean("secret");
 
     public final StringPath title = createString("title");

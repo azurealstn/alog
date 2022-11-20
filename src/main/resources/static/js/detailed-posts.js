@@ -77,6 +77,114 @@ const postsMain = {
       });
     }
 
+  },
+  toggleLike: function() {
+    const likeBtn = document.querySelector('.menu-like .like-heart');
+    const likeCount = document.querySelector('.menu-like .like-count');
+
+    if (likeBtn != null) {
+        likeBtn.addEventListener('click', () => {
+            const data = {
+                memberId: $('#memberId').val(),
+                postsId: $('#postsId').val()
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: '/api/v1/auth/toggle-like',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(data)
+            }).done(function(res) {
+                const existHeart = res;
+                if (existHeart) {
+                    likeBtn.classList.toggle('active');
+                    if (likeBtn.className.includes('active')) {
+                        likeCount.innerText = ++likeCount.innerText;
+                    } else {
+                        likeCount.innerText = --likeCount.innerText;
+                    }
+                }
+
+            }).fail(function(err) {
+                console.log(err);
+                let message = null;
+                if (err.responseJSON.validation.length === 0) {
+                  message = err.responseJSON.message;
+                } else {
+                  message = err.responseJSON.validation[0].errorMessage;
+                }
+
+                const dangerToast = Toastify({
+                  text: message,
+                  duration: 3000,
+                  close: true,
+                  gravity: "top", // `top` or `bottom`
+                  position: "right", // `left`, `center` or `right`
+                  stopOnFocus: true, // Prevents dismissing of toast on hover
+                  style: {
+                    background: "#e74c3c",
+                  },
+                });
+                dangerToast.showToast();
+            });
+        });
+    }
+  },
+  toggleLikeBtn: function() {
+    const likeBtn = document.querySelector('.posts-likes .like-btn');
+    const likeIcon = document.querySelector('.posts-likes .like-btn i');
+    const likeSpan = document.querySelector('.posts-likes .like-btn span');
+
+    if (likeBtn != null) {
+        likeBtn.addEventListener('click', () => {
+            const data = {
+                memberId: $('#memberId').val(),
+                postsId: $('#postsId').val()
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: '/api/v1/auth/toggle-like',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(data)
+            }).done(function(res) {
+                const existHeart = res;
+                if (existHeart) {
+                    likeBtn.classList.toggle('active');
+                    likeIcon.classList.toggle('active');
+                    likeSpan.classList.toggle('active');
+
+                    if (likeBtn.className.includes('active')) {
+                        likeSpan.innerText = ++likeSpan.innerText;
+                    } else {
+                        likeSpan.innerText = --likeSpan.innerText;
+                    }
+                }
+
+            }).fail(function(err) {
+                console.log(err);
+                let message = null;
+                if (err.responseJSON.validation.length === 0) {
+                  message = err.responseJSON.message;
+                } else {
+                  message = err.responseJSON.validation[0].errorMessage;
+                }
+
+                const dangerToast = Toastify({
+                  text: message,
+                  duration: 3000,
+                  close: true,
+                  gravity: "top", // `top` or `bottom`
+                  position: "right", // `left`, `center` or `right`
+                  stopOnFocus: true, // Prevents dismissing of toast on hover
+                  style: {
+                    background: "#e74c3c",
+                  },
+                });
+                dangerToast.showToast();
+            });
+        });
+    }
   }
 }
 
@@ -87,4 +195,7 @@ $(function() {
   //수정 페이지 이동
   postsMain.updatePage();
 
+  postsMain.toggleLike();
+
+  postsMain.toggleLikeBtn();
 });

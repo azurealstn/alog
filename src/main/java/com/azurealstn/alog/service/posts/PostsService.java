@@ -7,6 +7,7 @@ import com.azurealstn.alog.domain.member.Member;
 import com.azurealstn.alog.domain.posts.Posts;
 import com.azurealstn.alog.dto.BasePageDto;
 import com.azurealstn.alog.dto.auth.SessionMemberDto;
+import com.azurealstn.alog.dto.hashtag.HashTagSearchDto;
 import com.azurealstn.alog.dto.posts.PostsCreateRequestDto;
 import com.azurealstn.alog.dto.posts.PostsResponseDto;
 import com.azurealstn.alog.dto.posts.PostsModifyRequestDto;
@@ -144,6 +145,16 @@ public class PostsService {
     @Transactional(readOnly = true)
     public List<PostsResponseDto> findAllByMember(Long memberId) {
         return postsRepository.findAllByMember(memberId).stream()
+                .map(posts -> new PostsResponseDto(posts))
+                .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<PostsResponseDto> findAllJoinWithHashTag(String name, HashTagSearchDto searchDto) {
+        int totalRowCount = postsRepository.findAllJoinWithHashTagCount(name);
+        BasePageDto basePageDto = new BasePageDto(searchDto.getPage(), searchDto.getSize(), totalRowCount);
+        searchDto.setBasePageDto(basePageDto);
+        return postsRepository.findAllJoinWithHashTag(name, searchDto).stream()
                 .map(posts -> new PostsResponseDto(posts))
                 .collect(Collectors.toList());
     }

@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @RequiredArgsConstructor
 @Service
@@ -48,6 +49,7 @@ public class MemberService {
 
     /**
      * 회원가입
+     *
      * @return Long id
      */
     @Transactional
@@ -144,5 +146,8 @@ public class MemberService {
         return memberId;
     }
 
-
+    @Transactional(readOnly = true)
+    public Boolean isMyPosts(Long memberId, SessionMemberDto sessionMemberDto) {
+        return Objects.equals(memberId, sessionMemberDto.getId());
+    }
 }

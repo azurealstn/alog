@@ -168,11 +168,44 @@ const postsMain = {
             $.ajax({
               type: 'DELETE',
               url: '/api/v1/temp-save-code/' + tempCode
-            }).done(function(res) {
-              location.href = '/api/v1/auth/posts/' + savedId;
-            }).fail(function(err) {
-              console.log(err);
             });
+          }
+
+          //해쉬태그 insert
+          const tagList = document.querySelectorAll('.tagify__tag-text');
+
+          if (tagList.length !== 0) {
+              tagList.forEach((tag, index) => {
+                  const tagData = {
+                      name: tag.innerText,
+                  };
+
+                  $.ajax({
+                      type: 'POST',
+                      url: '/api/v1/hashtag',
+                      dataType: 'json',
+                      contentType: 'application/json; charset=utf-8',
+                      data: JSON.stringify(tagData)
+                  }).done(function(res) {
+                    const hashtagId = res;
+                    const postsHashTagData = {
+                        postsId: savedId,
+                        hashtagId: hashtagId
+                    };
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '/api/v1/posts-hash-tag',
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify(postsHashTagData)
+                    }).done(function() {
+                        location.href = '/api/v1/auth/posts/' + savedId;
+                    }).fail(function(err) {
+                        console.log(err);
+                    });
+                  });
+              });
+
           } else {
             location.href = '/api/v1/auth/posts/' + savedId;
           }
@@ -275,7 +308,6 @@ const postsMain = {
           contentType: 'application/json; charset=utf-8',
           data: JSON.stringify(data)
         }).done(function(res) {
-          console.log(res);
           const tempSaveId = res;
           $.ajax({
             type: 'GET',
@@ -355,8 +387,49 @@ const postsMain = {
               contentType: 'application/json; charset=utf-8',
               data: JSON.stringify(data)
             }).done(function(res) {
-              const modifiedId = res;
-              location.href = '/api/v1/auth/posts/' + modifiedId;
+                const modifiedId = res;
+                $.ajax({
+                   type: 'DELETE',
+                   url: '/api/v1/posts-hash-tag/' + postsId
+                }).done(function() {
+                    //해쉬태그 insert
+                    const tagList = document.querySelectorAll('.tagify__tag-text');
+
+                    if (tagList.length !== 0) {
+                        tagList.forEach((tag, index) => {
+                            const tagData = {
+                                name: tag.innerText,
+                            };
+
+                            $.ajax({
+                                type: 'POST',
+                                url: '/api/v1/hashtag',
+                                dataType: 'json',
+                                contentType: 'application/json; charset=utf-8',
+                                data: JSON.stringify(tagData)
+                            }).done(function(res) {
+                                const hashtagId = res;
+                                const postsHashTagData = {
+                                    postsId: modifiedId,
+                                    hashtagId: hashtagId
+                                };
+
+                                $.ajax({
+                                    type: 'POST',
+                                    url: '/api/v1/posts-hash-tag',
+                                    contentType: 'application/json; charset=utf-8',
+                                    data: JSON.stringify(postsHashTagData)
+                                }).done(function() {
+                                    location.href = '/api/v1/auth/posts/' + modifiedId;
+                                }).fail(function(err) {
+                                    console.log(err);
+                                });
+                            });
+                        });
+                    } else {
+                        location.href = '/api/v1/auth/posts/' + modifiedId;
+                    }
+                });
             }).fail(function(err) {
               let message = null;
               if (err.responseJSON.validation.length === 0) {
@@ -406,9 +479,34 @@ const postsMain = {
   },
   tagInput: function() {
     const tagInput = document.querySelector('.title-header .tag .tag-input');
-    const tagify = new Tagify(tagInput);
 
+    const postsIdEle = document.querySelector('#postsId');
+    if (postsIdEle != null) {
+        $.ajax({
+            type: 'GET',
+            url: '/api/v1/hashtag/' + postsIdEle.value,
+            dataType: 'json',
+        }).done(function(res) {
+            const hashTagList = res;
+            const tagNames = hashTagNames(hashTagList);
+            tagInput.value = `
+                ${tagNames}
+            `;
+            const tagify = new Tagify(tagInput);
+        });
+    } else {
+        const tagify = new Tagify(tagInput);
+    }
   }
+}
+
+function hashTagNames(hashTagList) {
+    let tagNames = [];
+    hashTagList.forEach((hashTag, index) => {
+        tagNames.push(hashTag.name);
+    });
+
+    return tagNames;
 }
 
 $(function() {

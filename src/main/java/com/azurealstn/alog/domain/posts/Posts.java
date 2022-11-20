@@ -2,7 +2,10 @@ package com.azurealstn.alog.domain.posts;
 
 import com.azurealstn.alog.Infra.convert.BooleanToYNConverter;
 import com.azurealstn.alog.domain.BaseTimeEntity;
+import com.azurealstn.alog.domain.hashtag.HashTag;
+import com.azurealstn.alog.domain.hashtag.PostsHashTagMap;
 import com.azurealstn.alog.domain.member.Member;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -10,6 +13,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -37,6 +42,10 @@ public class Posts extends BaseTimeEntity {
 
     @Column
     private Boolean secret;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "posts", cascade = {CascadeType.ALL}, orphanRemoval = true)
+    private List<PostsHashTagMap> postsHashTagMapList = new ArrayList<>();
 
     @Builder
     public Posts(String title, String content, Member member, String description, Boolean secret) {
