@@ -106,12 +106,14 @@
         </h4>
         <div class="replay-container">
             <div class="replay-write">
+                <input type="hidden" name="level" id="level" value="0">
                 <textarea name="content" id="content" class="replay-content" placeholder="댓글을 작성하세요"></textarea>
                 <div class="buttons-wrapper">
                     <button class="write-btn">댓글 작성</button>
                 </div>
             </div>
             <div class="replay-list">
+                {{#commentLevel0}}
                 <div class="replay-list-container">
                     <div class="comment">
                         <div class="comment-member">
@@ -121,107 +123,96 @@
                                 </a>
                                 <div class="comment-info">
                                     <div class="username">
-                                        <a href="#">minsu</a>
+                                        <a href="/api/v1/my-alog/{{member.id}}">{{member.name}}</a>
                                     </div>
-                                    <div class="date">2022년 11월 2일</div>
+                                    <div class="date">{{previousTime}}</div>
                                 </div>
                             </div>
+                            {{#isCommentMe}}
+                            <div class="actions">
+                                <span id="modify-{{id}}" onclick="postsMain.commentModifyShowHide({{id}})" style="cursor: pointer;">수정</span>
+                                <span id="delete-{{id}}" onclick="postsMain.commentDelete({{id}})" style="cursor: pointer;">삭제</span>
+                            </div>
+                            {{/isCommentMe}}
                         </div>
                         <div class="comment-content">
                             <div class="atom-one">
-                                <p>키워드 얻어갑니다.^^</p>
-                            </div>
-                        </div>
-                        <div class="comment-reply">
-                            <div class="reply-area">
-                                <i class="fa-solid fa-square-plus"></i>
-                                <span>1</span>
-                                <span>개의 답글</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="comment">
-                        <div class="comment-member">
-                            <div class="profile">
-                                <a href="#">
-                                    <img src="/images/ex-thumbnail-profile.jpg" alt="comment user thumbnail">
-                                </a>
-                                <div class="comment-info">
-                                    <div class="username">
-                                        <a href="#">minsu</a>
+                                <p class="show" id="p-{{id}}">{{content}}</p>
+                                <div class="replay-write hide" id="reply-write_{{id}}">
+                                    <input type="hidden" name="level" id="level" value="0">
+                                    <textarea name="content" id="content-{{id}}" class="replay-content" placeholder="댓글을 작성하세요">{{content}}</textarea>
+                                    <div class="buttons-wrapper">
+                                        <button class="write-btn" onclick="postsMain.commentModify({{id}})">댓글 수정</button>
                                     </div>
-                                    <div class="date">2022년 11월 2일</div>
                                 </div>
                             </div>
                         </div>
-                        <div class="comment-content">
-                            <div class="atom-one">
-                                <p>키워드 얻어갑니다.^^</p>
-                            </div>
-                        </div>
                         <div class="comment-reply">
-                            <div class="reply-area">
-                                <i class="fa-solid fa-square-plus"></i>
-                                <span>1</span>
-                                <span>개의 답글</span>
+                            <div class="reply-area" onclick="postsMain.commentShowAndHide({{id}})">
+                                <i class="fa-solid fa-square-plus" id="icon-{{id}}"></i>
+                                <span class="show-reply" id="text-{{id}}">답글 작성</span>
                             </div>
-                        </div>
-                    </div>
-                    <div class="comment">
-                        <div class="comment-member">
-                            <div class="profile">
-                                <a href="#">
-                                    <img src="/images/ex-thumbnail-profile.jpg" alt="comment user thumbnail">
-                                </a>
-                                <div class="comment-info">
-                                    <div class="username">
-                                        <a href="#">minsu</a>
+                            <div class="reply-detail-list" id="detail-list-{{id}}">
+                                <div class="replay-margin"></div>
+                                <div class="reply-content">
+                                    {{#subCommentList}}
+                                    <div class="comment" id="comment-{{upCommentId}}">
+                                        <div class="comment-member">
+                                            <div class="profile">
+                                                <a href="/api/v1/my-alog/{{member.id}}">
+                                                    <img src="/images/ex-thumbnail-profile.jpg" alt="comment user thumbnail">
+                                                </a>
+                                                <div class="comment-info">
+                                                    <div class="username">
+                                                        <a href="/api/v1/my-alog/{{member.id}}">{{member.name}}</a>
+                                                    </div>
+                                                    <div class="date">{{previousTime}}</div>
+                                                </div>
+                                            </div>
+                                            {{#isCommentMe}}
+                                            <div class="actions">
+                                                <span id="sub-modify-{{id}}" onclick="postsMain.replyModifyShowHide({{id}})" style="cursor: pointer;">수정</span>
+                                                <span id="sub-delete-{{id}}" onclick="postsMain.subCommentDelete({{id}})" style="cursor: pointer;">삭제</span>
+                                            </div>
+                                            {{/isCommentMe}}
+                                        </div>
+                                        <div class="comment-content">
+                                            <div class="atom-one">
+                                                <p class="show" id="sub-p-{{id}}">{{content}}</p>
+                                                <div class="replay-write hide" id="sub-reply-write_{{id}}">
+                                                    <input type="hidden" name="level" id="level" value="1">
+                                                    <textarea name="content" id="sub-content-{{id}}" class="replay-content" placeholder="댓글을 작성하세요">{{content}}</textarea>
+                                                    <div class="buttons-wrapper">
+                                                        <button class="write-btn" onclick="postsMain.commentModify({{id}})">댓글 수정</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="date">2022년 11월 2일</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="comment-content">
-                            <div class="atom-one">
-                                <p>키워드 얻어갑니다.^^</p>
-                            </div>
-                        </div>
-                        <div class="comment-reply">
-                            <div class="reply-area">
-                                <i class="fa-solid fa-square-plus"></i>
-                                <span>1</span>
-                                <span>개의 답글</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="comment">
-                        <div class="comment-member">
-                            <div class="profile">
-                                <a href="#">
-                                    <img src="/images/ex-thumbnail-profile.jpg" alt="comment user thumbnail">
-                                </a>
-                                <div class="comment-info">
-                                    <div class="username">
-                                        <a href="#">minsu</a>
+                                    {{/subCommentList}}
+                                    {{#hasSubCommentList}}
+                                    <div class="comment-margin"></div>
+                                    <div id="reply-parent-{{id}}">
+                                        <button class="reply-comment-btn" onclick="postsMain.replyShow({{id}})">답글 작성하기</button>
                                     </div>
-                                    <div class="date">2022년 11월 2일</div>
+                                    {{/hasSubCommentList}}
+                                    {{^subCommentList}}
+                                    <div class="replay-write" id="replay-write-{{id}}">
+                                        <input type="hidden" name="level" id="subLevel" value="1">
+                                        <input type="hidden" name="upCommentId" id="upCommentId" value="{{id}}">
+                                        <textarea name="content" id="subContent" class="replay-content" placeholder="댓글을 작성하세요"></textarea>
+                                        <div class="buttons-wrapper">
+                                            <!--<button class="reply-cancel" id="reply-cancel-{{id}}" onclick="postsMain.replyCancel({{id}})">취소</button>-->
+                                            <button class="write-btn-sub">댓글 작성</button>
+                                        </div>
+                                    </div>
+                                    {{/subCommentList}}
                                 </div>
-                            </div>
-                        </div>
-                        <div class="comment-content">
-                            <div class="atom-one">
-                                <p>키워드 얻어갑니다.^^</p>
-                            </div>
-                        </div>
-                        <div class="comment-reply">
-                            <div class="reply-area">
-                                <i class="fa-solid fa-square-plus"></i>
-                                <span>1</span>
-                                <span>개의 답글</span>
                             </div>
                         </div>
                     </div>
                 </div>
+                {{/commentLevel0}}
             </div>
         </div>
     </div>
