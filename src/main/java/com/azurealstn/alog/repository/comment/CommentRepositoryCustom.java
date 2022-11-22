@@ -13,5 +13,6 @@ public interface CommentRepositoryCustom {
 
     List<Comment> findAllCommentLevel1(Long commentId);
 
+    int commentCountByPosts(Long postsId);
 
 }

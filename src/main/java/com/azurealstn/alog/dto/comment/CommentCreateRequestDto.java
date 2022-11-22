@@ -27,13 +27,13 @@ public class CommentCreateRequestDto {
 
     private Long upCommentId;
 
-    private int level;
+    private Integer level;
 
     private Long memberId;
     private Long postsId;
 
     @Builder
-    public CommentCreateRequestDto(String content, Member member, Posts posts, Long upCommentId, int level) {
+    public CommentCreateRequestDto(String content, Member member, Posts posts, Long upCommentId, Integer level) {
         this.content = content;
         this.member = member;
         this.posts = posts;

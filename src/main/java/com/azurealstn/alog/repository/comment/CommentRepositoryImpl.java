@@ -40,4 +40,12 @@ public class CommentRepositoryImpl implements CommentRepositoryCustom {
                 .fetch();
     }
 
+    @Override
+    public int commentCountByPosts(Long postsId) {
+        return jpaQueryFactory
+                .selectFrom(comment)
+                .where(comment.posts.id.eq(postsId))
+                .fetch().size();
+    }
+
 }

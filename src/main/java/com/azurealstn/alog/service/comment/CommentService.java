@@ -87,4 +87,10 @@ public class CommentService {
                 .map(comment -> new CommentResponseDto(comment))
                 .collect(Collectors.toList());
     }
+
+    @Transactional(readOnly = true)
+    public int commentCountByPosts(Long postsId) {
+        int commentCountByPosts = commentRepository.commentCountByPosts(postsId);
+        return (Math.max(commentCountByPosts, 0));
+    }
 }

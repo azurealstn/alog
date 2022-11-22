@@ -1,6 +1,8 @@
 package com.azurealstn.alog.domain.member;
 
 import com.azurealstn.alog.domain.BaseTimeEntity;
+import com.azurealstn.alog.domain.comment.Comment;
+import com.azurealstn.alog.domain.like.PostsLike;
 import com.azurealstn.alog.domain.posts.Posts;
 import com.azurealstn.alog.domain.tempsave.TempSave;
 import com.azurealstn.alog.dto.auth.SessionMemberDto;
@@ -53,6 +55,14 @@ public class Member extends BaseTimeEntity {
     @JsonIgnore
     @OneToMany(mappedBy = "member", cascade = {CascadeType.ALL}, orphanRemoval = true)
     private List<TempSave> tempSaveList = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "member", cascade = {CascadeType.ALL}, orphanRemoval = true)
+    private List<Comment> commentList = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "member", cascade = {CascadeType.ALL}, orphanRemoval = true)
+    private List<PostsLike> postsLikeList = new ArrayList<>();
 
     @Builder
     public Member(String email, String name, String picture, Role role, Boolean emailAuth, String username, String shortBio) {

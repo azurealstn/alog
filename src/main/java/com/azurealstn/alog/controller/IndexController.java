@@ -5,6 +5,7 @@ import com.azurealstn.alog.dto.like.PostsLikeRequestDto;
 import com.azurealstn.alog.dto.like.PostsLikeResponseDto;
 import com.azurealstn.alog.dto.posts.PostsResponseDto;
 import com.azurealstn.alog.dto.posts.PostsSearchDto;
+import com.azurealstn.alog.service.comment.CommentService;
 import com.azurealstn.alog.service.like.PostsLikeService;
 import com.azurealstn.alog.service.posts.PostsService;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,7 @@ public class IndexController {
     private final HttpSession httpSession;
     private final PostsService postsService;
     private final PostsLikeService postsLikeService;
+    private final CommentService commentService;
 
     @GetMapping("/")
     public String index(Model model, @ModelAttribute(name = "searchDto") PostsSearchDto searchDto) {
@@ -40,6 +42,7 @@ public class IndexController {
             PostsLikeRequestDto postsLikeRequestDto = new PostsLikeRequestDto(postsResponseDto.getMember().getId(), postsResponseDto.getId());
             PostsLikeResponseDto postsLikeInfo = postsLikeService.findPostsLikeInfo(postsLikeRequestDto);
             postsResponseDto.addLikeCount(postsLikeInfo.getPostsLikeCount());
+            postsResponseDto.addCommentCount(commentService.commentCountByPosts(postsResponseDto.getId()));
         }
 
         //==페이징 처리 start==//

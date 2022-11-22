@@ -1,3 +1,4 @@
+
 spring:
   h2:
     console:
@@ -27,6 +28,13 @@ spring:
     store-type: jdbc
     jdbc:
       initialize-schema: always
+
+  servlet:
+    multipart:
+      enabled: true #파일 업로드 가능 여부
+      location: C:\\project-upload\\alog
+      max-request-size: 30MB
+      max-file-size: 10MB
 
 server:
   servlet:

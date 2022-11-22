@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -36,13 +37,13 @@ public class Comment extends BaseTimeEntity {
     private Long upCommentId;
 
     @Column
-    private int level;
+    private Integer level;
 
     @Column
     private Boolean isCommentMe;
 
     @Builder
-    public Comment(Long id, String content, Member member, Posts posts, Long upCommentId, int level, Boolean isCommentMe) {
+    public Comment(Long id, String content, Member member, Posts posts, Long upCommentId, Integer level, Boolean isCommentMe) {
         this.id = id;
         this.content = content;
         this.member = member;
