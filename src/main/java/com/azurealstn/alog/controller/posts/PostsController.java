@@ -65,6 +65,8 @@ public class PostsController {
         PostsLikeRequestDto postsLikeRequestDto = new PostsLikeRequestDto(posts.getMember().getId(), postsId);
         PostsLikeResponseDto postsLikeInfo = postsLikeService.findPostsLikeInfo(postsLikeRequestDto);
 
+        int commentCountByPosts = commentService.commentCountByPosts(postsId);
+
         List<CommentResponseDto> commentLevel0 = commentService.findAllCommentLevel0();
 
         for (CommentResponseDto commentResponseDto : commentLevel0) {
@@ -108,6 +110,7 @@ public class PostsController {
         model.addAttribute("existHeart", postsLikeInfo.isExist());
         model.addAttribute("likeCount", postsLikeInfo.getPostsLikeCount());
         model.addAttribute("commentLevel0", commentLevel0);
+        model.addAttribute("commentCountByPosts", commentCountByPosts);
 
         return "posts/detailed-posts";
     }

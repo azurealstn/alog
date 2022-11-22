@@ -2,8 +2,10 @@ package com.azurealstn.alog.domain.posts;
 
 import com.azurealstn.alog.Infra.convert.BooleanToYNConverter;
 import com.azurealstn.alog.domain.BaseTimeEntity;
+import com.azurealstn.alog.domain.comment.Comment;
 import com.azurealstn.alog.domain.hashtag.HashTag;
 import com.azurealstn.alog.domain.hashtag.PostsHashTagMap;
+import com.azurealstn.alog.domain.like.PostsLike;
 import com.azurealstn.alog.domain.member.Member;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -46,6 +48,15 @@ public class Posts extends BaseTimeEntity {
     @JsonIgnore
     @OneToMany(mappedBy = "posts", cascade = {CascadeType.ALL}, orphanRemoval = true)
     private List<PostsHashTagMap> postsHashTagMapList = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "posts", cascade = {CascadeType.ALL}, orphanRemoval = true)
+    private List<Comment> commentList = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "posts", cascade = {CascadeType.ALL}, orphanRemoval = true)
+    private List<PostsLike> postsLikeList = new ArrayList<>();
+
 
     @Builder
     public Posts(String title, String content, Member member, String description, Boolean secret) {

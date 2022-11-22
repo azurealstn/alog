@@ -22,6 +22,8 @@ public class QMember extends EntityPathBase<Member> {
 
     public final com.azurealstn.alog.domain.QBaseTimeEntity _super = new com.azurealstn.alog.domain.QBaseTimeEntity(this);
 
+    public final ListPath<com.azurealstn.alog.domain.comment.Comment, com.azurealstn.alog.domain.comment.QComment> commentList = this.<com.azurealstn.alog.domain.comment.Comment, com.azurealstn.alog.domain.comment.QComment>createList("commentList", com.azurealstn.alog.domain.comment.Comment.class, com.azurealstn.alog.domain.comment.QComment.class, PathInits.DIRECT2);
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdDate = _super.createdDate;
 
@@ -37,6 +39,8 @@ public class QMember extends EntityPathBase<Member> {
     public final StringPath name = createString("name");
 
     public final StringPath picture = createString("picture");
+
+    public final ListPath<com.azurealstn.alog.domain.like.PostsLike, com.azurealstn.alog.domain.like.QPostsLike> postsLikeList = this.<com.azurealstn.alog.domain.like.PostsLike, com.azurealstn.alog.domain.like.QPostsLike>createList("postsLikeList", com.azurealstn.alog.domain.like.PostsLike.class, com.azurealstn.alog.domain.like.QPostsLike.class, PathInits.DIRECT2);
 
     public final ListPath<com.azurealstn.alog.domain.posts.Posts, com.azurealstn.alog.domain.posts.QPosts> postsList = this.<com.azurealstn.alog.domain.posts.Posts, com.azurealstn.alog.domain.posts.QPosts>createList("postsList", com.azurealstn.alog.domain.posts.Posts.class, com.azurealstn.alog.domain.posts.QPosts.class, PathInits.DIRECT2);
 

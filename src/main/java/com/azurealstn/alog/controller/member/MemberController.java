@@ -11,6 +11,7 @@ import com.azurealstn.alog.dto.like.PostsLikeRequestDto;
 import com.azurealstn.alog.dto.like.PostsLikeResponseDto;
 import com.azurealstn.alog.dto.member.MemberResponseDto;
 import com.azurealstn.alog.dto.posts.PostsResponseDto;
+import com.azurealstn.alog.service.comment.CommentService;
 import com.azurealstn.alog.service.hashtag.HashTagService;
 import com.azurealstn.alog.service.like.PostsLikeService;
 import com.azurealstn.alog.service.login.LoginService;
@@ -39,6 +40,7 @@ public class MemberController {
     private final PostsService postsService;
     private final HashTagService hashTagService;
     private final PostsLikeService postsLikeService;
+    private final CommentService commentService;
     private final HttpSession httpSession;
 
     @GetMapping("/api/v1/auth/create-member")
@@ -93,6 +95,7 @@ public class MemberController {
             PostsLikeRequestDto postsLikeRequestDto = new PostsLikeRequestDto(postsResponseDto.getMember().getId(), postsResponseDto.getId());
             PostsLikeResponseDto postsLikeInfo = postsLikeService.findPostsLikeInfo(postsLikeRequestDto);
             postsResponseDto.addLikeCount(postsLikeInfo.getPostsLikeCount());
+            postsResponseDto.addCommentCount(commentService.commentCountByPosts(postsResponseDto.getId()));
         }
 
         SessionMemberDto sessionMemberDto = (SessionMemberDto) httpSession.getAttribute("member");

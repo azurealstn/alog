@@ -23,6 +23,7 @@ public class PostsResponseDto implements Serializable {
     private final String previousTime;
     private final List<HashTag> hashTagNames = new ArrayList<>();
     private int likeCount;
+    private int commentCount;
 
     public PostsResponseDto(Posts entity) {
         this.id = entity.getId();
@@ -40,6 +41,10 @@ public class PostsResponseDto implements Serializable {
 
     public void addLikeCount(int likeCount) {
         this.likeCount = likeCount;
+    }
+
+    public void addCommentCount(int commentCount) {
+        this.commentCount = commentCount;
     }
 
 }

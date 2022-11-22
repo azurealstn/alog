@@ -156,14 +156,6 @@
             </div>
         </div>
         <div>
-            <div class="search-area">
-                <section class="search">
-                    <div class="search-box focus">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                        <input type="text" placeholder="검색어를 입력하세요">
-                    </div>
-                </section>
-            </div>
             <div class="posts-area">
                 <div class="inner">
                     {{#postsListByMember}}
@@ -172,7 +164,7 @@
                             <a href="/api/v1/auth/posts/{{id}}">
                                 <h2>{{title}}</h2>
                             </a>
-                            <p>{{content}}</p>
+                            <p class="clamp-content">{{content}}</p>
                             <div class="tags-wrapper">
                                 {{#hashTagNames}}
                                 <a href="/api/v1/auth/tags/{{name}}" class="tag-name">{{name}}</a>
@@ -183,7 +175,7 @@
                             <div class="subinfo">
                                 <span>{{previousTime}}</span>
                                 <div class="separator">·</div>
-                                <span>0</span>
+                                <span>{{commentCount}}</span>
                                 <span>개의 댓글</span>
                                 <div class="separator">·</div>
                                 <span class="likes">
