@@ -1,15 +1,18 @@
 package com.azurealstn.alog.controller.posts;
 
 import com.azurealstn.alog.domain.comment.Comment;
+import com.azurealstn.alog.domain.image.PostsImage;
 import com.azurealstn.alog.dto.auth.SessionMemberDto;
 import com.azurealstn.alog.dto.comment.CommentResponseDto;
 import com.azurealstn.alog.dto.hashtag.HashTagResponseDto;
+import com.azurealstn.alog.dto.image.PostsImageResponseDto;
 import com.azurealstn.alog.dto.like.PostsLikeRequestDto;
 import com.azurealstn.alog.dto.like.PostsLikeResponseDto;
 import com.azurealstn.alog.dto.posts.PostsResponseDto;
 import com.azurealstn.alog.dto.tempsave.TempSaveResponseDto;
 import com.azurealstn.alog.service.comment.CommentService;
 import com.azurealstn.alog.service.hashtag.HashTagService;
+import com.azurealstn.alog.service.image.PostsImageService;
 import com.azurealstn.alog.service.like.PostsLikeService;
 import com.azurealstn.alog.service.posts.PostsService;
 import com.azurealstn.alog.service.tempsave.TempSaveService;
@@ -37,6 +40,7 @@ public class PostsController {
     private final HashTagService hashTagService;
     private final PostsLikeService postsLikeService;
     private final CommentService commentService;
+    private final PostsImageService postsImageService;
 
     @GetMapping("/api/v1/write")
     public String write(HttpServletRequest request, Model model, @RequestParam(required = false) String tempCode) {
@@ -67,7 +71,7 @@ public class PostsController {
 
         int commentCountByPosts = commentService.commentCountByPosts(postsId);
 
-        List<CommentResponseDto> commentLevel0 = commentService.findAllCommentLevel0();
+        List<CommentResponseDto> commentLevel0 = commentService.findAllCommentLevel0(postsId);
 
         for (CommentResponseDto commentResponseDto : commentLevel0) {
             List<CommentResponseDto> commentResponseDtoList = commentService.findAllCommentLevel1(commentResponseDto.getId());
@@ -100,6 +104,7 @@ public class PostsController {
             }
         }
 
+        PostsImageResponseDto postsImage = postsImageService.findThumbnailByPosts(postsId);
 
         model.addAttribute("member", member);
         model.addAttribute("posts", posts);
@@ -111,6 +116,7 @@ public class PostsController {
         model.addAttribute("likeCount", postsLikeInfo.getPostsLikeCount());
         model.addAttribute("commentLevel0", commentLevel0);
         model.addAttribute("commentCountByPosts", commentCountByPosts);
+        model.addAttribute("postsImage", postsImage);
 
         return "posts/detailed-posts";
     }
@@ -119,8 +125,10 @@ public class PostsController {
     public String update_write(@PathVariable Long postsId, Model model) {
         PostsResponseDto posts = postsService.findById(postsId);
         List<HashTagResponseDto> hashTagList = hashTagService.findByTags(postsId);
+        PostsImageResponseDto postsImage = postsImageService.findThumbnailByPosts(postsId);
 
         model.addAttribute("posts", posts);
+        model.addAttribute("postsImage", postsImage);
 
         return "posts/modify-posts";
     }

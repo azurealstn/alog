@@ -3,17 +3,21 @@ package com.azurealstn.alog.service.posts;
 import com.azurealstn.alog.Infra.exception.member.MemberNotFound;
 import com.azurealstn.alog.Infra.exception.posts.PostsNotFound;
 import com.azurealstn.alog.Infra.utils.DateUtils;
+import com.azurealstn.alog.domain.image.PostsImage;
 import com.azurealstn.alog.domain.member.Member;
 import com.azurealstn.alog.domain.posts.Posts;
 import com.azurealstn.alog.dto.BasePageDto;
 import com.azurealstn.alog.dto.auth.SessionMemberDto;
 import com.azurealstn.alog.dto.hashtag.HashTagSearchDto;
+import com.azurealstn.alog.dto.image.PostsImageResponseDto;
 import com.azurealstn.alog.dto.posts.PostsCreateRequestDto;
 import com.azurealstn.alog.dto.posts.PostsResponseDto;
 import com.azurealstn.alog.dto.posts.PostsModifyRequestDto;
 import com.azurealstn.alog.dto.posts.PostsSearchDto;
+import com.azurealstn.alog.repository.image.PostsImageRepository;
 import com.azurealstn.alog.repository.member.MemberRepository;
 import com.azurealstn.alog.repository.posts.PostsRepository;
+import com.azurealstn.alog.service.image.PostsImageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -21,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,14 +35,16 @@ import java.util.stream.Collectors;
 public class PostsService {
 
     private final PostsRepository postsRepository;
-    private final HttpSession httpSession;
     private final MemberRepository memberRepository;
+    private final HttpSession httpSession;
+    private final PostsImageRepository postsImageRepository;
+    private final PostsImageService postsImageService;
 
     /**
      * 게시글 등록 API
      */
     @Transactional
-    public Long create(PostsCreateRequestDto requestDto) {
+    public Long create(PostsCreateRequestDto requestDto) throws IOException {
         //Case 1. 저장한 데이터 Entity → response 응답
         //Case 2. 저장한 데이터의 primary_id → response 응답
         //  - Client에서는 수신한 id를 posts 조회 API를 통해서 글 데이터를 수신받음

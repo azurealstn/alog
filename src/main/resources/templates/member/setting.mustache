@@ -135,11 +135,13 @@
         {{/member.shortBio}}
         <input type="hidden" id="usernameId" value="{{member.username}}">
         <input type="hidden" id="memberId" value="{{member.id}}">
+        <input type="hidden" id="picture" value="{{member.picture}}">
         <section class="profile-top">
             <div class="thumbnail-area">
-                <img src="/images/ex-thumbnail-profile.jpg" alt="profile">
-                <button class="image-upload">이미지 업로드</button>
-                <button class="image-remove">이미지 제거</button>
+                <input type="file" id="thumbnailImage" name="thumbnailImage" style="display: none;">
+                <img id="image-profile" src="{{member.picture}}" alt="profile">
+                <button class="image-upload" onclick="modifyMemberMain.thumbnailUploadClick()">이미지 업로드</button>
+                <button id="image-remove" class="image-remove">이미지 제거</button>
             </div>
             <div class="info-area">
                 <h2>{{member.name}}</h2>

@@ -120,6 +120,19 @@ public class MemberService {
         return new MemberResponseDto(modifiedMember);
     }
 
+    /**
+     * 회원 수정 (picture) API
+     */
+    @Transactional
+    public MemberResponseDto modify_picture(Long memberId, MemberModifyRequestDto requestDto) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new MemberNotFound());
+
+        Member modifiedMember = member.modify_picture(requestDto.getPicture());
+
+        return new MemberResponseDto(modifiedMember);
+    }
+
     public void validateExistsUsernameNotMe(MemberModifyRequestDto requestDto, boolean existsByUsername, Member member) {
         if (!member.getUsername().equals(requestDto.getUsername()) && existsByUsername) {
             throw new AlreadyExistsUsername();

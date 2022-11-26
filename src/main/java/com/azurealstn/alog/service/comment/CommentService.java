@@ -73,8 +73,8 @@ public class CommentService {
     }
 
     @Transactional(readOnly = true)
-    public List<CommentResponseDto> findAllCommentLevel0() {
-        List<Comment> commentList = commentRepository.findAllCommentLevel0();
+    public List<CommentResponseDto> findAllCommentLevel0(Long postsId) {
+        List<Comment> commentList = commentRepository.findAllCommentLevel0(postsId);
         return commentList.stream()
                 .map(comment -> new CommentResponseDto(comment))
                 .collect(Collectors.toList());

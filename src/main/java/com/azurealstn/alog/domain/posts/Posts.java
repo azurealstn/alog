@@ -5,6 +5,7 @@ import com.azurealstn.alog.domain.BaseTimeEntity;
 import com.azurealstn.alog.domain.comment.Comment;
 import com.azurealstn.alog.domain.hashtag.HashTag;
 import com.azurealstn.alog.domain.hashtag.PostsHashTagMap;
+import com.azurealstn.alog.domain.image.PostsImage;
 import com.azurealstn.alog.domain.like.PostsLike;
 import com.azurealstn.alog.domain.member.Member;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -56,6 +57,10 @@ public class Posts extends BaseTimeEntity {
     @JsonIgnore
     @OneToMany(mappedBy = "posts", cascade = {CascadeType.ALL}, orphanRemoval = true)
     private List<PostsLike> postsLikeList = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "posts", cascade = {CascadeType.ALL}, orphanRemoval = true)
+    private List<PostsImage> postsImageList = new ArrayList<>();
 
 
     @Builder

@@ -185,6 +185,10 @@ private static final long serialVersionUID = ?L
 
 - https://www.inflearn.com/questions/16953
 
+### Ambiguous handler methods mapped for
+
+컨트롤러에서 중복된 URL이 있어서 발생하는 에러
+
 ## API 문서
 
 클라이언트 입장에서는 어떤 API가 있는지 모르기 때문에 백엔드에서 API를 잘 정리해서 전달할 필요가 있습니다. 백엔드에서 개발한 실제 코드를 토대로 자동으로 API 문서화를 만들어주는 툴들이 있습니다.

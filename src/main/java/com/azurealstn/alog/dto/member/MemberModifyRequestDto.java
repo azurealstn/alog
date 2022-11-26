@@ -22,10 +22,13 @@ public class MemberModifyRequestDto {
 
     private String shortBio;
 
+    private String picture;
+
     @Builder
-    public MemberModifyRequestDto(String name, String username, String shortBio) {
+    public MemberModifyRequestDto(String name, String username, String shortBio, String picture) {
         this.name = name;
         this.username = username;
         this.shortBio = shortBio;
+        this.picture = picture;
     }
 }

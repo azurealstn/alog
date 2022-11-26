@@ -40,6 +40,7 @@
   --bg-element7: #1E1E1E;
   --bg-element8: #F8F9FA;
   --bg-element9: #0c0c0c;
+  --bg-element10: #2E2E2E;
 
   --bg-modal1: rgba(0,0,0,0.85);
   --bg-modal2: #252525;
@@ -804,6 +805,12 @@ main.setting {
   background: var(--primary2);
 }
 
+.profile-top .thumbnail-area .image-upload:disabled {
+  cursor: not-allowed;
+  background: var(--bg-element10);
+  color: var(--text9);
+}
+
 .profile-top .thumbnail-area .image-remove {
   display: inline-flex;
   align-items: center;
@@ -1279,3 +1286,4 @@ main.setting {
     transform: translateY(0px);
   }
 }
+

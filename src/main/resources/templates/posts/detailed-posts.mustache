@@ -73,7 +73,9 @@
                 </div>
             </div>
         </div>
-        <img src="/images/thumbnail.jpg" alt="posts-thumbnail" class="thumbnail-img">
+        {{#postsImage}}
+        <img src="/api/v1/images/{{postsImage.storeFilename}}" alt="posts-thumbnail" class="thumbnail-img">
+        {{/postsImage}}
     </div>
     <div class="detail-bottom">
         <div class="posts-body">
@@ -86,12 +88,12 @@
     <div class="member-info">
         <div class="member-container">
             <div class="info">
-                <a href="#">
+                <a href="/api/v1/my-alog/{{posts.member.id}}" style="cursor: pointer;">
                     <img src="/images/ex-thumbnail-profile.jpg" alt="프로필 사진">
                 </a>
                 <div class="sub-info">
                     <div class="name">
-                        <a href="#">{{posts.member.name}}</a>
+                        <a href="/api/v1/my-alog/{{posts.member.id}}">{{posts.member.name}}</a>
                     </div>
                     <div>{{posts.member.shortBio}}</div>
                 </div>
