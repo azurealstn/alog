@@ -38,6 +38,11 @@ public class MemberApiController {
         return memberService.modify_username(memberId, requestDto);
     }
 
+    @PatchMapping("/api/v1/member-picture/{memberId}")
+    public MemberResponseDto modify_picture(@PathVariable Long memberId, @RequestBody MemberModifyRequestDto requestDto) {
+        return memberService.modify_picture(memberId, requestDto);
+    }
+
     @DeleteMapping("/api/v1/member/{memberId}")
     public Long delete(@PathVariable Long memberId) {
         return memberService.delete(memberId);

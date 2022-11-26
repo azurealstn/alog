@@ -73,11 +73,10 @@
                                        size="20" value="{{member.name}}">
                             {{/member.name}}
                             {{^member.picture}}
-                                <input type="hidden" name="picture" id="picture" placeholder="사진을 입력하세요" size="20">
+                                <input type="hidden" name="picture" id="picture" value="/images/profile.png">
                             {{/member.picture}}
                             {{#member.picture}}
-                                <input type="hidden" name="picture" id="picture" placeholder="사진을 입력하세요"
-                                       size="20" value="{{member.picture}}">
+                                <input type="hidden" name="picture" id="picture" value="{{member.picture}}">
                             {{/member.picture}}
                         </div>
                         <div class="width-marker">이름을 입력하세요</div>

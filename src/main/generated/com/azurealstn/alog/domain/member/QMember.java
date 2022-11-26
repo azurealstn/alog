@@ -33,6 +33,8 @@ public class QMember extends EntityPathBase<Member> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+    public final ListPath<com.azurealstn.alog.domain.image.MemberImage, com.azurealstn.alog.domain.image.QMemberImage> memberImageList = this.<com.azurealstn.alog.domain.image.MemberImage, com.azurealstn.alog.domain.image.QMemberImage>createList("memberImageList", com.azurealstn.alog.domain.image.MemberImage.class, com.azurealstn.alog.domain.image.QMemberImage.class, PathInits.DIRECT2);
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> modifiedDate = _super.modifiedDate;
 

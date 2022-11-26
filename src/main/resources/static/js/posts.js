@@ -1,6 +1,7 @@
 'use strict';
 
 let editor = null;
+let File = null;
 
 const postsMain = {
   initEditor: function() {
@@ -35,7 +36,38 @@ const postsMain = {
         usageStatistics: false,
         initialValue: (initialValue === null) ? '' : initialValue,
         toolbarItems: toolbarItems,
-        plugins: [[codeSyntaxHighlight, { highlighter: Prism }], colorSyntax]
+        plugins: [[codeSyntaxHighlight, { highlighter: Prism }], colorSyntax],
+        hooks: {
+          addImageBlobHook: (blob, callback) => {
+              const File = blob;
+              let formData = new FormData();
+              formData.append('image', File);
+
+              $.ajax({
+                url: '/api/v1/uploadPostImage',
+                enctype: 'multipart/form-data',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                async: false,
+              }).done(function(res) {
+                const postsImage = res;
+                $.ajax({
+                  type: 'GET',
+                  url: '/api/v1/images/' + postsImage.storeFilename,
+                  dataType: 'text'
+                }).done(function(res) {
+                  const imageUrl = '/api/v1/images/' + postsImage.storeFilename;
+                  callback(imageUrl, '')
+                }).fail(function(err) {
+                    console.log(err);
+                });
+              }).fail(function(err) {
+                console.log(err);
+              });
+          }
+        }
       };
 
       editor = new Editor(options);
@@ -60,7 +92,38 @@ const postsMain = {
             usageStatistics: false,
             initialValue: (initialValue === null) ? '' : initialValue,
             toolbarItems: toolbarItems,
-            plugins: [[codeSyntaxHighlight, { highlighter: Prism }], colorSyntax]
+            plugins: [[codeSyntaxHighlight, { highlighter: Prism }], colorSyntax],
+            hooks: {
+              addImageBlobHook: (blob, callback) => {
+                  const File = blob;
+                  let formData = new FormData();
+                  formData.append('image', File);
+
+                  $.ajax({
+                    url: '/api/v1/uploadPostImage',
+                    enctype: 'multipart/form-data',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    async: false,
+                  }).done(function(res) {
+                    const postsImage = res;
+                    $.ajax({
+                      type: 'GET',
+                      url: '/api/v1/images/' + postsImage.storeFilename,
+                      dataType: 'text'
+                    }).done(function(res) {
+                      const imageUrl = '/api/v1/images/' + postsImage.storeFilename;
+                      callback(imageUrl, '')
+                    }).fail(function(err) {
+                        console.log(err);
+                    });
+                  }).fail(function(err) {
+                    console.log(err);
+                  });
+              }
+            }
           };
 
           editor = new Editor(options);
@@ -78,7 +141,38 @@ const postsMain = {
           usageStatistics: false,
           placeholder: '내용을 입력해주세요 :)',
           toolbarItems: toolbarItems,
-          plugins: [[codeSyntaxHighlight, { highlighter: Prism }], colorSyntax]
+          plugins: [[codeSyntaxHighlight, { highlighter: Prism }], colorSyntax],
+          hooks: {
+              addImageBlobHook: (blob, callback) => {
+                  const File = blob;
+                  let formData = new FormData();
+                  formData.append('image', File);
+
+                  $.ajax({
+                    url: '/api/v1/uploadPostImage',
+                    enctype: 'multipart/form-data',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    async: false,
+                  }).done(function(res) {
+                    const postsImage = res;
+                    $.ajax({
+                      type: 'GET',
+                      url: '/api/v1/images/' + postsImage.storeFilename,
+                      dataType: 'text'
+                    }).done(function(res) {
+                      const imageUrl = '/api/v1/images/' + postsImage.storeFilename;
+                      callback(imageUrl, '')
+                    }).fail(function(err) {
+                        console.log(err);
+                    });
+                  }).fail(function(err) {
+                    console.log(err);
+                  });
+              }
+          }
         };
         editor = new Editor(options);
       }
@@ -144,6 +238,16 @@ const postsMain = {
   },
   write: function() {
     const publish = document.querySelector('.foot .publish');
+    const thumbnailImage = document.querySelector('#thumbnailImage');
+    const thumbnailDelete = document.querySelector('.thumbnail-delete');
+
+    thumbnailImage.onchange = function() {
+        File = thumbnailImage.files[0];
+    }
+
+    thumbnailDelete.addEventListener('click', () => {
+        File = null;
+    });
 
     if (publish != null) {
       publish.addEventListener('click', () => {
@@ -153,6 +257,9 @@ const postsMain = {
           description: $('#description').val(),
           secret: $('#secret').val()
         };
+
+        let formData = new FormData();
+        formData.append('image', File);
 
         $.ajax({
           type: 'POST',
@@ -169,6 +276,23 @@ const postsMain = {
               type: 'DELETE',
               url: '/api/v1/temp-save-code/' + tempCode
             });
+          }
+
+          if (File != null || File != undefined) {
+              console.log('pending');
+              $.ajax({
+                type: 'POST',
+                enctype: 'multipart/form-data',
+                url: "/api/v1/uploadPostImageThumbnail/" + savedId,
+                data: formData,
+                processData: false,
+                contentType: false,
+              }).done(function() {
+                console.log('success');
+              }).
+              fail(function(err) {
+                console.log(err);
+              });
           }
 
           //해쉬태그 insert
@@ -368,6 +492,15 @@ const postsMain = {
   modify: function() {
     const modifyPublish = document.querySelector('.foot .modify-publish');
     const postsIdEle = document.querySelector('#postsId');
+    const thumbnailDelete = document.querySelector('.thumbnail-delete');
+
+    thumbnailImage.onchange = function() {
+      File = thumbnailImage.files[0];
+    }
+
+    thumbnailDelete.addEventListener('click', () => {
+        File = null;
+    });
 
     if (modifyPublish != null) {
       modifyPublish.addEventListener('click', () => {
@@ -377,6 +510,9 @@ const postsMain = {
           description: $('#description').val(),
           secret: $('#secret').val()
         };
+
+        let formData = new FormData();
+        formData.append('image', File);
 
         if (postsIdEle != null) {
             const postsId = postsIdEle.value;
@@ -392,6 +528,25 @@ const postsMain = {
                    type: 'DELETE',
                    url: '/api/v1/posts-hash-tag/' + postsId
                 }).done(function() {
+
+                    if (File != null || File != undefined) {
+                        $.ajax({
+                          type: 'POST',
+                          enctype: 'multipart/form-data',
+                          url: "/api/v1/uploadPostImageThumbnail/" + modifiedId,
+                          data: formData,
+                          processData: false,
+                          contentType: false,
+                        }).fail(function(err) {
+                          console.log(err);
+                        });
+                    } else {
+                        $.ajax({
+                            type: 'DELETE',
+                            url: '/api/v1/deleteByThumbnail/' + modifiedId,
+                        });
+                    }
+
                     //해쉬태그 insert
                     const tagList = document.querySelectorAll('.tagify__tag-text');
 
@@ -497,6 +652,71 @@ const postsMain = {
     } else {
         const tagify = new Tagify(tagInput);
     }
+  },
+  thumbnailUploadClick: function() {
+    const thumbnailImage = document.querySelector('#thumbnailImage');
+    thumbnailImage.click();
+  },
+  thumbnailImageDisplay: function() {
+    const thumbnailImage = document.querySelector('#thumbnailImage');
+    const thumbnailInsert = document.querySelector('.thumbnail-insert');
+    const thumbnailFlex = document.querySelector('.thumbnail-flex');
+
+
+    thumbnailImage.onchange = function() {
+      File = thumbnailImage.files[0];
+      let formData = new FormData();
+      formData.append('image', File);
+
+      $.ajax({
+        url: '/api/v1/uploadPostImageThumbnail',
+        enctype: 'multipart/form-data',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        async: false,
+      }).done(function(res) {
+        const postsImage = res;
+        console.log(postsImage);
+        $.ajax({
+          type: 'GET',
+          url: '/api/v1/images/' + postsImage.storeFilename,
+          dataType: 'text'
+        }).done(function(res) {
+          const imageUrl = '/api/v1/images/' + postsImage.storeFilename;
+          while (thumbnailInsert.firstChild) {
+            thumbnailInsert.removeChild(thumbnailInsert.firstChild);
+          }
+          const img = document.createElement('img');
+          img.src = imageUrl;
+          img.className = 'thumbnail-image-upload__cover';
+          thumbnailInsert.appendChild(img);
+        }).fail(function(err) {
+            console.log(err);
+        });
+      }).fail(function(err) {
+        console.log(err);
+      });
+    };
+  },
+  thumbnailImageRemove: function() {
+    const thumbnailDelete = document.querySelector('.thumbnail-delete');
+    const thumbnailInsert = document.querySelector('.thumbnail-insert');
+    const thumbnailImage = document.querySelector('#thumbnailImage');
+
+    let $div = document.createElement('div');
+    let $i = document.createElement('i');
+    $div.className = 'thumbnail-flex';
+    $i.className = 'fa-regular fa-image';
+
+    thumbnailDelete.addEventListener('click', () => {
+        const currentImage = document.querySelector('.thumbnail-image-upload__cover');
+        thumbnailInsert.removeChild(currentImage);
+        thumbnailInsert.appendChild($div).appendChild($i);
+        thumbnailImage.value = '';
+        File = null;
+    });
   }
 }
 
@@ -538,4 +758,8 @@ $(function() {
   postsMain.secret();
 
   postsMain.tagInput();
+
+  postsMain.thumbnailImageDisplay();
+
+  postsMain.thumbnailImageRemove();
 });

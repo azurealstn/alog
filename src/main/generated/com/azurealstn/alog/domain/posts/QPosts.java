@@ -42,6 +42,8 @@ public class QPosts extends EntityPathBase<Posts> {
 
     public final ListPath<com.azurealstn.alog.domain.hashtag.PostsHashTagMap, com.azurealstn.alog.domain.hashtag.QPostsHashTagMap> postsHashTagMapList = this.<com.azurealstn.alog.domain.hashtag.PostsHashTagMap, com.azurealstn.alog.domain.hashtag.QPostsHashTagMap>createList("postsHashTagMapList", com.azurealstn.alog.domain.hashtag.PostsHashTagMap.class, com.azurealstn.alog.domain.hashtag.QPostsHashTagMap.class, PathInits.DIRECT2);
 
+    public final ListPath<com.azurealstn.alog.domain.image.PostsImage, com.azurealstn.alog.domain.image.QPostsImage> postsImageList = this.<com.azurealstn.alog.domain.image.PostsImage, com.azurealstn.alog.domain.image.QPostsImage>createList("postsImageList", com.azurealstn.alog.domain.image.PostsImage.class, com.azurealstn.alog.domain.image.QPostsImage.class, PathInits.DIRECT2);
+
     public final ListPath<com.azurealstn.alog.domain.like.PostsLike, com.azurealstn.alog.domain.like.QPostsLike> postsLikeList = this.<com.azurealstn.alog.domain.like.PostsLike, com.azurealstn.alog.domain.like.QPostsLike>createList("postsLikeList", com.azurealstn.alog.domain.like.PostsLike.class, com.azurealstn.alog.domain.like.QPostsLike.class, PathInits.DIRECT2);
 
     public final BooleanPath secret = createBoolean("secret");

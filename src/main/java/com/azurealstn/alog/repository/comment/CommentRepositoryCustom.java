@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface CommentRepositoryCustom {
 
-    List<Comment> findAllCommentLevel0();
+    List<Comment> findAllCommentLevel0(Long postsId);
 
     List<Comment> findAllCommentLevel1(Long commentId);
 

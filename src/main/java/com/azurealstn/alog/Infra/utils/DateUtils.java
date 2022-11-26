@@ -1,9 +1,12 @@
 package com.azurealstn.alog.Infra.utils;
 
+import org.springframework.stereotype.Component;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
+@Component
 public class DateUtils {
 
     public static String previousTimeCalc(LocalDateTime createdDate) {

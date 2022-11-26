@@ -20,12 +20,13 @@ public class CommentRepositoryImpl implements CommentRepositoryCustom {
     private final JPAQueryFactory jpaQueryFactory;
 
     @Override
-    public List<Comment> findAllCommentLevel0() {
+    public List<Comment> findAllCommentLevel0(Long postsId) {
         return jpaQueryFactory
                 .selectFrom(comment)
                 .leftJoin(comment)
                 .on(comment.id.eq(comment.upCommentId))
-                .where(comment.level.eq(0))
+                .where(comment.level.eq(0)
+                        .and(comment.posts.id.eq(postsId)))
                 .fetch();
     }
 

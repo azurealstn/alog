@@ -1,5 +1,7 @@
 'use strict';
 
+let File = null;
+
 const modifyMemberMain = {
   infoUpdate: function() {
     const memberId = $('#memberId').val();
@@ -176,7 +178,6 @@ const modifyMemberMain = {
     `;
 
     memberDeleteBtn.addEventListener('click', (e) => {
-      console.log('hi');
       e.preventDefault();
       profileBottom.innerHTML += modalHtml;
 
@@ -210,6 +211,99 @@ const modifyMemberMain = {
     });
 
   },
+  thumbnailUploadClick: function() {
+    const thumbnailImage = document.querySelector('#thumbnailImage');
+    thumbnailImage.click();
+  },
+  thumbnailImageRemove: function() {
+    const imageRemove = document.querySelector('#image-remove');
+    const imageProfile = document.querySelector('#image-profile');
+    const thumbnailImage = document.querySelector('#thumbnailImage');
+    const imageUpload = document.querySelector('.image-upload');
+
+
+    imageRemove.addEventListener('click', () => {
+        const memberId = $('#memberId').val();
+
+        imageProfile.src = '/images/profile.png';
+        thumbnailImage.value = '';
+        File = null;
+
+        $('#picture').val('/images/profile.png')
+        const data = {
+          picture: $('#picture').val().trim(),
+        };
+
+        $.ajax({
+          type: 'PATCH',
+          url: '/api/v1/member-picture/' + memberId,
+          dataType: 'json',
+          contentType: 'application/json; charset=utf-8',
+          data: JSON.stringify(data)
+        }).done(function(res) {
+            console.log(res);
+            $.ajax({
+                type: 'DELETE',
+                url: '/api/v1/deleteByMemberThumbnail/' + memberId,
+            }).done(function(res) {
+                location.reload();
+            });
+        }).fail(function(err) {
+            console.log(err);
+        });
+    });
+  },
+  thumbnailImageSave: function() {
+    const memberId = $('#memberId').val();
+
+    const thumbnailImage = document.querySelector('#thumbnailImage');
+    const imageProfile = document.querySelector('#image-profile');
+    const imageUpload = document.querySelector('.image-upload');
+
+    thumbnailImage.onchange = function() {
+      File = thumbnailImage.files[0];
+      let formData = new FormData();
+      formData.append('image', File);
+
+      $.ajax({
+        url: '/api/v1/uploadMemberImageThumbnailSave/' + memberId,
+        enctype: 'multipart/form-data',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        async: false,
+      }).done(function(res) {
+        const memberImage = res;
+        $.ajax({
+          type: 'GET',
+          url: '/api/v1/images/' + memberImage.storeFilename,
+          dataType: 'text'
+        }).done(function(res) {
+            const imageUrl = '/api/v1/images/member/' + memberImage.storeFilename;
+            const data = {
+                picture: imageUrl,
+            };
+
+            $.ajax({
+              type: 'PATCH',
+              url: '/api/v1/member-picture/' + memberId,
+              dataType: 'json',
+              contentType: 'application/json; charset=utf-8',
+              data: JSON.stringify(data),
+              beforeSend: function() {
+                  imageUpload.innerText = '업로드중...';
+                  imageUpload.disabled = true;
+              },
+            }).done(function(res) {
+                location.reload();
+            });
+        });
+      }).fail(function(err) {
+        console.log(err);
+      });
+    };
+  },
 }
 
 $(function() {
@@ -218,4 +312,8 @@ $(function() {
   modifyMemberMain.usernameUpdate();
 
   modifyMemberMain.modalShow();
+
+  modifyMemberMain.thumbnailImageRemove();
+
+  modifyMemberMain.thumbnailImageSave();
 });

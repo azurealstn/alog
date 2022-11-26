@@ -6,6 +6,7 @@ import com.azurealstn.alog.domain.posts.Posts;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.Convert;
 import javax.validation.constraints.Max;

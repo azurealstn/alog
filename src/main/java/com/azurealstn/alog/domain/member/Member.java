@@ -2,6 +2,7 @@ package com.azurealstn.alog.domain.member;
 
 import com.azurealstn.alog.domain.BaseTimeEntity;
 import com.azurealstn.alog.domain.comment.Comment;
+import com.azurealstn.alog.domain.image.MemberImage;
 import com.azurealstn.alog.domain.like.PostsLike;
 import com.azurealstn.alog.domain.posts.Posts;
 import com.azurealstn.alog.domain.tempsave.TempSave;
@@ -64,6 +65,10 @@ public class Member extends BaseTimeEntity {
     @OneToMany(mappedBy = "member", cascade = {CascadeType.ALL}, orphanRemoval = true)
     private List<PostsLike> postsLikeList = new ArrayList<>();
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "member", cascade = {CascadeType.ALL}, orphanRemoval = true)
+    private List<MemberImage> memberImageList = new ArrayList<>();
+
     @Builder
     public Member(String email, String name, String picture, Role role, Boolean emailAuth, String username, String shortBio) {
         this.email = email;
@@ -84,6 +89,11 @@ public class Member extends BaseTimeEntity {
 
     public Member modify_username(String username) {
         this.username = username;
+        return this;
+    }
+
+    public Member modify_picture(String picture) {
+        this.picture = picture;
         return this;
     }
 

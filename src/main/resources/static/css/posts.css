@@ -696,15 +696,16 @@ a:hover {
   color: var(--text9);
 }
 
-.thumbnail-flex .thumbnail-upload {
+.thumbnail-upload {
+  flex: 1 1 0%;
   margin-top: var(--size-small);
   padding: calc(var(--size-small) / 4) calc(var(--size-small) * 2);
-  background: var(--bg-element7);
+  background: var(--primary1);
   border-radius: 4px;
   box-shadow: rgb(0 0 0 / 2%) 0px 0px 4px;
   font-size: var(--size-small);
   line-height: 1.5;
-  color: var(--primary2);
+  color: var(--button-text1);
   outline: none;
   border: none;
   cursor: pointer;
@@ -712,8 +713,48 @@ a:hover {
   font-weight: bold;
 }
 
+.thumbnail-upload:hover {
+  background: var(--primary2);
+}
+
+.thumbnail-delete {
+  flex: 1 1 0%;
+  margin-top: var(--size-small);
+  padding: calc(var(--size-small) / 4) calc(var(--size-small) * 2);
+  background: none;
+  border-radius: 4px;
+  box-shadow: rgb(0 0 0 / 2%) 0px 0px 4px;
+  font-size: var(--size-small);
+  line-height: 1.5;
+  color: var(--primary1);
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.125s ease-in 0s;
+  font-weight: bold;
+}
+
+.thumbnail-delete:hover {
+  background: var(--slight-layer);
+}
+
+.thumbnail-buttons {
+  display: flex;
+}
+
+.thumbnail-section .contents button + button {
+  margin-left: 1rem
+}
+
 .thumbnail-section .contents .description {
   margin-top: var(--size-large);
+}
+
+.thumbnail-image-upload__cover {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
 }
 
 .description h4 {
