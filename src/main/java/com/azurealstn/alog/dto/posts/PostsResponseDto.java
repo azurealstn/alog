@@ -24,6 +24,8 @@ public class PostsResponseDto implements Serializable {
     private final List<HashTag> hashTagNames = new ArrayList<>();
     private int likeCount;
     private int commentCount;
+    private String storeFilename;
+    private int totalRowCount;
 
     public PostsResponseDto(Posts entity) {
         this.id = entity.getId();
@@ -47,4 +49,11 @@ public class PostsResponseDto implements Serializable {
         this.commentCount = commentCount;
     }
 
+    public void addStoreFilename(String storeFilename) {
+        this.storeFilename = storeFilename;
+    }
+
+    public void addTotalRowCount(int totalRowCount) {
+        this.totalRowCount = totalRowCount;
+    }
 }

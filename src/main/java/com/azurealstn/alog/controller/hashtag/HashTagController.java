@@ -4,9 +4,15 @@ import com.azurealstn.alog.domain.hashtag.HashTag;
 import com.azurealstn.alog.dto.auth.SessionMemberDto;
 import com.azurealstn.alog.dto.hashtag.HashTagResponseDto;
 import com.azurealstn.alog.dto.hashtag.HashTagSearchDto;
+import com.azurealstn.alog.dto.image.PostsImageResponseDto;
+import com.azurealstn.alog.dto.like.PostsLikeRequestDto;
+import com.azurealstn.alog.dto.like.PostsLikeResponseDto;
 import com.azurealstn.alog.dto.posts.PostsResponseDto;
 import com.azurealstn.alog.dto.posts.PostsSearchDto;
+import com.azurealstn.alog.service.comment.CommentService;
 import com.azurealstn.alog.service.hashtag.HashTagService;
+import com.azurealstn.alog.service.image.PostsImageService;
+import com.azurealstn.alog.service.like.PostsLikeService;
 import com.azurealstn.alog.service.posts.PostsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,6 +34,9 @@ public class HashTagController {
 
     private final HashTagService hashTagService;
     private final PostsService postsService;
+    private final PostsImageService postsImageService;
+    private final PostsLikeService postsLikeService;
+    private final CommentService commentService;
     private final HttpSession httpSession;
 
     @GetMapping("/api/v1/auth/tags/{name}")
@@ -45,6 +54,16 @@ public class HashTagController {
 
             for (HashTag hashTag : hashTags) {
                 postsResponseDto.addHashTag(hashTag);
+            }
+
+            PostsLikeRequestDto postsLikeRequestDto = new PostsLikeRequestDto(postsResponseDto.getMember().getId(), postsResponseDto.getId());
+            PostsLikeResponseDto postsLikeInfo = postsLikeService.findPostsLikeInfo(postsLikeRequestDto);
+            postsResponseDto.addLikeCount(postsLikeInfo.getPostsLikeCount());
+            postsResponseDto.addCommentCount(commentService.commentCountByPosts(postsResponseDto.getId()));
+
+            PostsImageResponseDto postsImageResponseDto = postsImageService.findThumbnailByPosts(postsResponseDto.getId());
+            if (postsImageResponseDto != null) {
+                postsResponseDto.addStoreFilename(postsImageResponseDto.getStoreFilename());
             }
         }
 

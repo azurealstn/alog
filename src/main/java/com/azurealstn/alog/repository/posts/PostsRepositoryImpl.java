@@ -5,8 +5,10 @@ import com.azurealstn.alog.domain.posts.Posts;
 import com.azurealstn.alog.domain.posts.QPosts;
 import com.azurealstn.alog.dto.hashtag.HashTagSearchDto;
 import com.azurealstn.alog.dto.posts.PostsSearchDto;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -29,6 +31,44 @@ public class PostsRepositoryImpl implements PostsRepositoryCustom {
                 .where(posts.secret.eq(false))
                 .orderBy(posts.id.desc())
                 .fetch();
+    }
+
+    @Override
+    public List<Posts> findAllBySearch(PostsSearchDto searchDto) {
+        return jpaQueryFactory
+                .selectFrom(posts)
+                .limit(searchDto.getSize())
+                .offset(searchDto.getOffset())
+                .where(eqTitle(searchDto.getSearchValue()),
+                        (eqContent(searchDto.getSearchValue())),
+                        posts.secret.eq(false))
+                .orderBy(posts.likes.desc(), posts.id.desc())
+                .fetch();
+    }
+
+    @Override
+    public int findAllBySearchCount(PostsSearchDto searchDto) {
+        return jpaQueryFactory
+                .selectFrom(posts)
+                .where(eqTitle(searchDto.getSearchValue()),
+                        (eqContent(searchDto.getSearchValue())),
+                        posts.secret.eq(false))
+                .orderBy(posts.likes.desc(), posts.id.desc())
+                .fetch().size();
+    }
+
+    private BooleanExpression eqTitle(String title) {
+        if (StringUtils.hasLength(title)) {
+            return posts.title.contains(title);
+        }
+        return null;
+    }
+
+    private BooleanExpression eqContent(String content) {
+        if (StringUtils.hasLength(content)) {
+            return posts.content.contains(content);
+        }
+        return null;
     }
 
     @Override

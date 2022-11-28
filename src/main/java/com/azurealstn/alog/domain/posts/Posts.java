@@ -46,6 +46,9 @@ public class Posts extends BaseTimeEntity {
     @Column
     private Boolean secret;
 
+    @Column
+    private Integer likes;
+
     @JsonIgnore
     @OneToMany(mappedBy = "posts", cascade = {CascadeType.ALL}, orphanRemoval = true)
     private List<PostsHashTagMap> postsHashTagMapList = new ArrayList<>();
@@ -62,14 +65,14 @@ public class Posts extends BaseTimeEntity {
     @OneToMany(mappedBy = "posts", cascade = {CascadeType.ALL}, orphanRemoval = true)
     private List<PostsImage> postsImageList = new ArrayList<>();
 
-
     @Builder
-    public Posts(String title, String content, Member member, String description, Boolean secret) {
+    public Posts(String title, String content, Member member, String description, Boolean secret, Integer likes) {
         this.title = title;
         this.content = content;
         this.member = member;
         this.description = description;
         this.secret = secret;
+        this.likes = likes;
     }
 
     /**
@@ -80,5 +83,9 @@ public class Posts extends BaseTimeEntity {
         this.content = content;
         this.description = description;
         this.secret = secret;
+    }
+
+    public void updateLike(Integer likes) {
+        this.likes = likes;
     }
 }

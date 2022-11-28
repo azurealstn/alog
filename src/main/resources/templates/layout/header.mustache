@@ -67,7 +67,7 @@
                     <a href="/">alog</a>
                 </div>
                 <div class="head-content">
-                    <a href="/search" class="search">
+                    <a href="/api/v1/auth/search" class="search">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </a>
                     {{^member}}
@@ -76,7 +76,7 @@
                     {{#member}}
                         <button class="head-btn new-posts" style="margin-right: 1.25rem;">새 글 작성</button>
                         <div class="thumbnail-profile">
-                            <img src="/images/ex-thumbnail-profile.jpg" alt="thumbnail-profile">
+                            <img src="{{member.picture}}" alt="thumbnail-profile">
                             <i class="fa-solid fa-sort-down"></i>
                         </div>
                         <div class="menu hide">

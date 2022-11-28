@@ -16,6 +16,8 @@ public class PostsSearchDto {
     private Integer size; //한 페이지당 데이터 수
     private BasePageDto basePageDto;
 
+    private String searchValue;
+
     public PostsSearchDto(Integer page, Integer size) {
         this.page = (page == null) ? 1 : page;
         this.size = (size == null) ? 12 : size;
@@ -27,5 +29,9 @@ public class PostsSearchDto {
 
     public void setBasePageDto(BasePageDto basePageDto) {
         this.basePageDto = basePageDto;
+    }
+
+    public void setSearchValue(String searchValue) {
+        this.searchValue = searchValue;
     }
 }

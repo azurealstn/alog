@@ -1828,6 +1828,21 @@ a:hover {
     display: none;
   }
 
+  .modal-container-detail .wrapper {
+    width: auto;
+    height: 100%;
+    flex: 1 1 0%;
+  }
+
+  .modal-container-detail .wrapper .gray-block {
+    display: none;
+    overflow-y: auto;
+  }
+
+  .white-block .exit-wrapper {
+    margin-bottom: 0px;
+  }
+
   .detail .detail-top {
     width: 100%;
   }

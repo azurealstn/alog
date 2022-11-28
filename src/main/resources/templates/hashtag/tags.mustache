@@ -82,7 +82,7 @@
                     <a href="/">alog</a>
                 </div>
                 <div class="head-content">
-                    <a href="/search" class="search">
+                    <a href="/api/v1/auth/search" class="search">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </a>
                     {{^member}}
@@ -91,7 +91,7 @@
                     {{#member}}
                         <button class="head-btn new-posts" style="margin-right: 1.25rem;">새 글 작성</button>
                         <div class="thumbnail-profile">
-                            <img src="/images/ex-thumbnail-profile.jpg" alt="thumbnail-profile">
+                            <img src="{{member.picture}}" alt="thumbnail-profile">
                             <i class="fa-solid fa-sort-down"></i>
                         </div>
                         <div class="menu hide">
@@ -147,17 +147,19 @@
                 <div class="tag-card">
                     <div class="user-info">
                         <a href="/api/v1/my-alog/{{member.id}}">
-                            <img src="/images/ex-thumbnail-profile.jpg" alt="thumbnail">
+                            <img src="{{member.picture}}" alt="thumbnail">
                         </a>
                         <div class="username">
                             <a href="/api/v1/my-alog/{{member.id}}">{{member.name}}</a>
                         </div>
                     </div>
+                    {{#storeFilename}}
                     <a href="/api/v1/auth/posts/{{member.id}}">
                         <div class="posts-thumbnail" style="padding-top: 52.356%;">
-                            <img src="/images/thumbnail.jpg" alt="posts-thumbnail">
+                            <img src="/api/v1/auth/images/{{storeFilename}}" alt="posts-thumbnail">
                         </div>
                     </a>
+                    {{/storeFilename}}
                     <a href="/api/v1/auth/posts/{{id}}">
                         <h2>{{title}}</h2>
                     </a>
@@ -170,14 +172,14 @@
                         {{/hashTagNames}}
                     </div>
                     <div class="subinfo">
-                        <span>4일 전</span>
+                        <span>{{previousTime}}</span>
                         <div class="separator">·</div>
-                        <span class="comment-count">1</span>
+                        <span class="comment-count">{{commentCount}}</span>
                         <span>개의 댓글</span>
                         <div class="separator">·</div>
                         <span class="likes">
                             <i class="fa-solid fa-heart"></i>
-                            <span>45</span>
+                            <span>{{likeCount}}</span>
                         </span>
                     </div>
                 </div>

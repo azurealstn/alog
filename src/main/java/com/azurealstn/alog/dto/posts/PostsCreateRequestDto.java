@@ -46,6 +46,7 @@ public class PostsCreateRequestDto {
                 .member(member)
                 .description(description)
                 .secret(secret)
+                .likes(0)
                 .build();
     }
 

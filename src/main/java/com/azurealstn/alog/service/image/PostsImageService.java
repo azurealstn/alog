@@ -50,10 +50,6 @@ public class PostsImageService {
         existsPostsImage.ifPresent(postsImageRepository::delete);
         postsImageRepository.save(postsImage);
 
-        log.info("postsImage={}", postsImage);
-        log.info("multipartFile.getOriginalFilename={}", multipartFile.getOriginalFilename());
-        log.info("multipartFile.isEmpty={}", multipartFile.isEmpty());
-
         return new PostsImageResponseDto(postsImage);
     }
 

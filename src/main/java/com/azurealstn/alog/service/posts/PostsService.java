@@ -3,13 +3,17 @@ package com.azurealstn.alog.service.posts;
 import com.azurealstn.alog.Infra.exception.member.MemberNotFound;
 import com.azurealstn.alog.Infra.exception.posts.PostsNotFound;
 import com.azurealstn.alog.Infra.utils.DateUtils;
+import com.azurealstn.alog.domain.hashtag.HashTag;
 import com.azurealstn.alog.domain.image.PostsImage;
 import com.azurealstn.alog.domain.member.Member;
 import com.azurealstn.alog.domain.posts.Posts;
 import com.azurealstn.alog.dto.BasePageDto;
 import com.azurealstn.alog.dto.auth.SessionMemberDto;
+import com.azurealstn.alog.dto.hashtag.HashTagResponseDto;
 import com.azurealstn.alog.dto.hashtag.HashTagSearchDto;
 import com.azurealstn.alog.dto.image.PostsImageResponseDto;
+import com.azurealstn.alog.dto.like.PostsLikeRequestDto;
+import com.azurealstn.alog.dto.like.PostsLikeResponseDto;
 import com.azurealstn.alog.dto.posts.PostsCreateRequestDto;
 import com.azurealstn.alog.dto.posts.PostsResponseDto;
 import com.azurealstn.alog.dto.posts.PostsModifyRequestDto;
@@ -17,7 +21,10 @@ import com.azurealstn.alog.dto.posts.PostsSearchDto;
 import com.azurealstn.alog.repository.image.PostsImageRepository;
 import com.azurealstn.alog.repository.member.MemberRepository;
 import com.azurealstn.alog.repository.posts.PostsRepository;
+import com.azurealstn.alog.service.comment.CommentService;
+import com.azurealstn.alog.service.hashtag.HashTagService;
 import com.azurealstn.alog.service.image.PostsImageService;
+import com.azurealstn.alog.service.like.PostsLikeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -39,6 +46,9 @@ public class PostsService {
     private final HttpSession httpSession;
     private final PostsImageRepository postsImageRepository;
     private final PostsImageService postsImageService;
+    private final PostsLikeService postsLikeService;
+    private final HashTagService hashTagService;
+    private final CommentService commentService;
 
     /**
      * 게시글 등록 API
@@ -89,6 +99,46 @@ public class PostsService {
         return postsRepository.findAll(searchDto).stream()
                 .map(posts -> new PostsResponseDto(posts))
                 .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public int findAllBySearchCount(PostsSearchDto searchDto) {
+        return postsRepository.findAllBySearchCount(searchDto);
+    }
+
+    @Transactional(readOnly = true)
+    public List<PostsResponseDto> findAllBySearch(PostsSearchDto searchDto) {
+        int totalRowCount = postsRepository.findAllBySearchCount(searchDto);
+        BasePageDto basePageDto = new BasePageDto(searchDto.getPage(), searchDto.getSize(), totalRowCount);
+        searchDto.setBasePageDto(basePageDto);
+        List<PostsResponseDto> postsResponseDtoList = postsRepository.findAllBySearch(searchDto).stream()
+                .map(posts -> new PostsResponseDto(posts))
+                .collect(Collectors.toList());
+
+        for (PostsResponseDto postsResponseDto : postsResponseDtoList) {
+            postsResponseDto.addTotalRowCount(totalRowCount);
+            PostsLikeRequestDto postsLikeRequestDto = new PostsLikeRequestDto(postsResponseDto.getMember().getId(), postsResponseDto.getId());
+            PostsLikeResponseDto postsLikeInfo = postsLikeService.findPostsLikeInfo(postsLikeRequestDto);
+            postsResponseDto.addLikeCount(postsLikeInfo.getPostsLikeCount());
+            postsResponseDto.addCommentCount(commentService.commentCountByPosts(postsResponseDto.getId()));
+
+            PostsImageResponseDto postsImageResponseDto = postsImageService.findThumbnailByPosts(postsResponseDto.getId());
+            if (postsImageResponseDto != null) {
+                postsResponseDto.addStoreFilename(postsImageResponseDto.getStoreFilename());
+            }
+            List<HashTagResponseDto> tags = hashTagService.findByTags(postsResponseDto.getId());
+            List<HashTag> hashTags = tags.stream()
+                    .map(tag -> HashTag.builder()
+                            .name(tag.getName())
+                            .build())
+                    .collect(Collectors.toList());
+
+            for (HashTag hashTag : hashTags) {
+                postsResponseDto.addHashTag(hashTag);
+            }
+        }
+
+        return postsResponseDtoList;
     }
 
     /**
