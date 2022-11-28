@@ -31,7 +31,7 @@ public class PostsImageApiController {
         return postsImageService.thumbnailUpload(multipartFile);
     }
 
-    @GetMapping("/api/v1/images/{storeFilename}")
+    @GetMapping("/api/v1/auth/images/{storeFilename}")
     public Resource displayImage(@PathVariable String storeFilename) throws Exception {
         return postsImageService.displayImage(storeFilename);
     }

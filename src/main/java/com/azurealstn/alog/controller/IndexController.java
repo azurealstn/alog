@@ -1,12 +1,16 @@
 package com.azurealstn.alog.controller;
 
 import com.azurealstn.alog.dto.auth.SessionMemberDto;
+import com.azurealstn.alog.dto.image.PostsImageResponseDto;
 import com.azurealstn.alog.dto.like.PostsLikeRequestDto;
 import com.azurealstn.alog.dto.like.PostsLikeResponseDto;
+import com.azurealstn.alog.dto.member.MemberResponseDto;
 import com.azurealstn.alog.dto.posts.PostsResponseDto;
 import com.azurealstn.alog.dto.posts.PostsSearchDto;
 import com.azurealstn.alog.service.comment.CommentService;
+import com.azurealstn.alog.service.image.PostsImageService;
 import com.azurealstn.alog.service.like.PostsLikeService;
+import com.azurealstn.alog.service.member.MemberService;
 import com.azurealstn.alog.service.posts.PostsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,11 +32,14 @@ public class IndexController {
     private final PostsService postsService;
     private final PostsLikeService postsLikeService;
     private final CommentService commentService;
+    private final MemberService memberService;
+    private final PostsImageService postsImageService;
 
     @GetMapping("/")
     public String index(Model model, @ModelAttribute(name = "searchDto") PostsSearchDto searchDto) {
-        SessionMemberDto member = (SessionMemberDto) httpSession.getAttribute("member");
-        if (member != null) {
+        SessionMemberDto sessionMemberDto = (SessionMemberDto) httpSession.getAttribute("member");
+        if (sessionMemberDto != null) {
+            MemberResponseDto member = memberService.findById(sessionMemberDto.getId());
             model.addAttribute("member", member);
         }
 
@@ -43,6 +50,11 @@ public class IndexController {
             PostsLikeResponseDto postsLikeInfo = postsLikeService.findPostsLikeInfo(postsLikeRequestDto);
             postsResponseDto.addLikeCount(postsLikeInfo.getPostsLikeCount());
             postsResponseDto.addCommentCount(commentService.commentCountByPosts(postsResponseDto.getId()));
+
+            PostsImageResponseDto postsImageResponseDto = postsImageService.findThumbnailByPosts(postsResponseDto.getId());
+            if (postsImageResponseDto != null) {
+                postsResponseDto.addStoreFilename(postsImageResponseDto.getStoreFilename());
+            }
         }
 
         //==페이징 처리 start==//

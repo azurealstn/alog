@@ -11,9 +11,11 @@ import com.azurealstn.alog.repository.like.PostsLikeRepository;
 import com.azurealstn.alog.repository.member.MemberRepository;
 import com.azurealstn.alog.repository.posts.PostsRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class PostsLikeService {
@@ -28,7 +30,12 @@ public class PostsLikeService {
     public Boolean toggleLikeButton(PostsLikeRequestDto requestDto) {
         postsLikeRepository.exist(requestDto.getMemberId(), requestDto.getPostsId())
                 .ifPresentOrElse(
-                        postsLike -> postsLikeRepository.deleteById(postsLike.getId()),
+                        postsLike -> {
+                            postsLikeRepository.deleteById(postsLike.getId());
+                            Posts posts = findPosts(requestDto);
+                            int likes = postsLikeRepository.findPostsLikeCount(posts.getId());
+                            posts.updateLike(likes);
+                        },
                         () -> {
                             Posts posts = findPosts(requestDto);
                             Member member = memberRepository.findById(requestDto.getMemberId())
@@ -38,6 +45,8 @@ public class PostsLikeService {
                                     .posts(posts)
                                     .build();
                             postsLikeRepository.save(postsLike);
+                            int likes = postsLikeRepository.findPostsLikeCount(posts.getId());
+                            posts.updateLike(likes);
                         }
                 );
         return true;

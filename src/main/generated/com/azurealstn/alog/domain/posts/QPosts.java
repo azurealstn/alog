@@ -35,6 +35,8 @@ public class QPosts extends EntityPathBase<Posts> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+    public final NumberPath<Integer> likes = createNumber("likes", Integer.class);
+
     public final com.azurealstn.alog.domain.member.QMember member;
 
     //inherited

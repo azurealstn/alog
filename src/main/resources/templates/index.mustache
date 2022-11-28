@@ -14,11 +14,13 @@
             <div class="posts-content">
                 {{#postsList}}
                     <div class="card">
+                        {{#storeFilename}}
                         <a class="card-thumbnail" href="/api/v1/auth/posts/{{id}}">
                             <div class="card-wrap">
-                                <img src="https://www.fun-coding.org/style/images/blog.jpg" alt="thumbnail-basic-img">
+                                <img src="/api/v1/auth/images/{{storeFilename}}" alt="thumbnail-basic-img">
                             </div>
                         </a>
+                        {{/storeFilename}}
                         <div class="posts-info">
                             <a href="/api/v1/auth/posts/{{id}}" class="title">
                                 <h4>{{title}}</h4>
@@ -34,7 +36,7 @@
                         </div>
                         <div class="bottom-info">
                             <a href="/api/v1/my-alog/{{member.id}}" class="user-info">
-                                <img src="/images/ex-thumbnail-profile.jpg" alt="user thumbnail of minsu">
+                                <img src="{{member.picture}}" alt="member profile thumbnail">
                                 <span>by <b>{{member.name}}</b></span>
                             </a>
                             <div class="likes">

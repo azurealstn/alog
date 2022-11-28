@@ -74,7 +74,7 @@
             </div>
         </div>
         {{#postsImage}}
-        <img src="/api/v1/images/{{postsImage.storeFilename}}" alt="posts-thumbnail" class="thumbnail-img">
+        <img src="/api/v1/auth/images/{{postsImage.storeFilename}}" alt="posts-thumbnail" class="thumbnail-img">
         {{/postsImage}}
     </div>
     <div class="detail-bottom">
@@ -89,7 +89,7 @@
         <div class="member-container">
             <div class="info">
                 <a href="/api/v1/my-alog/{{posts.member.id}}" style="cursor: pointer;">
-                    <img src="/images/ex-thumbnail-profile.jpg" alt="프로필 사진">
+                    <img src="{{posts.member.picture}}" alt="프로필 사진">
                 </a>
                 <div class="sub-info">
                     <div class="name">
@@ -120,8 +120,8 @@
                     <div class="comment">
                         <div class="comment-member">
                             <div class="profile">
-                                <a href="#">
-                                    <img src="/images/ex-thumbnail-profile.jpg" alt="comment user thumbnail">
+                                <a href="/api/v1/my-alog/{{member.id}}">
+                                    <img src="{{member.picture}}" alt="comment member profile thumbnail">
                                 </a>
                                 <div class="comment-info">
                                     <div class="username">
@@ -162,7 +162,7 @@
                                         <div class="comment-member">
                                             <div class="profile">
                                                 <a href="/api/v1/my-alog/{{member.id}}">
-                                                    <img src="/images/ex-thumbnail-profile.jpg" alt="comment user thumbnail">
+                                                    <img src="{{member.picture}}" alt="comment member profile thumbnail">
                                                 </a>
                                                 <div class="comment-info">
                                                     <div class="username">

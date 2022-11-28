@@ -98,8 +98,9 @@ public class MemberController {
             postsResponseDto.addCommentCount(commentService.commentCountByPosts(postsResponseDto.getId()));
         }
 
-        SessionMemberDto sessionMemberDto = (SessionMemberDto) httpSession.getAttribute("member");
-        Boolean isMyPosts = memberService.isMyPosts(memberId, sessionMemberDto);
+        SessionMemberDto sessionMember = (SessionMemberDto) httpSession.getAttribute("member");
+        Boolean isMyPosts = memberService.isMyPosts(memberId, sessionMember);
+        MemberResponseDto sessionMemberDto = memberService.findById(sessionMember.getId());
 
         model.addAttribute("member", member);
         model.addAttribute("sessionMemberDto", sessionMemberDto);

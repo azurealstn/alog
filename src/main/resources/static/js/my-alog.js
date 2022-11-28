@@ -25,7 +25,7 @@ const myAlogMain = {
                     if (posts.secret) {
                         const html = `
                             <div class="posts">
-                                <a href="#">
+                                <a href="/api/v1/auth/posts/${posts.id}">
                                     <h2>${posts.title}</h2>
                                 </a>
                                 <p>${posts.content}</p>
@@ -35,12 +35,12 @@ const myAlogMain = {
                                 <div class="subinfo">
                                     <span>${posts.previousTime}</span>
                                     <div class="separator">·</div>
-                                    <span>0</span>
+                                    <span>${posts.commentCount}</span>
                                     <span>개의 댓글</span>
                                     <div class="separator">·</div>
                                     <span class="likes">
                                       <i class="fa-solid fa-heart"></i>
-                                      <span>0</span>
+                                      <span>${posts.likeCount}</span>
                                     </span>
                                     <!-- 비밀글 -->
                                     <div class="separator">·</div>
@@ -88,12 +88,12 @@ const myAlogMain = {
                                 <div class="subinfo">
                                     <span>${posts.previousTime}</span>
                                     <div class="separator">·</div>
-                                    <span>0</span>
+                                    <span>${posts.commentCount}</span>
                                     <span>개의 댓글</span>
                                     <div class="separator">·</div>
                                     <span class="likes">
                                       <i class="fa-solid fa-heart"></i>
-                                      <span>0</span>
+                                      <span>${posts.likeCount}</span>
                                     </span>
                                 </div>
                             </div>

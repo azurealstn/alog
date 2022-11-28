@@ -20,6 +20,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -276,7 +277,7 @@ class PostsServiceTest {
     @Test
     @DisplayName("글 삭제 로직 성공 테스트")
     @Transactional
-    void delete_posts_o() {
+    void delete_posts_o() throws IOException {
         //given
         String name = "슬로우스타터";
         String email = "azurealstn@naver.com";
@@ -313,7 +314,7 @@ class PostsServiceTest {
     @Test
     @DisplayName("글 삭제 로직 실패 테스트")
     @Transactional
-    void delete_posts_x() {
+    void delete_posts_x() throws IOException {
         //given
         String name = "슬로우스타터";
         String email = "azurealstn@naver.com";

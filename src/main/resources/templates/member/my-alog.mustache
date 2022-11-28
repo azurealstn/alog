@@ -82,7 +82,7 @@
                     <a href="/">alog</a>
                 </div>
                 <div class="head-content">
-                    <a href="/search" class="search">
+                    <a href="/api/v1/auth/search" class="search">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </a>
                     {{^sessionMemberDto}}
@@ -91,7 +91,7 @@
                     {{#sessionMemberDto}}
                         <button class="head-btn new-posts" style="margin-right: 1.25rem;">새 글 작성</button>
                         <div class="thumbnail-profile">
-                            <img src="/images/ex-thumbnail-profile.jpg" alt="thumbnail-profile">
+                            <img src="{{sessionMemberDto.picture}}" alt="thumbnail-profile">
                             <i class="fa-solid fa-sort-down"></i>
                         </div>
                         <div class="menu hide">
@@ -133,7 +133,7 @@
         <div class="my-alog-top">
             <div class="member-info">
                 <a href="#">
-                    <img src="/images/ex-thumbnail-profile.jpg" alt="profile">
+                    <img src="{{member.picture}}" alt="profile">
                 </a>
                 <div class="member-name">
                     <div class="name">

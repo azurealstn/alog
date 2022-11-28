@@ -55,10 +55,10 @@ const postsMain = {
                 const postsImage = res;
                 $.ajax({
                   type: 'GET',
-                  url: '/api/v1/images/' + postsImage.storeFilename,
+                  url: '/api/v1/auth/images/' + postsImage.storeFilename,
                   dataType: 'text'
                 }).done(function(res) {
-                  const imageUrl = '/api/v1/images/' + postsImage.storeFilename;
+                  const imageUrl = '/api/v1/auth/images/' + postsImage.storeFilename;
                   callback(imageUrl, '')
                 }).fail(function(err) {
                     console.log(err);
@@ -111,10 +111,10 @@ const postsMain = {
                     const postsImage = res;
                     $.ajax({
                       type: 'GET',
-                      url: '/api/v1/images/' + postsImage.storeFilename,
+                      url: '/api/v1/auth/images/' + postsImage.storeFilename,
                       dataType: 'text'
                     }).done(function(res) {
-                      const imageUrl = '/api/v1/images/' + postsImage.storeFilename;
+                      const imageUrl = '/api/v1/auth/images/' + postsImage.storeFilename;
                       callback(imageUrl, '')
                     }).fail(function(err) {
                         console.log(err);
@@ -160,10 +160,10 @@ const postsMain = {
                     const postsImage = res;
                     $.ajax({
                       type: 'GET',
-                      url: '/api/v1/images/' + postsImage.storeFilename,
+                      url: '/api/v1/auth/images/' + postsImage.storeFilename,
                       dataType: 'text'
                     }).done(function(res) {
-                      const imageUrl = '/api/v1/images/' + postsImage.storeFilename;
+                      const imageUrl = '/api/v1/auth/images/' + postsImage.storeFilename;
                       callback(imageUrl, '')
                     }).fail(function(err) {
                         console.log(err);
@@ -493,10 +493,7 @@ const postsMain = {
     const modifyPublish = document.querySelector('.foot .modify-publish');
     const postsIdEle = document.querySelector('#postsId');
     const thumbnailDelete = document.querySelector('.thumbnail-delete');
-
-    thumbnailImage.onchange = function() {
-      File = thumbnailImage.files[0];
-    }
+    const thumbnailImage = document.querySelector('#thumbnailImage');
 
     thumbnailDelete.addEventListener('click', () => {
         File = null;
@@ -528,23 +525,26 @@ const postsMain = {
                    type: 'DELETE',
                    url: '/api/v1/posts-hash-tag/' + postsId
                 }).done(function() {
-
-                    if (File != null || File != undefined) {
-                        $.ajax({
-                          type: 'POST',
-                          enctype: 'multipart/form-data',
-                          url: "/api/v1/uploadPostImageThumbnail/" + modifiedId,
-                          data: formData,
-                          processData: false,
-                          contentType: false,
-                        }).fail(function(err) {
-                          console.log(err);
-                        });
-                    } else {
-                        $.ajax({
-                            type: 'DELETE',
-                            url: '/api/v1/deleteByThumbnail/' + modifiedId,
-                        });
+                    const thumbnailImageHidden = document.querySelector('#thumbnailImageHidden');
+                    const storeFilename = thumbnailImageHidden.value;
+                    if (storeFilename === '' || storeFilename === null || storeFilename === undefined) {
+                        if (File != null || File != undefined) {
+                            $.ajax({
+                              type: 'POST',
+                              enctype: 'multipart/form-data',
+                              url: "/api/v1/uploadPostImageThumbnail/" + modifiedId,
+                              data: formData,
+                              processData: false,
+                              contentType: false,
+                            }).fail(function(err) {
+                              console.log(err);
+                            });
+                        } else {
+                            $.ajax({
+                                type: 'DELETE',
+                                url: '/api/v1/deleteByThumbnail/' + modifiedId,
+                            });
+                        }
                     }
 
                     //해쉬태그 insert
@@ -661,9 +661,11 @@ const postsMain = {
     const thumbnailImage = document.querySelector('#thumbnailImage');
     const thumbnailInsert = document.querySelector('.thumbnail-insert');
     const thumbnailFlex = document.querySelector('.thumbnail-flex');
+    const thumbnailImageHidden = document.querySelector('#thumbnailImageHidden');
 
 
     thumbnailImage.onchange = function() {
+      thumbnailImageHidden.value = '';
       File = thumbnailImage.files[0];
       let formData = new FormData();
       formData.append('image', File);
@@ -681,10 +683,10 @@ const postsMain = {
         console.log(postsImage);
         $.ajax({
           type: 'GET',
-          url: '/api/v1/images/' + postsImage.storeFilename,
+          url: '/api/v1/auth/images/' + postsImage.storeFilename,
           dataType: 'text'
         }).done(function(res) {
-          const imageUrl = '/api/v1/images/' + postsImage.storeFilename;
+          const imageUrl = '/api/v1/auth/images/' + postsImage.storeFilename;
           while (thumbnailInsert.firstChild) {
             thumbnailInsert.removeChild(thumbnailInsert.firstChild);
           }

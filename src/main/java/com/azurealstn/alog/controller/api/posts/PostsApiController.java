@@ -45,9 +45,16 @@ public class PostsApiController {
         return postsService.findById(postsId);
     }
 
-    @GetMapping("/api/v1/posts")
+    @GetMapping("/api/v1/auth/posts")
     public List<PostsResponseDto> posts(@ModelAttribute PostsSearchDto searchDto) {
         return postsService.findAll(searchDto);
+    }
+
+    @GetMapping("/api/v1/auth/posts/search")
+    public List<PostsResponseDto> findAllBySearch(@RequestParam Integer page, @RequestParam String searchValue) {
+        PostsSearchDto searchDto = new PostsSearchDto(page, 10);
+        searchDto.setSearchValue(searchValue);
+        return postsService.findAllBySearch(searchDto);
     }
 
     @PutMapping("/api/v1/posts/{postsId}")

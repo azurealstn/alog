@@ -277,10 +277,10 @@ const modifyMemberMain = {
         const memberImage = res;
         $.ajax({
           type: 'GET',
-          url: '/api/v1/images/' + memberImage.storeFilename,
+          url: '/api/v1/auth/images/member/' + memberImage.storeFilename,
           dataType: 'text'
         }).done(function(res) {
-            const imageUrl = '/api/v1/images/member/' + memberImage.storeFilename;
+            const imageUrl = '/api/v1/auth/images/member/' + memberImage.storeFilename;
             const data = {
                 picture: imageUrl,
             };

@@ -119,11 +119,17 @@
                                 </div>
                                 {{/postsImage}}
                                 {{#postsImage}}
-                                    <img src="/api/v1/images/{{storeFilename}}" class="thumbnail-image-upload__cover">
+                                    <img src="/api/v1/auth/images/{{storeFilename}}" class="thumbnail-image-upload__cover">
                                 {{/postsImage}}
                             </div>
                         </div>
                         <input type="file" id="thumbnailImage" name="thumbnailImage" style="display: none;">
+                        {{#postsImage}}
+                        <input type="hidden" id="thumbnailImageHidden" value="{{storeFilename}}">
+                        {{/postsImage}}
+                        {{^postsImage}}
+                            <input type="hidden" id="thumbnailImageHidden" value>
+                        {{/postsImage}}
                         <div class="thumbnail-buttons">
                             <button class="thumbnail-upload" onclick="postsMain.thumbnailUploadClick()">썸네일 업로드</button>
                             <button class="thumbnail-delete">썸네일 제거</button>

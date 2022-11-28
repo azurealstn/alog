@@ -27,7 +27,7 @@ public class MemberImageApiController {
         return memberImageService.thumbnailUpload(multipartFile);
     }
 
-    @GetMapping("/api/v1/images/member/{storeFilename}")
+    @GetMapping("/api/v1/auth/images/member/{storeFilename}")
     public Resource displayImage(@PathVariable String storeFilename) throws Exception {
         return memberImageService.displayImage(storeFilename);
     }
