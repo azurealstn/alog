@@ -76,7 +76,7 @@ public class PostsLikeService {
     }
 
     @Transactional(readOnly = true)
-    private int getPostsLikeCount(PostsLikeRequestDto requestDto) {
+    public int getPostsLikeCount(PostsLikeRequestDto requestDto) {
         int postsLikeCount = postsLikeRepository.findPostsLikeCount(requestDto.getPostsId());
         return postsLikeCount;
     }

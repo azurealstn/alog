@@ -444,6 +444,58 @@ section.main {
   margin-right: calc(var(--size-small) / 2);
 }
 
+.posts-order {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  margin-bottom: 3rem;
+}
+
+.order-content {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.order {
+  display: flex;
+  position: relative;
+  width: 14rem;
+}
+
+.order a {
+  width: 7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.125rem;
+  text-decoration: none;
+  color: var(--text5);
+  height: 3rem;
+  cursor: pointer;
+}
+
+.order a.active {
+  color: var(--text1);
+  font-weight: bold;
+}
+
+.order a i {
+  font-size: 1.5rem;
+  margin-right: 0.5rem;
+}
+
+.category-underline {
+  width: 50%;
+  height: 2px;
+  position: absolute;
+  bottom: 0px;
+  background: var(--bg-element4);
+  left: 0%;
+}
+
 /* main section end */
 
 /* pagination start */

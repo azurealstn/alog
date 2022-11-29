@@ -102,6 +102,26 @@ public class PostsService {
     }
 
     @Transactional(readOnly = true)
+    public List<PostsResponseDto> findAllByIndexLiked(PostsSearchDto searchDto) {
+        int totalRowCount = postsRepository.findAllCount();
+        BasePageDto basePageDto = new BasePageDto(searchDto.getPage(), searchDto.getSize(), totalRowCount);
+        searchDto.setBasePageDto(basePageDto);
+        return postsRepository.findAllByIndexLiked(searchDto).stream()
+                .map(posts -> new PostsResponseDto(posts))
+                .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<PostsResponseDto> findAllByLike(PostsSearchDto searchDto, Long memberId) {
+        int totalRowCount = postsRepository.findAllByLikeCount(searchDto, memberId);
+        BasePageDto basePageDto = new BasePageDto(searchDto.getPage(), searchDto.getSize(), totalRowCount);
+        searchDto.setBasePageDto(basePageDto);
+        return postsRepository.findAllByLike(searchDto, memberId).stream()
+                .map(posts -> new PostsResponseDto(posts))
+                .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
     public int findAllBySearchCount(PostsSearchDto searchDto) {
         return postsRepository.findAllBySearchCount(searchDto);
     }

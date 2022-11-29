@@ -106,9 +106,9 @@
                                         임시 글
                                     </div>
                                 </a>
-                                <a href="/" class="menu-item">
+                                <a href="/api/v1/liked/{{member.id}}" class="menu-item">
                                     <div class="menu-name">
-                                        읽기 목록
+                                        좋아요 목록
                                     </div>
                                 </a>
                                 <a href="/api/v1/setting/{{member.id}}" class="menu-item">
@@ -154,7 +154,7 @@
                         </div>
                     </div>
                     {{#storeFilename}}
-                    <a href="/api/v1/auth/posts/{{member.id}}">
+                    <a href="/api/v1/auth/posts/{{id}}">
                         <div class="posts-thumbnail" style="padding-top: 52.356%;">
                             <img src="/api/v1/auth/images/{{storeFilename}}" alt="posts-thumbnail">
                         </div>

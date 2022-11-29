@@ -994,6 +994,11 @@ a:hover {
   color: var(--text8);
   word-break: keep-all;
   overflow-wrap: break-word;
+  white-space: normal;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .posts-card .tags-wrapper {
