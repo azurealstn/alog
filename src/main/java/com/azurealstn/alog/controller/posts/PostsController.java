@@ -66,8 +66,17 @@ public class PostsController {
         Boolean isAuthenticated = postsService.isAuthenticated(member, posts);
         List<HashTagResponseDto> hashTagList = hashTagService.findByTags(postsId);
 
-        PostsLikeRequestDto postsLikeRequestDto = new PostsLikeRequestDto(posts.getMember().getId(), postsId);
-        PostsLikeResponseDto postsLikeInfo = postsLikeService.findPostsLikeInfo(postsLikeRequestDto);
+        if (member != null) {
+            PostsLikeRequestDto postsLikeRequestDto = new PostsLikeRequestDto(member.getId(), postsId);
+            PostsLikeResponseDto postsLikeInfo = postsLikeService.findPostsLikeInfo(postsLikeRequestDto);
+
+            model.addAttribute("existHeart", postsLikeInfo.isExist());
+            model.addAttribute("likeCount", postsLikeInfo.getPostsLikeCount());
+        } else {
+            PostsLikeRequestDto postsLikeRequestDto = new PostsLikeRequestDto(null, postsId);
+            int likeCount = postsLikeService.getPostsLikeCount(postsLikeRequestDto);
+            model.addAttribute("likeCount", likeCount);
+        }
 
         int commentCountByPosts = commentService.commentCountByPosts(postsId);
 
@@ -112,8 +121,6 @@ public class PostsController {
         model.addAttribute("isAuthenticated", isAuthenticated);
         model.addAttribute("isSecret", posts.getSecret());
         model.addAttribute("hashTagList", hashTagList);
-        model.addAttribute("existHeart", postsLikeInfo.isExist());
-        model.addAttribute("likeCount", postsLikeInfo.getPostsLikeCount());
         model.addAttribute("commentLevel0", commentLevel0);
         model.addAttribute("commentCountByPosts", commentCountByPosts);
         model.addAttribute("postsImage", postsImage);

@@ -182,6 +182,22 @@ const main = {
     if (matchMedia('screen and (max-width: 589px)').matches) {
       pagination.style.flexWrap = 'wrap';
     }
+  },
+  categoryMove: function() {
+    const latest = document.querySelector('#latest');
+    const popular = document.querySelector('#popular');
+    const categoryUnderline = document.querySelector('.category-underline');
+
+    const pathname = window.location.pathname;
+    if (pathname === '/') {
+        categoryUnderline.style.left = '0%';
+        latest.classList.add('active');
+        popular.classList.remove('active');
+    } else if (pathname === '/api/v1/auth/popular') {
+        categoryUnderline.style.left = '50%';
+        latest.classList.remove('active');
+        popular.classList.add('active');
+    }
   }
 };
 
@@ -209,4 +225,6 @@ $(function() {
 
   //js media-query
   main.mediaQuery();
+
+  main.categoryMove();
 });

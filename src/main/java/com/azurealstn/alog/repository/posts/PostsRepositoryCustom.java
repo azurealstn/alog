@@ -11,6 +11,12 @@ public interface PostsRepositoryCustom {
 
     List<Posts> findAll(PostsSearchDto searchDto);
 
+    List<Posts> findAllByIndexLiked(PostsSearchDto searchDto);
+
+    List<Posts> findAllByLike(PostsSearchDto searchDto, Long memberId);
+
+    int findAllByLikeCount(PostsSearchDto searchDto, Long memberId);
+
     List<Posts> findAllBySearch(PostsSearchDto searchDto);
 
     int findAllBySearchCount(PostsSearchDto searchDto);

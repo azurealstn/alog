@@ -34,6 +34,45 @@ public class PostsRepositoryImpl implements PostsRepositoryCustom {
     }
 
     @Override
+    public List<Posts> findAllByIndexLiked(PostsSearchDto searchDto) {
+        return jpaQueryFactory
+                .selectFrom(posts)
+                .limit(searchDto.getSize())
+                .offset(searchDto.getOffset())
+                .where(posts.secret.eq(false))
+                .orderBy(posts.likes.desc(), posts.id.desc())
+                .fetch();
+    }
+
+    @Override
+    public List<Posts> findAllByLike(PostsSearchDto searchDto, Long memberId) {
+        return jpaQueryFactory
+                .selectFrom(posts)
+                .leftJoin(postsLike)
+                .on(posts.id.eq(postsLike.posts.id),
+                        posts.member.id.eq(postsLike.member.id))
+                .limit(searchDto.getSize())
+                .offset(searchDto.getOffset())
+                .where(posts.secret.eq(false),
+                        postsLike.member.id.eq(memberId))
+                .orderBy(posts.id.desc())
+                .fetch();
+    }
+
+    @Override
+    public int findAllByLikeCount(PostsSearchDto searchDto, Long memberId) {
+        return jpaQueryFactory
+                .selectFrom(posts)
+                .leftJoin(postsLike)
+                .on(posts.id.eq(postsLike.posts.id),
+                        posts.member.id.eq(postsLike.member.id))
+                .where(posts.secret.eq(false),
+                        postsLike.member.id.eq(memberId))
+                .orderBy(posts.id.desc())
+                .fetch().size();
+    }
+
+    @Override
     public List<Posts> findAllBySearch(PostsSearchDto searchDto) {
         return jpaQueryFactory
                 .selectFrom(posts)
