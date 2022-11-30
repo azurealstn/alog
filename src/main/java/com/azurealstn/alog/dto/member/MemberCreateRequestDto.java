@@ -17,6 +17,7 @@ public class MemberCreateRequestDto {
     private String name;
 
     @Email(message = "잘못된 이메일 형식입니다.")
+    @NotBlank(message = "이메일을 입력해주세요.")
     private String email;
 
     @Pattern(regexp = "^[A-Za-z0-9_-]{3,16}$", message = "아이디는 3~16자의 알파벳,숫자,혹은 - _ 으로 이루어져야 합니다.")
