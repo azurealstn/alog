@@ -88,8 +88,11 @@
                         <div class="input-wrapper">
                             {{#member.email}}
                                 <input type="text" name="email" id="email" placeholder="이메일을 입력하세요" disabled size="25" value="{{member.email}}">
+                                <i class="fa-solid fa-lock"></i>
                             {{/member.email}}
-                            <i class="fa-solid fa-lock"></i>
+                            {{^member.email}}
+                                <input type="text" name="email" id="email" placeholder="이메일을 입력하세요" size="25">
+                            {{/member.email}}
                         </div>
                         <div class="width-marker">이메일을 입력하세요</div>
                     </div>
