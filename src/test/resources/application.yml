@@ -37,3 +37,6 @@ spring:
   profiles:
     include:
       - mail
+
+upload:
+  path: C:/project-upload/alog/

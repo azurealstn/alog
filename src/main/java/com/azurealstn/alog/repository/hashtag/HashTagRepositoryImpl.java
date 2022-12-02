@@ -33,17 +33,4 @@ public class HashTagRepositoryImpl implements HashTagRepositoryCustom {
                 .fetch();
     }
 
-    @Override
-    public List<HashTag> findByTagsName(String name, HashTagSearchDto searchDto) {
-        return jpaQueryFactory
-                .selectFrom(hashTag)
-                .leftJoin(postsHashTagMap)
-                .on(hashTag.id.eq(postsHashTagMap.hashTag.id))
-                .leftJoin(posts)
-                .on(postsHashTagMap.posts.id.eq(posts.id))
-                .where(hashTag.name.eq(name))
-                .orderBy(posts.id.desc())
-                .fetch();
-    }
-
 }

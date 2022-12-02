@@ -33,12 +33,14 @@ public class CommentCreateRequestDto {
     private Long postsId;
 
     @Builder
-    public CommentCreateRequestDto(String content, Member member, Posts posts, Long upCommentId, Integer level) {
+    public CommentCreateRequestDto(String content, Member member, Posts posts, Long upCommentId, Integer level, Long memberId, Long postsId) {
         this.content = content;
         this.member = member;
         this.posts = posts;
         this.upCommentId = upCommentId;
         this.level = level;
+        this.memberId = memberId;
+        this.postsId = postsId;
     }
 
     public Comment toEntity() {

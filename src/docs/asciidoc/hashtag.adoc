@@ -1,0 +1,39 @@
+= HashTag API 문서
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+:sectlinks:
+
+== [해시태그 여러건 조회]
+
+=== HTTP 요청
+
+include::{snippets}/hashtag-findAll/http-request.adoc[]
+
+=== 요청 쿼리 파라미터
+
+include::{snippets}/hashtag-findAll/path-parameters.adoc[]
+
+=== HTTP 응답
+
+include::{snippets}/hashtag-findAll/http-response.adoc[]
+
+=== 응답 메시지 바디 파라미터
+
+include::{snippets}/hashtag-findAll/response-fields.adoc[]
+
+== [해시태그 생성]
+
+=== HTTP 요청
+
+include::{snippets}/hashtag-create/http-request.adoc[]
+
+=== 요청 메시지 바디 파라미터
+
+include::{snippets}/hashtag-create/request-fields.adoc[]
+
+=== HTTP 응답
+
+include::{snippets}/hashtag-create/http-response.adoc[]

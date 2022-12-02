@@ -10,6 +10,4 @@ public interface HashTagRepositoryCustom {
 
     List<HashTag> findByTags(Long postsId);
 
-    List<HashTag> findByTagsName(String name, HashTagSearchDto searchDto);
-
 }

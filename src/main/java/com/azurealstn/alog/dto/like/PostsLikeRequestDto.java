@@ -18,6 +18,7 @@ public class PostsLikeRequestDto {
     private Long memberId;
     private Long postsId;
 
+    @Builder
     public PostsLikeRequestDto(Long memberId, Long postsId) {
         this.memberId = memberId;
         this.postsId = postsId;

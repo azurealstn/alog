@@ -1,0 +1,25 @@
+= PostsLike API 문서
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+:sectlinks:
+
+== [게시글 좋아요 Toggle]
+
+=== HTTP 요청
+
+include::{snippets}/postslike-toggle/http-request.adoc[]
+
+=== 요청 메시지 바디 파라미터
+
+include::{snippets}/postslike-toggle/request-fields.adoc[]
+
+=== HTTP 응답
+
+include::{snippets}/postslike-toggle/http-response.adoc[]
+
+=== 응답 메시지 바디
+
+include::{snippets}/postslike-toggle/response-body.adoc[]

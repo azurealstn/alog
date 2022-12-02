@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.10">
-<title>Posts API 문서</title>
+<title>TempSave API 문서</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -439,14 +439,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="book toc2 toc-left">
 <div id="header">
-<h1>Posts API 문서</h1>
+<h1>TempSave API 문서</h1>
 <div class="details">
 <span id="revnumber">version 0.0.1-SNAPSHOT</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_글_단건_조회">[글 단건 조회]</a>
+<li><a href="#_임시저장_단건_조회">[임시저장 단건 조회]</a>
 <ul class="sectlevel2">
 <li><a href="#_http_요청">HTTP 요청</a></li>
 <li><a href="#_요청_쿼리_파라미터">요청 쿼리 파라미터</a></li>
@@ -454,14 +454,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_응답_메시지_바디_파라미터">응답 메시지 바디 파라미터</a></li>
 </ul>
 </li>
-<li><a href="#_글_작성">[글 작성]</a>
+<li><a href="#_임시저장_생성">[임시저장 생성]</a>
 <ul class="sectlevel2">
 <li><a href="#_http_요청_2">HTTP 요청</a></li>
 <li><a href="#_요청_메시지_바디_파라미터">요청 메시지 바디 파라미터</a></li>
 <li><a href="#_http_응답_2">HTTP 응답</a></li>
 </ul>
 </li>
-<li><a href="#_글_수정">[글 수정]</a>
+<li><a href="#_임시저장_수정">[임시저장 수정]</a>
 <ul class="sectlevel2">
 <li><a href="#_http_요청_3">HTTP 요청</a></li>
 <li><a href="#_요청_쿼리_파라미터_2">요청 쿼리 파라미터</a></li>
@@ -469,7 +469,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_http_응답_3">HTTP 응답</a></li>
 </ul>
 </li>
-<li><a href="#_글_삭제">[글 삭제]</a>
+<li><a href="#_임시저장_삭제">[임시저장 삭제]</a>
 <ul class="sectlevel2">
 <li><a href="#_http_요청_4">HTTP 요청</a></li>
 <li><a href="#_요청_쿼리_파라미터_3">요청 쿼리 파라미터</a></li>
@@ -481,13 +481,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_글_단건_조회"><a class="link" href="#_글_단건_조회">[글 단건 조회]</a></h2>
+<h2 id="_임시저장_단건_조회"><a class="link" href="#_임시저장_단건_조회">[임시저장 단건 조회]</a></h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_http_요청"><a class="link" href="#_http_요청">HTTP 요청</a></h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">GET /api/v1/auth/posts-data/207 HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">GET /api/v1/temp-save/33 HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Accept: application/json
 Host: localhost:8080</code></pre>
@@ -497,7 +497,7 @@ Host: localhost:8080</code></pre>
 <div class="sect2">
 <h3 id="_요청_쿼리_파라미터"><a class="link" href="#_요청_쿼리_파라미터">요청 쿼리 파라미터</a></h3>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. /api/v1/auth/posts-data/{posts_id}</caption>
+<caption class="title">Table 1. /api/v1/temp-save/{tempSaveId}</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -510,8 +510,8 @@ Host: localhost:8080</code></pre>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>posts_id</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 ID</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tempSaveId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">임시저장 ID</p></td>
 </tr>
 </tbody>
 </table>
@@ -522,9 +522,9 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 498
+Content-Length: 116
 
-{"id":207,"title":"foo","content":"bar","member":{"createdDate":"2022-12-02T21:29:09.4795327","modifiedDate":"2022-12-02T21:29:09.4795327","id":144,"email":"azurealstn@naver.com","name":"슬로우스타터","picture":"test.jpg","role":"MEMBER","emailAuth":true,"username":"haha","shortBio":"안녕하세요!","roleKey":"ROLE_MEMBER"},"description":"소개글","secret":true,"previousTime":"2022년 12월 2일","hashTagNames":[],"likeCount":0,"commentCount":0,"storeFilename":null,"totalRowCount":0}</code></pre>
+{"id":33,"title":"제목입니다","content":"내용입니다.","tempCode":null,"previousTime":"2022년 12월 2일"}</code></pre>
 </div>
 </div>
 </div>
@@ -547,117 +547,27 @@ Content-Length: 498
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>id</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 ID</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">임시저장 ID</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>title</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 제목</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">임시저장 제목</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>content</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 내용</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">임시저장 내용</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>description</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 한 줄 소개</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>secret</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">비밀글</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tempCode</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Null</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">임시저장 코드</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>previousTime</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 올리고 지난 시간</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>hashTagNames</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Array</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">해시태그 이름</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>likeCount</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">좋아요 카운트</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>commentCount</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">댓글 카운트</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>storeFilename</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Null</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">서버 저장 파일 이름</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>totalRowCount</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">전체 게시글 수</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>member</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Object</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">회원 정보</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>member.id</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">회원 ID</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>member.email</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">회원 이메일</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>member.name</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">회원 이름</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>member.picture</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">회원 프로필사진</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>member.role</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">회원 권한</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>member.emailAuth</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">회원 인증 상태</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>member.username</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">회원 아이디</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>member.shortBio</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">회원 한 줄 소개</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>member.roleKey</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">회원 권한 키</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>member.createdDate</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">회원 생성날짜</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>member.modifiedDate</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">회원 수정날짜</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">임시저장 전에 등록한 시간</p></td>
 </tr>
 </tbody>
 </table>
@@ -665,19 +575,18 @@ Content-Length: 498
 </div>
 </div>
 <div class="sect1">
-<h2 id="_글_작성"><a class="link" href="#_글_작성">[글 작성]</a></h2>
+<h2 id="_임시저장_생성"><a class="link" href="#_임시저장_생성">[임시저장 생성]</a></h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_http_요청_2"><a class="link" href="#_http_요청_2">HTTP 요청</a></h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">POST /api/v1/posts HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">POST /api/v1/temp-save HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Accept: application/json
-Content-Length: 380
+Content-Length: 401
 Host: localhost:8080
 
-{"title":"글 제목","content":"글 내용","member":{"createdDate":"2022-12-02T21:29:09.4069212","modifiedDate":"2022-12-02T21:29:09.4069212","id":142,"email":"azurealstn@naver.com","name":"슬로우스타터","picture":"test.jpg","role":"MEMBER","emailAuth":true,"username":"haha","shortBio":"안녕하세요!","roleKey":"ROLE_MEMBER"},"description":"글 소개","secret":true}</code></pre>
+{"title":"제목이지롱?","content":"내용이지롱?","member":{"createdDate":"2022-12-02T21:29:10.2698083","modifiedDate":"2022-12-02T21:29:10.2698083","id":166,"email":"azurealstn@naver.com","name":"슬로우스타터","picture":"test.jpg","role":"MEMBER","emailAuth":true,"username":"haha","shortBio":"안녕하세요!","roleKey":"ROLE_MEMBER"},"tempCode":"b4938a74-39bc-4a09-9b0b-72b547aad1f4"}</code></pre>
 </div>
 </div>
 </div>
@@ -700,22 +609,17 @@ Host: localhost:8080
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>title</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 제목</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">임시저장 제목</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>content</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 내용</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">임시저장 내용</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>description</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tempCode</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 한 줄 소개</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>secret</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">비밀글</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">임시저장 코드</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>member</code></p></td>
@@ -786,35 +690,34 @@ Host: localhost:8080
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 3
+Content-Length: 2
 
-205</code></pre>
+34</code></pre>
 </div>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_글_수정"><a class="link" href="#_글_수정">[글 수정]</a></h2>
+<h2 id="_임시저장_수정"><a class="link" href="#_임시저장_수정">[임시저장 수정]</a></h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_http_요청_3"><a class="link" href="#_http_요청_3">HTTP 요청</a></h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">PUT /api/v1/posts/204 HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">PUT /api/v1/temp-save/ab61d74d-db5e-4451-801c-6681d29be8fb HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Accept: application/json
-Content-Length: 104
+Content-Length: 71
 Host: localhost:8080
 
-{"title":"수정된 제목","content":"수정된 내용","description":"수정된 소개","secret":true}</code></pre>
+{"title":"수정 제목입니다.","content":"수정 내용입니다."}</code></pre>
 </div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_요청_쿼리_파라미터_2"><a class="link" href="#_요청_쿼리_파라미터_2">요청 쿼리 파라미터</a></h3>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 2. /api/v1/posts/{posts_id}</caption>
+<caption class="title">Table 2. /api/v1/temp-save/{tempCode}</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -827,8 +730,8 @@ Host: localhost:8080
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>posts_id</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 ID</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tempCode</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">임시저장 코드</p></td>
 </tr>
 </tbody>
 </table>
@@ -852,22 +755,12 @@ Host: localhost:8080
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>title</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 제목</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">임시저장 제목</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>content</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 내용</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>description</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 한 줄 소개</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>secret</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">비밀글</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">임시저장 내용</p></td>
 </tr>
 </tbody>
 </table>
@@ -878,24 +771,23 @@ Host: localhost:8080
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 3
+Content-Length: 2
 
-204</code></pre>
+31</code></pre>
 </div>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_글_삭제"><a class="link" href="#_글_삭제">[글 삭제]</a></h2>
+<h2 id="_임시저장_삭제"><a class="link" href="#_임시저장_삭제">[임시저장 삭제]</a></h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_http_요청_4"><a class="link" href="#_http_요청_4">HTTP 요청</a></h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">DELETE /api/v1/posts/206 HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">DELETE /api/v1/temp-save/32 HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Accept: application/json
 Host: localhost:8080</code></pre>
 </div>
 </div>
@@ -903,7 +795,7 @@ Host: localhost:8080</code></pre>
 <div class="sect2">
 <h3 id="_요청_쿼리_파라미터_3"><a class="link" href="#_요청_쿼리_파라미터_3">요청 쿼리 파라미터</a></h3>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 3. /api/v1/posts/{posts_id}</caption>
+<caption class="title">Table 3. /api/v1/temp-save/{tempSaveId}</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -916,8 +808,8 @@ Host: localhost:8080</code></pre>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>posts_id</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 ID</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tempSaveId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">임시저장 ID</p></td>
 </tr>
 </tbody>
 </table>
@@ -926,7 +818,11 @@ Host: localhost:8080</code></pre>
 <h3 id="_http_응답_4"><a class="link" href="#_http_응답_4">HTTP 응답</a></h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK</code></pre>
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+Content-Length: 2
+
+32</code></pre>
 </div>
 </div>
 </div>
@@ -936,7 +832,7 @@ Host: localhost:8080</code></pre>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2022-10-10 18:41:31 +0900
+Last updated 2022-12-01 21:58:06 +0900
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css">

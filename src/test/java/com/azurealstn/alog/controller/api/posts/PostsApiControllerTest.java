@@ -324,13 +324,14 @@ class PostsApiControllerTest {
                         .title("test 제목 - " + (i + 1))
                         .content("뭐로 할까 - " + (i + 1))
                         .description("소개글 - " + (i + 1))
+                        .secret(false)
                         .member(savedMember)
                         .build())
                 .collect(Collectors.toList());
         postsRepository.saveAll(collect);
 
         //expected
-        mockMvc.perform(get("/api/v1/posts?page=1&size=9")
+        mockMvc.perform(get("/api/v1/auth/posts?page=1&size=9")
                         .session(mockHttpSession)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -363,13 +364,14 @@ class PostsApiControllerTest {
                         .title("test 제목 - " + (i + 1))
                         .content("뭐로 할까 - " + (i + 1))
                         .description("소개글 - " + (i + 1))
+                        .secret(false)
                         .member(savedMember)
                         .build())
                 .collect(Collectors.toList());
         postsRepository.saveAll(collect);
 
         //expected
-        mockMvc.perform(get("/api/v1/posts?page=2&size=9")
+        mockMvc.perform(get("/api/v1/auth/posts?page=2&size=9")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()", is(9)))
@@ -401,13 +403,14 @@ class PostsApiControllerTest {
                         .title("test 제목 - " + (i + 1))
                         .content("뭐로 할까 - " + (i + 1))
                         .description("소개글 - " + (i + 1))
+                        .secret(false)
                         .member(savedMember)
                         .build())
                 .collect(Collectors.toList());
         postsRepository.saveAll(collect);
 
         //expected
-        mockMvc.perform(get("/api/v1/posts?page=0&size=9")
+        mockMvc.perform(get("/api/v1/auth/posts?page=0&size=9")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()", is(9)))

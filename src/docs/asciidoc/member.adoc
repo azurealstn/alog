@@ -1,0 +1,89 @@
+= Member API 문서
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+:sectlinks:
+
+== [회원 단건 조회]
+
+=== HTTP 요청
+
+include::{snippets}/member-findById/http-request.adoc[]
+
+=== 요청 쿼리 파라미터
+
+include::{snippets}/member-findById/path-parameters.adoc[]
+
+=== HTTP 응답
+
+include::{snippets}/member-findById/http-response.adoc[]
+
+=== 응답 메시지 바디 파라미터
+
+include::{snippets}/member-findById/response-fields.adoc[]
+
+== [회원 생성]
+
+=== HTTP 요청
+
+include::{snippets}/member-create/http-request.adoc[]
+
+=== 요청 메시지 바디 파라미터
+
+include::{snippets}/member-create/request-fields.adoc[]
+
+=== HTTP 응답
+
+include::{snippets}/member-create/http-response.adoc[]
+
+== [회원 이름 수정]
+
+=== HTTP 요청
+
+include::{snippets}/member-modify-name/http-request.adoc[]
+
+=== 요청 쿼리 파라미터
+
+include::{snippets}/member-modify-name/path-parameters.adoc[]
+
+=== 요청 메시지 바디 파라미터
+
+include::{snippets}/member-modify-name/request-fields.adoc[]
+
+=== HTTP 응답
+
+include::{snippets}/member-modify-name/http-response.adoc[]
+
+== [회원 아이디 수정]
+
+=== HTTP 요청
+
+include::{snippets}/member-modify-username/http-request.adoc[]
+
+=== 요청 쿼리 파라미터
+
+include::{snippets}/member-modify-username/path-parameters.adoc[]
+
+=== 요청 메시지 바디 파라미터
+
+include::{snippets}/member-modify-username/request-fields.adoc[]
+
+=== HTTP 응답
+
+include::{snippets}/member-modify-username/http-response.adoc[]
+
+== [회원 삭제]
+
+=== HTTP 요청
+
+include::{snippets}/member-delete/http-request.adoc[]
+
+=== 요청 쿼리 파라미터
+
+include::{snippets}/member-delete/path-parameters.adoc[]
+
+=== HTTP 응답
+
+include::{snippets}/member-delete/http-response.adoc[]

@@ -177,6 +177,7 @@ class PostsServiceTest {
                         .content("뭐로 할까 - " + (i + 1))
                         .member(savedMember)
                         .description("소개글 - " + (i + 1))
+                        .secret(false)
                         .build())
                 .collect(Collectors.toList());
         postsRepository.saveAll(collect);
