@@ -23,7 +23,7 @@ public class SecurityConfig {
                 .headers().frameOptions().disable()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/", "/css/**", "/images/**", "/js/**", "/h2-console/**", "/api/v1/auth/**")
+                .antMatchers("/", "/css/**", "/images/**", "/js/**", "/h2-console/**", "/api/v1/auth/**", "/docs/**")
                 .permitAll()
                 .antMatchers("/api/v1/**")
                 .hasAnyRole(Role.ADMIN.name(), Role.MEMBER.name())

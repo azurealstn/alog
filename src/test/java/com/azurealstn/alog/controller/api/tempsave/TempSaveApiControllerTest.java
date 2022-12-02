@@ -62,9 +62,9 @@ class TempSaveApiControllerTest {
                 .webAppContextSetup(context)
                 .addFilters(new CharacterEncodingFilter("UTF-8", true))
                 .build();
+        postsRepository.deleteAll();
         tempSaveRepository.deleteAll();
         memberRepository.deleteAll();
-        postsRepository.deleteAll();
     }
 
     @AfterEach

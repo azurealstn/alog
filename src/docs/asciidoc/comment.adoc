@@ -1,0 +1,53 @@
+= Comment API 문서
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+:sectlinks:
+
+== [댓글 작성]
+
+=== HTTP 요청
+
+include::{snippets}/comment-create/http-request.adoc[]
+
+=== 요청 메시지 바디 파라미터
+
+include::{snippets}/comment-create/request-fields.adoc[]
+
+=== HTTP 응답
+
+include::{snippets}/comment-create/http-response.adoc[]
+
+== [댓글 수정]
+
+=== HTTP 요청
+
+include::{snippets}/comment-modify/http-request.adoc[]
+
+=== 요청 쿼리 파라미터
+
+include::{snippets}/comment-modify/path-parameters.adoc[]
+
+=== 요청 메시지 바디 파라미터
+
+include::{snippets}/comment-modify/request-fields.adoc[]
+
+=== HTTP 응답
+
+include::{snippets}/comment-modify/http-response.adoc[]
+
+== [댓글 삭제]
+
+=== HTTP 요청
+
+include::{snippets}/comment-delete/http-request.adoc[]
+
+=== 요청 쿼리 파라미터
+
+include::{snippets}/comment-delete/path-parameters.adoc[]
+
+=== HTTP 응답
+
+include::{snippets}/comment-delete/http-response.adoc[]

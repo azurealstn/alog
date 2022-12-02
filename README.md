@@ -189,6 +189,29 @@ private static final long serialVersionUID = ?L
 
 컨트롤러에서 중복된 URL이 있어서 발생하는 에러
 
+### mustache 한글 깨짐 이슈
+
+- Spring Boot 2.7.0에서 위 이슈 발생
+- 2.6.x대로 다운 그레이드하거나 application.properties에 `server.servlet.encoding.force-response: true` 추가
+- https://www.inflearn.com/questions/545116
+
+### Table "SPRING_SESSION" not found; SQL statement 에러
+
+`application.yml`에 아래 두 줄 추가
+
+```groovy
+spring.session.store-type=jdbc
+spring.session.jdbc.initialize-schema=always
+```
+
+### 세션 저장소로 데이터베이스 사용하기
+
+로그인할 때 사용되는 세션은 내장 톰캣의 메모리에 저장되기 때문에 애플리케이션을 재실행하면 로그인이 풀립니다. 따라서 설정이 간단한 MySQL과 같은 데이터베이스를 세션 저장소로 사용합니다.
+
+### urlTemplate not found. If you are using MockMvc did you use RestDocumentationRequestBuilders to build the request?
+
+`MockMvcRequestBuilders`가 아닌 `RestDocumentationRequestBuilders`를 사용해야 한다.
+
 ## API 문서
 
 클라이언트 입장에서는 어떤 API가 있는지 모르기 때문에 백엔드에서 API를 잘 정리해서 전달할 필요가 있습니다. 백엔드에서 개발한 실제 코드를 토대로 자동으로 API 문서화를 만들어주는 툴들이 있습니다.
@@ -198,19 +221,6 @@ private static final long serialVersionUID = ?L
 - GitBook
 - I/O Docs
 - Spring REST Docs
-
-## 만난 에러들
-
-- mustache 한글 깨짐 이슈
-  - Spring Boot 2.7.0에서 위 이슈 발생
-  - 2.6.x대로 다운 그레이드하거나 application.properties에 `server.servlet.encoding.force-response: true` 추가
-  - https://www.inflearn.com/questions/545116
-- Table "SPRING_SESSION" not found; SQL statement 에러
-  - https://velog.io/@ojs0073/Table-SPRINGSESSION-not-found-SQL-statement-%EC%97%90%EB%9F%AC
-
-## 세션 저장소로 데이터베이스 사용하기
-
-로그인할 때 사용되는 세션은 내장 톰캣의 메모리에 저장되기 때문에 애플리케이션을 재실행하면 로그인이 풀립니다. 따라서 설정이 간단한 MySQL과 같은 데이터베이스를 세션 저장소로 사용합니다.
 
 ### Spring REST Docs의 장점
 

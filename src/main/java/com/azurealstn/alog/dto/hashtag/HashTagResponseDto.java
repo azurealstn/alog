@@ -12,8 +12,9 @@ public class HashTagResponseDto {
     private String name;
     private Posts posts;
 
-    public HashTagResponseDto(HashTag entity) {
+    public HashTagResponseDto(HashTag entity, Posts posts) {
         this.name = entity.getName();
+        this.posts = posts;
     }
 
 }

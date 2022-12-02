@@ -1,16 +1,18 @@
-package com.azurealstn.alog.controller.api.posts;
+package com.azurealstn.alog.controller.api.tempsave;
 
 import com.azurealstn.alog.domain.member.Member;
 import com.azurealstn.alog.domain.posts.Posts;
+import com.azurealstn.alog.domain.tempsave.TempSave;
 import com.azurealstn.alog.dto.auth.SessionMemberDto;
 import com.azurealstn.alog.dto.member.MemberCreateRequestDto;
 import com.azurealstn.alog.dto.posts.PostsCreateRequestDto;
 import com.azurealstn.alog.dto.posts.PostsModifyRequestDto;
+import com.azurealstn.alog.dto.tempsave.TempSaveCreateRequestDto;
+import com.azurealstn.alog.dto.tempsave.TempSaveUpdateRequestDto;
 import com.azurealstn.alog.repository.member.MemberRepository;
 import com.azurealstn.alog.repository.posts.PostsRepository;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.azurealstn.alog.repository.tempsave.TempSaveRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -24,34 +26,30 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
-import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
-import org.springframework.restdocs.payload.PayloadDocumentation;
-import org.springframework.restdocs.request.RequestDocumentation;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
-import static org.hamcrest.Matchers.*;
+import java.util.UUID;
+
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
-import static org.springframework.restdocs.request.RequestDocumentation.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureRestDocs(uriScheme = "https", uriHost = "api.alog.com", uriPort = 443)
 @AutoConfigureMockMvc
 @ExtendWith(RestDocumentationExtension.class)
-public class PostsApiControllerDocTest {
+public class TempSaveApiControllerDocTest {
 
     private MockMvc mockMvc;
 
@@ -68,6 +66,9 @@ public class PostsApiControllerDocTest {
     private PostsRepository postsRepository;
 
     @Autowired
+    private TempSaveRepository tempSaveRepository;
+
+    @Autowired
     private MemberRepository memberRepository;
 
     @BeforeEach
@@ -78,115 +79,111 @@ public class PostsApiControllerDocTest {
                 .addFilters(new CharacterEncodingFilter("UTF-8", true))
                 .build();
         postsRepository.deleteAll();
+        tempSaveRepository.deleteAll();
         memberRepository.deleteAll();
     }
 
     @AfterEach
     void afterEach() {
         postsRepository.deleteAll();
+        tempSaveRepository.deleteAll();
         memberRepository.deleteAll();
     }
 
     @Test
-    @DisplayName("글 단건 조회")
+    @DisplayName("임시저장 단건 조회")
     @WithMockUser("MEMBER")
     @Transactional
     void findById_api() throws Exception {
         //given
-        MemberCreateRequestDto memberCreateRequestDto = getMemberCreateRequestDto();
+        String name = "슬로우스타터";
+        String email = "azurealstn@naver.com";
+        String username = "haha";
+        String shortBio = "안녕하세요!";
+        String picture = "test.jpg";
+
+        MemberCreateRequestDto memberCreateRequestDto = MemberCreateRequestDto.builder()
+                .name(name)
+                .email(email)
+                .username(username)
+                .shortBio(shortBio)
+                .picture(picture)
+                .build();
 
         Member savedMember = memberRepository.save(memberCreateRequestDto.toEntity());
-
         MockHttpSession mockHttpSession = new MockHttpSession();
         mockHttpSession.setAttribute("member", new SessionMemberDto(savedMember));
 
-        Posts posts = Posts.builder()
-                .title("foo")
-                .content("bar")
+        TempSave tempSave = TempSave.builder()
+                .title("제목입니다")
+                .content("내용입니다.")
                 .member(savedMember)
-                .description("소개글")
-                .secret(true)
                 .build();
 
-        //when
-        Long savedId = postsRepository.save(posts).getId();
+        Long savedId = tempSaveRepository.save(tempSave).getId();
 
-        mockMvc.perform(get("/api/v1/auth/posts-data/{posts_id}", savedId)
+        mockMvc.perform(get("/api/v1/temp-save/{tempSaveId}", savedId)
                         .session(mockHttpSession)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andDo(print())
-                .andDo(document("posts-findById", pathParameters(
-                                parameterWithName("posts_id").description("게시글 ID")
+                .andDo(document("tempsave-findById", pathParameters(
+                                parameterWithName("tempSaveId").description("임시저장 ID")
                         ),
                         responseFields(
-                                fieldWithPath("id").description("게시글 ID"),
-                                fieldWithPath("title").description("게시글 제목"),
-                                fieldWithPath("content").description("게시글 내용"),
-                                fieldWithPath("description").description("게시글 한 줄 소개"),
-                                fieldWithPath("secret").description("비밀글"),
-                                fieldWithPath("previousTime").description("게시글 올리고 지난 시간"),
-                                fieldWithPath("hashTagNames").description("해시태그 이름"),
-                                fieldWithPath("likeCount").description("좋아요 카운트"),
-                                fieldWithPath("commentCount").description("댓글 카운트"),
-                                fieldWithPath("storeFilename").description("서버 저장 파일 이름"),
-                                fieldWithPath("totalRowCount").description("전체 게시글 수"),
-                                fieldWithPath("member").type(JsonFieldType.OBJECT).description("회원 정보"),
-                                fieldWithPath("member.id").type(JsonFieldType.NUMBER).description("회원 ID"),
-                                fieldWithPath("member.email").type(JsonFieldType.STRING).description("회원 이메일"),
-                                fieldWithPath("member.name").type(JsonFieldType.STRING).description("회원 이름"),
-                                fieldWithPath("member.picture").type(JsonFieldType.STRING).description("회원 프로필사진"),
-                                fieldWithPath("member.role").type(JsonFieldType.STRING).description("회원 권한"),
-                                fieldWithPath("member.emailAuth").type(JsonFieldType.BOOLEAN).description("회원 인증 상태"),
-                                fieldWithPath("member.username").type(JsonFieldType.STRING).description("회원 아이디"),
-                                fieldWithPath("member.shortBio").type(JsonFieldType.STRING).description("회원 한 줄 소개"),
-                                fieldWithPath("member.roleKey").type(JsonFieldType.STRING).description("회원 권한 키"),
-                                fieldWithPath("member.createdDate").type(JsonFieldType.STRING).description("회원 생성날짜"),
-                                fieldWithPath("member.modifiedDate").type(JsonFieldType.STRING).description("회원 수정날짜")
+                                fieldWithPath("id").description("임시저장 ID"),
+                                fieldWithPath("title").description("임시저장 제목"),
+                                fieldWithPath("content").description("임시저장 내용"),
+                                fieldWithPath("tempCode").description("임시저장 코드"),
+                                fieldWithPath("previousTime").description("임시저장 전에 등록한 시간")
                         )
                 ));
     }
 
     @Test
-    @DisplayName("글 작성")
+    @DisplayName("임시저장 작성")
     @WithMockUser("MEMBER")
     @Transactional
-    void create_posts_api() throws Exception {
+    void create_tempsave_api() throws Exception {
         //given
-        MemberCreateRequestDto memberCreateRequestDto = getMemberCreateRequestDto();
+        String name = "슬로우스타터";
+        String email = "azurealstn@naver.com";
+        String username = "haha";
+        String shortBio = "안녕하세요!";
+        String picture = "test.jpg";
+
+        MemberCreateRequestDto memberCreateRequestDto = MemberCreateRequestDto.builder()
+                .name(name)
+                .email(email)
+                .username(username)
+                .shortBio(shortBio)
+                .picture(picture)
+                .build();
 
         Member savedMember = memberRepository.save(memberCreateRequestDto.toEntity());
-
         MockHttpSession mockHttpSession = new MockHttpSession();
         mockHttpSession.setAttribute("member", new SessionMemberDto(savedMember));
 
-        String title = "글 제목";
-        String content = "글 내용";
-        String description = "글 소개";
-
-        PostsCreateRequestDto requestDto = PostsCreateRequestDto.builder()
-                .title(title)
-                .content(content)
+        TempSaveCreateRequestDto requestDto = TempSaveCreateRequestDto.builder()
+                .title("제목이지롱?")
+                .content("내용이지롱?")
                 .member(savedMember)
-                .description(description)
-                .secret(true)
                 .build();
+        String body = objectMapper.writeValueAsString(requestDto);
 
         //expected
-        mockMvc.perform(post("/api/v1/posts")
+        mockMvc.perform(post("/api/v1/temp-save")
                         .session(mockHttpSession)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(requestDto)))
+                        .content(body))
                 .andExpect(status().isOk())
                 .andDo(print())
-                .andDo(document("posts-create",
+                .andDo(document("tempsave-create",
                         requestFields(
-                                fieldWithPath("title").type(JsonFieldType.STRING).description("게시글 제목"),
-                                fieldWithPath("content").type(JsonFieldType.STRING).description("게시글 내용"),
-                                fieldWithPath("description").type(JsonFieldType.STRING).description("게시글 한 줄 소개"),
-                                fieldWithPath("secret").type(JsonFieldType.BOOLEAN).description("비밀글"),
+                                fieldWithPath("title").type(JsonFieldType.STRING).description("임시저장 제목"),
+                                fieldWithPath("content").type(JsonFieldType.STRING).description("임시저장 내용"),
+                                fieldWithPath("tempCode").type(JsonFieldType.STRING).description("임시저장 코드"),
                                 fieldWithPath("member").type(JsonFieldType.OBJECT).description("회원 정보"),
                                 fieldWithPath("member.id").type(JsonFieldType.NUMBER).description("회원 ID"),
                                 fieldWithPath("member.email").type(JsonFieldType.STRING).description("회원 이메일"),
@@ -206,64 +203,66 @@ public class PostsApiControllerDocTest {
     }
 
     @Test
-    @DisplayName("글 수정")
+    @DisplayName("임시저장 수정")
     @WithMockUser("MEMBER")
     @Transactional
-    void modify_posts_api() throws Exception {
+    void modify_tempsave_api() throws Exception {
         //given
-        MemberCreateRequestDto memberCreateRequestDto = getMemberCreateRequestDto();
+        String name = "슬로우스타터";
+        String email = "azurealstn@naver.com";
+        String username = "haha";
+        String shortBio = "안녕하세요!";
+        String picture = "test.jpg";
+
+        MemberCreateRequestDto memberCreateRequestDto = MemberCreateRequestDto.builder()
+                .name(name)
+                .email(email)
+                .username(username)
+                .shortBio(shortBio)
+                .picture(picture)
+                .build();
 
         Member savedMember = memberRepository.save(memberCreateRequestDto.toEntity());
-
         MockHttpSession mockHttpSession = new MockHttpSession();
         mockHttpSession.setAttribute("member", new SessionMemberDto(savedMember));
 
-        Posts posts = Posts.builder()
-                .title("foo")
-                .content("bar")
+        TempSave tempSave = TempSave.builder()
+                .title("제목입니다")
+                .content("내용입니다.")
                 .member(savedMember)
-                .description("소개")
+                .tempCode(UUID.randomUUID().toString())
                 .build();
 
-        Long modifiedId = postsRepository.save(posts).getId();
+        tempSaveRepository.save(tempSave);
 
-        String expectedTitle = "수정된 제목";
-        String expectedContent = "수정된 내용";
-        String expectedDescription = "수정된 소개";
-
-        PostsModifyRequestDto requestDto = PostsModifyRequestDto.builder()
-                .title(expectedTitle)
-                .content(expectedContent)
-                .description(expectedDescription)
-                .secret(true)
+        TempSaveUpdateRequestDto requestDto = TempSaveUpdateRequestDto.builder()
+                .title("수정 제목입니다.")
+                .content("수정 내용입니다.")
                 .build();
 
         //expected
-        mockMvc.perform(put("/api/v1/posts/{posts_id}", modifiedId)
+        mockMvc.perform(put("/api/v1/temp-save/{tempCode}", tempSave.getTempCode())
                         .session(mockHttpSession)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(requestDto)))
                 .andExpect(status().isOk())
                 .andDo(print())
-                .andDo(document("posts-modify",
+                .andDo(document("tempsave-modify",
                         pathParameters(
-                                parameterWithName("posts_id").description("게시글 ID")
+                                parameterWithName("tempCode").description("임시저장 코드")
                         ),
                         requestFields(
-                                fieldWithPath("title").description("게시글 제목"),
-                                fieldWithPath("content").description("게시글 내용"),
-                                fieldWithPath("description").description("게시글 한 줄 소개"),
-                                fieldWithPath("secret").description("비밀글")
+                                fieldWithPath("title").type(JsonFieldType.STRING).description("임시저장 제목"),
+                                fieldWithPath("content").type(JsonFieldType.STRING).description("임시저장 내용")
                         )
                 ));
     }
 
     @Test
-    @DisplayName("글 삭제")
+    @DisplayName("임시저장 삭제")
     @WithMockUser("MEMBER")
     @Transactional
-    void delete_posts_api() throws Exception {
+    void delete_tempsave_api() throws Exception {
         //given
         MemberCreateRequestDto memberCreateRequestDto = getMemberCreateRequestDto();
 
@@ -272,25 +271,24 @@ public class PostsApiControllerDocTest {
         MockHttpSession mockHttpSession = new MockHttpSession();
         mockHttpSession.setAttribute("member", new SessionMemberDto(savedMember));
 
-        Posts posts = Posts.builder()
-                .title("foo")
-                .content("bar")
+        TempSave tempSave = TempSave.builder()
+                .title("제목입니다")
+                .content("내용입니다.")
                 .member(savedMember)
-                .description("소개")
+                .tempCode(UUID.randomUUID().toString())
                 .build();
 
-        Long deletedId = postsRepository.save(posts).getId();
+        Long tempSaveId = tempSaveRepository.save(tempSave).getId();
 
         //expected
-        mockMvc.perform(delete("/api/v1/posts/{posts_id}", deletedId)
+        mockMvc.perform(delete("/api/v1/temp-save/{tempSaveId}", tempSaveId)
                         .session(mockHttpSession)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andDo(print())
-                .andDo(document("posts-delete",
+                .andDo(document("tempsave-delete",
                         pathParameters(
-                                parameterWithName("posts_id").description("게시글 ID")
+                                parameterWithName("tempSaveId").description("임시저장 ID")
                         )
                 ));
     }
