@@ -23,7 +23,6 @@ const searchMain = {
         postsLoad(searchValue);
     },
     postsSearchEnter: function(event) {
-        console.log(event.keyCode);
         if (event.keyCode === 13) {
             event.preventDefault();
             searchValue = $('#searchValue').val();
@@ -200,7 +199,7 @@ function getPostsCard(posts) {
                 </div>
                 <a href="/api/v1/auth/posts/${posts.id}">
                     <div class="posts-thumbnail" style="padding-top: 52%;">
-                        <img src="/api/v1/auth/images/${posts.storeFilename}" alt="posts-thumbnail">
+                        <img src="${posts.imageUrl}" alt="posts-thumbnail">
                     </div>
                 </a>
                 <a href="/api/v1/auth/posts/${posts.id}">

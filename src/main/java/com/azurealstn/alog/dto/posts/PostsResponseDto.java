@@ -26,6 +26,7 @@ public class PostsResponseDto implements Serializable {
     private int commentCount;
     private String storeFilename;
     private int totalRowCount;
+    private String imageUrl;
 
     public PostsResponseDto(Posts entity) {
         this.id = entity.getId();
@@ -55,5 +56,9 @@ public class PostsResponseDto implements Serializable {
 
     public void addTotalRowCount(int totalRowCount) {
         this.totalRowCount = totalRowCount;
+    }
+
+    public void addImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

@@ -44,7 +44,7 @@ const postsMain = {
               formData.append('image', File);
 
               $.ajax({
-                url: '/api/v1/uploadPostImage',
+                url: '/api/v1/uploadPostImageS3',
                 enctype: 'multipart/form-data',
                 type: 'POST',
                 data: formData,
@@ -53,18 +53,28 @@ const postsMain = {
                 async: false,
               }).done(function(res) {
                 const postsImage = res;
-                $.ajax({
-                  type: 'GET',
-                  url: '/api/v1/auth/images/' + postsImage.storeFilename,
-                  dataType: 'text'
-                }).done(function(res) {
-                  const imageUrl = '/api/v1/auth/images/' + postsImage.storeFilename;
-                  callback(imageUrl, '')
-                }).fail(function(err) {
-                    console.log(err);
-                });
+                callback(postsImage.imageUrl, '');
               }).fail(function(err) {
-                console.log(err);
+                  let message = null;
+                  if (err.responseJSON.validation.length === 0) {
+                    message = err.responseJSON.message;
+                  } else {
+                    message = err.responseJSON.validation[0].errorMessage;
+                  }
+
+                  const dangerToast = Toastify({
+                    text: message,
+                    duration: 3000,
+                    close: true,
+                    gravity: "top", // `top` or `bottom`
+                    position: "right", // `left`, `center` or `right`
+                    stopOnFocus: true, // Prevents dismissing of toast on hover
+                    style: {
+                      background: "#e74c3c",
+                      zIndex: 30,
+                    },
+                  });
+                  dangerToast.showToast();
               });
           }
         }
@@ -100,7 +110,7 @@ const postsMain = {
                   formData.append('image', File);
 
                   $.ajax({
-                    url: '/api/v1/uploadPostImage',
+                    url: '/api/v1/uploadPostImageS3',
                     enctype: 'multipart/form-data',
                     type: 'POST',
                     data: formData,
@@ -109,18 +119,28 @@ const postsMain = {
                     async: false,
                   }).done(function(res) {
                     const postsImage = res;
-                    $.ajax({
-                      type: 'GET',
-                      url: '/api/v1/auth/images/' + postsImage.storeFilename,
-                      dataType: 'text'
-                    }).done(function(res) {
-                      const imageUrl = '/api/v1/auth/images/' + postsImage.storeFilename;
-                      callback(imageUrl, '')
-                    }).fail(function(err) {
-                        console.log(err);
-                    });
+                    callback(postsImage.imageUrl, '');
                   }).fail(function(err) {
-                    console.log(err);
+                      let message = null;
+                      if (err.responseJSON.validation.length === 0) {
+                        message = err.responseJSON.message;
+                      } else {
+                        message = err.responseJSON.validation[0].errorMessage;
+                      }
+
+                      const dangerToast = Toastify({
+                        text: message,
+                        duration: 3000,
+                        close: true,
+                        gravity: "top", // `top` or `bottom`
+                        position: "right", // `left`, `center` or `right`
+                        stopOnFocus: true, // Prevents dismissing of toast on hover
+                        style: {
+                          background: "#e74c3c",
+                          zIndex: 30,
+                        },
+                      });
+                      dangerToast.showToast();
                   });
               }
             }
@@ -149,7 +169,7 @@ const postsMain = {
                   formData.append('image', File);
 
                   $.ajax({
-                    url: '/api/v1/uploadPostImage',
+                    url: '/api/v1/uploadPostImageS3',
                     enctype: 'multipart/form-data',
                     type: 'POST',
                     data: formData,
@@ -158,18 +178,28 @@ const postsMain = {
                     async: false,
                   }).done(function(res) {
                     const postsImage = res;
-                    $.ajax({
-                      type: 'GET',
-                      url: '/api/v1/auth/images/' + postsImage.storeFilename,
-                      dataType: 'text'
-                    }).done(function(res) {
-                      const imageUrl = '/api/v1/auth/images/' + postsImage.storeFilename;
-                      callback(imageUrl, '')
-                    }).fail(function(err) {
-                        console.log(err);
-                    });
+                    callback(postsImage.imageUrl, '');
                   }).fail(function(err) {
-                    console.log(err);
+                      let message = null;
+                      if (err.responseJSON.validation.length === 0) {
+                        message = err.responseJSON.message;
+                      } else {
+                        message = err.responseJSON.validation[0].errorMessage;
+                      }
+
+                      const dangerToast = Toastify({
+                        text: message,
+                        duration: 3000,
+                        close: true,
+                        gravity: "top", // `top` or `bottom`
+                        position: "right", // `left`, `center` or `right`
+                        stopOnFocus: true, // Prevents dismissing of toast on hover
+                        style: {
+                          background: "#e74c3c",
+                          zIndex: 30,
+                        },
+                      });
+                      dangerToast.showToast();
                   });
               }
           }
@@ -283,7 +313,7 @@ const postsMain = {
               $.ajax({
                 type: 'POST',
                 enctype: 'multipart/form-data',
-                url: "/api/v1/uploadPostImageThumbnail/" + savedId,
+                url: "/api/v1/uploadPostImageThumbnailS3/" + savedId,
                 data: formData,
                 processData: false,
                 contentType: false,
@@ -532,7 +562,7 @@ const postsMain = {
                             $.ajax({
                               type: 'POST',
                               enctype: 'multipart/form-data',
-                              url: "/api/v1/uploadPostImageThumbnail/" + modifiedId,
+                              url: "/api/v1/uploadPostImageThumbnailS3/" + modifiedId,
                               data: formData,
                               processData: false,
                               contentType: false,
@@ -671,7 +701,7 @@ const postsMain = {
       formData.append('image', File);
 
       $.ajax({
-        url: '/api/v1/uploadPostImageThumbnail',
+        url: '/api/v1/uploadPostImageThumbnailS3',
         enctype: 'multipart/form-data',
         type: 'POST',
         data: formData,
@@ -680,25 +710,35 @@ const postsMain = {
         async: false,
       }).done(function(res) {
         const postsImage = res;
-        console.log(postsImage);
-        $.ajax({
-          type: 'GET',
-          url: '/api/v1/auth/images/' + postsImage.storeFilename,
-          dataType: 'text'
-        }).done(function(res) {
-          const imageUrl = '/api/v1/auth/images/' + postsImage.storeFilename;
-          while (thumbnailInsert.firstChild) {
-            thumbnailInsert.removeChild(thumbnailInsert.firstChild);
-          }
-          const img = document.createElement('img');
-          img.src = imageUrl;
-          img.className = 'thumbnail-image-upload__cover';
-          thumbnailInsert.appendChild(img);
-        }).fail(function(err) {
-            console.log(err);
-        });
+        const imageUrl = postsImage.imageUrl;
+        while (thumbnailInsert.firstChild) {
+          thumbnailInsert.removeChild(thumbnailInsert.firstChild);
+        }
+        const img = document.createElement('img');
+        img.src = imageUrl;
+        img.className = 'thumbnail-image-upload__cover';
+        thumbnailInsert.appendChild(img);
       }).fail(function(err) {
-        console.log(err);
+          let message = null;
+          if (err.responseJSON.validation.length === 0) {
+            message = err.responseJSON.message;
+          } else {
+            message = err.responseJSON.validation[0].errorMessage;
+          }
+
+          const dangerToast = Toastify({
+            text: message,
+            duration: 3000,
+            close: true,
+            gravity: "top", // `top` or `bottom`
+            position: "right", // `left`, `center` or `right`
+            stopOnFocus: true, // Prevents dismissing of toast on hover
+            style: {
+              background: "#e74c3c",
+              zIndex: 30,
+            },
+          });
+          dangerToast.showToast();
       });
     };
   },

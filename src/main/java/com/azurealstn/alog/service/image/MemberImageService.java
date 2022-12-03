@@ -41,12 +41,27 @@ public class MemberImageService {
     }
 
     @Transactional
+    public MemberImageResponseDto thumbnailUploadS3(MultipartFile multipartFile) throws IOException {
+        MemberImage memberImage = fileUtils.storeMemberImageThumbnailS3(multipartFile);
+        return new MemberImageResponseDto(memberImage);
+    }
+
+    @Transactional
     public MemberImageResponseDto thumbnailUploadSave(MultipartFile multipartFile, Long memberId) throws IOException {
         MemberImage memberImage = fileUtils.storeMemberImageThumbnailSave(multipartFile, memberId);
         Optional<MemberImage> existsMemberImage = memberImageRepository.findThumbnailByMember(memberId);
         existsMemberImage.ifPresent(memberImageRepository::delete);
         memberImageRepository.save(memberImage);
 
+        return new MemberImageResponseDto(memberImage);
+    }
+
+    @Transactional
+    public MemberImageResponseDto thumbnailUploadSaveS3(MultipartFile multipartFile, Long memberId) throws IOException {
+        MemberImage memberImage = fileUtils.storeMemberImageThumbnailSaveS3(multipartFile, memberId);
+        Optional<MemberImage> existsMemberImage = memberImageRepository.findThumbnailByMember(memberId);
+        existsMemberImage.ifPresent(memberImageRepository::delete);
+        memberImageRepository.save(memberImage);
         return new MemberImageResponseDto(memberImage);
     }
 

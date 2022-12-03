@@ -78,8 +78,7 @@ public class PostsRepositoryImpl implements PostsRepositoryCustom {
                 .selectFrom(posts)
                 .limit(searchDto.getSize())
                 .offset(searchDto.getOffset())
-                .where(eqTitle(searchDto.getSearchValue()),
-                        (eqContent(searchDto.getSearchValue())),
+                .where(eqTitleOrEqContent(searchDto.getSearchValue(), searchDto.getSearchValue()),
                         posts.secret.eq(false))
                 .orderBy(posts.likes.desc(), posts.id.desc())
                 .fetch();
@@ -89,23 +88,15 @@ public class PostsRepositoryImpl implements PostsRepositoryCustom {
     public int findAllBySearchCount(PostsSearchDto searchDto) {
         return jpaQueryFactory
                 .selectFrom(posts)
-                .where(eqTitle(searchDto.getSearchValue()),
-                        (eqContent(searchDto.getSearchValue())),
+                .where(eqTitleOrEqContent(searchDto.getSearchValue(), searchDto.getSearchValue()),
                         posts.secret.eq(false))
                 .orderBy(posts.likes.desc(), posts.id.desc())
                 .fetch().size();
     }
 
-    private BooleanExpression eqTitle(String title) {
-        if (StringUtils.hasLength(title)) {
-            return posts.title.contains(title);
-        }
-        return null;
-    }
-
-    private BooleanExpression eqContent(String content) {
-        if (StringUtils.hasLength(content)) {
-            return posts.content.contains(content);
+    private BooleanExpression eqTitleOrEqContent(String title, String content) {
+        if (StringUtils.hasLength(title) || StringUtils.hasLength(content)) {
+            return posts.title.contains(title).or(posts.content.contains(content));
         }
         return null;
     }

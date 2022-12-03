@@ -132,6 +132,7 @@ public class PostsApiControllerDocTest {
                                 fieldWithPath("commentCount").description("댓글 카운트"),
                                 fieldWithPath("storeFilename").description("서버 저장 파일 이름"),
                                 fieldWithPath("totalRowCount").description("전체 게시글 수"),
+                                fieldWithPath("imageUrl").type(JsonFieldType.NULL).description("이미지 URL"),
                                 fieldWithPath("member").type(JsonFieldType.OBJECT).description("회원 정보"),
                                 fieldWithPath("member.id").type(JsonFieldType.NUMBER).description("회원 ID"),
                                 fieldWithPath("member.email").type(JsonFieldType.STRING).description("회원 이메일"),
