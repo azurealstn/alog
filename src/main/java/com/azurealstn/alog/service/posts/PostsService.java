@@ -136,6 +136,10 @@ public class PostsService {
                 .collect(Collectors.toList());
 
         for (PostsResponseDto postsResponseDto : postsResponseDtoList) {
+            log.info("postsResponseDto={}", postsResponseDto);
+        }
+
+        for (PostsResponseDto postsResponseDto : postsResponseDtoList) {
             postsResponseDto.addTotalRowCount(totalRowCount);
             PostsLikeRequestDto postsLikeRequestDto = new PostsLikeRequestDto(postsResponseDto.getMember().getId(), postsResponseDto.getId());
             PostsLikeResponseDto postsLikeInfo = postsLikeService.findPostsLikeInfo(postsLikeRequestDto);
@@ -145,6 +149,7 @@ public class PostsService {
             PostsImageResponseDto postsImageResponseDto = postsImageService.findThumbnailByPosts(postsResponseDto.getId());
             if (postsImageResponseDto != null) {
                 postsResponseDto.addStoreFilename(postsImageResponseDto.getStoreFilename());
+                postsResponseDto.addImageUrl(postsImageResponseDto.getImageUrl());
             }
             List<HashTagResponseDto> tags = hashTagService.findByTags(postsResponseDto.getId());
             List<HashTag> hashTags = tags.stream()

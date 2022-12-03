@@ -26,8 +26,8 @@ public class TempSaveController {
 
     @GetMapping("/api/v1/temp-saves")
     public String findAll(Model model) {
-        SessionMemberDto SessionMemberDto = (SessionMemberDto) httpSession.getAttribute("member");
-        MemberResponseDto member = memberService.findById(SessionMemberDto.getId());
+        SessionMemberDto sessionMemberDto = (SessionMemberDto) httpSession.getAttribute("member");
+        MemberResponseDto member = memberService.findById(sessionMemberDto.getId());
         List<TempSaveResponseDto> tempSaveList = tempSaveService.findAll(member.getId());
 
         model.addAttribute("tempSaveList", tempSaveList);

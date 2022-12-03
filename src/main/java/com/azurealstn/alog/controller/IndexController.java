@@ -54,6 +54,7 @@ public class IndexController {
             PostsImageResponseDto postsImageResponseDto = postsImageService.findThumbnailByPosts(postsResponseDto.getId());
             if (postsImageResponseDto != null) {
                 postsResponseDto.addStoreFilename(postsImageResponseDto.getStoreFilename());
+                postsResponseDto.addImageUrl(postsImageResponseDto.getImageUrl());
             }
         }
 
@@ -103,6 +104,8 @@ public class IndexController {
             PostsImageResponseDto postsImageResponseDto = postsImageService.findThumbnailByPosts(postsResponseDto.getId());
             if (postsImageResponseDto != null) {
                 postsResponseDto.addStoreFilename(postsImageResponseDto.getStoreFilename());
+                postsResponseDto.addImageUrl(postsImageResponseDto.getImageUrl());
+
             }
         }
 

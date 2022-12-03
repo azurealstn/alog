@@ -33,6 +33,12 @@ public class PostsImageService {
     }
 
     @Transactional
+    public PostsImageResponseDto fileUploadS3(MultipartFile multipartFile) throws IOException {
+        PostsImage postsImage = fileUtils.storePostsImageFileS3(multipartFile);
+        return new PostsImageResponseDto(postsImage);
+    }
+
+    @Transactional
     public Resource displayImage(String storeFilename) throws Exception {
         return new UrlResource("file:" + fileUtils.getFullPath(storeFilename));
     }
@@ -44,8 +50,24 @@ public class PostsImageService {
     }
 
     @Transactional
+    public PostsImageResponseDto thumbnailUploadS3(MultipartFile multipartFile) throws IOException {
+        PostsImage postsImage = fileUtils.storePostsImageThumbnailS3(multipartFile);
+        return new PostsImageResponseDto(postsImage);
+    }
+
+    @Transactional
     public PostsImageResponseDto thumbnailUploadSave(MultipartFile multipartFile, Long postsId) throws IOException {
         PostsImage postsImage = fileUtils.storePostsImageThumbnailSave(multipartFile, postsId);
+        Optional<PostsImage> existsPostsImage = postsImageRepository.findThumbnailByPosts(postsId);
+        existsPostsImage.ifPresent(postsImageRepository::delete);
+        postsImageRepository.save(postsImage);
+
+        return new PostsImageResponseDto(postsImage);
+    }
+
+    @Transactional
+    public PostsImageResponseDto thumbnailUploadSaveS3(MultipartFile multipartFile, Long postsId) throws IOException {
+        PostsImage postsImage = fileUtils.storePostsImageThumbnailSaveS3(multipartFile, postsId);
         Optional<PostsImage> existsPostsImage = postsImageRepository.findThumbnailByPosts(postsId);
         existsPostsImage.ifPresent(postsImageRepository::delete);
         postsImageRepository.save(postsImage);

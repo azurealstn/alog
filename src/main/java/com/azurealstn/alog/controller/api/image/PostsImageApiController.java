@@ -21,14 +21,29 @@ public class PostsImageApiController {
         return postsImageService.fileUpload(multipartFile);
     }
 
+    @PostMapping("/api/v1/uploadPostImageS3")
+    public PostsImageResponseDto uploadPostImageS3(@RequestParam("image") MultipartFile multipartFile) throws IOException {
+        return postsImageService.fileUploadS3(multipartFile);
+    }
+
     @PostMapping("/api/v1/uploadPostImageThumbnail/{postsId}")
     public PostsImageResponseDto uploadPostImageThumbnailSave(@RequestParam("image") MultipartFile multipartFile, @PathVariable Long postsId) throws IOException {
         return postsImageService.thumbnailUploadSave(multipartFile, postsId);
     }
 
+    @PostMapping("/api/v1/uploadPostImageThumbnailS3/{postsId}")
+    public PostsImageResponseDto uploadPostImageThumbnailSaveS3(@RequestParam("image") MultipartFile multipartFile, @PathVariable Long postsId) throws IOException {
+        return postsImageService.thumbnailUploadSaveS3(multipartFile, postsId);
+    }
+
     @PostMapping("/api/v1/uploadPostImageThumbnail")
     public PostsImageResponseDto uploadPostImageThumbnail(@RequestParam("image") MultipartFile multipartFile) throws IOException {
         return postsImageService.thumbnailUpload(multipartFile);
+    }
+
+    @PostMapping("/api/v1/uploadPostImageThumbnailS3")
+    public PostsImageResponseDto uploadPostImageThumbnailS3(@RequestParam("image") MultipartFile multipartFile) throws IOException {
+        return postsImageService.thumbnailUploadS3(multipartFile);
     }
 
     @GetMapping("/api/v1/auth/images/{storeFilename}")

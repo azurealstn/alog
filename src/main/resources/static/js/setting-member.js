@@ -264,9 +264,10 @@ const modifyMemberMain = {
       File = thumbnailImage.files[0];
       let formData = new FormData();
       formData.append('image', File);
+      console.log(File);
 
       $.ajax({
-        url: '/api/v1/uploadMemberImageThumbnailSave/' + memberId,
+        url: '/api/v1/uploadMemberImageThumbnailSaveS3/' + memberId,
         enctype: 'multipart/form-data',
         type: 'POST',
         data: formData,
@@ -275,32 +276,46 @@ const modifyMemberMain = {
         async: false,
       }).done(function(res) {
         const memberImage = res;
-        $.ajax({
-          type: 'GET',
-          url: '/api/v1/auth/images/member/' + memberImage.storeFilename,
-          dataType: 'text'
-        }).done(function(res) {
-            const imageUrl = '/api/v1/auth/images/member/' + memberImage.storeFilename;
-            const data = {
-                picture: imageUrl,
-            };
+        const imageUrl = memberImage.imageUrl;
+        console.log(imageUrl);
+        const data = {
+            picture: imageUrl,
+        };
 
-            $.ajax({
-              type: 'PATCH',
-              url: '/api/v1/member-picture/' + memberId,
-              dataType: 'json',
-              contentType: 'application/json; charset=utf-8',
-              data: JSON.stringify(data),
-              beforeSend: function() {
-                  imageUpload.innerText = '업로드중...';
-                  imageUpload.disabled = true;
-              },
-            }).done(function(res) {
-                location.reload();
-            });
+        $.ajax({
+          type: 'PATCH',
+          url: '/api/v1/member-picture/' + memberId,
+          dataType: 'json',
+          contentType: 'application/json; charset=utf-8',
+          data: JSON.stringify(data),
+          beforeSend: function() {
+              imageUpload.innerText = '업로드중...';
+              imageUpload.disabled = true;
+          },
+        }).done(function(res) {
+            location.reload();
         });
       }).fail(function(err) {
-        console.log(err);
+          let message = null;
+          if (err.responseJSON.validation.length === 0) {
+            message = err.responseJSON.message;
+          } else {
+            message = err.responseJSON.validation[0].errorMessage;
+          }
+
+          const dangerToast = Toastify({
+            text: message,
+            duration: 3000,
+            close: true,
+            gravity: "top", // `top` or `bottom`
+            position: "right", // `left`, `center` or `right`
+            stopOnFocus: true, // Prevents dismissing of toast on hover
+            style: {
+              background: "#e74c3c",
+              zIndex: 30,
+            },
+          });
+          dangerToast.showToast();
       });
     };
   },
