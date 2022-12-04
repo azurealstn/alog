@@ -22,6 +22,7 @@ spring:
     include:
       - oauth
       - mail
+      - aws
 
   session:
     store-type: jdbc
