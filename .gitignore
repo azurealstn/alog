@@ -8,6 +8,7 @@ build/reports
 build/resources
 build/test-results
 build/tmp
+build/libs/alog-0.0.1-SNAPSHOT-plain.jar
 #gradle/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
