@@ -14,6 +14,7 @@ import com.azurealstn.alog.dto.member.MemberResponseDto;
 import com.azurealstn.alog.repository.email.EmailAuthRepository;
 import com.azurealstn.alog.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class MemberService {
@@ -55,10 +57,10 @@ public class MemberService {
     @Transactional
     public Long create(MemberCreateRequestDto requestDto) {
         boolean existsByUsername = memberRepository.existsByUsername(requestDto.getUsername());
-        boolean existsByName = memberRepository.existsByName(requestDto.getName());
+        //boolean existsByName = memberRepository.existsByName(requestDto.getName());
 
         validateExistsUsername(existsByUsername);
-        validateExistsName(existsByName);
+        //validateExistsName(existsByName);
 
         Member member = requestDto.toEntity();
         return memberRepository.save(member).getId();

@@ -20,6 +20,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +37,7 @@ public class LoginService {
     private final HttpSession httpSession;
 
     @Transactional
-    public LoginResponseDto login(LoginRequestDto requestDto) {
+    public LoginResponseDto login(LoginRequestDto requestDto) throws MessagingException {
         boolean existsByEmail = memberRepository.existsByEmail(requestDto.getEmail());
         EmailAuth emailAuth = createEmailAuth(requestDto);
         EmailAuth savedEmailAuth = emailAuthRepository.save(emailAuth);

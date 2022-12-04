@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 
 @Slf4j
@@ -17,7 +18,7 @@ public class LoginApiController {
     private final LoginService loginService;
 
     @PostMapping("/api/v1/auth/login")
-    public LoginResponseDto login(@Valid @RequestBody LoginRequestDto requestDto) {
+    public LoginResponseDto login(@Valid @RequestBody LoginRequestDto requestDto) throws MessagingException {
         return loginService.login(requestDto);
     }
 
