@@ -1,8 +1,0 @@
-[source,http,options="nowrap"]
-----
-HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
-Content-Length: 511
-
-{"id":8,"title":"foo","content":"bar","member":{"createdDate":"2022-12-04T20:22:11.3654741","modifiedDate":"2022-12-04T20:22:11.3654741","id":14,"email":"azurealstn@naver.com","name":"슬로우스타터","picture":"test.jpg","role":"MEMBER","emailAuth":true,"username":"haha","shortBio":"안녕하세요!","roleKey":"ROLE_MEMBER"},"description":"소개글","secret":true,"previousTime":"2022년 12월 4일","hashTagNames":[],"likeCount":0,"commentCount":0,"storeFilename":null,"totalRowCount":0,"imageUrl":null}
-----

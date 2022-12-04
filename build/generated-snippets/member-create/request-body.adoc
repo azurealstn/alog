@@ -1,4 +1,0 @@
-[source,options="nowrap"]
-----
-{"name":"슬로우스타터","email":"azurealstn@naver.com","username":"haha","shortBio":"안녕하세요!","picture":"test.jpg","role":null,"emailAuth":null}
-----

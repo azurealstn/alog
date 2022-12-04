@@ -1,4 +1,0 @@
-[source,options="nowrap"]
-----
-{"id":7,"email":"azurealstn@naver.com","name":"새로운 이름","username":"haha","shortBio":"새로운 소개","picture":"test.jpg","role":"MEMBER","emailAuth":true,"existsEmail":null}
-----

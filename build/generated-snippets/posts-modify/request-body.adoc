@@ -1,4 +1,0 @@
-[source,options="nowrap"]
-----
-{"title":"수정된 제목","content":"수정된 내용","description":"수정된 소개","secret":true}
-----

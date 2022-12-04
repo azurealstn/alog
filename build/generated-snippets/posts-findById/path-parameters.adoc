@@ -1,8 +1,0 @@
-.+/api/v1/auth/posts-data/{posts_id}+
-|===
-|Parameter|Description
-
-|`+posts_id+`
-|게시글 ID
-
-|===

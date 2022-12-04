@@ -1,4 +1,0 @@
-[source,options="nowrap"]
-----
-{"name":null,"username":"abcde","shortBio":null,"picture":null}
-----
