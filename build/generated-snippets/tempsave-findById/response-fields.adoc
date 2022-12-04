@@ -1,0 +1,24 @@
+|===
+|Path|Type|Description
+
+|`+id+`
+|`+Number+`
+|임시저장 ID
+
+|`+title+`
+|`+String+`
+|임시저장 제목
+
+|`+content+`
+|`+String+`
+|임시저장 내용
+
+|`+tempCode+`
+|`+Null+`
+|임시저장 코드
+
+|`+previousTime+`
+|`+String+`
+|임시저장 전에 등록한 시간
+
+|===

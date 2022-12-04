@@ -1,0 +1,68 @@
+|===
+|Path|Type|Description
+
+|`+title+`
+|`+String+`
+|게시글 제목
+
+|`+content+`
+|`+String+`
+|게시글 내용
+
+|`+description+`
+|`+String+`
+|게시글 한 줄 소개
+
+|`+secret+`
+|`+Boolean+`
+|비밀글
+
+|`+member+`
+|`+Object+`
+|회원 정보
+
+|`+member.id+`
+|`+Number+`
+|회원 ID
+
+|`+member.email+`
+|`+String+`
+|회원 이메일
+
+|`+member.name+`
+|`+String+`
+|회원 이름
+
+|`+member.picture+`
+|`+String+`
+|회원 프로필사진
+
+|`+member.role+`
+|`+String+`
+|회원 권한
+
+|`+member.emailAuth+`
+|`+Boolean+`
+|회원 인증 상태
+
+|`+member.username+`
+|`+String+`
+|회원 아이디
+
+|`+member.shortBio+`
+|`+String+`
+|회원 한 줄 소개
+
+|`+member.roleKey+`
+|`+String+`
+|회원 권한 키
+
+|`+member.createdDate+`
+|`+String+`
+|회원 생성날짜
+
+|`+member.modifiedDate+`
+|`+String+`
+|회원 수정날짜
+
+|===

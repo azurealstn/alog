@@ -1,0 +1,64 @@
+spring:
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+
+  profiles:
+    include:
+      - oauth
+      - mail
+      - aws
+      - real-db
+
+  session:
+    store-type: jdbc
+
+  servlet:
+    multipart:
+      enabled: true #파일 업로드 가능 여부
+      max-request-size: 30MB
+      max-file-size: 10MB
+
+upload:
+  path: /home/ec2-user/app/images/
+
+server:
+  servlet:
+    encoding:
+      force-response: true
+
+  error:
+    include-exception: true
+    include-stacktrace: always
+    include-binding-errors: always
+    include-message: always
+    path: /api/v1/auth/error
+    white:
+      enabled: false
+
+logging:
+  level:
+    org:
+      hibernate:
+        type: trace
+
+    com:
+      amazonaws:
+        util:
+          EC2MetadataUtils: ERROR
+
+cloud:
+  aws:
+    s3:
+      bucket: alog-s3-bucket
+    region:
+      static: ap-northeast-2
+      auto: false
+    stack:
+      auto: false
+    credentials:
+      instanceProfile: true
+
+domain:
+  location: ec2-43-200-218-143.ap-northeast-2.compute.amazonaws.com

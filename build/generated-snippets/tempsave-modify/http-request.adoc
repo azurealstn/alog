@@ -1,0 +1,9 @@
+[source,http,options="nowrap"]
+----
+PUT /api/v1/temp-save/bd5d033c-b46d-4e34-90f8-512c02fa9984 HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Content-Length: 71
+Host: localhost:8080
+
+{"title":"수정 제목입니다.","content":"수정 내용입니다."}
+----

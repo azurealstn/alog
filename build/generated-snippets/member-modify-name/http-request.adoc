@@ -1,0 +1,9 @@
+[source,http,options="nowrap"]
+----
+PATCH /api/v1/member-name/7 HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Content-Length: 88
+Host: localhost:8080
+
+{"name":"새로운 이름","username":null,"shortBio":"새로운 소개","picture":null}
+----

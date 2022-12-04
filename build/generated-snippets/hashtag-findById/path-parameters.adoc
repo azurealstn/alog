@@ -1,0 +1,8 @@
+.+/api/v1/hashtag/{postsId}+
+|===
+|Parameter|Description
+
+|`+postsId+`
+|게시글 ID
+
+|===

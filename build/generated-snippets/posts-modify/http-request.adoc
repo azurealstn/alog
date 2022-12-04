@@ -1,0 +1,10 @@
+[source,http,options="nowrap"]
+----
+PUT /api/v1/posts/5 HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Accept: application/json
+Content-Length: 104
+Host: localhost:8080
+
+{"title":"수정된 제목","content":"수정된 내용","description":"수정된 소개","secret":true}
+----

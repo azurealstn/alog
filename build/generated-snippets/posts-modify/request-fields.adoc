@@ -1,0 +1,20 @@
+|===
+|Path|Type|Description
+
+|`+title+`
+|`+String+`
+|게시글 제목
+
+|`+content+`
+|`+String+`
+|게시글 내용
+
+|`+description+`
+|`+String+`
+|게시글 한 줄 소개
+
+|`+secret+`
+|`+Boolean+`
+|비밀글
+
+|===

@@ -1,0 +1,4 @@
+[source,options="nowrap"]
+----
+{"name":"새로운 이름","username":null,"shortBio":"새로운 소개","picture":null}
+----
