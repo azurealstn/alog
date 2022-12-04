@@ -1,4 +1,0 @@
-[source,options="nowrap"]
-----
-{"name":"AWS 공부"}
-----

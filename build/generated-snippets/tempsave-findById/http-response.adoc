@@ -1,8 +1,0 @@
-[source,http,options="nowrap"]
-----
-HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
-Content-Length: 115
-
-{"id":3,"title":"제목입니다","content":"내용입니다.","tempCode":null,"previousTime":"2022년 12월 4일"}
-----

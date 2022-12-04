@@ -1,8 +1,0 @@
-.+/api/v1/comment/{commentId}+
-|===
-|Parameter|Description
-
-|`+commentId+`
-|댓글 ID
-
-|===

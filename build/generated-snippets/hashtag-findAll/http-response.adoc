@@ -1,8 +1,0 @@
-[source,http,options="nowrap"]
-----
-HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
-Content-Length: 1010
-
-[{"name":"AWS 공부","posts":{"createdDate":"2022-12-04T20:22:08.0805329","modifiedDate":"2022-12-04T20:22:08.0805329","id":4,"member":{"createdDate":"2022-12-04T20:22:08.0805329","modifiedDate":"2022-12-04T20:22:08.0805329","id":5,"email":"azurealstn@naver.com","name":"슬로우스타터","picture":"test.jpg","role":"MEMBER","emailAuth":true,"username":"haha","shortBio":"안녕하세요!","roleKey":"ROLE_MEMBER"},"title":"foo","content":"bar","description":"소개글","secret":false,"likes":null}},{"name":"Java 공부","posts":{"createdDate":"2022-12-04T20:22:08.0805329","modifiedDate":"2022-12-04T20:22:08.0805329","id":4,"member":{"createdDate":"2022-12-04T20:22:08.0805329","modifiedDate":"2022-12-04T20:22:08.0805329","id":5,"email":"azurealstn@naver.com","name":"슬로우스타터","picture":"test.jpg","role":"MEMBER","emailAuth":true,"username":"haha","shortBio":"안녕하세요!","roleKey":"ROLE_MEMBER"},"title":"foo","content":"bar","description":"소개글","secret":false,"likes":null}}]
-----

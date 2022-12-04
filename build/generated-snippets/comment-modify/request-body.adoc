@@ -1,4 +1,0 @@
-[source,options="nowrap"]
-----
-{"content":"수정한 댓글입니다."}
-----

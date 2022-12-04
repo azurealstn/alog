@@ -1,4 +1,0 @@
-[source,options="nowrap"]
-----
-{"title":"수정 제목입니다.","content":"수정 내용입니다."}
-----

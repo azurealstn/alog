@@ -1,4 +1,0 @@
-[source,options="nowrap"]
-----
-{"id":9,"email":"azurealstn@naver.com","name":null,"username":"haha","shortBio":null,"picture":"test.jpg","role":"MEMBER","emailAuth":true,"existsEmail":null}
-----
