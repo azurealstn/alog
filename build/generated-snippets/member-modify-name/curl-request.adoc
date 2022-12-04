@@ -1,6 +1,6 @@
 [source,bash]
 ----
-$ curl 'http://localhost:8080/api/v1/member-name/321' -i -X PATCH \
+$ curl 'http://localhost:8080/api/v1/member-name/148' -i -X PATCH \
     -H 'Content-Type: application/json;charset=UTF-8' \
     -d '{"name":"새로운 이름","username":null,"shortBio":"새로운 소개","picture":null}'
 ----

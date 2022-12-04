@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.azurealstn.alog.Infra.utils.DateUtilsTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-12-03T11:13:36" hostname="DESKTOP-4HIAQNR" time="0.078">
+<testsuite name="com.azurealstn.alog.Infra.utils.DateUtilsTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-12-04T11:02:01" hostname="DESKTOP-4HIAQNR" time="0.066">
   <properties/>
-  <testcase name="previousTimeCalc 계산 확인 테스트" classname="com.azurealstn.alog.Infra.utils.DateUtilsTest" time="0.078"/>
+  <testcase name="previousTimeCalc 계산 확인 테스트" classname="com.azurealstn.alog.Infra.utils.DateUtilsTest" time="0.066"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

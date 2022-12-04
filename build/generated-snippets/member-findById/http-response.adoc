@@ -4,5 +4,5 @@ HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
 Content-Length: 190
 
-{"id":324,"email":"azurealstn@naver.com","name":"슬로우스타터","username":"haha","shortBio":"안녕하세요!","picture":"test.jpg","role":"MEMBER","emailAuth":null,"existsEmail":null}
+{"id":151,"email":"azurealstn@naver.com","name":"슬로우스타터","username":"haha","shortBio":"안녕하세요!","picture":"test.jpg","role":"MEMBER","emailAuth":null,"existsEmail":null}
 ----

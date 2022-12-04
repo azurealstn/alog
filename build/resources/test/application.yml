@@ -54,3 +54,6 @@ cloud:
       instanceProfile: true
       accessKey: test
       secretKey: test
+
+domain:
+  location: http://localhost:8080/

@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.azurealstn.alog.controller.member.MemberControllerTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2022-12-03T11:13:46" hostname="DESKTOP-4HIAQNR" time="0.074">
+<testsuite name="com.azurealstn.alog.controller.member.MemberControllerTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2022-12-04T11:02:11" hostname="DESKTOP-4HIAQNR" time="0.075">
   <properties/>
-  <testcase name="/api/v1/my-alog/{memberId} 호출시 내 에이로그 페이지" classname="com.azurealstn.alog.controller.member.MemberControllerTest" time="0.032"/>
-  <testcase name="/api/v1/setting/{memberId} 호출시 회원 설정 페이지" classname="com.azurealstn.alog.controller.member.MemberControllerTest" time="0.018"/>
-  <testcase name="/api/v1/auth/create-member status 200" classname="com.azurealstn.alog.controller.member.MemberControllerTest" time="0.022"/>
-  <system-out><![CDATA[2022-12-03 20:13:46.555  INFO 16012 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.azurealstn.alog.controller.member.MemberControllerTest], using SpringBootContextLoader
-2022-12-03 20:13:46.556  INFO 16012 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [com.azurealstn.alog.controller.member.MemberControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
-2022-12-03 20:13:46.556  INFO 16012 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.azurealstn.alog.controller.member.MemberControllerTest]: MemberControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2022-12-03 20:13:46.563  INFO 16012 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.azurealstn.alog.AlogApplication for test class com.azurealstn.alog.controller.member.MemberControllerTest
-2022-12-03 20:13:46.564  INFO 16012 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener, org.springframework.security.test.context.support.ReactorContextTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
-2022-12-03 20:13:46.565  INFO 16012 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@64922e2f, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@6d77c929, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@45eeea37, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@3bf5ced8, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@4e637cdf, org.springframework.test.context.support.DirtiesContextTestExecutionListener@1d8ecabb, org.springframework.test.context.transaction.TransactionalTestExecutionListener@2f83346f, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@3a95bc49, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener@6f45aa40, org.springframework.test.context.event.EventPublishingTestExecutionListener@4757e01, org.springframework.security.test.context.support.ReactorContextTestExecutionListener@326312ac, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@2503975d, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@67d62e17, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@48fcc19a, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@62204c5b, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@5ba0863d, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@d50bdc8]
-2022-12-03 20:13:46.569  INFO 16012 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2022-12-03 20:13:46.569  INFO 16012 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2022-12-03 20:13:46.569  INFO 16012 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+  <testcase name="/api/v1/my-alog/{memberId} 호출시 내 에이로그 페이지" classname="com.azurealstn.alog.controller.member.MemberControllerTest" time="0.026"/>
+  <testcase name="/api/v1/setting/{memberId} 호출시 회원 설정 페이지" classname="com.azurealstn.alog.controller.member.MemberControllerTest" time="0.024"/>
+  <testcase name="/api/v1/auth/create-member status 200" classname="com.azurealstn.alog.controller.member.MemberControllerTest" time="0.024"/>
+  <system-out><![CDATA[2022-12-04 20:02:11.536  INFO 8024 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.azurealstn.alog.controller.member.MemberControllerTest], using SpringBootContextLoader
+2022-12-04 20:02:11.536  INFO 8024 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [com.azurealstn.alog.controller.member.MemberControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+2022-12-04 20:02:11.536  INFO 8024 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.azurealstn.alog.controller.member.MemberControllerTest]: MemberControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2022-12-04 20:02:11.536  INFO 8024 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.azurealstn.alog.AlogApplication for test class com.azurealstn.alog.controller.member.MemberControllerTest
+2022-12-04 20:02:11.536  INFO 8024 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener, org.springframework.security.test.context.support.ReactorContextTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+2022-12-04 20:02:11.536  INFO 8024 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@48684169, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@247b411d, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@688e6e6c, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@7e1e6f28, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@74770a8b, org.springframework.test.context.support.DirtiesContextTestExecutionListener@a7adeb1, org.springframework.test.context.transaction.TransactionalTestExecutionListener@111c2c9c, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@1cf676b8, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener@501904ff, org.springframework.test.context.event.EventPublishingTestExecutionListener@c4ac71b, org.springframework.security.test.context.support.ReactorContextTestExecutionListener@7c4272c2, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@53ae8844, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@4b885032, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@11a02447, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@7e1b80d3, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@5950dbfc, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@50d01924]
+2022-12-04 20:02:11.536  INFO 8024 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2022-12-04 20:02:11.536  INFO 8024 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2022-12-04 20:02:11.536  INFO 8024 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
 Hibernate: select member0_.member_id as member_i1_3_, member0_.created_date as created_2_3_, member0_.modified_date as modified3_3_, member0_.email as email4_3_, member0_.email_auth as email_au5_3_, member0_.name as name6_3_, member0_.picture as picture7_3_, member0_.role as role8_3_, member0_.short_bio as short_bi9_3_, member0_.username as usernam10_3_ from member member0_
 Hibernate: insert into member (member_id, created_date, modified_date, email, email_auth, name, picture, role, short_bio, username) values (default, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 Hibernate: select member0_.member_id as member_i1_3_0_, member0_.created_date as created_2_3_0_, member0_.modified_date as modified3_3_0_, member0_.email as email4_3_0_, member0_.email_auth as email_au5_3_0_, member0_.name as name6_3_0_, member0_.picture as picture7_3_0_, member0_.role as role8_3_0_, member0_.short_bio as short_bi9_3_0_, member0_.username as usernam10_3_0_ from member member0_ where member0_.member_id=?
@@ -20,11 +20,11 @@ Hibernate: select posts0_.posts_id as posts_id1_5_, posts0_.created_date as crea
 
 MockHttpServletRequest:
       HTTP Method = GET
-      Request URI = /api/v1/my-alog/375
+      Request URI = /api/v1/my-alog/202
        Parameters = {}
           Headers = []
              Body = null
-    Session Attrs = {member=SessionMemberDto(id=375, name=슬로우스타터, email=azurealstn@naver.com, picture=test.jpg, username=haha, shortBio=안녕하세요!)}
+    Session Attrs = {member=SessionMemberDto(id=202, name=슬로우스타터, email=azurealstn@naver.com, picture=test.jpg, username=haha, shortBio=안녕하세요!)}
 
 Handler:
              Type = com.azurealstn.alog.controller.member.MemberController
@@ -41,10 +41,10 @@ ModelAndView:
         View name = member/my-alog
              View = null
         Attribute = member
-            value = com.azurealstn.alog.dto.member.MemberResponseDto@111c2c9c
+            value = com.azurealstn.alog.dto.member.MemberResponseDto@69b039f6
            errors = []
         Attribute = sessionMemberDto
-            value = com.azurealstn.alog.dto.member.MemberResponseDto@1cf676b8
+            value = com.azurealstn.alog.dto.member.MemberResponseDto@14719b71
            errors = []
         Attribute = postsListByMember
             value = []
@@ -153,7 +153,7 @@ MockHttpServletResponse:
                         </div>
                         <div class="menu hide">
                             <div class="menu-wrapper">
-                                <a href="/api/v1/my-alog/375" class="menu-item">
+                                <a href="/api/v1/my-alog/202" class="menu-item">
                                     <div class="menu-name">
                                         내 에이로그
                                     </div>
@@ -163,12 +163,12 @@ MockHttpServletResponse:
                                         임시 글
                                     </div>
                                 </a>
-                                <a href="/api/v1/liked/375" class="menu-item">
+                                <a href="/api/v1/liked/202" class="menu-item">
                                     <div class="menu-name">
                                         좋아요 목록
                                     </div>
                                 </a>
-                                <a href="/api/v1/setting/375" class="menu-item">
+                                <a href="/api/v1/setting/202" class="menu-item">
                                     <div class="menu-name">
                                         설정
                                     </div>
@@ -193,7 +193,7 @@ MockHttpServletResponse:
                 </a>
                 <div class="member-name">
                     <div class="name">
-                        <a href="/api/v1/my-alog/375">슬로우스타터</a>
+                        <a href="/api/v1/my-alog/202">슬로우스타터</a>
                     </div>
                     <div class="description">안녕하세요!</div>
                 </div>
@@ -204,8 +204,8 @@ MockHttpServletResponse:
         <div class="my-alog-middle"></div>
         <div class="my-alog-bottom">
             <div class="category">
-                <a href="/api/v1/my-alog/375" class="lists active" id="public-posts">전체글</a>
-                <a href="/api/v1/my-alog/375/secret" class="lists" id="secret-posts">비밀글</a>
+                <a href="/api/v1/my-alog/202" class="lists active" id="public-posts">전체글</a>
+                <a href="/api/v1/my-alog/202/secret" class="lists" id="secret-posts">비밀글</a>
                 <div class="underline" style="left: 0%;"></div>
             </div>
         </div>
@@ -283,20 +283,20 @@ Hibernate: select postslikel0_.member_id as member_i4_8_0_, postslikel0_.id as i
 Hibernate: select postslist0_.member_id as member_i9_5_0_, postslist0_.posts_id as posts_id1_5_0_, postslist0_.posts_id as posts_id1_5_1_, postslist0_.created_date as created_2_5_1_, postslist0_.modified_date as modified3_5_1_, postslist0_.content as content4_5_1_, postslist0_.description as descript5_5_1_, postslist0_.likes as likes6_5_1_, postslist0_.member_id as member_i9_5_1_, postslist0_.secret as secret7_5_1_, postslist0_.title as title8_5_1_ from posts postslist0_ where postslist0_.member_id=?
 Hibernate: select tempsaveli0_.member_id as member_i7_9_0_, tempsaveli0_.temp_save_id as temp_sav1_9_0_, tempsaveli0_.temp_save_id as temp_sav1_9_1_, tempsaveli0_.created_date as created_2_9_1_, tempsaveli0_.modified_date as modified3_9_1_, tempsaveli0_.content as content4_9_1_, tempsaveli0_.member_id as member_i7_9_1_, tempsaveli0_.temp_code as temp_cod5_9_1_, tempsaveli0_.title as title6_9_1_ from temp_save tempsaveli0_ where tempsaveli0_.member_id=?
 Hibernate: delete from member where member_id=?
-2022-12-03 20:13:46.601  INFO 16012 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2022-12-03 20:13:46.601  INFO 16012 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2022-12-03 20:13:46.602  INFO 16012 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2022-12-04 20:02:11.568  INFO 8024 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2022-12-04 20:02:11.568  INFO 8024 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2022-12-04 20:02:11.568  INFO 8024 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
 Hibernate: select member0_.member_id as member_i1_3_, member0_.created_date as created_2_3_, member0_.modified_date as modified3_3_, member0_.email as email4_3_, member0_.email_auth as email_au5_3_, member0_.name as name6_3_, member0_.picture as picture7_3_, member0_.role as role8_3_, member0_.short_bio as short_bi9_3_, member0_.username as usernam10_3_ from member member0_
 Hibernate: insert into member (member_id, created_date, modified_date, email, email_auth, name, picture, role, short_bio, username) values (default, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 Hibernate: select member0_.member_id as member_i1_3_0_, member0_.created_date as created_2_3_0_, member0_.modified_date as modified3_3_0_, member0_.email as email4_3_0_, member0_.email_auth as email_au5_3_0_, member0_.name as name6_3_0_, member0_.picture as picture7_3_0_, member0_.role as role8_3_0_, member0_.short_bio as short_bi9_3_0_, member0_.username as usernam10_3_0_ from member member0_ where member0_.member_id=?
 
 MockHttpServletRequest:
       HTTP Method = GET
-      Request URI = /api/v1/setting/376
+      Request URI = /api/v1/setting/203
        Parameters = {}
           Headers = []
              Body = null
-    Session Attrs = {member=SessionMemberDto(id=376, name=슬로우스타터, email=azurealstn@naver.com, picture=test.jpg, username=haha, shortBio=안녕하세요!)}
+    Session Attrs = {member=SessionMemberDto(id=203, name=슬로우스타터, email=azurealstn@naver.com, picture=test.jpg, username=haha, shortBio=안녕하세요!)}
 
 Handler:
              Type = com.azurealstn.alog.controller.member.MemberController
@@ -313,7 +313,7 @@ ModelAndView:
         View name = member/setting
              View = null
         Attribute = member
-            value = com.azurealstn.alog.dto.member.MemberResponseDto@e25817f
+            value = com.azurealstn.alog.dto.member.MemberResponseDto@1eec2dcb
            errors = []
 
 FlashMap:
@@ -418,7 +418,7 @@ MockHttpServletResponse:
                         </div>
                         <div class="menu hide">
                             <div class="menu-wrapper">
-                                <a href="/api/v1/my-alog/376" class="menu-item">
+                                <a href="/api/v1/my-alog/203" class="menu-item">
                                     <div class="menu-name">
                                         내 에이로그
                                     </div>
@@ -428,12 +428,12 @@ MockHttpServletResponse:
                                         임시 글
                                     </div>
                                 </a>
-                                <a href="/api/v1/liked/376" class="menu-item">
+                                <a href="/api/v1/liked/203" class="menu-item">
                                     <div class="menu-name">
                                         좋아요 목록
                                     </div>
                                 </a>
-                                <a href="/api/v1/setting/376" class="menu-item">
+                                <a href="/api/v1/setting/203" class="menu-item">
                                     <div class="menu-name">
                                         설정
                                     </div>
@@ -453,7 +453,7 @@ MockHttpServletResponse:
         <input type="hidden" id="nameId" value="슬로우스타터">
         <input type="hidden" id="shortBioId" value="안녕하세요!">
         <input type="hidden" id="usernameId" value="haha">
-        <input type="hidden" id="memberId" value="376">
+        <input type="hidden" id="memberId" value="203">
         <input type="hidden" id="picture" value="test.jpg">
         <section class="profile-top">
             <div class="thumbnail-area">
@@ -575,9 +575,9 @@ Hibernate: select postslikel0_.member_id as member_i4_8_0_, postslikel0_.id as i
 Hibernate: select postslist0_.member_id as member_i9_5_0_, postslist0_.posts_id as posts_id1_5_0_, postslist0_.posts_id as posts_id1_5_1_, postslist0_.created_date as created_2_5_1_, postslist0_.modified_date as modified3_5_1_, postslist0_.content as content4_5_1_, postslist0_.description as descript5_5_1_, postslist0_.likes as likes6_5_1_, postslist0_.member_id as member_i9_5_1_, postslist0_.secret as secret7_5_1_, postslist0_.title as title8_5_1_ from posts postslist0_ where postslist0_.member_id=?
 Hibernate: select tempsaveli0_.member_id as member_i7_9_0_, tempsaveli0_.temp_save_id as temp_sav1_9_0_, tempsaveli0_.temp_save_id as temp_sav1_9_1_, tempsaveli0_.created_date as created_2_9_1_, tempsaveli0_.modified_date as modified3_9_1_, tempsaveli0_.content as content4_9_1_, tempsaveli0_.member_id as member_i7_9_1_, tempsaveli0_.temp_code as temp_cod5_9_1_, tempsaveli0_.title as title6_9_1_ from temp_save tempsaveli0_ where tempsaveli0_.member_id=?
 Hibernate: delete from member where member_id=?
-2022-12-03 20:13:46.621  INFO 16012 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2022-12-03 20:13:46.621  INFO 16012 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2022-12-03 20:13:46.622  INFO 16012 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2022-12-04 20:02:11.599  INFO 8024 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2022-12-04 20:02:11.599  INFO 8024 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2022-12-04 20:02:11.599  INFO 8024 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
 Hibernate: select member0_.member_id as member_i1_3_, member0_.created_date as created_2_3_, member0_.modified_date as modified3_3_, member0_.email as email4_3_, member0_.email_auth as email_au5_3_, member0_.name as name6_3_, member0_.picture as picture7_3_, member0_.role as role8_3_, member0_.short_bio as short_bi9_3_, member0_.username as usernam10_3_ from member member0_
 Hibernate: insert into email_auth (email_auth_id, created_date, modified_date, auth_token, email, expired, expired_date) values (default, ?, ?, ?, ?, ?, ?)
 Hibernate: select emailauth0_.email_auth_id as email_au1_1_, emailauth0_.created_date as created_2_1_, emailauth0_.modified_date as modified3_1_, emailauth0_.auth_token as auth_tok4_1_, emailauth0_.email as email5_1_, emailauth0_.expired as expired6_1_, emailauth0_.expired_date as expired_7_1_ from email_auth emailauth0_ where emailauth0_.email=? and emailauth0_.auth_token=? and emailauth0_.expired_date>=? and emailauth0_.expired=? limit ?

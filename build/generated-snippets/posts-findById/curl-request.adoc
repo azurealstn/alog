@@ -1,6 +1,6 @@
 [source,bash]
 ----
-$ curl 'http://localhost:8080/api/v1/auth/posts-data/564' -i -X GET \
+$ curl 'http://localhost:8080/api/v1/auth/posts-data/228' -i -X GET \
     -H 'Content-Type: application/json;charset=UTF-8' \
     -H 'Accept: application/json'
 ----

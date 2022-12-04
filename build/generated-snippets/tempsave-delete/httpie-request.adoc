@@ -1,5 +1,5 @@
 [source,bash]
 ----
-$ http DELETE 'http://localhost:8080/api/v1/temp-save/92' \
+$ http DELETE 'http://localhost:8080/api/v1/temp-save/64' \
     'Content-Type:application/json;charset=UTF-8'
 ----

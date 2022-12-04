@@ -1,4 +1,4 @@
 [source,options="nowrap"]
 ----
-92
+64
 ----

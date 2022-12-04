@@ -6,5 +6,5 @@ Accept: application/json
 Content-Length: 115
 Host: localhost:8080
 
-{"content":"댓글입니다.","member":null,"posts":null,"upCommentId":null,"level":1,"memberId":311,"postsId":554}
+{"content":"댓글입니다.","member":null,"posts":null,"upCommentId":null,"level":1,"memberId":138,"postsId":218}
 ----
