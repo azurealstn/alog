@@ -1,6 +1,6 @@
 [source,http,options="nowrap"]
 ----
-PATCH /api/v1/member-name/457 HTTP/1.1
+PATCH /api/v1/member-name/7 HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Content-Length: 88
 Host: localhost:8080

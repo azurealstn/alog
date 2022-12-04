@@ -1,6 +1,6 @@
 [source,bash]
 ----
-$ echo '{"content":"댓글입니다.","member":null,"posts":null,"upCommentId":null,"level":1,"memberId":447,"postsId":770}' | http POST 'http://localhost:8080/api/v1/comment' \
+$ echo '{"content":"댓글입니다.","member":null,"posts":null,"upCommentId":null,"level":1,"memberId":2,"postsId":2}' | http POST 'http://localhost:8080/api/v1/comment' \
     'Content-Type:application/json;charset=UTF-8' \
     'Accept:application/json'
 ----

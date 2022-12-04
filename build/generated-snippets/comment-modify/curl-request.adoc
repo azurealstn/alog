@@ -1,6 +1,6 @@
 [source,bash]
 ----
-$ curl 'http://localhost:8080/api/v1/comment/25' -i -X PATCH \
+$ curl 'http://localhost:8080/api/v1/comment/1' -i -X PATCH \
     -H 'Content-Type: application/json;charset=UTF-8' \
     -H 'Accept: application/json' \
     -d '{"content":"수정한 댓글입니다."}'
