@@ -2,7 +2,7 @@
 ----
 HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 116
+Content-Length: 117
 
-{"id":65,"title":"제목입니다","content":"내용입니다.","tempCode":null,"previousTime":"2022년 12월 4일"}
+{"id":155,"title":"제목입니다","content":"내용입니다.","tempCode":null,"previousTime":"2022년 12월 4일"}
 ----

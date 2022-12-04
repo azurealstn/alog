@@ -6,5 +6,5 @@ Accept: application/json
 Content-Length: 380
 Host: localhost:8080
 
-{"title":"글 제목","content":"글 내용","member":{"createdDate":"2022-12-04T20:02:10.2376429","modifiedDate":"2022-12-04T20:02:10.2376429","id":164,"email":"azurealstn@naver.com","name":"슬로우스타터","picture":"test.jpg","role":"MEMBER","emailAuth":true,"username":"haha","shortBio":"안녕하세요!","roleKey":"ROLE_MEMBER"},"description":"글 소개","secret":true}
+{"title":"글 제목","content":"글 내용","member":{"createdDate":"2022-12-04T20:12:11.4048562","modifiedDate":"2022-12-04T20:12:11.4048562","id":473,"email":"azurealstn@naver.com","name":"슬로우스타터","picture":"test.jpg","role":"MEMBER","emailAuth":true,"username":"haha","shortBio":"안녕하세요!","roleKey":"ROLE_MEMBER"},"description":"글 소개","secret":true}
 ----

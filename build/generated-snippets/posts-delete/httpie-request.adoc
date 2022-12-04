@@ -1,6 +1,6 @@
 [source,bash]
 ----
-$ http DELETE 'http://localhost:8080/api/v1/posts/227' \
+$ http DELETE 'http://localhost:8080/api/v1/posts/779' \
     'Content-Type:application/json;charset=UTF-8' \
     'Accept:application/json'
 ----

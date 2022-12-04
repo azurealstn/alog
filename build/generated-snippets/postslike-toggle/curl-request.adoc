@@ -3,5 +3,5 @@
 $ curl 'http://localhost:8080/api/v1/auth/toggle-like' -i -X POST \
     -H 'Content-Type: application/json;charset=UTF-8' \
     -H 'Accept: application/json' \
-    -d '{"memberId":183,"postsId":358}'
+    -d '{"memberId":492,"postsId":910}'
 ----
