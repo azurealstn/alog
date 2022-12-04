@@ -1,0 +1,32 @@
+|===
+|Path|Type|Description
+
+|`+name+`
+|`+String+`
+|회원 이름
+
+|`+email+`
+|`+String+`
+|회원 이메일
+
+|`+username+`
+|`+String+`
+|회원 아이디
+
+|`+shortBio+`
+|`+String+`
+|회원 소개
+
+|`+picture+`
+|`+String+`
+|회원 프로필 사진
+
+|`+role+`
+|`+Null+`
+|회원 권한
+
+|`+emailAuth+`
+|`+Null+`
+|회원 인증 상태
+
+|===

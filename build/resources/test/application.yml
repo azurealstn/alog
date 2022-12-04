@@ -1,0 +1,56 @@
+spring:
+  jpa:
+    show_sql: true
+
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/alog
+    username: sa
+    password:
+    dirver-class-name: org.h2.Driver
+
+  session:
+    store-type: jdbc
+
+# Test OAuth
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: test
+            client-secret: test
+            scope: profile,email
+
+# Test Mail
+
+  profiles:
+    include:
+      - mail
+
+upload:
+  path: C:/project-upload/alog/
+
+cloud:
+  aws:
+    s3:
+      bucket: alog-s3-bucket
+    region:
+      static: ap-northeast-2
+      auto: false
+    stack:
+      auto: false
+    credentials:
+      instanceProfile: true
+      accessKey: test
+      secretKey: test

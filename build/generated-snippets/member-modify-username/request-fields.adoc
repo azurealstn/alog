@@ -1,0 +1,20 @@
+|===
+|Path|Type|Description
+
+|`+name+`
+|`+Null+`
+|회원 이름
+
+|`+shortBio+`
+|`+Null+`
+|회원 소개
+
+|`+username+`
+|`+String+`
+|회원 아이디
+
+|`+picture+`
+|`+Null+`
+|회원 프로필 사진
+
+|===

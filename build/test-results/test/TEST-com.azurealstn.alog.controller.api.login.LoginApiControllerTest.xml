@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.azurealstn.alog.controller.api.login.LoginApiControllerTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2022-12-03T11:13:44" hostname="DESKTOP-4HIAQNR" time="0.076">
+  <properties/>
+  <testcase name="login for email valid input Test" classname="com.azurealstn.alog.controller.api.login.LoginApiControllerTest" time="0.034"/>
+  <testcase name="login for email valid Test" classname="com.azurealstn.alog.controller.api.login.LoginApiControllerTest" time="0.041"/>
+  <system-out><![CDATA[2022-12-03 20:13:44.780  INFO 16012 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.azurealstn.alog.controller.api.login.LoginApiControllerTest], using SpringBootContextLoader
+2022-12-03 20:13:44.781  INFO 16012 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [com.azurealstn.alog.controller.api.login.LoginApiControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+2022-12-03 20:13:44.781  INFO 16012 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.azurealstn.alog.controller.api.login.LoginApiControllerTest]: LoginApiControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2022-12-03 20:13:44.793  INFO 16012 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.azurealstn.alog.AlogApplication for test class com.azurealstn.alog.controller.api.login.LoginApiControllerTest
+2022-12-03 20:13:44.794  INFO 16012 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener, org.springframework.security.test.context.support.ReactorContextTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+2022-12-03 20:13:44.795  INFO 16012 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@4e27c500, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@6dbd38e8, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@1a183473, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@2d7956fb, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@5d869991, org.springframework.test.context.support.DirtiesContextTestExecutionListener@597880b1, org.springframework.test.context.transaction.TransactionalTestExecutionListener@2989c41, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@65b1dc67, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener@c129b51, org.springframework.test.context.event.EventPublishingTestExecutionListener@11f2ef6a, org.springframework.security.test.context.support.ReactorContextTestExecutionListener@574e1381, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@3c77afeb, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@24277327, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@22a85176, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@55d8cb9, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@4d4630e, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@1bf596f8]
+
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /api/v1/auth/login
+       Parameters = {}
+          Headers = [Content-Type:"application/json;charset=UTF-8", Content-Length:"58"]
+             Body = {"email":"azurealst","authToken":null,"existsEmail":false}
+    Session Attrs = {}
+
+Handler:
+             Type = com.azurealstn.alog.controller.api.login.LoginApiController
+           Method = com.azurealstn.alog.controller.api.login.LoginApiController#login(LoginRequestDto)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = org.springframework.web.bind.MethodArgumentNotValidException
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 400
+    Error message = null
+          Headers = [Content-Type:"application/json", X-Content-Type-Options:"nosniff", X-XSS-Protection:"1; mode=block", Cache-Control:"no-cache, no-store, max-age=0, must-revalidate", Pragma:"no-cache", Expires:"0"]
+     Content type = application/json
+             Body = {"code":"400","message":"클라이언트의 잘못된 요청이 있습니다. (application/json)","validation":[{"fieldName":"email","errorMessage":"잘못된 이메일 형식입니다."}]}
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+Hibernate: select member0_.member_id as col_0_0_ from member member0_ where member0_.email=? limit ?
+Hibernate: insert into email_auth (email_auth_id, created_date, modified_date, auth_token, email, expired, expired_date) values (default, ?, ?, ?, ?, ?, ?)
+
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /api/v1/auth/login
+       Parameters = {}
+          Headers = [Content-Type:"application/json;charset=UTF-8", Content-Length:"69"]
+             Body = {"email":"azurealstn@naver.com","authToken":null,"existsEmail":false}
+    Session Attrs = {}
+
+Handler:
+             Type = com.azurealstn.alog.controller.api.login.LoginApiController
+           Method = com.azurealstn.alog.controller.api.login.LoginApiController#login(LoginRequestDto)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 200
+    Error message = null
+          Headers = [Content-Type:"application/json", X-Content-Type-Options:"nosniff", X-XSS-Protection:"1; mode=block", Cache-Control:"no-cache, no-store, max-age=0, must-revalidate", Pragma:"no-cache", Expires:"0"]
+     Content type = application/json
+             Body = {"email":"azurealstn@naver.com","existsEmail":false}
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

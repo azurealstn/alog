@@ -1,0 +1,578 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.azurealstn.alog.controller.api.tempsave.TempSaveApiControllerTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2022-12-03T11:13:46" hostname="DESKTOP-4HIAQNR" time="0.177">
+  <properties/>
+  <testcase name="임시저장 단 건 조회 성공" classname="com.azurealstn.alog.controller.api.tempsave.TempSaveApiControllerTest" time="0.018"/>
+  <testcase name="임시저장 단 건 조회 실패" classname="com.azurealstn.alog.controller.api.tempsave.TempSaveApiControllerTest" time="0.014"/>
+  <testcase name="임시저장 수정 성공" classname="com.azurealstn.alog.controller.api.tempsave.TempSaveApiControllerTest" time="0.02"/>
+  <testcase name="임시저장 수정 실패" classname="com.azurealstn.alog.controller.api.tempsave.TempSaveApiControllerTest" time="0.014"/>
+  <testcase name="임시저장 정상 등록" classname="com.azurealstn.alog.controller.api.tempsave.TempSaveApiControllerTest" time="0.017"/>
+  <testcase name="임시저장 등록시 데이터 검증 제목" classname="com.azurealstn.alog.controller.api.tempsave.TempSaveApiControllerTest" time="0.016"/>
+  <testcase name="임시저장 등록시 데이터 검증 내용" classname="com.azurealstn.alog.controller.api.tempsave.TempSaveApiControllerTest" time="0.014"/>
+  <testcase name="임시저장 수정 실패 데이터 검증 내용" classname="com.azurealstn.alog.controller.api.tempsave.TempSaveApiControllerTest" time="0.015"/>
+  <testcase name="임시저장 수정 실패 데이터 검증 제목" classname="com.azurealstn.alog.controller.api.tempsave.TempSaveApiControllerTest" time="0.014"/>
+  <testcase name="임시저장 삭제 성공" classname="com.azurealstn.alog.controller.api.tempsave.TempSaveApiControllerTest" time="0.013"/>
+  <testcase name="임시저장 삭제 실패" classname="com.azurealstn.alog.controller.api.tempsave.TempSaveApiControllerTest" time="0.015"/>
+  <system-out><![CDATA[2022-12-03 20:13:46.257  INFO 16012 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.azurealstn.alog.controller.api.tempsave.TempSaveApiControllerTest], using SpringBootContextLoader
+2022-12-03 20:13:46.258  INFO 16012 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [com.azurealstn.alog.controller.api.tempsave.TempSaveApiControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+2022-12-03 20:13:46.258  INFO 16012 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.azurealstn.alog.controller.api.tempsave.TempSaveApiControllerTest]: TempSaveApiControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2022-12-03 20:13:46.261  INFO 16012 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.azurealstn.alog.AlogApplication for test class com.azurealstn.alog.controller.api.tempsave.TempSaveApiControllerTest
+2022-12-03 20:13:46.262  INFO 16012 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener, org.springframework.security.test.context.support.ReactorContextTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+2022-12-03 20:13:46.266  INFO 16012 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@5cb41e93, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@1f1a57e8, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@5a056d39, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@4926f6d6, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@351a39e7, org.springframework.test.context.support.DirtiesContextTestExecutionListener@78f28dbb, org.springframework.test.context.transaction.TransactionalTestExecutionListener@9ef4b39, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@77019c94, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener@13304692, org.springframework.test.context.event.EventPublishingTestExecutionListener@7f439e1a, org.springframework.security.test.context.support.ReactorContextTestExecutionListener@c86a448, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@77187c70, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@660da0d7, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@5dd5142, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@3c401155, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@80f1151, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@30f139f]
+2022-12-03 20:13:46.269  INFO 16012 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Began transaction (1) for test context [DefaultTestContext@6c65578d testClass = TempSaveApiControllerTest, testInstance = com.azurealstn.alog.controller.api.tempsave.TempSaveApiControllerTest@64073f50, testMethod = findById_tempSave_o@TempSaveApiControllerTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@5b386c8 testClass = TempSaveApiControllerTest, locations = '{}', classes = '{class com.azurealstn.alog.AlogApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true, server.port=0}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@f6c03cb, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@4ae33a11, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@3a94964, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@34a75079, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@64beebb7, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@68d279ec], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> false, 'org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -> false]]; transaction manager [org.springframework.orm.jpa.JpaTransactionManager@24e2d0d1]; rollback [true]
+2022-12-03 20:13:46.270  INFO 16012 --- [    Test worker] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring TestDispatcherServlet ''
+2022-12-03 20:13:46.270  INFO 16012 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2022-12-03 20:13:46.270  INFO 16012 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+Hibernate: select posts0_.posts_id as posts_id1_5_, posts0_.created_date as created_2_5_, posts0_.modified_date as modified3_5_, posts0_.content as content4_5_, posts0_.description as descript5_5_, posts0_.likes as likes6_5_, posts0_.member_id as member_i9_5_, posts0_.secret as secret7_5_, posts0_.title as title8_5_ from posts posts0_
+Hibernate: select tempsave0_.temp_save_id as temp_sav1_9_, tempsave0_.created_date as created_2_9_, tempsave0_.modified_date as modified3_9_, tempsave0_.content as content4_9_, tempsave0_.member_id as member_i7_9_, tempsave0_.temp_code as temp_cod5_9_, tempsave0_.title as title6_9_ from temp_save tempsave0_
+Hibernate: select member0_.member_id as member_i1_3_, member0_.created_date as created_2_3_, member0_.modified_date as modified3_3_, member0_.email as email4_3_, member0_.email_auth as email_au5_3_, member0_.name as name6_3_, member0_.picture as picture7_3_, member0_.role as role8_3_, member0_.short_bio as short_bi9_3_, member0_.username as usernam10_3_ from member member0_
+Hibernate: insert into member (member_id, created_date, modified_date, email, email_auth, name, picture, role, short_bio, username) values (default, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: insert into temp_save (temp_save_id, created_date, modified_date, content, member_id, temp_code, title) values (default, ?, ?, ?, ?, ?, ?)
+
+MockHttpServletRequest:
+      HTTP Method = GET
+      Request URI = /api/v1/temp-save/95
+       Parameters = {}
+          Headers = [Content-Type:"application/json;charset=UTF-8"]
+             Body = null
+    Session Attrs = {member=SessionMemberDto(id=362, name=슬로우스타터, email=azurealstn@naver.com, picture=test.jpg, username=haha, shortBio=안녕하세요!)}
+
+Handler:
+             Type = com.azurealstn.alog.controller.api.tempsave.TempSaveApiController
+           Method = com.azurealstn.alog.controller.api.tempsave.TempSaveApiController#findById(Long)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 200
+    Error message = null
+          Headers = [Content-Type:"application/json;charset=UTF-8"]
+     Content type = application/json;charset=UTF-8
+             Body = {"id":95,"title":"제목입니다","content":"내용입니다.","tempCode":null,"previousTime":"2022년 12월 3일"}
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+Hibernate: select posts0_.posts_id as posts_id1_5_, posts0_.created_date as created_2_5_, posts0_.modified_date as modified3_5_, posts0_.content as content4_5_, posts0_.description as descript5_5_, posts0_.likes as likes6_5_, posts0_.member_id as member_i9_5_, posts0_.secret as secret7_5_, posts0_.title as title8_5_ from posts posts0_
+Hibernate: select tempsave0_.temp_save_id as temp_sav1_9_, tempsave0_.created_date as created_2_9_, tempsave0_.modified_date as modified3_9_, tempsave0_.content as content4_9_, tempsave0_.member_id as member_i7_9_, tempsave0_.temp_code as temp_cod5_9_, tempsave0_.title as title6_9_ from temp_save tempsave0_
+Hibernate: select member0_.member_id as member_i1_3_, member0_.created_date as created_2_3_, member0_.modified_date as modified3_3_, member0_.email as email4_3_, member0_.email_auth as email_au5_3_, member0_.name as name6_3_, member0_.picture as picture7_3_, member0_.role as role8_3_, member0_.short_bio as short_bi9_3_, member0_.username as usernam10_3_ from member member0_
+2022-12-03 20:13:46.286  INFO 16012 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Rolled back transaction for test: [DefaultTestContext@6c65578d testClass = TempSaveApiControllerTest, testInstance = com.azurealstn.alog.controller.api.tempsave.TempSaveApiControllerTest@64073f50, testMethod = findById_tempSave_o@TempSaveApiControllerTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@5b386c8 testClass = TempSaveApiControllerTest, locations = '{}', classes = '{class com.azurealstn.alog.AlogApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true, server.port=0}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@f6c03cb, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@4ae33a11, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@3a94964, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@34a75079, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@64beebb7, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@68d279ec], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> false, 'org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -> false]]
+2022-12-03 20:13:46.287  INFO 16012 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Began transaction (1) for test context [DefaultTestContext@6c65578d testClass = TempSaveApiControllerTest, testInstance = com.azurealstn.alog.controller.api.tempsave.TempSaveApiControllerTest@545df2c5, testMethod = findById_tempSave_x@TempSaveApiControllerTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@5b386c8 testClass = TempSaveApiControllerTest, locations = '{}', classes = '{class com.azurealstn.alog.AlogApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true, server.port=0}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@f6c03cb, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@4ae33a11, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@3a94964, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@34a75079, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@64beebb7, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@68d279ec], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> false, 'org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -> false]]; transaction manager [org.springframework.orm.jpa.JpaTransactionManager@24e2d0d1]; rollback [true]
+2022-12-03 20:13:46.288  INFO 16012 --- [    Test worker] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring TestDispatcherServlet ''
+2022-12-03 20:13:46.288  INFO 16012 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2022-12-03 20:13:46.289  INFO 16012 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+Hibernate: select posts0_.posts_id as posts_id1_5_, posts0_.created_date as created_2_5_, posts0_.modified_date as modified3_5_, posts0_.content as content4_5_, posts0_.description as descript5_5_, posts0_.likes as likes6_5_, posts0_.member_id as member_i9_5_, posts0_.secret as secret7_5_, posts0_.title as title8_5_ from posts posts0_
+Hibernate: select tempsave0_.temp_save_id as temp_sav1_9_, tempsave0_.created_date as created_2_9_, tempsave0_.modified_date as modified3_9_, tempsave0_.content as content4_9_, tempsave0_.member_id as member_i7_9_, tempsave0_.temp_code as temp_cod5_9_, tempsave0_.title as title6_9_ from temp_save tempsave0_
+Hibernate: select member0_.member_id as member_i1_3_, member0_.created_date as created_2_3_, member0_.modified_date as modified3_3_, member0_.email as email4_3_, member0_.email_auth as email_au5_3_, member0_.name as name6_3_, member0_.picture as picture7_3_, member0_.role as role8_3_, member0_.short_bio as short_bi9_3_, member0_.username as usernam10_3_ from member member0_
+Hibernate: insert into member (member_id, created_date, modified_date, email, email_auth, name, picture, role, short_bio, username) values (default, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: insert into temp_save (temp_save_id, created_date, modified_date, content, member_id, temp_code, title) values (default, ?, ?, ?, ?, ?, ?)
+Hibernate: select tempsave0_.temp_save_id as temp_sav1_9_0_, tempsave0_.created_date as created_2_9_0_, tempsave0_.modified_date as modified3_9_0_, tempsave0_.content as content4_9_0_, tempsave0_.member_id as member_i7_9_0_, tempsave0_.temp_code as temp_cod5_9_0_, tempsave0_.title as title6_9_0_ from temp_save tempsave0_ where tempsave0_.temp_save_id=?
+
+MockHttpServletRequest:
+      HTTP Method = GET
+      Request URI = /api/v1/temp-save/97
+       Parameters = {}
+          Headers = [Content-Type:"application/json;charset=UTF-8"]
+             Body = null
+    Session Attrs = {member=SessionMemberDto(id=363, name=슬로우스타터, email=azurealstn@naver.com, picture=test.jpg, username=haha, shortBio=안녕하세요!)}
+
+Handler:
+             Type = com.azurealstn.alog.controller.api.tempsave.TempSaveApiController
+           Method = com.azurealstn.alog.controller.api.tempsave.TempSaveApiController#findById(Long)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = com.azurealstn.alog.Infra.exception.tempsave.TempSaveNotFound
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 404
+    Error message = null
+          Headers = [Content-Type:"application/json;charset=UTF-8"]
+     Content type = application/json;charset=UTF-8
+             Body = {"code":"404","message":"해당 임시글이 없습니다.","validation":[]}
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+Hibernate: select posts0_.posts_id as posts_id1_5_, posts0_.created_date as created_2_5_, posts0_.modified_date as modified3_5_, posts0_.content as content4_5_, posts0_.description as descript5_5_, posts0_.likes as likes6_5_, posts0_.member_id as member_i9_5_, posts0_.secret as secret7_5_, posts0_.title as title8_5_ from posts posts0_
+Hibernate: select tempsave0_.temp_save_id as temp_sav1_9_, tempsave0_.created_date as created_2_9_, tempsave0_.modified_date as modified3_9_, tempsave0_.content as content4_9_, tempsave0_.member_id as member_i7_9_, tempsave0_.temp_code as temp_cod5_9_, tempsave0_.title as title6_9_ from temp_save tempsave0_
+Hibernate: select member0_.member_id as member_i1_3_, member0_.created_date as created_2_3_, member0_.modified_date as modified3_3_, member0_.email as email4_3_, member0_.email_auth as email_au5_3_, member0_.name as name6_3_, member0_.picture as picture7_3_, member0_.role as role8_3_, member0_.short_bio as short_bi9_3_, member0_.username as usernam10_3_ from member member0_
+2022-12-03 20:13:46.300  INFO 16012 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Rolled back transaction for test: [DefaultTestContext@6c65578d testClass = TempSaveApiControllerTest, testInstance = com.azurealstn.alog.controller.api.tempsave.TempSaveApiControllerTest@545df2c5, testMethod = findById_tempSave_x@TempSaveApiControllerTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@5b386c8 testClass = TempSaveApiControllerTest, locations = '{}', classes = '{class com.azurealstn.alog.AlogApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true, server.port=0}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@f6c03cb, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@4ae33a11, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@3a94964, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@34a75079, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@64beebb7, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@68d279ec], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> false, 'org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -> false]]
+2022-12-03 20:13:46.302  INFO 16012 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Began transaction (1) for test context [DefaultTestContext@6c65578d testClass = TempSaveApiControllerTest, testInstance = com.azurealstn.alog.controller.api.tempsave.TempSaveApiControllerTest@2fbdc8e, testMethod = update_tempSave_o@TempSaveApiControllerTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@5b386c8 testClass = TempSaveApiControllerTest, locations = '{}', classes = '{class com.azurealstn.alog.AlogApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true, server.port=0}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@f6c03cb, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@4ae33a11, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@3a94964, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@34a75079, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@64beebb7, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@68d279ec], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> false, 'org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -> false]]; transaction manager [org.springframework.orm.jpa.JpaTransactionManager@24e2d0d1]; rollback [true]
+2022-12-03 20:13:46.303  INFO 16012 --- [    Test worker] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring TestDispatcherServlet ''
+2022-12-03 20:13:46.303  INFO 16012 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2022-12-03 20:13:46.303  INFO 16012 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+Hibernate: select posts0_.posts_id as posts_id1_5_, posts0_.created_date as created_2_5_, posts0_.modified_date as modified3_5_, posts0_.content as content4_5_, posts0_.description as descript5_5_, posts0_.likes as likes6_5_, posts0_.member_id as member_i9_5_, posts0_.secret as secret7_5_, posts0_.title as title8_5_ from posts posts0_
+Hibernate: select tempsave0_.temp_save_id as temp_sav1_9_, tempsave0_.created_date as created_2_9_, tempsave0_.modified_date as modified3_9_, tempsave0_.content as content4_9_, tempsave0_.member_id as member_i7_9_, tempsave0_.temp_code as temp_cod5_9_, tempsave0_.title as title6_9_ from temp_save tempsave0_
+Hibernate: select member0_.member_id as member_i1_3_, member0_.created_date as created_2_3_, member0_.modified_date as modified3_3_, member0_.email as email4_3_, member0_.email_auth as email_au5_3_, member0_.name as name6_3_, member0_.picture as picture7_3_, member0_.role as role8_3_, member0_.short_bio as short_bi9_3_, member0_.username as usernam10_3_ from member member0_
+Hibernate: insert into member (member_id, created_date, modified_date, email, email_auth, name, picture, role, short_bio, username) values (default, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: insert into temp_save (temp_save_id, created_date, modified_date, content, member_id, temp_code, title) values (default, ?, ?, ?, ?, ?, ?)
+Hibernate: select tempsave0_.temp_save_id as temp_sav1_9_, tempsave0_.created_date as created_2_9_, tempsave0_.modified_date as modified3_9_, tempsave0_.content as content4_9_, tempsave0_.member_id as member_i7_9_, tempsave0_.temp_code as temp_cod5_9_, tempsave0_.title as title6_9_ from temp_save tempsave0_ where tempsave0_.temp_code=?
+
+MockHttpServletRequest:
+      HTTP Method = PUT
+      Request URI = /api/v1/temp-save/368fa897-1a86-4bd2-860b-f225072e00ca
+       Parameters = {}
+          Headers = [Content-Type:"application/json;charset=UTF-8", Content-Length:"71"]
+             Body = {"title":"수정 제목입니다.","content":"수정 내용입니다."}
+    Session Attrs = {member=SessionMemberDto(id=364, name=슬로우스타터, email=azurealstn@naver.com, picture=test.jpg, username=haha, shortBio=안녕하세요!)}
+
+Handler:
+             Type = com.azurealstn.alog.controller.api.tempsave.TempSaveApiController
+           Method = com.azurealstn.alog.controller.api.tempsave.TempSaveApiController#update(TempSaveUpdateRequestDto, String)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 200
+    Error message = null
+          Headers = [Content-Type:"application/json;charset=UTF-8"]
+     Content type = application/json;charset=UTF-8
+             Body = 97
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+Hibernate: select posts0_.posts_id as posts_id1_5_, posts0_.created_date as created_2_5_, posts0_.modified_date as modified3_5_, posts0_.content as content4_5_, posts0_.description as descript5_5_, posts0_.likes as likes6_5_, posts0_.member_id as member_i9_5_, posts0_.secret as secret7_5_, posts0_.title as title8_5_ from posts posts0_
+Hibernate: update temp_save set created_date=?, modified_date=?, content=?, member_id=?, temp_code=?, title=? where temp_save_id=?
+Hibernate: select tempsave0_.temp_save_id as temp_sav1_9_, tempsave0_.created_date as created_2_9_, tempsave0_.modified_date as modified3_9_, tempsave0_.content as content4_9_, tempsave0_.member_id as member_i7_9_, tempsave0_.temp_code as temp_cod5_9_, tempsave0_.title as title6_9_ from temp_save tempsave0_
+Hibernate: select member0_.member_id as member_i1_3_, member0_.created_date as created_2_3_, member0_.modified_date as modified3_3_, member0_.email as email4_3_, member0_.email_auth as email_au5_3_, member0_.name as name6_3_, member0_.picture as picture7_3_, member0_.role as role8_3_, member0_.short_bio as short_bi9_3_, member0_.username as usernam10_3_ from member member0_
+2022-12-03 20:13:46.321  INFO 16012 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Rolled back transaction for test: [DefaultTestContext@6c65578d testClass = TempSaveApiControllerTest, testInstance = com.azurealstn.alog.controller.api.tempsave.TempSaveApiControllerTest@2fbdc8e, testMethod = update_tempSave_o@TempSaveApiControllerTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@5b386c8 testClass = TempSaveApiControllerTest, locations = '{}', classes = '{class com.azurealstn.alog.AlogApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true, server.port=0}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@f6c03cb, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@4ae33a11, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@3a94964, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@34a75079, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@64beebb7, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@68d279ec], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> false, 'org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -> false]]
+2022-12-03 20:13:46.323  INFO 16012 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Began transaction (1) for test context [DefaultTestContext@6c65578d testClass = TempSaveApiControllerTest, testInstance = com.azurealstn.alog.controller.api.tempsave.TempSaveApiControllerTest@4bb1d848, testMethod = update_tempSave_x@TempSaveApiControllerTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@5b386c8 testClass = TempSaveApiControllerTest, locations = '{}', classes = '{class com.azurealstn.alog.AlogApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true, server.port=0}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@f6c03cb, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@4ae33a11, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@3a94964, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@34a75079, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@64beebb7, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@68d279ec], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> false, 'org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -> false]]; transaction manager [org.springframework.orm.jpa.JpaTransactionManager@24e2d0d1]; rollback [true]
+2022-12-03 20:13:46.324  INFO 16012 --- [    Test worker] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring TestDispatcherServlet ''
+2022-12-03 20:13:46.324  INFO 16012 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2022-12-03 20:13:46.324  INFO 16012 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+Hibernate: select posts0_.posts_id as posts_id1_5_, posts0_.created_date as created_2_5_, posts0_.modified_date as modified3_5_, posts0_.content as content4_5_, posts0_.description as descript5_5_, posts0_.likes as likes6_5_, posts0_.member_id as member_i9_5_, posts0_.secret as secret7_5_, posts0_.title as title8_5_ from posts posts0_
+Hibernate: select tempsave0_.temp_save_id as temp_sav1_9_, tempsave0_.created_date as created_2_9_, tempsave0_.modified_date as modified3_9_, tempsave0_.content as content4_9_, tempsave0_.member_id as member_i7_9_, tempsave0_.temp_code as temp_cod5_9_, tempsave0_.title as title6_9_ from temp_save tempsave0_
+Hibernate: select member0_.member_id as member_i1_3_, member0_.created_date as created_2_3_, member0_.modified_date as modified3_3_, member0_.email as email4_3_, member0_.email_auth as email_au5_3_, member0_.name as name6_3_, member0_.picture as picture7_3_, member0_.role as role8_3_, member0_.short_bio as short_bi9_3_, member0_.username as usernam10_3_ from member member0_
+Hibernate: insert into member (member_id, created_date, modified_date, email, email_auth, name, picture, role, short_bio, username) values (default, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: insert into temp_save (temp_save_id, created_date, modified_date, content, member_id, temp_code, title) values (default, ?, ?, ?, ?, ?, ?)
+Hibernate: select tempsave0_.temp_save_id as temp_sav1_9_, tempsave0_.created_date as created_2_9_, tempsave0_.modified_date as modified3_9_, tempsave0_.content as content4_9_, tempsave0_.member_id as member_i7_9_, tempsave0_.temp_code as temp_cod5_9_, tempsave0_.title as title6_9_ from temp_save tempsave0_ where tempsave0_.temp_code=?
+
+MockHttpServletRequest:
+      HTTP Method = PUT
+      Request URI = /api/v1/temp-save/c590046c-c126-49dd-bd50-3b55297beadb123
+       Parameters = {}
+          Headers = [Content-Type:"application/json;charset=UTF-8", Content-Length:"71"]
+             Body = {"title":"수정 제목입니다.","content":"수정 내용입니다."}
+    Session Attrs = {member=SessionMemberDto(id=365, name=슬로우스타터, email=azurealstn@naver.com, picture=test.jpg, username=haha, shortBio=안녕하세요!)}
+
+Handler:
+             Type = com.azurealstn.alog.controller.api.tempsave.TempSaveApiController
+           Method = com.azurealstn.alog.controller.api.tempsave.TempSaveApiController#update(TempSaveUpdateRequestDto, String)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = com.azurealstn.alog.Infra.exception.tempsave.TempSaveNotFound
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 404
+    Error message = null
+          Headers = [Content-Type:"application/json;charset=UTF-8"]
+     Content type = application/json;charset=UTF-8
+             Body = {"code":"404","message":"해당 임시글이 없습니다.","validation":[]}
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+Hibernate: select posts0_.posts_id as posts_id1_5_, posts0_.created_date as created_2_5_, posts0_.modified_date as modified3_5_, posts0_.content as content4_5_, posts0_.description as descript5_5_, posts0_.likes as likes6_5_, posts0_.member_id as member_i9_5_, posts0_.secret as secret7_5_, posts0_.title as title8_5_ from posts posts0_
+Hibernate: select tempsave0_.temp_save_id as temp_sav1_9_, tempsave0_.created_date as created_2_9_, tempsave0_.modified_date as modified3_9_, tempsave0_.content as content4_9_, tempsave0_.member_id as member_i7_9_, tempsave0_.temp_code as temp_cod5_9_, tempsave0_.title as title6_9_ from temp_save tempsave0_
+Hibernate: select member0_.member_id as member_i1_3_, member0_.created_date as created_2_3_, member0_.modified_date as modified3_3_, member0_.email as email4_3_, member0_.email_auth as email_au5_3_, member0_.name as name6_3_, member0_.picture as picture7_3_, member0_.role as role8_3_, member0_.short_bio as short_bi9_3_, member0_.username as usernam10_3_ from member member0_
+2022-12-03 20:13:46.336  INFO 16012 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Rolled back transaction for test: [DefaultTestContext@6c65578d testClass = TempSaveApiControllerTest, testInstance = com.azurealstn.alog.controller.api.tempsave.TempSaveApiControllerTest@4bb1d848, testMethod = update_tempSave_x@TempSaveApiControllerTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@5b386c8 testClass = TempSaveApiControllerTest, locations = '{}', classes = '{class com.azurealstn.alog.AlogApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true, server.port=0}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@f6c03cb, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@4ae33a11, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@3a94964, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@34a75079, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@64beebb7, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@68d279ec], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> false, 'org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -> false]]
+2022-12-03 20:13:46.337  INFO 16012 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Began transaction (1) for test context [DefaultTestContext@6c65578d testClass = TempSaveApiControllerTest, testInstance = com.azurealstn.alog.controller.api.tempsave.TempSaveApiControllerTest@361fb3b3, testMethod = create_tempSave@TempSaveApiControllerTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@5b386c8 testClass = TempSaveApiControllerTest, locations = '{}', classes = '{class com.azurealstn.alog.AlogApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true, server.port=0}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@f6c03cb, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@4ae33a11, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@3a94964, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@34a75079, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@64beebb7, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@68d279ec], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> false, 'org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -> false]]; transaction manager [org.springframework.orm.jpa.JpaTransactionManager@24e2d0d1]; rollback [true]
+2022-12-03 20:13:46.338  INFO 16012 --- [    Test worker] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring TestDispatcherServlet ''
+2022-12-03 20:13:46.338  INFO 16012 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2022-12-03 20:13:46.338  INFO 16012 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+Hibernate: select posts0_.posts_id as posts_id1_5_, posts0_.created_date as created_2_5_, posts0_.modified_date as modified3_5_, posts0_.content as content4_5_, posts0_.description as descript5_5_, posts0_.likes as likes6_5_, posts0_.member_id as member_i9_5_, posts0_.secret as secret7_5_, posts0_.title as title8_5_ from posts posts0_
+Hibernate: select tempsave0_.temp_save_id as temp_sav1_9_, tempsave0_.created_date as created_2_9_, tempsave0_.modified_date as modified3_9_, tempsave0_.content as content4_9_, tempsave0_.member_id as member_i7_9_, tempsave0_.temp_code as temp_cod5_9_, tempsave0_.title as title6_9_ from temp_save tempsave0_
+Hibernate: select member0_.member_id as member_i1_3_, member0_.created_date as created_2_3_, member0_.modified_date as modified3_3_, member0_.email as email4_3_, member0_.email_auth as email_au5_3_, member0_.name as name6_3_, member0_.picture as picture7_3_, member0_.role as role8_3_, member0_.short_bio as short_bi9_3_, member0_.username as usernam10_3_ from member member0_
+Hibernate: insert into member (member_id, created_date, modified_date, email, email_auth, name, picture, role, short_bio, username) values (default, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: select member0_.member_id as member_i1_3_, member0_.created_date as created_2_3_, member0_.modified_date as modified3_3_, member0_.email as email4_3_, member0_.email_auth as email_au5_3_, member0_.name as name6_3_, member0_.picture as picture7_3_, member0_.role as role8_3_, member0_.short_bio as short_bi9_3_, member0_.username as usernam10_3_ from member member0_ where member0_.email=?
+Hibernate: insert into temp_save (temp_save_id, created_date, modified_date, content, member_id, temp_code, title) values (default, ?, ?, ?, ?, ?, ?)
+
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /api/v1/temp-save
+       Parameters = {}
+          Headers = [Content-Type:"application/json;charset=UTF-8", Content-Length:"401"]
+             Body = {"title":"제목이지롱?","content":"내용이지롱?","member":{"createdDate":"2022-12-03T20:13:46.3422621","modifiedDate":"2022-12-03T20:13:46.3422621","id":366,"email":"azurealstn@naver.com","name":"슬로우스타터","picture":"test.jpg","role":"MEMBER","emailAuth":true,"username":"haha","shortBio":"안녕하세요!","roleKey":"ROLE_MEMBER"},"tempCode":"928a335d-3209-4305-b731-273a699bfd0d"}
+    Session Attrs = {member=SessionMemberDto(id=366, name=슬로우스타터, email=azurealstn@naver.com, picture=test.jpg, username=haha, shortBio=안녕하세요!)}
+
+Handler:
+             Type = com.azurealstn.alog.controller.api.tempsave.TempSaveApiController
+           Method = com.azurealstn.alog.controller.api.tempsave.TempSaveApiController#create(TempSaveCreateRequestDto)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 200
+    Error message = null
+          Headers = [Content-Type:"application/json;charset=UTF-8"]
+     Content type = application/json;charset=UTF-8
+             Body = 99
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+Hibernate: select posts0_.posts_id as posts_id1_5_, posts0_.created_date as created_2_5_, posts0_.modified_date as modified3_5_, posts0_.content as content4_5_, posts0_.description as descript5_5_, posts0_.likes as likes6_5_, posts0_.member_id as member_i9_5_, posts0_.secret as secret7_5_, posts0_.title as title8_5_ from posts posts0_
+Hibernate: select tempsave0_.temp_save_id as temp_sav1_9_, tempsave0_.created_date as created_2_9_, tempsave0_.modified_date as modified3_9_, tempsave0_.content as content4_9_, tempsave0_.member_id as member_i7_9_, tempsave0_.temp_code as temp_cod5_9_, tempsave0_.title as title6_9_ from temp_save tempsave0_
+Hibernate: select member0_.member_id as member_i1_3_, member0_.created_date as created_2_3_, member0_.modified_date as modified3_3_, member0_.email as email4_3_, member0_.email_auth as email_au5_3_, member0_.name as name6_3_, member0_.picture as picture7_3_, member0_.role as role8_3_, member0_.short_bio as short_bi9_3_, member0_.username as usernam10_3_ from member member0_
+2022-12-03 20:13:46.354  INFO 16012 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Rolled back transaction for test: [DefaultTestContext@6c65578d testClass = TempSaveApiControllerTest, testInstance = com.azurealstn.alog.controller.api.tempsave.TempSaveApiControllerTest@361fb3b3, testMethod = create_tempSave@TempSaveApiControllerTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@5b386c8 testClass = TempSaveApiControllerTest, locations = '{}', classes = '{class com.azurealstn.alog.AlogApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true, server.port=0}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@f6c03cb, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@4ae33a11, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@3a94964, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@34a75079, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@64beebb7, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@68d279ec], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> false, 'org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -> false]]
+2022-12-03 20:13:46.355  INFO 16012 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Began transaction (1) for test context [DefaultTestContext@6c65578d testClass = TempSaveApiControllerTest, testInstance = com.azurealstn.alog.controller.api.tempsave.TempSaveApiControllerTest@14a7f2fd, testMethod = create_tempSave_valid_title@TempSaveApiControllerTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@5b386c8 testClass = TempSaveApiControllerTest, locations = '{}', classes = '{class com.azurealstn.alog.AlogApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true, server.port=0}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@f6c03cb, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@4ae33a11, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@3a94964, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@34a75079, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@64beebb7, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@68d279ec], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> false, 'org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -> false]]; transaction manager [org.springframework.orm.jpa.JpaTransactionManager@24e2d0d1]; rollback [true]
+2022-12-03 20:13:46.356  INFO 16012 --- [    Test worker] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring TestDispatcherServlet ''
+2022-12-03 20:13:46.356  INFO 16012 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2022-12-03 20:13:46.357  INFO 16012 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+Hibernate: select posts0_.posts_id as posts_id1_5_, posts0_.created_date as created_2_5_, posts0_.modified_date as modified3_5_, posts0_.content as content4_5_, posts0_.description as descript5_5_, posts0_.likes as likes6_5_, posts0_.member_id as member_i9_5_, posts0_.secret as secret7_5_, posts0_.title as title8_5_ from posts posts0_
+Hibernate: select tempsave0_.temp_save_id as temp_sav1_9_, tempsave0_.created_date as created_2_9_, tempsave0_.modified_date as modified3_9_, tempsave0_.content as content4_9_, tempsave0_.member_id as member_i7_9_, tempsave0_.temp_code as temp_cod5_9_, tempsave0_.title as title6_9_ from temp_save tempsave0_
+Hibernate: select member0_.member_id as member_i1_3_, member0_.created_date as created_2_3_, member0_.modified_date as modified3_3_, member0_.email as email4_3_, member0_.email_auth as email_au5_3_, member0_.name as name6_3_, member0_.picture as picture7_3_, member0_.role as role8_3_, member0_.short_bio as short_bi9_3_, member0_.username as usernam10_3_ from member member0_
+Hibernate: insert into member (member_id, created_date, modified_date, email, email_auth, name, picture, role, short_bio, username) values (default, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /api/v1/temp-save
+       Parameters = {}
+          Headers = [Content-Type:"application/json;charset=UTF-8", Content-Length:"389"]
+             Body = {"title":"    ","content":"내용인데요?","member":{"createdDate":"2022-12-03T20:13:46.3612657","modifiedDate":"2022-12-03T20:13:46.3612657","id":367,"email":"azurealstn@naver.com","name":"슬로우스타터","picture":"test.jpg","role":"MEMBER","emailAuth":true,"username":"haha","shortBio":"안녕하세요!","roleKey":"ROLE_MEMBER"},"tempCode":"00f0149f-3008-4b63-9f6d-cb6340dc3a84"}
+    Session Attrs = {member=SessionMemberDto(id=367, name=슬로우스타터, email=azurealstn@naver.com, picture=test.jpg, username=haha, shortBio=안녕하세요!)}
+
+Handler:
+             Type = com.azurealstn.alog.controller.api.tempsave.TempSaveApiController
+           Method = com.azurealstn.alog.controller.api.tempsave.TempSaveApiController#create(TempSaveCreateRequestDto)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = org.springframework.web.bind.MethodArgumentNotValidException
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 400
+    Error message = null
+          Headers = [Content-Type:"application/json;charset=UTF-8"]
+     Content type = application/json;charset=UTF-8
+             Body = {"code":"400","message":"클라이언트의 잘못된 요청이 있습니다. (application/json)","validation":[{"fieldName":"title","errorMessage":"제목이 비어있습니다."}]}
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+Hibernate: select posts0_.posts_id as posts_id1_5_, posts0_.created_date as created_2_5_, posts0_.modified_date as modified3_5_, posts0_.content as content4_5_, posts0_.description as descript5_5_, posts0_.likes as likes6_5_, posts0_.member_id as member_i9_5_, posts0_.secret as secret7_5_, posts0_.title as title8_5_ from posts posts0_
+Hibernate: select tempsave0_.temp_save_id as temp_sav1_9_, tempsave0_.created_date as created_2_9_, tempsave0_.modified_date as modified3_9_, tempsave0_.content as content4_9_, tempsave0_.member_id as member_i7_9_, tempsave0_.temp_code as temp_cod5_9_, tempsave0_.title as title6_9_ from temp_save tempsave0_
+Hibernate: select member0_.member_id as member_i1_3_, member0_.created_date as created_2_3_, member0_.modified_date as modified3_3_, member0_.email as email4_3_, member0_.email_auth as email_au5_3_, member0_.name as name6_3_, member0_.picture as picture7_3_, member0_.role as role8_3_, member0_.short_bio as short_bi9_3_, member0_.username as usernam10_3_ from member member0_
+2022-12-03 20:13:46.370  INFO 16012 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Rolled back transaction for test: [DefaultTestContext@6c65578d testClass = TempSaveApiControllerTest, testInstance = com.azurealstn.alog.controller.api.tempsave.TempSaveApiControllerTest@14a7f2fd, testMethod = create_tempSave_valid_title@TempSaveApiControllerTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@5b386c8 testClass = TempSaveApiControllerTest, locations = '{}', classes = '{class com.azurealstn.alog.AlogApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true, server.port=0}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@f6c03cb, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@4ae33a11, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@3a94964, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@34a75079, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@64beebb7, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@68d279ec], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> false, 'org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -> false]]
+2022-12-03 20:13:46.372  INFO 16012 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Began transaction (1) for test context [DefaultTestContext@6c65578d testClass = TempSaveApiControllerTest, testInstance = com.azurealstn.alog.controller.api.tempsave.TempSaveApiControllerTest@5c6d8a40, testMethod = create_tempSave_valid_content@TempSaveApiControllerTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@5b386c8 testClass = TempSaveApiControllerTest, locations = '{}', classes = '{class com.azurealstn.alog.AlogApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true, server.port=0}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@f6c03cb, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@4ae33a11, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@3a94964, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@34a75079, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@64beebb7, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@68d279ec], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> false, 'org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -> false]]; transaction manager [org.springframework.orm.jpa.JpaTransactionManager@24e2d0d1]; rollback [true]
+2022-12-03 20:13:46.373  INFO 16012 --- [    Test worker] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring TestDispatcherServlet ''
+2022-12-03 20:13:46.373  INFO 16012 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2022-12-03 20:13:46.374  INFO 16012 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+Hibernate: select posts0_.posts_id as posts_id1_5_, posts0_.created_date as created_2_5_, posts0_.modified_date as modified3_5_, posts0_.content as content4_5_, posts0_.description as descript5_5_, posts0_.likes as likes6_5_, posts0_.member_id as member_i9_5_, posts0_.secret as secret7_5_, posts0_.title as title8_5_ from posts posts0_
+Hibernate: select tempsave0_.temp_save_id as temp_sav1_9_, tempsave0_.created_date as created_2_9_, tempsave0_.modified_date as modified3_9_, tempsave0_.content as content4_9_, tempsave0_.member_id as member_i7_9_, tempsave0_.temp_code as temp_cod5_9_, tempsave0_.title as title6_9_ from temp_save tempsave0_
+Hibernate: select member0_.member_id as member_i1_3_, member0_.created_date as created_2_3_, member0_.modified_date as modified3_3_, member0_.email as email4_3_, member0_.email_auth as email_au5_3_, member0_.name as name6_3_, member0_.picture as picture7_3_, member0_.role as role8_3_, member0_.short_bio as short_bi9_3_, member0_.username as usernam10_3_ from member member0_
+Hibernate: insert into member (member_id, created_date, modified_date, email, email_auth, name, picture, role, short_bio, username) values (default, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /api/v1/temp-save
+       Parameters = {}
+          Headers = [Content-Type:"application/json;charset=UTF-8", Content-Length:"389"]
+             Body = {"title":"제목이지롱?","content":"    ","member":{"createdDate":"2022-12-03T20:13:46.3772694","modifiedDate":"2022-12-03T20:13:46.3772694","id":368,"email":"azurealstn@naver.com","name":"슬로우스타터","picture":"test.jpg","role":"MEMBER","emailAuth":true,"username":"haha","shortBio":"안녕하세요!","roleKey":"ROLE_MEMBER"},"tempCode":"ed2781a6-a7e7-4e6e-91a5-814a7f78ebbf"}
+    Session Attrs = {member=SessionMemberDto(id=368, name=슬로우스타터, email=azurealstn@naver.com, picture=test.jpg, username=haha, shortBio=안녕하세요!)}
+
+Handler:
+             Type = com.azurealstn.alog.controller.api.tempsave.TempSaveApiController
+           Method = com.azurealstn.alog.controller.api.tempsave.TempSaveApiController#create(TempSaveCreateRequestDto)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = org.springframework.web.bind.MethodArgumentNotValidException
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 400
+    Error message = null
+          Headers = [Content-Type:"application/json;charset=UTF-8"]
+     Content type = application/json;charset=UTF-8
+             Body = {"code":"400","message":"클라이언트의 잘못된 요청이 있습니다. (application/json)","validation":[{"fieldName":"content","errorMessage":"내용이 비어있습니다."}]}
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+Hibernate: select posts0_.posts_id as posts_id1_5_, posts0_.created_date as created_2_5_, posts0_.modified_date as modified3_5_, posts0_.content as content4_5_, posts0_.description as descript5_5_, posts0_.likes as likes6_5_, posts0_.member_id as member_i9_5_, posts0_.secret as secret7_5_, posts0_.title as title8_5_ from posts posts0_
+Hibernate: select tempsave0_.temp_save_id as temp_sav1_9_, tempsave0_.created_date as created_2_9_, tempsave0_.modified_date as modified3_9_, tempsave0_.content as content4_9_, tempsave0_.member_id as member_i7_9_, tempsave0_.temp_code as temp_cod5_9_, tempsave0_.title as title6_9_ from temp_save tempsave0_
+Hibernate: select member0_.member_id as member_i1_3_, member0_.created_date as created_2_3_, member0_.modified_date as modified3_3_, member0_.email as email4_3_, member0_.email_auth as email_au5_3_, member0_.name as name6_3_, member0_.picture as picture7_3_, member0_.role as role8_3_, member0_.short_bio as short_bi9_3_, member0_.username as usernam10_3_ from member member0_
+2022-12-03 20:13:46.385  INFO 16012 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Rolled back transaction for test: [DefaultTestContext@6c65578d testClass = TempSaveApiControllerTest, testInstance = com.azurealstn.alog.controller.api.tempsave.TempSaveApiControllerTest@5c6d8a40, testMethod = create_tempSave_valid_content@TempSaveApiControllerTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@5b386c8 testClass = TempSaveApiControllerTest, locations = '{}', classes = '{class com.azurealstn.alog.AlogApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true, server.port=0}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@f6c03cb, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@4ae33a11, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@3a94964, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@34a75079, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@64beebb7, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@68d279ec], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> false, 'org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -> false]]
+2022-12-03 20:13:46.387  INFO 16012 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Began transaction (1) for test context [DefaultTestContext@6c65578d testClass = TempSaveApiControllerTest, testInstance = com.azurealstn.alog.controller.api.tempsave.TempSaveApiControllerTest@60873af4, testMethod = update_tempSave_x_content@TempSaveApiControllerTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@5b386c8 testClass = TempSaveApiControllerTest, locations = '{}', classes = '{class com.azurealstn.alog.AlogApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true, server.port=0}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@f6c03cb, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@4ae33a11, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@3a94964, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@34a75079, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@64beebb7, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@68d279ec], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> false, 'org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -> false]]; transaction manager [org.springframework.orm.jpa.JpaTransactionManager@24e2d0d1]; rollback [true]
+2022-12-03 20:13:46.388  INFO 16012 --- [    Test worker] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring TestDispatcherServlet ''
+2022-12-03 20:13:46.388  INFO 16012 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2022-12-03 20:13:46.388  INFO 16012 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+Hibernate: select posts0_.posts_id as posts_id1_5_, posts0_.created_date as created_2_5_, posts0_.modified_date as modified3_5_, posts0_.content as content4_5_, posts0_.description as descript5_5_, posts0_.likes as likes6_5_, posts0_.member_id as member_i9_5_, posts0_.secret as secret7_5_, posts0_.title as title8_5_ from posts posts0_
+Hibernate: select tempsave0_.temp_save_id as temp_sav1_9_, tempsave0_.created_date as created_2_9_, tempsave0_.modified_date as modified3_9_, tempsave0_.content as content4_9_, tempsave0_.member_id as member_i7_9_, tempsave0_.temp_code as temp_cod5_9_, tempsave0_.title as title6_9_ from temp_save tempsave0_
+Hibernate: select member0_.member_id as member_i1_3_, member0_.created_date as created_2_3_, member0_.modified_date as modified3_3_, member0_.email as email4_3_, member0_.email_auth as email_au5_3_, member0_.name as name6_3_, member0_.picture as picture7_3_, member0_.role as role8_3_, member0_.short_bio as short_bi9_3_, member0_.username as usernam10_3_ from member member0_
+Hibernate: insert into member (member_id, created_date, modified_date, email, email_auth, name, picture, role, short_bio, username) values (default, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: insert into temp_save (temp_save_id, created_date, modified_date, content, member_id, temp_code, title) values (default, ?, ?, ?, ?, ?, ?)
+
+MockHttpServletRequest:
+      HTTP Method = PUT
+      Request URI = /api/v1/temp-save/942eaa13-b0ed-4b2a-8405-acd66a7c19a5
+       Parameters = {}
+          Headers = [Content-Type:"application/json;charset=UTF-8", Content-Length:"51"]
+             Body = {"title":"수정 제목입니다.","content":"   "}
+    Session Attrs = {member=SessionMemberDto(id=369, name=슬로우스타터, email=azurealstn@naver.com, picture=test.jpg, username=haha, shortBio=안녕하세요!)}
+
+Handler:
+             Type = com.azurealstn.alog.controller.api.tempsave.TempSaveApiController
+           Method = com.azurealstn.alog.controller.api.tempsave.TempSaveApiController#update(TempSaveUpdateRequestDto, String)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = org.springframework.web.bind.MethodArgumentNotValidException
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 400
+    Error message = null
+          Headers = [Content-Type:"application/json;charset=UTF-8"]
+     Content type = application/json;charset=UTF-8
+             Body = {"code":"400","message":"클라이언트의 잘못된 요청이 있습니다. (application/json)","validation":[{"fieldName":"content","errorMessage":"내용이 비어있습니다."}]}
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+Hibernate: select posts0_.posts_id as posts_id1_5_, posts0_.created_date as created_2_5_, posts0_.modified_date as modified3_5_, posts0_.content as content4_5_, posts0_.description as descript5_5_, posts0_.likes as likes6_5_, posts0_.member_id as member_i9_5_, posts0_.secret as secret7_5_, posts0_.title as title8_5_ from posts posts0_
+Hibernate: select tempsave0_.temp_save_id as temp_sav1_9_, tempsave0_.created_date as created_2_9_, tempsave0_.modified_date as modified3_9_, tempsave0_.content as content4_9_, tempsave0_.member_id as member_i7_9_, tempsave0_.temp_code as temp_cod5_9_, tempsave0_.title as title6_9_ from temp_save tempsave0_
+Hibernate: select member0_.member_id as member_i1_3_, member0_.created_date as created_2_3_, member0_.modified_date as modified3_3_, member0_.email as email4_3_, member0_.email_auth as email_au5_3_, member0_.name as name6_3_, member0_.picture as picture7_3_, member0_.role as role8_3_, member0_.short_bio as short_bi9_3_, member0_.username as usernam10_3_ from member member0_
+2022-12-03 20:13:46.401  INFO 16012 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Rolled back transaction for test: [DefaultTestContext@6c65578d testClass = TempSaveApiControllerTest, testInstance = com.azurealstn.alog.controller.api.tempsave.TempSaveApiControllerTest@60873af4, testMethod = update_tempSave_x_content@TempSaveApiControllerTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@5b386c8 testClass = TempSaveApiControllerTest, locations = '{}', classes = '{class com.azurealstn.alog.AlogApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true, server.port=0}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@f6c03cb, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@4ae33a11, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@3a94964, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@34a75079, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@64beebb7, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@68d279ec], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> false, 'org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -> false]]
+2022-12-03 20:13:46.402  INFO 16012 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Began transaction (1) for test context [DefaultTestContext@6c65578d testClass = TempSaveApiControllerTest, testInstance = com.azurealstn.alog.controller.api.tempsave.TempSaveApiControllerTest@f3dfca7, testMethod = update_tempSave_x_title@TempSaveApiControllerTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@5b386c8 testClass = TempSaveApiControllerTest, locations = '{}', classes = '{class com.azurealstn.alog.AlogApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true, server.port=0}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@f6c03cb, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@4ae33a11, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@3a94964, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@34a75079, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@64beebb7, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@68d279ec], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> false, 'org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -> false]]; transaction manager [org.springframework.orm.jpa.JpaTransactionManager@24e2d0d1]; rollback [true]
+2022-12-03 20:13:46.403  INFO 16012 --- [    Test worker] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring TestDispatcherServlet ''
+2022-12-03 20:13:46.403  INFO 16012 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2022-12-03 20:13:46.404  INFO 16012 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+Hibernate: select posts0_.posts_id as posts_id1_5_, posts0_.created_date as created_2_5_, posts0_.modified_date as modified3_5_, posts0_.content as content4_5_, posts0_.description as descript5_5_, posts0_.likes as likes6_5_, posts0_.member_id as member_i9_5_, posts0_.secret as secret7_5_, posts0_.title as title8_5_ from posts posts0_
+Hibernate: select tempsave0_.temp_save_id as temp_sav1_9_, tempsave0_.created_date as created_2_9_, tempsave0_.modified_date as modified3_9_, tempsave0_.content as content4_9_, tempsave0_.member_id as member_i7_9_, tempsave0_.temp_code as temp_cod5_9_, tempsave0_.title as title6_9_ from temp_save tempsave0_
+Hibernate: select member0_.member_id as member_i1_3_, member0_.created_date as created_2_3_, member0_.modified_date as modified3_3_, member0_.email as email4_3_, member0_.email_auth as email_au5_3_, member0_.name as name6_3_, member0_.picture as picture7_3_, member0_.role as role8_3_, member0_.short_bio as short_bi9_3_, member0_.username as usernam10_3_ from member member0_
+Hibernate: insert into member (member_id, created_date, modified_date, email, email_auth, name, picture, role, short_bio, username) values (default, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: insert into temp_save (temp_save_id, created_date, modified_date, content, member_id, temp_code, title) values (default, ?, ?, ?, ?, ?, ?)
+
+MockHttpServletRequest:
+      HTTP Method = PUT
+      Request URI = /api/v1/temp-save/473ae28d-dd10-47f7-88e3-cbd3908f508c
+       Parameters = {}
+          Headers = [Content-Type:"application/json;charset=UTF-8", Content-Length:"53"]
+             Body = {"title":"     ","content":"수정 내용입니다."}
+    Session Attrs = {member=SessionMemberDto(id=370, name=슬로우스타터, email=azurealstn@naver.com, picture=test.jpg, username=haha, shortBio=안녕하세요!)}
+
+Handler:
+             Type = com.azurealstn.alog.controller.api.tempsave.TempSaveApiController
+           Method = com.azurealstn.alog.controller.api.tempsave.TempSaveApiController#update(TempSaveUpdateRequestDto, String)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = org.springframework.web.bind.MethodArgumentNotValidException
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 400
+    Error message = null
+          Headers = [Content-Type:"application/json;charset=UTF-8"]
+     Content type = application/json;charset=UTF-8
+             Body = {"code":"400","message":"클라이언트의 잘못된 요청이 있습니다. (application/json)","validation":[{"fieldName":"title","errorMessage":"제목이 비어있습니다."}]}
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+Hibernate: select posts0_.posts_id as posts_id1_5_, posts0_.created_date as created_2_5_, posts0_.modified_date as modified3_5_, posts0_.content as content4_5_, posts0_.description as descript5_5_, posts0_.likes as likes6_5_, posts0_.member_id as member_i9_5_, posts0_.secret as secret7_5_, posts0_.title as title8_5_ from posts posts0_
+Hibernate: select tempsave0_.temp_save_id as temp_sav1_9_, tempsave0_.created_date as created_2_9_, tempsave0_.modified_date as modified3_9_, tempsave0_.content as content4_9_, tempsave0_.member_id as member_i7_9_, tempsave0_.temp_code as temp_cod5_9_, tempsave0_.title as title6_9_ from temp_save tempsave0_
+Hibernate: select member0_.member_id as member_i1_3_, member0_.created_date as created_2_3_, member0_.modified_date as modified3_3_, member0_.email as email4_3_, member0_.email_auth as email_au5_3_, member0_.name as name6_3_, member0_.picture as picture7_3_, member0_.role as role8_3_, member0_.short_bio as short_bi9_3_, member0_.username as usernam10_3_ from member member0_
+2022-12-03 20:13:46.415  INFO 16012 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Rolled back transaction for test: [DefaultTestContext@6c65578d testClass = TempSaveApiControllerTest, testInstance = com.azurealstn.alog.controller.api.tempsave.TempSaveApiControllerTest@f3dfca7, testMethod = update_tempSave_x_title@TempSaveApiControllerTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@5b386c8 testClass = TempSaveApiControllerTest, locations = '{}', classes = '{class com.azurealstn.alog.AlogApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true, server.port=0}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@f6c03cb, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@4ae33a11, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@3a94964, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@34a75079, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@64beebb7, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@68d279ec], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> false, 'org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -> false]]
+2022-12-03 20:13:46.417  INFO 16012 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Began transaction (1) for test context [DefaultTestContext@6c65578d testClass = TempSaveApiControllerTest, testInstance = com.azurealstn.alog.controller.api.tempsave.TempSaveApiControllerTest@55f02b32, testMethod = temp_save_delete_o@TempSaveApiControllerTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@5b386c8 testClass = TempSaveApiControllerTest, locations = '{}', classes = '{class com.azurealstn.alog.AlogApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true, server.port=0}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@f6c03cb, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@4ae33a11, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@3a94964, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@34a75079, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@64beebb7, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@68d279ec], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> false, 'org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -> false]]; transaction manager [org.springframework.orm.jpa.JpaTransactionManager@24e2d0d1]; rollback [true]
+2022-12-03 20:13:46.418  INFO 16012 --- [    Test worker] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring TestDispatcherServlet ''
+2022-12-03 20:13:46.418  INFO 16012 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2022-12-03 20:13:46.418  INFO 16012 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+Hibernate: select posts0_.posts_id as posts_id1_5_, posts0_.created_date as created_2_5_, posts0_.modified_date as modified3_5_, posts0_.content as content4_5_, posts0_.description as descript5_5_, posts0_.likes as likes6_5_, posts0_.member_id as member_i9_5_, posts0_.secret as secret7_5_, posts0_.title as title8_5_ from posts posts0_
+Hibernate: select tempsave0_.temp_save_id as temp_sav1_9_, tempsave0_.created_date as created_2_9_, tempsave0_.modified_date as modified3_9_, tempsave0_.content as content4_9_, tempsave0_.member_id as member_i7_9_, tempsave0_.temp_code as temp_cod5_9_, tempsave0_.title as title6_9_ from temp_save tempsave0_
+Hibernate: select member0_.member_id as member_i1_3_, member0_.created_date as created_2_3_, member0_.modified_date as modified3_3_, member0_.email as email4_3_, member0_.email_auth as email_au5_3_, member0_.name as name6_3_, member0_.picture as picture7_3_, member0_.role as role8_3_, member0_.short_bio as short_bi9_3_, member0_.username as usernam10_3_ from member member0_
+Hibernate: insert into member (member_id, created_date, modified_date, email, email_auth, name, picture, role, short_bio, username) values (default, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: insert into temp_save (temp_save_id, created_date, modified_date, content, member_id, temp_code, title) values (default, ?, ?, ?, ?, ?, ?)
+
+MockHttpServletRequest:
+      HTTP Method = DELETE
+      Request URI = /api/v1/temp-save/102
+       Parameters = {}
+          Headers = [Content-Type:"application/json;charset=UTF-8"]
+             Body = null
+    Session Attrs = {member=SessionMemberDto(id=371, name=슬로우스타터, email=azurealstn@naver.com, picture=test.jpg, username=haha, shortBio=안녕하세요!)}
+
+Handler:
+             Type = com.azurealstn.alog.controller.api.tempsave.TempSaveApiController
+           Method = com.azurealstn.alog.controller.api.tempsave.TempSaveApiController#delete(Long)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 200
+    Error message = null
+          Headers = [Content-Type:"application/json;charset=UTF-8"]
+     Content type = application/json;charset=UTF-8
+             Body = 102
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+Hibernate: delete from temp_save where temp_save_id=?
+Hibernate: select posts0_.posts_id as posts_id1_5_, posts0_.created_date as created_2_5_, posts0_.modified_date as modified3_5_, posts0_.content as content4_5_, posts0_.description as descript5_5_, posts0_.likes as likes6_5_, posts0_.member_id as member_i9_5_, posts0_.secret as secret7_5_, posts0_.title as title8_5_ from posts posts0_
+Hibernate: select tempsave0_.temp_save_id as temp_sav1_9_, tempsave0_.created_date as created_2_9_, tempsave0_.modified_date as modified3_9_, tempsave0_.content as content4_9_, tempsave0_.member_id as member_i7_9_, tempsave0_.temp_code as temp_cod5_9_, tempsave0_.title as title6_9_ from temp_save tempsave0_
+Hibernate: select member0_.member_id as member_i1_3_, member0_.created_date as created_2_3_, member0_.modified_date as modified3_3_, member0_.email as email4_3_, member0_.email_auth as email_au5_3_, member0_.name as name6_3_, member0_.picture as picture7_3_, member0_.role as role8_3_, member0_.short_bio as short_bi9_3_, member0_.username as usernam10_3_ from member member0_
+2022-12-03 20:13:46.429  INFO 16012 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Rolled back transaction for test: [DefaultTestContext@6c65578d testClass = TempSaveApiControllerTest, testInstance = com.azurealstn.alog.controller.api.tempsave.TempSaveApiControllerTest@55f02b32, testMethod = temp_save_delete_o@TempSaveApiControllerTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@5b386c8 testClass = TempSaveApiControllerTest, locations = '{}', classes = '{class com.azurealstn.alog.AlogApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true, server.port=0}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@f6c03cb, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@4ae33a11, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@3a94964, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@34a75079, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@64beebb7, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@68d279ec], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> false, 'org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -> false]]
+2022-12-03 20:13:46.430  INFO 16012 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Began transaction (1) for test context [DefaultTestContext@6c65578d testClass = TempSaveApiControllerTest, testInstance = com.azurealstn.alog.controller.api.tempsave.TempSaveApiControllerTest@4f1bfab4, testMethod = temp_save_delete_x@TempSaveApiControllerTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@5b386c8 testClass = TempSaveApiControllerTest, locations = '{}', classes = '{class com.azurealstn.alog.AlogApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true, server.port=0}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@f6c03cb, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@4ae33a11, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@3a94964, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@34a75079, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@64beebb7, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@68d279ec], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> false, 'org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -> false]]; transaction manager [org.springframework.orm.jpa.JpaTransactionManager@24e2d0d1]; rollback [true]
+2022-12-03 20:13:46.431  INFO 16012 --- [    Test worker] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring TestDispatcherServlet ''
+2022-12-03 20:13:46.431  INFO 16012 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2022-12-03 20:13:46.432  INFO 16012 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+Hibernate: select posts0_.posts_id as posts_id1_5_, posts0_.created_date as created_2_5_, posts0_.modified_date as modified3_5_, posts0_.content as content4_5_, posts0_.description as descript5_5_, posts0_.likes as likes6_5_, posts0_.member_id as member_i9_5_, posts0_.secret as secret7_5_, posts0_.title as title8_5_ from posts posts0_
+Hibernate: select tempsave0_.temp_save_id as temp_sav1_9_, tempsave0_.created_date as created_2_9_, tempsave0_.modified_date as modified3_9_, tempsave0_.content as content4_9_, tempsave0_.member_id as member_i7_9_, tempsave0_.temp_code as temp_cod5_9_, tempsave0_.title as title6_9_ from temp_save tempsave0_
+Hibernate: select member0_.member_id as member_i1_3_, member0_.created_date as created_2_3_, member0_.modified_date as modified3_3_, member0_.email as email4_3_, member0_.email_auth as email_au5_3_, member0_.name as name6_3_, member0_.picture as picture7_3_, member0_.role as role8_3_, member0_.short_bio as short_bi9_3_, member0_.username as usernam10_3_ from member member0_
+Hibernate: insert into member (member_id, created_date, modified_date, email, email_auth, name, picture, role, short_bio, username) values (default, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: insert into temp_save (temp_save_id, created_date, modified_date, content, member_id, temp_code, title) values (default, ?, ?, ?, ?, ?, ?)
+Hibernate: select tempsave0_.temp_save_id as temp_sav1_9_0_, tempsave0_.created_date as created_2_9_0_, tempsave0_.modified_date as modified3_9_0_, tempsave0_.content as content4_9_0_, tempsave0_.member_id as member_i7_9_0_, tempsave0_.temp_code as temp_cod5_9_0_, tempsave0_.title as title6_9_0_ from temp_save tempsave0_ where tempsave0_.temp_save_id=?
+
+MockHttpServletRequest:
+      HTTP Method = DELETE
+      Request URI = /api/v1/temp-save/104
+       Parameters = {}
+          Headers = [Content-Type:"application/json;charset=UTF-8"]
+             Body = null
+    Session Attrs = {member=SessionMemberDto(id=372, name=슬로우스타터, email=azurealstn@naver.com, picture=test.jpg, username=haha, shortBio=안녕하세요!)}
+
+Handler:
+             Type = com.azurealstn.alog.controller.api.tempsave.TempSaveApiController
+           Method = com.azurealstn.alog.controller.api.tempsave.TempSaveApiController#delete(Long)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = com.azurealstn.alog.Infra.exception.tempsave.TempSaveNotFound
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 404
+    Error message = null
+          Headers = [Content-Type:"application/json;charset=UTF-8"]
+     Content type = application/json;charset=UTF-8
+             Body = {"code":"404","message":"해당 임시글이 없습니다.","validation":[]}
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+Hibernate: select posts0_.posts_id as posts_id1_5_, posts0_.created_date as created_2_5_, posts0_.modified_date as modified3_5_, posts0_.content as content4_5_, posts0_.description as descript5_5_, posts0_.likes as likes6_5_, posts0_.member_id as member_i9_5_, posts0_.secret as secret7_5_, posts0_.title as title8_5_ from posts posts0_
+Hibernate: select tempsave0_.temp_save_id as temp_sav1_9_, tempsave0_.created_date as created_2_9_, tempsave0_.modified_date as modified3_9_, tempsave0_.content as content4_9_, tempsave0_.member_id as member_i7_9_, tempsave0_.temp_code as temp_cod5_9_, tempsave0_.title as title6_9_ from temp_save tempsave0_
+Hibernate: select member0_.member_id as member_i1_3_, member0_.created_date as created_2_3_, member0_.modified_date as modified3_3_, member0_.email as email4_3_, member0_.email_auth as email_au5_3_, member0_.name as name6_3_, member0_.picture as picture7_3_, member0_.role as role8_3_, member0_.short_bio as short_bi9_3_, member0_.username as usernam10_3_ from member member0_
+2022-12-03 20:13:46.445  INFO 16012 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Rolled back transaction for test: [DefaultTestContext@6c65578d testClass = TempSaveApiControllerTest, testInstance = com.azurealstn.alog.controller.api.tempsave.TempSaveApiControllerTest@4f1bfab4, testMethod = temp_save_delete_x@TempSaveApiControllerTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@5b386c8 testClass = TempSaveApiControllerTest, locations = '{}', classes = '{class com.azurealstn.alog.AlogApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true, server.port=0}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@f6c03cb, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@4ae33a11, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@3a94964, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@34a75079, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@64beebb7, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@68d279ec], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> false, 'org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -> false]]
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

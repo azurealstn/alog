@@ -1,0 +1,274 @@
+{{>layout/header-dark}}
+
+<div class="detail">
+    <div class="detail-top">
+        <input type="hidden" id="postsId" value="{{posts.id}}">
+        {{#member}}
+        <input type="hidden" id="memberId" value="{{member.id}}">
+        {{/member}}
+        {{^member}}
+        <input type="hidden" id="memberId" value="">
+        {{/member}}
+        <input type="hidden" id="secret" value="{{posts.secret}}">
+        <div class="head-wrapper">
+            <h1>{{posts.title}}</h1>
+            {{#isAuthenticated}}
+                <div class="modify-posts-buttons">
+                    <button id="update-btn">수정</button>
+                    <button id="delete-btn" onclick="postsMain.deletePosts({{posts.id}})">삭제</button>
+                </div>
+            {{/isAuthenticated}}
+            <div class="posts-info">
+                <div class="information">
+                    <span class="username">
+                      <a href="/api/v1/my-alog/{{posts.member.id}}">{{posts.member.name}}</a>
+                    </span>
+                    <span class="separator">·</span>
+                    <span>{{previousPostsDate}}</span>
+                    {{#isSecret}}
+                        <span class="separator">·</span>
+                        <div class="isSecret-area">
+                            <i class="fa-solid fa-lock"></i>
+                            <span>비공개</span>
+                        </div>
+                    {{/isSecret}}
+                </div>
+                <div class="posts-likes">
+                    {{#existHeart}}
+                    <button class="like-btn active">
+                        <i class="fa-solid fa-heart active"></i>
+                        <span class="active">{{likeCount}}</span>
+                    </button>
+                    {{/existHeart}}
+                    {{^existHeart}}
+                        <button class="like-btn">
+                            <i class="fa-solid fa-heart"></i>
+                            <span class="">{{likeCount}}</span>
+                        </button>
+                    {{/existHeart}}
+                </div>
+            </div>
+            <div class="posts-tags">
+                {{#hashTagList}}
+                <a href="/api/v1/auth/tags/{{name}}" class="tag">{{name}}</a>
+                {{/hashTagList}}
+                {{^hashTagList}}
+                {{/hashTagList}}
+            </div>
+            <div class="quick-menu">
+                <div class="menu-like">
+                    <div class="menu-container">
+                        {{#existHeart}}
+                        <div class="like-heart active">
+                            <i class="fa-solid fa-heart"></i>
+                        </div>
+                        {{/existHeart}}
+                        {{^existHeart}}
+                            <div class="like-heart">
+                                <i class="fa-solid fa-heart"></i>
+                            </div>
+                        {{/existHeart}}
+                        <div class="like-count">{{likeCount}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{#postsImage}}
+        <img src="{{postsImage.imageUrl}}" alt="posts-thumbnail" class="thumbnail-img">
+        {{/postsImage}}
+    </div>
+    <div class="detail-bottom">
+        <div class="posts-body">
+            <!-- toast ui editor viewer -->
+            <div id="viewer">
+
+            </div>
+        </div>
+    </div>
+    <div class="member-info">
+        <div class="member-container">
+            <div class="info">
+                <a href="/api/v1/my-alog/{{posts.member.id}}" style="cursor: pointer;">
+                    <img src="{{posts.member.picture}}" alt="프로필 사진">
+                </a>
+                <div class="sub-info">
+                    <div class="name">
+                        <a href="/api/v1/my-alog/{{posts.member.id}}">{{posts.member.name}}</a>
+                    </div>
+                    <div>{{posts.member.shortBio}}</div>
+                </div>
+            </div>
+            <div class="divide"></div>
+        </div>
+    </div>
+    <div class="replay">
+        <h4>
+            <span>{{commentCountByPosts}}</span>
+            <span>개의 댓글</span>
+        </h4>
+        <div class="replay-container">
+            <div class="replay-write">
+                <input type="hidden" name="level" id="level" value="0">
+                <textarea name="content" id="content" class="replay-content" placeholder="댓글을 작성하세요"></textarea>
+                <div class="buttons-wrapper">
+                    <button class="write-btn">댓글 작성</button>
+                </div>
+            </div>
+            <div class="replay-list">
+                {{#commentLevel0}}
+                <div class="replay-list-container">
+                    <div class="comment">
+                        <div class="comment-member">
+                            <div class="profile">
+                                <a href="/api/v1/my-alog/{{member.id}}">
+                                    <img src="{{member.picture}}" alt="comment member profile thumbnail">
+                                </a>
+                                <div class="comment-info">
+                                    <div class="username">
+                                        <a href="/api/v1/my-alog/{{member.id}}">{{member.name}}</a>
+                                    </div>
+                                    <div class="date">{{previousTime}}</div>
+                                </div>
+                            </div>
+                            {{#isCommentMe}}
+                            <div class="actions">
+                                <span id="modify-{{id}}" onclick="postsMain.commentModifyShowHide({{id}})" style="cursor: pointer;">수정</span>
+                                <span id="delete-{{id}}" onclick="postsMain.commentDelete({{id}})" style="cursor: pointer;">삭제</span>
+                            </div>
+                            {{/isCommentMe}}
+                        </div>
+                        <div class="comment-content">
+                            <div class="atom-one">
+                                <p class="show" id="p-{{id}}">{{content}}</p>
+                                <div class="replay-write hide" id="reply-write_{{id}}">
+                                    <input type="hidden" name="level" id="level" value="0">
+                                    <textarea name="content" id="content-{{id}}" class="replay-content" placeholder="댓글을 작성하세요">{{content}}</textarea>
+                                    <div class="buttons-wrapper">
+                                        <button class="write-btn" onclick="postsMain.commentModify({{id}})">댓글 수정</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comment-reply">
+                            <div class="reply-area" onclick="postsMain.commentShowAndHide({{id}})">
+                                <i class="fa-solid fa-square-plus" id="icon-{{id}}"></i>
+                                <span class="show-reply" id="text-{{id}}">답글 작성</span>
+                            </div>
+                            <div class="reply-detail-list" id="detail-list-{{id}}">
+                                <div class="replay-margin"></div>
+                                <div class="reply-content">
+                                    {{#subCommentList}}
+                                    <div class="comment" id="comment-{{upCommentId}}">
+                                        <div class="comment-member">
+                                            <div class="profile">
+                                                <a href="/api/v1/my-alog/{{member.id}}">
+                                                    <img src="{{member.picture}}" alt="comment member profile thumbnail">
+                                                </a>
+                                                <div class="comment-info">
+                                                    <div class="username">
+                                                        <a href="/api/v1/my-alog/{{member.id}}">{{member.name}}</a>
+                                                    </div>
+                                                    <div class="date">{{previousTime}}</div>
+                                                </div>
+                                            </div>
+                                            {{#isCommentMe}}
+                                            <div class="actions">
+                                                <span id="sub-modify-{{id}}" onclick="postsMain.replyModifyShowHide({{id}})" style="cursor: pointer;">수정</span>
+                                                <span id="sub-delete-{{id}}" onclick="postsMain.subCommentDelete({{id}})" style="cursor: pointer;">삭제</span>
+                                            </div>
+                                            {{/isCommentMe}}
+                                        </div>
+                                        <div class="comment-content">
+                                            <div class="atom-one">
+                                                <p class="show" id="sub-p-{{id}}">{{content}}</p>
+                                                <div class="replay-write hide" id="sub-reply-write_{{id}}">
+                                                    <input type="hidden" name="level" id="level" value="1">
+                                                    <textarea name="content" id="sub-content-{{id}}" class="replay-content" placeholder="댓글을 작성하세요">{{content}}</textarea>
+                                                    <div class="buttons-wrapper">
+                                                        <button class="write-btn" onclick="postsMain.commentModify({{id}})">댓글 수정</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{/subCommentList}}
+                                    {{#hasSubCommentList}}
+                                    <div class="comment-margin"></div>
+                                    <div id="reply-parent-{{id}}">
+                                        <button class="reply-comment-btn" onclick="postsMain.replyShow({{id}})">답글 작성하기</button>
+                                    </div>
+                                    {{/hasSubCommentList}}
+                                    {{^subCommentList}}
+                                    <div class="replay-write" id="replay-write-{{id}}">
+                                        <input type="hidden" name="level" id="subLevel" value="1">
+                                        <input type="hidden" name="upCommentId" id="upCommentId" value="{{id}}">
+                                        <textarea name="content" id="subContent" class="replay-content" placeholder="댓글을 작성하세요"></textarea>
+                                        <div class="buttons-wrapper">
+                                            <!--<button class="reply-cancel" id="reply-cancel-{{id}}" onclick="postsMain.replyCancel({{id}})">취소</button>-->
+                                            <button class="write-btn-sub">댓글 작성</button>
+                                        </div>
+                                    </div>
+                                    {{/subCommentList}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{/commentLevel0}}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal -->
+<div class="modal-bg" id="modal-bg-hide"></div>
+<div class="modal-container-detail" id="modal-container-hide">
+    <div class="wrapper">
+        <div class="gray-block">
+            <div>
+                <img src="/images/pumpkin.png" alt="welcome">
+                <div class="welcome">Welcome!</div>
+            </div>
+        </div>
+        <div class="white-block">
+            <div class="exit-wrapper">
+                <button id="hide-btn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="block-content">
+                <div class="content-wrapper">
+                    <div class="upper-wrapper">
+                        <h2 class="change-login">로그인</h2>
+                        <section>
+                            <h4>이메일로 <span class="change-login">로그인</span></h4>
+                            <form class="login-form" onsubmit="return false">
+                                <input autocomplete="off" type="text" id="email" name="email" placeholder="이메일을 입력하세요.">
+                                <button class="login-btn change-login" id="login-btn">로그인</button>
+                            </form>
+                            <div class="message" style="display: none;">
+                                <i class="fa-solid fa-check"></i>
+                                <div class="message-description">
+                                    <span class="emailCheck">회원가입</span> 링크가 이메일로 전송되었습니다.
+                                </div>
+                            </div>
+                        </section>
+                        <section>
+                            <h4>소셜 계정으로 <span class="change-login">로그인</span></h4>
+                            <div class="social-login">
+                                <a href="/oauth2/authorization/google" class="social-link" style="background: white;">
+                                    <img class="google" src="/images/social-google.png" alt="google">
+                                </a>
+                                <a href="/oauth2/authorization/naver" class="social-link">
+                                    <img src="/images/social-naver.png" alt="naver">
+                                </a>
+                            </div>
+                        </section>
+                    </div>
+                    <div class="foot">
+                        <span class="member">아직 회원이 아니신가요?</span>
+                        <div class="link">회원가입</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

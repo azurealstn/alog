@@ -1,0 +1,6 @@
+[source,bash]
+----
+$ curl 'http://localhost:8080/api/v1/temp-save/1dbb555e-5ed7-40a5-9ce7-cbc7f4659259' -i -X PUT \
+    -H 'Content-Type: application/json;charset=UTF-8' \
+    -d '{"title":"수정 제목입니다.","content":"수정 내용입니다."}'
+----

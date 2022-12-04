@@ -1,0 +1,8 @@
+.+/api/v1/temp-save/{tempCode}+
+|===
+|Parameter|Description
+
+|`+tempCode+`
+|임시저장 코드
+
+|===

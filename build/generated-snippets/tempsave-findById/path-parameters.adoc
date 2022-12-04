@@ -1,0 +1,8 @@
+.+/api/v1/temp-save/{tempSaveId}+
+|===
+|Parameter|Description
+
+|`+tempSaveId+`
+|임시저장 ID
+
+|===

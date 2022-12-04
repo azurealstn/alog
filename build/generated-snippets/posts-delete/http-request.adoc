@@ -1,0 +1,8 @@
+[source,http,options="nowrap"]
+----
+DELETE /api/v1/posts/563 HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Accept: application/json
+Host: localhost:8080
+
+----

@@ -1,0 +1,5 @@
+[source,bash]
+----
+$ echo '{"name":"슬로우스타터","email":"azurealstn@naver.com","username":"haha","shortBio":"안녕하세요!","picture":"test.jpg","role":null,"emailAuth":null}' | http POST 'http://localhost:8080/api/v1/auth/create-member' \
+    'Content-Type:application/json;charset=UTF-8'
+----

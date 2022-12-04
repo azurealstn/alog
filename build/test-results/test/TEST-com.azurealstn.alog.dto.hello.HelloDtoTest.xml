@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.azurealstn.alog.dto.hello.HelloDtoTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-12-03T11:13:46" hostname="DESKTOP-4HIAQNR" time="0.001">
+  <properties/>
+  <testcase name="lombok이 제대로 동작하는지 테스트" classname="com.azurealstn.alog.dto.hello.HelloDtoTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

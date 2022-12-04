@@ -1,0 +1,588 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.azurealstn.alog.controller.member.MemberControllerTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2022-12-03T11:13:46" hostname="DESKTOP-4HIAQNR" time="0.074">
+  <properties/>
+  <testcase name="/api/v1/my-alog/{memberId} 호출시 내 에이로그 페이지" classname="com.azurealstn.alog.controller.member.MemberControllerTest" time="0.032"/>
+  <testcase name="/api/v1/setting/{memberId} 호출시 회원 설정 페이지" classname="com.azurealstn.alog.controller.member.MemberControllerTest" time="0.018"/>
+  <testcase name="/api/v1/auth/create-member status 200" classname="com.azurealstn.alog.controller.member.MemberControllerTest" time="0.022"/>
+  <system-out><![CDATA[2022-12-03 20:13:46.555  INFO 16012 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.azurealstn.alog.controller.member.MemberControllerTest], using SpringBootContextLoader
+2022-12-03 20:13:46.556  INFO 16012 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [com.azurealstn.alog.controller.member.MemberControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+2022-12-03 20:13:46.556  INFO 16012 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.azurealstn.alog.controller.member.MemberControllerTest]: MemberControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2022-12-03 20:13:46.563  INFO 16012 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.azurealstn.alog.AlogApplication for test class com.azurealstn.alog.controller.member.MemberControllerTest
+2022-12-03 20:13:46.564  INFO 16012 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener, org.springframework.security.test.context.support.ReactorContextTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+2022-12-03 20:13:46.565  INFO 16012 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@64922e2f, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@6d77c929, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@45eeea37, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@3bf5ced8, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@4e637cdf, org.springframework.test.context.support.DirtiesContextTestExecutionListener@1d8ecabb, org.springframework.test.context.transaction.TransactionalTestExecutionListener@2f83346f, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@3a95bc49, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener@6f45aa40, org.springframework.test.context.event.EventPublishingTestExecutionListener@4757e01, org.springframework.security.test.context.support.ReactorContextTestExecutionListener@326312ac, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@2503975d, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@67d62e17, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@48fcc19a, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@62204c5b, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@5ba0863d, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@d50bdc8]
+2022-12-03 20:13:46.569  INFO 16012 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2022-12-03 20:13:46.569  INFO 16012 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2022-12-03 20:13:46.569  INFO 16012 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+Hibernate: select member0_.member_id as member_i1_3_, member0_.created_date as created_2_3_, member0_.modified_date as modified3_3_, member0_.email as email4_3_, member0_.email_auth as email_au5_3_, member0_.name as name6_3_, member0_.picture as picture7_3_, member0_.role as role8_3_, member0_.short_bio as short_bi9_3_, member0_.username as usernam10_3_ from member member0_
+Hibernate: insert into member (member_id, created_date, modified_date, email, email_auth, name, picture, role, short_bio, username) values (default, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: select member0_.member_id as member_i1_3_0_, member0_.created_date as created_2_3_0_, member0_.modified_date as modified3_3_0_, member0_.email as email4_3_0_, member0_.email_auth as email_au5_3_0_, member0_.name as name6_3_0_, member0_.picture as picture7_3_0_, member0_.role as role8_3_0_, member0_.short_bio as short_bi9_3_0_, member0_.username as usernam10_3_0_ from member member0_ where member0_.member_id=?
+Hibernate: select posts0_.posts_id as posts_id1_5_, posts0_.created_date as created_2_5_, posts0_.modified_date as modified3_5_, posts0_.content as content4_5_, posts0_.description as descript5_5_, posts0_.likes as likes6_5_, posts0_.member_id as member_i9_5_, posts0_.secret as secret7_5_, posts0_.title as title8_5_ from posts posts0_ where posts0_.member_id=? order by posts0_.posts_id desc
+
+MockHttpServletRequest:
+      HTTP Method = GET
+      Request URI = /api/v1/my-alog/375
+       Parameters = {}
+          Headers = []
+             Body = null
+    Session Attrs = {member=SessionMemberDto(id=375, name=슬로우스타터, email=azurealstn@naver.com, picture=test.jpg, username=haha, shortBio=안녕하세요!)}
+
+Handler:
+             Type = com.azurealstn.alog.controller.member.MemberController
+           Method = com.azurealstn.alog.controller.member.MemberController#myAlog(Model, Long)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = member/my-alog
+             View = null
+        Attribute = member
+            value = com.azurealstn.alog.dto.member.MemberResponseDto@111c2c9c
+           errors = []
+        Attribute = sessionMemberDto
+            value = com.azurealstn.alog.dto.member.MemberResponseDto@1cf676b8
+           errors = []
+        Attribute = postsListByMember
+            value = []
+        Attribute = isMyPosts
+            value = true
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 200
+    Error message = null
+          Headers = [Content-Language:"en", Content-Type:"text/html;charset=UTF-8"]
+     Content type = text/html;charset=UTF-8
+             Body = <!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO -->
+    <meta name="description" content="이 사이트는 velog를 클론코딩한 alog 입니다. 이제 react가 아닌 mustache를 더한">
+    <meta name="keywords" content="프론트엔드, 백엔드, 풀스택, alog, velog, 클론코딩, 사이드 프로젝트">
+    <meta name="author" content="azurealstn">
+    <title>alog</title>
+
+    <!-- Open Graph (Facebook, Linkedin) -->
+    <meta property="og:url" content="https://velog.io/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="velog 클론코딩한 alog">
+    <meta property="og:description" content="이 사이트는 velog를 클론코딩한 alog 입니다. 이제 react가 아닌 mustache를 더한">
+    <meta property="og:image" content="/images/online.jpg">
+    <meta property="og:image:secure_url" content="/images/online.jpg">
+    <meta property="og:site_name" content="velog 클론코딩">
+    <meta property="og:locale" content="ko-KR">
+
+    <!-- twitter card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="velog 클론코딩한 alog">
+    <meta name="twitter:description" content="이 사이트는 velog를 클론코딩한 alog 입니다. 이제 react가 아닌 mustache를 더한">
+    <meta name="twitter:image" content="/images/online.jpg">
+    <meta name="twitter:url" content="https://velog.io/">
+    <meta name="twitter:site" content="@azurealstn">
+    <meta name="twitter:creator" content="@azurealstn">
+
+    <!-- fabicon -->
+    <link rel="icon" type="image/png" sizes="512x512" href="/images/leaf-fabicon.png">
+
+    <!-- apple fabicon -->
+    <link rel="apple-touch-icon" sizes="512x512" href="/images/leaf-fabicon.png">
+
+    <!-- CSS Reset -->
+    <link rel="stylesheet" href="/css/normalize.css">
+
+    <!-- FontAwesome -->
+    <script src="https://kit.fontawesome.com/32f48298df.js" crossorigin="anonymous"></script>
+
+    <!-- Font -->
+    <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css2?family=Concert+One&family=Fuzzy+Bubbles:wght@700&family=Nanum+Gothic&family=Silkscreen&display=swap" rel="stylesheet">
+
+    <!-- Toast   -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+    <!-- CSS load -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"/>
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/theme/toastui-editor-dark.min.css">
+    <link rel="stylesheet" href="https://uicdn.toast.com/tui-color-picker/latest/tui-color-picker.min.css">
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor-plugin-color-syntax/latest/toastui-editor-plugin-color-syntax.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css">
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor-plugin-code-syntax-highlight/latest/toastui-editor-plugin-code-syntax-highlight.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/my-alog.css">
+
+    <!-- JavaScript load -->
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous" defer></script>
+    <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js" defer></script>
+    <script src="https://uicdn.toast.com/tui-color-picker/latest/tui-color-picker.min.js" defer></script>
+    <script src="https://uicdn.toast.com/editor-plugin-color-syntax/latest/toastui-editor-plugin-color-syntax.min.js" defer></script>
+    <script src="https://uicdn.toast.com/editor-plugin-code-syntax-highlight/latest/toastui-editor-plugin-code-syntax-highlight-all.min.js" defer></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js" defer></script>
+    <script src="/js/index.js" defer></script>
+    <script src="/js/my-alog.js" defer></script>
+
+</head>
+<body>
+<!-- header -->
+<div class="root">
+    <header>
+        <div class="header">
+            <div class="head-container">
+                <div class="head-logo">
+                    <a href="/">alog</a>
+                </div>
+                <div class="head-content">
+                    <a href="/api/v1/auth/search" class="search">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </a>
+                        <button class="head-btn new-posts" style="margin-right: 1.25rem;">새 글 작성</button>
+                        <div class="thumbnail-profile">
+                            <img src="test.jpg" alt="thumbnail-profile">
+                            <i class="fa-solid fa-sort-down"></i>
+                        </div>
+                        <div class="menu hide">
+                            <div class="menu-wrapper">
+                                <a href="/api/v1/my-alog/375" class="menu-item">
+                                    <div class="menu-name">
+                                        내 에이로그
+                                    </div>
+                                </a>
+                                <a href="/api/v1/temp-saves" class="menu-item">
+                                    <div class="menu-name">
+                                        임시 글
+                                    </div>
+                                </a>
+                                <a href="/api/v1/liked/375" class="menu-item">
+                                    <div class="menu-name">
+                                        좋아요 목록
+                                    </div>
+                                </a>
+                                <a href="/api/v1/setting/375" class="menu-item">
+                                    <div class="menu-name">
+                                        설정
+                                    </div>
+                                </a>
+                                <a href="/logout" class="menu-item">
+                                    <div class="menu-name">
+                                        로그아웃
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="my-alog">
+        <div class="my-alog-top">
+            <div class="member-info">
+                <a href="#">
+                    <img src="test.jpg" alt="profile">
+                </a>
+                <div class="member-name">
+                    <div class="name">
+                        <a href="/api/v1/my-alog/375">슬로우스타터</a>
+                    </div>
+                    <div class="description">안녕하세요!</div>
+                </div>
+            </div>
+            <div class="line-area"></div>
+            <div class="line"></div>
+        </div>
+        <div class="my-alog-middle"></div>
+        <div class="my-alog-bottom">
+            <div class="category">
+                <a href="/api/v1/my-alog/375" class="lists active" id="public-posts">전체글</a>
+                <a href="/api/v1/my-alog/375/secret" class="lists" id="secret-posts">비밀글</a>
+                <div class="underline" style="left: 0%;"></div>
+            </div>
+        </div>
+        <div>
+            <div class="posts-area">
+                <div class="inner">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- modal -->
+    <div class="modal-bg" id="modal-bg-hide"></div>
+    <div class="modal-container" id="modal-container-hide">
+        <div class="wrapper">
+            <div class="gray-block">
+                <div>
+                    <img src="/images/pumpkin.png" alt="welcome">
+                    <div class="welcome">Welcome!</div>
+                </div>
+            </div>
+            <div class="white-block">
+                <div class="exit-wrapper">
+                    <button id="hide-btn"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="block-content">
+                    <div class="content-wrapper">
+                        <div class="upper-wrapper">
+                            <h2 class="change-login">로그인</h2>
+                            <section>
+                                <h4>이메일로 <span class="change-login">로그인</span></h4>
+                                <form class="login-form" onsubmit="return false">
+                                    <input autocomplete="off" type="text" id="email" name="email" placeholder="이메일을 입력하세요.">
+                                    <button class="login-btn change-login" id="login-btn">로그인</button>
+                                </form>
+                                <div class="message" style="display: none;">
+                                    <i class="fa-solid fa-check"></i>
+                                    <div class="message-description">
+                                        <span class="emailCheck">회원가입</span> 링크가 이메일로 전송되었습니다.
+                                    </div>
+                                </div>
+                            </section>
+                            <section>
+                                <h4>소셜 계정으로 <span class="change-login">로그인</span></h4>
+                                <div class="social-login">
+                                    <a href="/oauth2/authorization/google" class="social-link" style="background: white;">
+                                        <img class="google" src="/images/social-google.png" alt="google">
+                                    </a>
+                                    <a href="/oauth2/authorization/naver" class="social-link">
+                                        <img src="/images/social-naver.png" alt="naver">
+                                    </a>
+                                </div>
+                            </section>
+                        </div>
+                        <div class="foot">
+                            <span class="member">아직 회원이 아니신가요?</span>
+                            <div class="link">회원가입</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+Hibernate: select member0_.member_id as member_i1_3_, member0_.created_date as created_2_3_, member0_.modified_date as modified3_3_, member0_.email as email4_3_, member0_.email_auth as email_au5_3_, member0_.name as name6_3_, member0_.picture as picture7_3_, member0_.role as role8_3_, member0_.short_bio as short_bi9_3_, member0_.username as usernam10_3_ from member member0_
+Hibernate: select commentlis0_.member_id as member_i8_0_0_, commentlis0_.comment_id as comment_1_0_0_, commentlis0_.comment_id as comment_1_0_1_, commentlis0_.created_date as created_2_0_1_, commentlis0_.modified_date as modified3_0_1_, commentlis0_.content as content4_0_1_, commentlis0_.is_comment_me as is_comme5_0_1_, commentlis0_.level as level6_0_1_, commentlis0_.member_id as member_i8_0_1_, commentlis0_.posts_id as posts_id9_0_1_, commentlis0_.up_comment_id as up_comme7_0_1_ from comment commentlis0_ where commentlis0_.member_id=?
+Hibernate: select memberimag0_.member_id as member_i8_4_0_, memberimag0_.member_image_id as member_i1_4_0_, memberimag0_.member_image_id as member_i1_4_1_, memberimag0_.created_date as created_2_4_1_, memberimag0_.modified_date as modified3_4_1_, memberimag0_.image_url as image_ur4_4_1_, memberimag0_.member_id as member_i8_4_1_, memberimag0_.original_filename as original5_4_1_, memberimag0_.store_filename as store_fi6_4_1_, memberimag0_.thumbnail_yn as thumbnai7_4_1_ from member_image memberimag0_ where memberimag0_.member_id=?
+Hibernate: select postslikel0_.member_id as member_i4_8_0_, postslikel0_.id as id1_8_0_, postslikel0_.id as id1_8_1_, postslikel0_.created_date as created_2_8_1_, postslikel0_.modified_date as modified3_8_1_, postslikel0_.member_id as member_i4_8_1_, postslikel0_.posts_id as posts_id5_8_1_ from posts_like postslikel0_ where postslikel0_.member_id=?
+Hibernate: select postslist0_.member_id as member_i9_5_0_, postslist0_.posts_id as posts_id1_5_0_, postslist0_.posts_id as posts_id1_5_1_, postslist0_.created_date as created_2_5_1_, postslist0_.modified_date as modified3_5_1_, postslist0_.content as content4_5_1_, postslist0_.description as descript5_5_1_, postslist0_.likes as likes6_5_1_, postslist0_.member_id as member_i9_5_1_, postslist0_.secret as secret7_5_1_, postslist0_.title as title8_5_1_ from posts postslist0_ where postslist0_.member_id=?
+Hibernate: select tempsaveli0_.member_id as member_i7_9_0_, tempsaveli0_.temp_save_id as temp_sav1_9_0_, tempsaveli0_.temp_save_id as temp_sav1_9_1_, tempsaveli0_.created_date as created_2_9_1_, tempsaveli0_.modified_date as modified3_9_1_, tempsaveli0_.content as content4_9_1_, tempsaveli0_.member_id as member_i7_9_1_, tempsaveli0_.temp_code as temp_cod5_9_1_, tempsaveli0_.title as title6_9_1_ from temp_save tempsaveli0_ where tempsaveli0_.member_id=?
+Hibernate: delete from member where member_id=?
+2022-12-03 20:13:46.601  INFO 16012 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2022-12-03 20:13:46.601  INFO 16012 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2022-12-03 20:13:46.602  INFO 16012 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+Hibernate: select member0_.member_id as member_i1_3_, member0_.created_date as created_2_3_, member0_.modified_date as modified3_3_, member0_.email as email4_3_, member0_.email_auth as email_au5_3_, member0_.name as name6_3_, member0_.picture as picture7_3_, member0_.role as role8_3_, member0_.short_bio as short_bi9_3_, member0_.username as usernam10_3_ from member member0_
+Hibernate: insert into member (member_id, created_date, modified_date, email, email_auth, name, picture, role, short_bio, username) values (default, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: select member0_.member_id as member_i1_3_0_, member0_.created_date as created_2_3_0_, member0_.modified_date as modified3_3_0_, member0_.email as email4_3_0_, member0_.email_auth as email_au5_3_0_, member0_.name as name6_3_0_, member0_.picture as picture7_3_0_, member0_.role as role8_3_0_, member0_.short_bio as short_bi9_3_0_, member0_.username as usernam10_3_0_ from member member0_ where member0_.member_id=?
+
+MockHttpServletRequest:
+      HTTP Method = GET
+      Request URI = /api/v1/setting/376
+       Parameters = {}
+          Headers = []
+             Body = null
+    Session Attrs = {member=SessionMemberDto(id=376, name=슬로우스타터, email=azurealstn@naver.com, picture=test.jpg, username=haha, shortBio=안녕하세요!)}
+
+Handler:
+             Type = com.azurealstn.alog.controller.member.MemberController
+           Method = com.azurealstn.alog.controller.member.MemberController#setting(Model, Long)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = member/setting
+             View = null
+        Attribute = member
+            value = com.azurealstn.alog.dto.member.MemberResponseDto@e25817f
+           errors = []
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 200
+    Error message = null
+          Headers = [Content-Language:"en", Content-Type:"text/html;charset=UTF-8"]
+     Content type = text/html;charset=UTF-8
+             Body = <!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO -->
+    <meta name="description" content="이 사이트는 velog를 클론코딩한 alog 입니다. 이제 react가 아닌 mustache를 더한">
+    <meta name="keywords" content="프론트엔드, 백엔드, 풀스택, alog, velog, 클론코딩, 사이드 프로젝트">
+    <meta name="author" content="azurealstn">
+    <title>alog</title>
+
+    <!-- Open Graph (Facebook, Linkedin) -->
+    <meta property="og:url" content="https://velog.io/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="velog 클론코딩한 alog">
+    <meta property="og:description" content="이 사이트는 velog를 클론코딩한 alog 입니다. 이제 react가 아닌 mustache를 더한">
+    <meta property="og:image" content="/images/online.jpg">
+    <meta property="og:image:secure_url" content="/images/online.jpg">
+    <meta property="og:site_name" content="velog 클론코딩">
+    <meta property="og:locale" content="ko-KR">
+
+    <!-- twitter card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="velog 클론코딩한 alog">
+    <meta name="twitter:description" content="이 사이트는 velog를 클론코딩한 alog 입니다. 이제 react가 아닌 mustache를 더한">
+    <meta name="twitter:image" content="/images/online.jpg">
+    <meta name="twitter:url" content="https://velog.io/">
+    <meta name="twitter:site" content="@azurealstn">
+    <meta name="twitter:creator" content="@azurealstn">
+
+    <!-- fabicon -->
+    <link rel="icon" type="image/png" sizes="512x512" href="/images/leaf-fabicon.png">
+
+    <!-- apple fabicon -->
+    <link rel="apple-touch-icon" sizes="512x512" href="/images/leaf-fabicon.png">
+
+    <!-- CSS Reset -->
+    <link rel="stylesheet" href="/css/normalize.css">
+
+    <!-- FontAwesome -->
+    <script src="https://kit.fontawesome.com/32f48298df.js" crossorigin="anonymous"></script>
+
+    <!-- Font -->
+    <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css2?family=Concert+One&family=Fuzzy+Bubbles:wght@700&family=Nanum+Gothic&family=Silkscreen&display=swap" rel="stylesheet">
+
+    <!-- Toast   -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+    <!-- CSS load -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"/>
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/theme/toastui-editor-dark.min.css">
+    <link rel="stylesheet" href="https://uicdn.toast.com/tui-color-picker/latest/tui-color-picker.min.css">
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor-plugin-color-syntax/latest/toastui-editor-plugin-color-syntax.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css">
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor-plugin-code-syntax-highlight/latest/toastui-editor-plugin-code-syntax-highlight.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/setting-member.css">
+
+    <!-- JavaScript load -->
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous" defer></script>
+    <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js" defer></script>
+    <script src="https://uicdn.toast.com/tui-color-picker/latest/tui-color-picker.min.js" defer></script>
+    <script src="https://uicdn.toast.com/editor-plugin-color-syntax/latest/toastui-editor-plugin-color-syntax.min.js" defer></script>
+    <script src="https://uicdn.toast.com/editor-plugin-code-syntax-highlight/latest/toastui-editor-plugin-code-syntax-highlight-all.min.js" defer></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js" defer></script>
+    <script src="/js/index.js" defer></script>
+    <script src="/js/setting-member.js" defer></script>
+
+</head>
+<body>
+<!-- header -->
+<div class="root">
+    <header>
+        <div class="header">
+            <div class="head-container">
+                <div class="head-logo">
+                    <a href="/">alog</a>
+                </div>
+                <div class="head-content">
+                    <a href="/api/v1/auth/search" class="search">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </a>
+                        <button class="head-btn new-posts" style="margin-right: 1.25rem;">새 글 작성</button>
+                        <div class="thumbnail-profile">
+                            <img src="test.jpg" alt="thumbnail-profile">
+                            <i class="fa-solid fa-sort-down"></i>
+                        </div>
+                        <div class="menu hide">
+                            <div class="menu-wrapper">
+                                <a href="/api/v1/my-alog/376" class="menu-item">
+                                    <div class="menu-name">
+                                        내 에이로그
+                                    </div>
+                                </a>
+                                <a href="/api/v1/temp-saves" class="menu-item">
+                                    <div class="menu-name">
+                                        임시 글
+                                    </div>
+                                </a>
+                                <a href="/api/v1/liked/376" class="menu-item">
+                                    <div class="menu-name">
+                                        좋아요 목록
+                                    </div>
+                                </a>
+                                <a href="/api/v1/setting/376" class="menu-item">
+                                    <div class="menu-name">
+                                        설정
+                                    </div>
+                                </a>
+                                <a href="/logout" class="menu-item">
+                                    <div class="menu-name">
+                                        로그아웃
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="setting">
+        <input type="hidden" id="nameId" value="슬로우스타터">
+        <input type="hidden" id="shortBioId" value="안녕하세요!">
+        <input type="hidden" id="usernameId" value="haha">
+        <input type="hidden" id="memberId" value="376">
+        <input type="hidden" id="picture" value="test.jpg">
+        <section class="profile-top">
+            <div class="thumbnail-area">
+                <input type="file" id="thumbnailImage" name="thumbnailImage" style="display: none;">
+                <img id="image-profile" src="test.jpg" alt="profile">
+                <button class="image-upload" onclick="modifyMemberMain.thumbnailUploadClick()">이미지 업로드</button>
+                <button id="image-remove" class="image-remove">이미지 제거</button>
+            </div>
+            <div class="info-area">
+                <h2>슬로우스타터</h2>
+                <p>안녕하세요!</p>
+                <button class="info-update">수정</button>
+            </div>
+        </section>
+        <section class="profile-bottom">
+            <div class="member-info">
+                <div class="wrapper">
+                    <div class="title-wrapper">
+                        <h3>에이로그 제목</h3>
+                    </div>
+                    <div class="block-for-mobile title-block">
+                        <div class="contents">haha.log</div>
+                        <div class="edit-wrapper">
+                            <button class="title-update">수정</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="description">개인 페이지의 좌측 상단에 나타나는 페이지 제목입니다.</div>
+            </div>
+            <div class="member-info">
+                <div class="wrapper">
+                    <div class="title-wrapper">
+                        <h3>이메일 주소</h3>
+                    </div>
+                    <div class="block-for-mobile">
+                        <div class="contents">azurealstn@naver.com</div>
+                    </div>
+                </div>
+                <div class="description">회원 인증 또는 시스템에서 발송하는 이메일을 수신하는 주소입니다.</div>
+            </div>
+            <div class="member-info">
+                <div class="wrapper">
+                    <div class="title-wrapper">
+                        <h3>회원 탈퇴</h3>
+                    </div>
+                    <div class="block-for-mobile">
+                        <div class="contents">
+                            <button class="member-delete">회원 탈퇴</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="description">탈퇴 시 작성하신 포스트 및 댓글이 모두 삭제되며 복구되지 않습니다.</div>
+            </div>
+        </section>
+
+        <!-- modal -->
+        <div class="modal-bg" id="modal-bg-hide"></div>
+        <div class="modal-container" id="modal-container-hide">
+            <div class="wrapper">
+                <div class="gray-block">
+                    <div>
+                        <img src="/images/pumpkin.png" alt="welcome">
+                        <div class="welcome">Welcome!</div>
+                    </div>
+                </div>
+                <div class="white-block">
+                    <div class="exit-wrapper">
+                        <button id="hide-btn"><i class="fa-solid fa-xmark"></i></button>
+                    </div>
+                    <div class="block-content">
+                        <div class="content-wrapper">
+                            <div class="upper-wrapper">
+                                <h2 class="change-login">로그인</h2>
+                                <section>
+                                    <h4>이메일로 <span class="change-login">로그인</span></h4>
+                                    <form class="login-form" onsubmit="return false">
+                                        <input autocomplete="off" type="text" id="email" name="email" placeholder="이메일을 입력하세요.">
+                                        <button class="login-btn change-login" id="login-btn">로그인</button>
+                                    </form>
+                                    <div class="message" style="display: none;">
+                                        <i class="fa-solid fa-check"></i>
+                                        <div class="message-description">
+                                            <span class="emailCheck">회원가입</span> 링크가 이메일로 전송되었습니다.
+                                        </div>
+                                    </div>
+                                </section>
+                                <section>
+                                    <h4>소셜 계정으로 <span class="change-login">로그인</span></h4>
+                                    <div class="social-login">
+                                        <a href="/oauth2/authorization/google" class="social-link" style="background: white;">
+                                            <img class="google" src="/images/social-google.png" alt="google">
+                                        </a>
+                                        <a href="/oauth2/authorization/naver" class="social-link">
+                                            <img src="/images/social-naver.png" alt="naver">
+                                        </a>
+                                    </div>
+                                </section>
+                            </div>
+                            <div class="foot">
+                                <span class="member">아직 회원이 아니신가요?</span>
+                                <div class="link">회원가입</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+</body>
+</html>
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+Hibernate: select member0_.member_id as member_i1_3_, member0_.created_date as created_2_3_, member0_.modified_date as modified3_3_, member0_.email as email4_3_, member0_.email_auth as email_au5_3_, member0_.name as name6_3_, member0_.picture as picture7_3_, member0_.role as role8_3_, member0_.short_bio as short_bi9_3_, member0_.username as usernam10_3_ from member member0_
+Hibernate: select commentlis0_.member_id as member_i8_0_0_, commentlis0_.comment_id as comment_1_0_0_, commentlis0_.comment_id as comment_1_0_1_, commentlis0_.created_date as created_2_0_1_, commentlis0_.modified_date as modified3_0_1_, commentlis0_.content as content4_0_1_, commentlis0_.is_comment_me as is_comme5_0_1_, commentlis0_.level as level6_0_1_, commentlis0_.member_id as member_i8_0_1_, commentlis0_.posts_id as posts_id9_0_1_, commentlis0_.up_comment_id as up_comme7_0_1_ from comment commentlis0_ where commentlis0_.member_id=?
+Hibernate: select memberimag0_.member_id as member_i8_4_0_, memberimag0_.member_image_id as member_i1_4_0_, memberimag0_.member_image_id as member_i1_4_1_, memberimag0_.created_date as created_2_4_1_, memberimag0_.modified_date as modified3_4_1_, memberimag0_.image_url as image_ur4_4_1_, memberimag0_.member_id as member_i8_4_1_, memberimag0_.original_filename as original5_4_1_, memberimag0_.store_filename as store_fi6_4_1_, memberimag0_.thumbnail_yn as thumbnai7_4_1_ from member_image memberimag0_ where memberimag0_.member_id=?
+Hibernate: select postslikel0_.member_id as member_i4_8_0_, postslikel0_.id as id1_8_0_, postslikel0_.id as id1_8_1_, postslikel0_.created_date as created_2_8_1_, postslikel0_.modified_date as modified3_8_1_, postslikel0_.member_id as member_i4_8_1_, postslikel0_.posts_id as posts_id5_8_1_ from posts_like postslikel0_ where postslikel0_.member_id=?
+Hibernate: select postslist0_.member_id as member_i9_5_0_, postslist0_.posts_id as posts_id1_5_0_, postslist0_.posts_id as posts_id1_5_1_, postslist0_.created_date as created_2_5_1_, postslist0_.modified_date as modified3_5_1_, postslist0_.content as content4_5_1_, postslist0_.description as descript5_5_1_, postslist0_.likes as likes6_5_1_, postslist0_.member_id as member_i9_5_1_, postslist0_.secret as secret7_5_1_, postslist0_.title as title8_5_1_ from posts postslist0_ where postslist0_.member_id=?
+Hibernate: select tempsaveli0_.member_id as member_i7_9_0_, tempsaveli0_.temp_save_id as temp_sav1_9_0_, tempsaveli0_.temp_save_id as temp_sav1_9_1_, tempsaveli0_.created_date as created_2_9_1_, tempsaveli0_.modified_date as modified3_9_1_, tempsaveli0_.content as content4_9_1_, tempsaveli0_.member_id as member_i7_9_1_, tempsaveli0_.temp_code as temp_cod5_9_1_, tempsaveli0_.title as title6_9_1_ from temp_save tempsaveli0_ where tempsaveli0_.member_id=?
+Hibernate: delete from member where member_id=?
+2022-12-03 20:13:46.621  INFO 16012 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2022-12-03 20:13:46.621  INFO 16012 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2022-12-03 20:13:46.622  INFO 16012 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+Hibernate: select member0_.member_id as member_i1_3_, member0_.created_date as created_2_3_, member0_.modified_date as modified3_3_, member0_.email as email4_3_, member0_.email_auth as email_au5_3_, member0_.name as name6_3_, member0_.picture as picture7_3_, member0_.role as role8_3_, member0_.short_bio as short_bi9_3_, member0_.username as usernam10_3_ from member member0_
+Hibernate: insert into email_auth (email_auth_id, created_date, modified_date, auth_token, email, expired, expired_date) values (default, ?, ?, ?, ?, ?, ?)
+Hibernate: select emailauth0_.email_auth_id as email_au1_1_, emailauth0_.created_date as created_2_1_, emailauth0_.modified_date as modified3_1_, emailauth0_.auth_token as auth_tok4_1_, emailauth0_.email as email5_1_, emailauth0_.expired as expired6_1_, emailauth0_.expired_date as expired_7_1_ from email_auth emailauth0_ where emailauth0_.email=? and emailauth0_.auth_token=? and emailauth0_.expired_date>=? and emailauth0_.expired=? limit ?
+Hibernate: update email_auth set created_date=?, modified_date=?, auth_token=?, email=?, expired=?, expired_date=? where email_auth_id=?
+Hibernate: select member0_.member_id as member_i1_3_, member0_.created_date as created_2_3_, member0_.modified_date as modified3_3_, member0_.email as email4_3_, member0_.email_auth as email_au5_3_, member0_.name as name6_3_, member0_.picture as picture7_3_, member0_.role as role8_3_, member0_.short_bio as short_bi9_3_, member0_.username as usernam10_3_ from member member0_
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

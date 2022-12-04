@@ -1,0 +1,32 @@
+|===
+|Path|Type|Description
+
+|`+content+`
+|`+String+`
+|댓글 내용
+
+|`+level+`
+|`+Number+`
+|댓글 레벨
+
+|`+memberId+`
+|`+Number+`
+|회원 ID
+
+|`+postsId+`
+|`+Number+`
+|게시글 ID
+
+|`+member+`
+|`+Null+`
+|회원
+
+|`+posts+`
+|`+Null+`
+|게시글
+
+|`+upCommentId+`
+|`+Null+`
+|상위 댓글
+
+|===

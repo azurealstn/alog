@@ -1,0 +1,6 @@
+[source,bash]
+----
+$ curl 'http://localhost:8080/api/v1/temp-save' -i -X POST \
+    -H 'Content-Type: application/json;charset=UTF-8' \
+    -d '{"title":"제목이지롱?","content":"내용이지롱?","member":{"createdDate":"2022-12-03T20:13:46.2262347","modifiedDate":"2022-12-03T20:13:46.2262347","id":361,"email":"azurealstn@naver.com","name":"슬로우스타터","picture":"test.jpg","role":"MEMBER","emailAuth":true,"username":"haha","shortBio":"안녕하세요!","roleKey":"ROLE_MEMBER"},"tempCode":"023240dd-23a1-48b5-a09c-0acc8ba39491"}'
+----

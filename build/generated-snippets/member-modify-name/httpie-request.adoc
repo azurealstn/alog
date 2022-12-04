@@ -1,0 +1,5 @@
+[source,bash]
+----
+$ echo '{"name":"새로운 이름","username":null,"shortBio":"새로운 소개","picture":null}' | http PATCH 'http://localhost:8080/api/v1/member-name/321' \
+    'Content-Type:application/json;charset=UTF-8'
+----

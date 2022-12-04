@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - HashTagApiControllerDocTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>HashTagApiControllerDocTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/com.azurealstn.alog.controller.api.hashtag.html">com.azurealstn.alog.controller.api.hashtag</a> &gt; HashTagApiControllerDocTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">2</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.122s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Method name</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">해시태그 추가</td>
+<td class="success">create_hashtag_api()</td>
+<td class="success">0.046s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">해시태그 여러건 조회</td>
+<td class="success">findAll_api()</td>
+<td class="success">0.076s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>2022-12-03 20:13:43.662  INFO 16012 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.azurealstn.alog.controller.api.hashtag.HashTagApiControllerDocTest], using SpringBootContextLoader
+2022-12-03 20:13:43.663  INFO 16012 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [com.azurealstn.alog.controller.api.hashtag.HashTagApiControllerDocTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+2022-12-03 20:13:43.663  INFO 16012 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.azurealstn.alog.controller.api.hashtag.HashTagApiControllerDocTest]: HashTagApiControllerDocTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2022-12-03 20:13:43.677  INFO 16012 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.azurealstn.alog.AlogApplication for test class com.azurealstn.alog.controller.api.hashtag.HashTagApiControllerDocTest
+2022-12-03 20:13:43.679  INFO 16012 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener, org.springframework.security.test.context.support.ReactorContextTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+2022-12-03 20:13:43.680  INFO 16012 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@65dfce2f, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@2127c46b, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@2aea50a6, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@5403d95, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@1e7535a4, org.springframework.test.context.support.DirtiesContextTestExecutionListener@1eeae9d, org.springframework.test.context.transaction.TransactionalTestExecutionListener@7979b166, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@7d518749, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener@4a3e5552, org.springframework.test.context.event.EventPublishingTestExecutionListener@3e5080ce, org.springframework.security.test.context.support.ReactorContextTestExecutionListener@a16e4e3, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@7b0c4127, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@43201fd1, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@794ca18b, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@44c073bd, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@5ddc077b, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@1ec14586]
+2022-12-03 20:13:43.685  INFO 16012 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Began transaction (1) for test context [DefaultTestContext@50a65fb9 testClass = HashTagApiControllerDocTest, testInstance = com.azurealstn.alog.controller.api.hashtag.HashTagApiControllerDocTest@60651b10, testMethod = create_hashtag_api@HashTagApiControllerDocTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@5769eb7b testClass = HashTagApiControllerDocTest, locations = '{}', classes = '{class com.azurealstn.alog.AlogApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@f6c03cb, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@c54818a, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@4ae33a11, [ImportsContextCustomizer@16bee5fe key = [@org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc(webDriverEnabled=true, print=DEFAULT, webClientEnabled=true, printOnlyOnFailure=true, addFilters=true), @org.springframework.context.annotation.Import(value={org.springframework.boot.autoconfigure.ImportAutoConfigurationImportSelector.class}), @org.springframework.boot.autoconfigure.ImportAutoConfiguration(value={}, exclude={}, classes={}), @org.springframework.boot.test.autoconfigure.properties.PropertyMapping(value=&quot;spring.test.restdocs&quot;, skip=NO), @org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs(uriScheme=&quot;https&quot;, outputDir=&quot;&quot;, uriPort=443, value=&quot;&quot;, uriHost=&quot;api.alog.com&quot;), @org.springframework.test.context.BootstrapWith(value=org.springframework.boot.test.context.SpringBootTestContextBootstrapper.class), @org.springframework.context.annotation.Import(value={org.springframework.boot.test.autoconfigure.restdocs.RestDocumentationContextProviderRegistrar.class}), @org.springframework.boot.test.context.SpringBootTest(args={}, webEnvironment=MOCK, value={}, properties={}, classes={}), @org.springframework.boot.test.autoconfigure.properties.PropertyMapping(value=&quot;spring.test.mockmvc&quot;, skip=NO)]], org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@3a94964, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@34a75079, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@64beebb7, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@7b993c65], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -&gt; true, 'org.springframework.test.context.web.ServletTestExecutionListener.populatedRequestContextHolder' -&gt; true, 'org.springframework.test.context.web.ServletTestExecutionListener.resetRequestContextHolder' -&gt; true, 'org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -&gt; false]]; transaction manager [org.springframework.orm.jpa.JpaTransactionManager@55d683cb]; rollback [true]
+2022-12-03 20:13:43.686  INFO 16012 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2022-12-03 20:13:43.686  INFO 16012 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2022-12-03 20:13:43.687  INFO 16012 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+Hibernate: select postshasht0_.posts_hashtag_map_id as posts_ha1_6_, postshasht0_.created_date as created_2_6_, postshasht0_.modified_date as modified3_6_, postshasht0_.hashtag_id as hashtag_4_6_, postshasht0_.posts_id as posts_id5_6_ from posts_hashtag_map postshasht0_
+Hibernate: select hashtag0_.hashtag_id as hashtag_1_2_, hashtag0_.created_date as created_2_2_, hashtag0_.modified_date as modified3_2_, hashtag0_.name as name4_2_ from hashtag hashtag0_
+Hibernate: select posts0_.posts_id as posts_id1_5_, posts0_.created_date as created_2_5_, posts0_.modified_date as modified3_5_, posts0_.content as content4_5_, posts0_.description as descript5_5_, posts0_.likes as likes6_5_, posts0_.member_id as member_i9_5_, posts0_.secret as secret7_5_, posts0_.title as title8_5_ from posts posts0_
+Hibernate: select member0_.member_id as member_i1_3_, member0_.created_date as created_2_3_, member0_.modified_date as modified3_3_, member0_.email as email4_3_, member0_.email_auth as email_au5_3_, member0_.name as name6_3_, member0_.picture as picture7_3_, member0_.role as role8_3_, member0_.short_bio as short_bi9_3_, member0_.username as usernam10_3_ from member member0_
+Hibernate: insert into member (member_id, created_date, modified_date, email, email_auth, name, picture, role, short_bio, username) values (default, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: insert into hashtag (hashtag_id, created_date, modified_date, name) values (default, ?, ?, ?)
+
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /api/v1/hashtag
+       Parameters = {}
+          Headers = [Content-Type:&quot;application/json;charset=UTF-8&quot;, Accept:&quot;application/json&quot;, Content-Length:&quot;21&quot;]
+             Body = {&quot;name&quot;:&quot;AWS 공부&quot;}
+    Session Attrs = {member=SessionMemberDto(id=316, name=슬로우스타터, email=azurealstn@naver.com, picture=test.jpg, username=haha, shortBio=안녕하세요!)}
+
+Handler:
+             Type = com.azurealstn.alog.controller.api.hashtag.HashTagApiController
+           Method = com.azurealstn.alog.controller.api.hashtag.HashTagApiController#create(HashTagCreateRequestDto)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 200
+    Error message = null
+          Headers = [Content-Type:&quot;application/json;charset=UTF-8&quot;]
+     Content type = application/json;charset=UTF-8
+             Body = 19
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+Hibernate: select postshasht0_.posts_hashtag_map_id as posts_ha1_6_, postshasht0_.created_date as created_2_6_, postshasht0_.modified_date as modified3_6_, postshasht0_.hashtag_id as hashtag_4_6_, postshasht0_.posts_id as posts_id5_6_ from posts_hashtag_map postshasht0_
+Hibernate: select hashtag0_.hashtag_id as hashtag_1_2_, hashtag0_.created_date as created_2_2_, hashtag0_.modified_date as modified3_2_, hashtag0_.name as name4_2_ from hashtag hashtag0_
+Hibernate: delete from hashtag where hashtag_id=?
+Hibernate: select posts0_.posts_id as posts_id1_5_, posts0_.created_date as created_2_5_, posts0_.modified_date as modified3_5_, posts0_.content as content4_5_, posts0_.description as descript5_5_, posts0_.likes as likes6_5_, posts0_.member_id as member_i9_5_, posts0_.secret as secret7_5_, posts0_.title as title8_5_ from posts posts0_
+Hibernate: select member0_.member_id as member_i1_3_, member0_.created_date as created_2_3_, member0_.modified_date as modified3_3_, member0_.email as email4_3_, member0_.email_auth as email_au5_3_, member0_.name as name6_3_, member0_.picture as picture7_3_, member0_.role as role8_3_, member0_.short_bio as short_bi9_3_, member0_.username as usernam10_3_ from member member0_
+2022-12-03 20:13:43.729  INFO 16012 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Rolled back transaction for test: [DefaultTestContext@50a65fb9 testClass = HashTagApiControllerDocTest, testInstance = com.azurealstn.alog.controller.api.hashtag.HashTagApiControllerDocTest@60651b10, testMethod = create_hashtag_api@HashTagApiControllerDocTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@5769eb7b testClass = HashTagApiControllerDocTest, locations = '{}', classes = '{class com.azurealstn.alog.AlogApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@f6c03cb, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@c54818a, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@4ae33a11, [ImportsContextCustomizer@16bee5fe key = [@org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc(webDriverEnabled=true, print=DEFAULT, webClientEnabled=true, printOnlyOnFailure=true, addFilters=true), @org.springframework.context.annotation.Import(value={org.springframework.boot.autoconfigure.ImportAutoConfigurationImportSelector.class}), @org.springframework.boot.autoconfigure.ImportAutoConfiguration(value={}, exclude={}, classes={}), @org.springframework.boot.test.autoconfigure.properties.PropertyMapping(value=&quot;spring.test.restdocs&quot;, skip=NO), @org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs(uriScheme=&quot;https&quot;, outputDir=&quot;&quot;, uriPort=443, value=&quot;&quot;, uriHost=&quot;api.alog.com&quot;), @org.springframework.test.context.BootstrapWith(value=org.springframework.boot.test.context.SpringBootTestContextBootstrapper.class), @org.springframework.context.annotation.Import(value={org.springframework.boot.test.autoconfigure.restdocs.RestDocumentationContextProviderRegistrar.class}), @org.springframework.boot.test.context.SpringBootTest(args={}, webEnvironment=MOCK, value={}, properties={}, classes={}), @org.springframework.boot.test.autoconfigure.properties.PropertyMapping(value=&quot;spring.test.mockmvc&quot;, skip=NO)]], org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@3a94964, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@34a75079, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@64beebb7, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@7b993c65], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -&gt; true, 'org.springframework.test.context.web.ServletTestExecutionListener.populatedRequestContextHolder' -&gt; true, 'org.springframework.test.context.web.ServletTestExecutionListener.resetRequestContextHolder' -&gt; true, 'org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -&gt; false]]
+2022-12-03 20:13:43.731  INFO 16012 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Began transaction (1) for test context [DefaultTestContext@50a65fb9 testClass = HashTagApiControllerDocTest, testInstance = com.azurealstn.alog.controller.api.hashtag.HashTagApiControllerDocTest@63e67888, testMethod = findAll_api@HashTagApiControllerDocTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@5769eb7b testClass = HashTagApiControllerDocTest, locations = '{}', classes = '{class com.azurealstn.alog.AlogApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@f6c03cb, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@c54818a, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@4ae33a11, [ImportsContextCustomizer@16bee5fe key = [@org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc(webDriverEnabled=true, print=DEFAULT, webClientEnabled=true, printOnlyOnFailure=true, addFilters=true), @org.springframework.context.annotation.Import(value={org.springframework.boot.autoconfigure.ImportAutoConfigurationImportSelector.class}), @org.springframework.boot.autoconfigure.ImportAutoConfiguration(value={}, exclude={}, classes={}), @org.springframework.boot.test.autoconfigure.properties.PropertyMapping(value=&quot;spring.test.restdocs&quot;, skip=NO), @org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs(uriScheme=&quot;https&quot;, outputDir=&quot;&quot;, uriPort=443, value=&quot;&quot;, uriHost=&quot;api.alog.com&quot;), @org.springframework.test.context.BootstrapWith(value=org.springframework.boot.test.context.SpringBootTestContextBootstrapper.class), @org.springframework.context.annotation.Import(value={org.springframework.boot.test.autoconfigure.restdocs.RestDocumentationContextProviderRegistrar.class}), @org.springframework.boot.test.context.SpringBootTest(args={}, webEnvironment=MOCK, value={}, properties={}, classes={}), @org.springframework.boot.test.autoconfigure.properties.PropertyMapping(value=&quot;spring.test.mockmvc&quot;, skip=NO)]], org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@3a94964, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@34a75079, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@64beebb7, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@7b993c65], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -&gt; true, 'org.springframework.test.context.web.ServletTestExecutionListener.populatedRequestContextHolder' -&gt; true, 'org.springframework.test.context.web.ServletTestExecutionListener.resetRequestContextHolder' -&gt; true, 'org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -&gt; false]]; transaction manager [org.springframework.orm.jpa.JpaTransactionManager@55d683cb]; rollback [true]
+2022-12-03 20:13:43.732  INFO 16012 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2022-12-03 20:13:43.733  INFO 16012 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2022-12-03 20:13:43.733  INFO 16012 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+Hibernate: select postshasht0_.posts_hashtag_map_id as posts_ha1_6_, postshasht0_.created_date as created_2_6_, postshasht0_.modified_date as modified3_6_, postshasht0_.hashtag_id as hashtag_4_6_, postshasht0_.posts_id as posts_id5_6_ from posts_hashtag_map postshasht0_
+Hibernate: select hashtag0_.hashtag_id as hashtag_1_2_, hashtag0_.created_date as created_2_2_, hashtag0_.modified_date as modified3_2_, hashtag0_.name as name4_2_ from hashtag hashtag0_
+Hibernate: select posts0_.posts_id as posts_id1_5_, posts0_.created_date as created_2_5_, posts0_.modified_date as modified3_5_, posts0_.content as content4_5_, posts0_.description as descript5_5_, posts0_.likes as likes6_5_, posts0_.member_id as member_i9_5_, posts0_.secret as secret7_5_, posts0_.title as title8_5_ from posts posts0_
+Hibernate: select member0_.member_id as member_i1_3_, member0_.created_date as created_2_3_, member0_.modified_date as modified3_3_, member0_.email as email4_3_, member0_.email_auth as email_au5_3_, member0_.name as name6_3_, member0_.picture as picture7_3_, member0_.role as role8_3_, member0_.short_bio as short_bi9_3_, member0_.username as usernam10_3_ from member member0_
+Hibernate: insert into member (member_id, created_date, modified_date, email, email_auth, name, picture, role, short_bio, username) values (default, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: insert into posts (posts_id, created_date, modified_date, content, description, likes, member_id, secret, title) values (default, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: insert into hashtag (hashtag_id, created_date, modified_date, name) values (default, ?, ?, ?)
+Hibernate: insert into hashtag (hashtag_id, created_date, modified_date, name) values (default, ?, ?, ?)
+Hibernate: insert into posts_hashtag_map (posts_hashtag_map_id, created_date, modified_date, hashtag_id, posts_id) values (default, ?, ?, ?, ?)
+Hibernate: insert into posts_hashtag_map (posts_hashtag_map_id, created_date, modified_date, hashtag_id, posts_id) values (default, ?, ?, ?, ?)
+Hibernate: select hashtag0_.hashtag_id as hashtag_1_2_, hashtag0_.created_date as created_2_2_, hashtag0_.modified_date as modified3_2_, hashtag0_.name as name4_2_ from hashtag hashtag0_ left outer join posts_hashtag_map postshasht1_ on (hashtag0_.hashtag_id=postshasht1_.hashtag_id) left outer join posts posts2_ on (postshasht1_.posts_id=posts2_.posts_id) where posts2_.posts_id=?
+
+MockHttpServletRequest:
+      HTTP Method = GET
+      Request URI = /api/v1/hashtag/559
+       Parameters = {}
+          Headers = [Content-Type:&quot;application/json;charset=UTF-8&quot;, Accept:&quot;application/json&quot;]
+             Body = null
+    Session Attrs = {member=SessionMemberDto(id=317, name=슬로우스타터, email=azurealstn@naver.com, picture=test.jpg, username=haha, shortBio=안녕하세요!)}
+
+Handler:
+             Type = com.azurealstn.alog.controller.api.hashtag.HashTagApiController
+           Method = com.azurealstn.alog.controller.api.hashtag.HashTagApiController#findByTags(Long)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 200
+    Error message = null
+          Headers = [Content-Type:&quot;application/json;charset=UTF-8&quot;]
+     Content type = application/json;charset=UTF-8
+             Body = [{&quot;name&quot;:&quot;AWS 공부&quot;,&quot;posts&quot;:{&quot;createdDate&quot;:&quot;2022-12-03T20:13:43.7382118&quot;,&quot;modifiedDate&quot;:&quot;2022-12-03T20:13:43.7382118&quot;,&quot;id&quot;:559,&quot;member&quot;:{&quot;createdDate&quot;:&quot;2022-12-03T20:13:43.7362119&quot;,&quot;modifiedDate&quot;:&quot;2022-12-03T20:13:43.7362119&quot;,&quot;id&quot;:317,&quot;email&quot;:&quot;azurealstn@naver.com&quot;,&quot;name&quot;:&quot;슬로우스타터&quot;,&quot;picture&quot;:&quot;test.jpg&quot;,&quot;role&quot;:&quot;MEMBER&quot;,&quot;emailAuth&quot;:true,&quot;username&quot;:&quot;haha&quot;,&quot;shortBio&quot;:&quot;안녕하세요!&quot;,&quot;roleKey&quot;:&quot;ROLE_MEMBER&quot;},&quot;title&quot;:&quot;foo&quot;,&quot;content&quot;:&quot;bar&quot;,&quot;description&quot;:&quot;소개글&quot;,&quot;secret&quot;:false,&quot;likes&quot;:null}},{&quot;name&quot;:&quot;Java 공부&quot;,&quot;posts&quot;:{&quot;createdDate&quot;:&quot;2022-12-03T20:13:43.7382118&quot;,&quot;modifiedDate&quot;:&quot;2022-12-03T20:13:43.7382118&quot;,&quot;id&quot;:559,&quot;member&quot;:{&quot;createdDate&quot;:&quot;2022-12-03T20:13:43.7362119&quot;,&quot;modifiedDate&quot;:&quot;2022-12-03T20:13:43.7362119&quot;,&quot;id&quot;:317,&quot;email&quot;:&quot;azurealstn@naver.com&quot;,&quot;name&quot;:&quot;슬로우스타터&quot;,&quot;picture&quot;:&quot;test.jpg&quot;,&quot;role&quot;:&quot;MEMBER&quot;,&quot;emailAuth&quot;:true,&quot;username&quot;:&quot;haha&quot;,&quot;shortBio&quot;:&quot;안녕하세요!&quot;,&quot;roleKey&quot;:&quot;ROLE_MEMBER&quot;},&quot;title&quot;:&quot;foo&quot;,&quot;content&quot;:&quot;bar&quot;,&quot;description&quot;:&quot;소개글&quot;,&quot;secret&quot;:false,&quot;likes&quot;:null}}]
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+Hibernate: select postshasht0_.posts_hashtag_map_id as posts_ha1_6_, postshasht0_.created_date as created_2_6_, postshasht0_.modified_date as modified3_6_, postshasht0_.hashtag_id as hashtag_4_6_, postshasht0_.posts_id as posts_id5_6_ from posts_hashtag_map postshasht0_
+Hibernate: select hashtag0_.hashtag_id as hashtag_1_2_, hashtag0_.created_date as created_2_2_, hashtag0_.modified_date as modified3_2_, hashtag0_.name as name4_2_ from hashtag hashtag0_
+Hibernate: select posts0_.posts_id as posts_id1_5_, posts0_.created_date as created_2_5_, posts0_.modified_date as modified3_5_, posts0_.content as content4_5_, posts0_.description as descript5_5_, posts0_.likes as likes6_5_, posts0_.member_id as member_i9_5_, posts0_.secret as secret7_5_, posts0_.title as title8_5_ from posts posts0_
+Hibernate: select member0_.member_id as member_i1_3_, member0_.created_date as created_2_3_, member0_.modified_date as modified3_3_, member0_.email as email4_3_, member0_.email_auth as email_au5_3_, member0_.name as name6_3_, member0_.picture as picture7_3_, member0_.role as role8_3_, member0_.short_bio as short_bi9_3_, member0_.username as usernam10_3_ from member member0_
+2022-12-03 20:13:43.805  INFO 16012 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Rolled back transaction for test: [DefaultTestContext@50a65fb9 testClass = HashTagApiControllerDocTest, testInstance = com.azurealstn.alog.controller.api.hashtag.HashTagApiControllerDocTest@63e67888, testMethod = findAll_api@HashTagApiControllerDocTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@5769eb7b testClass = HashTagApiControllerDocTest, locations = '{}', classes = '{class com.azurealstn.alog.AlogApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@f6c03cb, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@c54818a, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@4ae33a11, [ImportsContextCustomizer@16bee5fe key = [@org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc(webDriverEnabled=true, print=DEFAULT, webClientEnabled=true, printOnlyOnFailure=true, addFilters=true), @org.springframework.context.annotation.Import(value={org.springframework.boot.autoconfigure.ImportAutoConfigurationImportSelector.class}), @org.springframework.boot.autoconfigure.ImportAutoConfiguration(value={}, exclude={}, classes={}), @org.springframework.boot.test.autoconfigure.properties.PropertyMapping(value=&quot;spring.test.restdocs&quot;, skip=NO), @org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs(uriScheme=&quot;https&quot;, outputDir=&quot;&quot;, uriPort=443, value=&quot;&quot;, uriHost=&quot;api.alog.com&quot;), @org.springframework.test.context.BootstrapWith(value=org.springframework.boot.test.context.SpringBootTestContextBootstrapper.class), @org.springframework.context.annotation.Import(value={org.springframework.boot.test.autoconfigure.restdocs.RestDocumentationContextProviderRegistrar.class}), @org.springframework.boot.test.context.SpringBootTest(args={}, webEnvironment=MOCK, value={}, properties={}, classes={}), @org.springframework.boot.test.autoconfigure.properties.PropertyMapping(value=&quot;spring.test.mockmvc&quot;, skip=NO)]], org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@3a94964, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@34a75079, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@64beebb7, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@7b993c65], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -&gt; true, 'org.springframework.test.context.web.ServletTestExecutionListener.populatedRequestContextHolder' -&gt; true, 'org.springframework.test.context.web.ServletTestExecutionListener.resetRequestContextHolder' -&gt; true, 'org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -&gt; false]]
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 7.5</a> at 2022. 12. 3. 오후 8:13:47</p>
+</div>
+</div>
+</body>
+</html>
