@@ -191,7 +191,7 @@ function getPostsCard(posts) {
             <div class="posts-card">
                 <div class="member-info">
                     <a href="/api/v1/my-alog/${posts.member.id}">
-                        <img src="${posts.member.picture}" alt="thumbnail-profile">
+                        <img src="${posts.member.picture}" referrerpolicy="no-referrer" alt="thumbnail-profile">
                     </a>
                     <div class="username">
                         <a href="/api/v1/my-alog/${posts.member.id}">minsu</a>
@@ -227,7 +227,7 @@ function getPostsCard(posts) {
             <div class="posts-card">
                 <div class="member-info">
                     <a href="/api/v1/my-alog/${posts.member.id}">
-                        <img src="${posts.member.picture}" alt="thumbnail-profile">
+                        <img src="${posts.member.picture}" referrerpolicy="no-referrer" alt="thumbnail-profile">
                     </a>
                     <div class="username">
                         <a href="/api/v1/my-alog/${posts.member.id}">minsu</a>
