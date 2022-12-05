@@ -200,7 +200,7 @@ velog(벨로그)는 velopert님이 만든 개발자를 위한 블로그 서비�
 
 커밋 메시지는 `git commit message convention`을 참고해서 커밋을 진행했습니다.
 
-## 배포
+## 배포 진행
 
 1. `git clone` 혹은 `git pull`을 통해 새 버전의 프로젝트 받는다.
 2. Gradle이나 Maven을 통해 프로젝트 테스트와 빌드
@@ -209,6 +209,21 @@ velog(벨로그)는 velopert님이 만든 개발자를 위한 블로그 서비�
 위 과정에서 테스트 실패해서 소스 수정하고 `git push`를 했다면 `git pull`을 받아서 다시 테스트를 실행한다.
 
 - gradlew 권한 : chmod +x ./gradlew
+
+위 과정을 자동화하기 위해 `Shell Script`를 만들었습니다.
+
+```shell
+경로: /home/ec2-user/app/project/deploy.sh
+실행순서:
+1. git pull -> git 최신 업데이트
+2. ./gradlew build -> gradle build 진행
+3. jar 파일 복사
+5. kill -pid -> 현재 구동중이면 애플리케이션 죽이고 새로 배포
+6. nohup java -jar -Dspring.config.location=~ -Dspring.profiles.active=real alog-0.0.1-SNAPSHOT.jar
+-> nohup을 사용하여 서버를 꺼도 계속 실행할 수 있도록 설정
+-> -Dspring.config.location 설정으로 yml 경로 지정
+-> -Dspring.profiles.active 설정으로 운영(real) profile 지정
+```
 
 ## API 문서
 
