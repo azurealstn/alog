@@ -55,7 +55,7 @@ public class PostsController {
         model.addAttribute("prevUrl", prevUrl);
         model.addAttribute("tempSave", tempSave);
 
-        return "/posts/create-posts";
+        return "posts/create-posts";
     }
 
     @GetMapping("/api/v1/auth/posts/{postsId}")
