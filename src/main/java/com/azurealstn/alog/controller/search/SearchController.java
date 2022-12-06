@@ -30,9 +30,12 @@ public class SearchController {
                          @RequestParam(required = false) Integer page,
                          @RequestParam(required = false) String searchValue) {
         SessionMemberDto sessionMemberDto = (SessionMemberDto) httpSession.getAttribute("member");
-        MemberResponseDto member = memberService.findById(sessionMemberDto.getId());
 
-        model.addAttribute("member", member);
+        if (sessionMemberDto != null) {
+            MemberResponseDto member = memberService.findById(sessionMemberDto.getId());
+            model.addAttribute("member", member);
+        }
+
         model.addAttribute("searchValue", searchValue);
 
         return "search/search";

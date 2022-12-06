@@ -9,7 +9,7 @@ velog(벨로그)는 velopert님이 만든 개발자를 위한 블로그 서비�
 
 > 프로젝트 이름인 alog 에서 a 는 Azure(푸른 하늘)를 뜻합니다.
 
-## 프로젝트 개발 기간
+## 🕒 프로젝트 개발 기간
 
 - 프로젝트 참여: 본인
 - 프로젝트 기간: 2022-10-08 ~ 2022-12-08 (두 달간 진행)
@@ -37,12 +37,12 @@ velog(벨로그)는 velopert님이 만든 개발자를 위한 블로그 서비�
 
 ## API
 
-- http://localhost:8080/docs/member.html
-- http://localhost:8080/docs/posts.html
-- http://localhost:8080/docs/tempsave.html
-- http://localhost:8080/docs/comment.html
-- http://localhost:8080/docs/hashtag.html
-- http://localhost:8080/docs/postsLike.html
+- http://azurelog.link/docs/member.html
+- http://azurelog.link/docs/posts.html
+- http://azurelog.link/docs/tempsave.html
+- http://azurelog.link/docs/comment.html
+- http://azurelog.link/docs/hashtag.html
+- http://azurelog.link/docs/postsLike.html
 
 ## 기능 구현
 
@@ -71,7 +71,7 @@ velog(벨로그)는 velopert님이 만든 개발자를 위한 블로그 서비�
 
 ## 프로젝트 구조
 
-![alog-architecture](https://user-images.githubusercontent.com/55525868/205478385-1e55d031-ebed-4a0a-9a6e-d902b5d3e0b2.png)
+![alog_structure](https://user-images.githubusercontent.com/55525868/205878592-62bf750e-0d8e-4e1e-bf9c-b01596a6a7a5.png)
 
 - 프론트
   - html, css, js (es6+)
@@ -106,7 +106,7 @@ velog(벨로그)는 velopert님이 만든 개발자를 위한 블로그 서비�
   - 임시저장은 10초마다 자동으로 저장될 수 있다.
 - 로그인한 사용자는 게시글에 좋아요와 태그를 추가할 수 있다.
 - 태그를 클릭하면 태그 목록을 확인할 수 있다.
-- 메인 화면에는 최신순과 좋아요순으로 볼 수 있도록 카테고리를 추가한다.
+- 메인 화면에는 최신순과 좋아요순으로 볼 수 있도록 정렬 기능을 추가한다.
 
 ![erd](https://user-images.githubusercontent.com/55525868/205479698-ce5d78a7-b5c4-4e70-9da2-a3cdcc75f15d.png)
 
