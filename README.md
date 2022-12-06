@@ -14,7 +14,7 @@ velog(벨로그)는 velopert님이 만든 개발자를 위한 블로그 서비�
 - 프로젝트 참여: 본인
 - 프로젝트 기간: 2022-10-08 ~ 2022-12-08 (두 달간 진행)
 
-## 기술 스택
+## 🎨 기술스택
 
 - Java 11
 - Intellij
@@ -35,7 +35,7 @@ velog(벨로그)는 velopert님이 만든 개발자를 위한 블로그 서비�
   - RDS
   - S3
 
-## API
+## 🎻 API
 
 - http://azurelog.link/docs/member.html
 - http://azurelog.link/docs/posts.html
@@ -44,7 +44,7 @@ velog(벨로그)는 velopert님이 만든 개발자를 위한 블로그 서비�
 - http://azurelog.link/docs/hashtag.html
 - http://azurelog.link/docs/postsLike.html
 
-## 기능 구현
+## 🍀 기능 구현
 
 - 로그인/회원가입
   - 이메일 인증을 통한 로그인/회원가입
@@ -69,7 +69,7 @@ velog(벨로그)는 velopert님이 만든 개발자를 위한 블로그 서비�
   - `toast ui editor` 사용
   - 예외처리
 
-## 프로젝트 구조
+## 🚀 프로젝트 구조
 
 ![alog_structure](https://user-images.githubusercontent.com/55525868/205878592-62bf750e-0d8e-4e1e-bf9c-b01596a6a7a5.png)
 
@@ -112,7 +112,7 @@ velog(벨로그)는 velopert님이 만든 개발자를 위한 블로그 서비�
 
 ![erd](https://user-images.githubusercontent.com/55525868/205479698-ce5d78a7-b5c4-4e70-9da2-a3cdcc75f15d.png)
 
-## 패키지 구조 (도메인형 구조)
+## 🌊 패키지 구조 (도메인형 구조)
 
 - 계층형 구조: 각 계층을 대표하는 디렉터리를 기준으로 구성
   - 장점: 전체적인 구조를 빠르게 파악할 수 있다. (프로젝트가 작은 경우에 사용하면 좋음)
@@ -191,7 +191,7 @@ velog(벨로그)는 velopert님이 만든 개발자를 위한 블로그 서비�
 
 ```
 
-## git 협업
+## 🗻 git 협업
 
 프로젝트를 혼자서 구현했기 때문에 git 협업 경험이 없습니다. 그래서 혼자서 브랜치를 따고 아래와 같은 패턴으로 소스 형상 관리를 했습니다.
 
@@ -202,7 +202,7 @@ velog(벨로그)는 velopert님이 만든 개발자를 위한 블로그 서비�
 
 커밋 메시지는 `git commit message convention`을 참고해서 커밋을 진행했습니다.
 
-## 배포 진행
+## 🎆 배포 진행
 
 1. `git clone` 혹은 `git pull`을 통해 새 버전의 프로젝트 받는다.
 2. Gradle이나 Maven을 통해 프로젝트 테스트와 빌드
@@ -227,7 +227,7 @@ velog(벨로그)는 velopert님이 만든 개발자를 위한 블로그 서비�
 -> -Dspring.profiles.active 설정으로 운영(real) profile 지정
 ```
 
-## API 문서
+## 👓 API 문서
 
 클라이언트 입장에서는 어떤 API가 있는지 모르기 때문에 백엔드에서 API를 잘 정리해서 전달할 필요가 있습니다. 백엔드에서 개발한 실제 코드를 토대로 자동으로 API 문서화를 만들어주는 툴들이 있습니다.
 
@@ -261,7 +261,7 @@ velog(벨로그)는 velopert님이 만든 개발자를 위한 블로그 서비�
 - asciidoctor는 test를 실행 후 성공하면 build 폴더에 snippets, html을 생성
 - gradle build시 bootJar가 실행되면서 build 폴더에 있던 html을 /resources/static/docs 로 복사
 
-## 트러블 슈팅
+## 💥 트러블 슈팅
 
 ### @ModelAttribute가 바인딩 되지 않는 문제
 
