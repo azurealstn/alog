@@ -190,11 +190,11 @@ function getPostsCard(posts) {
         postsCardHtml = `
             <div class="posts-card">
                 <div class="member-info">
-                    <a href="/api/v1/my-alog/${posts.member.id}">
+                    <a href="/api/v1/auth/my-alog/${posts.member.id}">
                         <img src="${posts.member.picture}" referrerpolicy="no-referrer" alt="thumbnail-profile">
                     </a>
                     <div class="username">
-                        <a href="/api/v1/my-alog/${posts.member.id}">minsu</a>
+                        <a href="/api/v1/auth/my-alog/${posts.member.id}">${posts.member.name}</a>
                     </div>
                 </div>
                 <a href="/api/v1/auth/posts/${posts.id}">
@@ -226,11 +226,11 @@ function getPostsCard(posts) {
         postsCardHtml = `
             <div class="posts-card">
                 <div class="member-info">
-                    <a href="/api/v1/my-alog/${posts.member.id}">
+                    <a href="/api/v1/auth/my-alog/${posts.member.id}">
                         <img src="${posts.member.picture}" referrerpolicy="no-referrer" alt="thumbnail-profile">
                     </a>
                     <div class="username">
-                        <a href="/api/v1/my-alog/${posts.member.id}">minsu</a>
+                        <a href="/api/v1/auth/my-alog/${posts.member.id}">${posts.member.name}</a>
                     </div>
                 </div>
                 <a href="/api/v1/auth/posts/${posts.id}">

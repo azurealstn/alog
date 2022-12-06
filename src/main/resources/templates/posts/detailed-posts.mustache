@@ -21,7 +21,7 @@
             <div class="posts-info">
                 <div class="information">
                     <span class="username">
-                      <a href="/api/v1/my-alog/{{posts.member.id}}">{{posts.member.name}}</a>
+                      <a href="/api/v1/auth/my-alog/{{posts.member.id}}">{{posts.member.name}}</a>
                     </span>
                     <span class="separator">·</span>
                     <span>{{previousPostsDate}}</span>
@@ -88,12 +88,12 @@
     <div class="member-info">
         <div class="member-container">
             <div class="info">
-                <a href="/api/v1/my-alog/{{posts.member.id}}" style="cursor: pointer;">
+                <a href="/api/v1/auth/my-alog/{{posts.member.id}}" style="cursor: pointer;">
                     <img src="{{posts.member.picture}}" alt="프로필 사진">
                 </a>
                 <div class="sub-info">
                     <div class="name">
-                        <a href="/api/v1/my-alog/{{posts.member.id}}">{{posts.member.name}}</a>
+                        <a href="/api/v1/auth/my-alog/{{posts.member.id}}">{{posts.member.name}}</a>
                     </div>
                     <div>{{posts.member.shortBio}}</div>
                 </div>
@@ -120,12 +120,12 @@
                     <div class="comment">
                         <div class="comment-member">
                             <div class="profile">
-                                <a href="/api/v1/my-alog/{{member.id}}">
+                                <a href="/api/v1/auth/my-alog/{{member.id}}">
                                     <img src="{{member.picture}}" alt="comment member profile thumbnail">
                                 </a>
                                 <div class="comment-info">
                                     <div class="username">
-                                        <a href="/api/v1/my-alog/{{member.id}}">{{member.name}}</a>
+                                        <a href="/api/v1/auth/my-alog/{{member.id}}">{{member.name}}</a>
                                     </div>
                                     <div class="date">{{previousTime}}</div>
                                 </div>
@@ -161,12 +161,12 @@
                                     <div class="comment" id="comment-{{upCommentId}}">
                                         <div class="comment-member">
                                             <div class="profile">
-                                                <a href="/api/v1/my-alog/{{member.id}}">
+                                                <a href="/api/v1/auth/my-alog/{{member.id}}">
                                                     <img src="{{member.picture}}" alt="comment member profile thumbnail">
                                                 </a>
                                                 <div class="comment-info">
                                                     <div class="username">
-                                                        <a href="/api/v1/my-alog/{{member.id}}">{{member.name}}</a>
+                                                        <a href="/api/v1/auth/my-alog/{{member.id}}">{{member.name}}</a>
                                                     </div>
                                                     <div class="date">{{previousTime}}</div>
                                                 </div>
@@ -259,6 +259,9 @@
                                 </a>
                                 <a href="/oauth2/authorization/naver" class="social-link">
                                     <img src="/images/social-naver.png" alt="naver">
+                                </a>
+                                <a href="/oauth2/authorization/kakao" class="social-link" style="background: #FDDC00;">
+                                    <img src="/images/social-kakao.png" alt="kakao">
                                 </a>
                             </div>
                         </section>

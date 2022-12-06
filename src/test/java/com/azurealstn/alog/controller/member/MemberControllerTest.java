@@ -120,7 +120,7 @@ class MemberControllerTest {
     }
 
     @Test
-    @DisplayName("/api/v1/my-alog/{memberId} 호출시 내 에이로그 페이지")
+    @DisplayName("/api/v1/auth/my-alog/{memberId} 호출시 내 에이로그 페이지")
     void my_alog_page() throws Exception {
         //given
         MemberCreateRequestDto memberCreateRequestDto = getMemberCreateRequestDto();
@@ -130,7 +130,7 @@ class MemberControllerTest {
         MockHttpSession mockHttpSession = new MockHttpSession();
         mockHttpSession.setAttribute("member", new SessionMemberDto(savedMember));
 
-        mockMvc.perform(get("/api/v1/my-alog/{memberId}", savedMember.getId())
+        mockMvc.perform(get("/api/v1/auth/my-alog/{memberId}", savedMember.getId())
                         .session(mockHttpSession))
                 .andExpect(status().isOk())
                 .andDo(print());

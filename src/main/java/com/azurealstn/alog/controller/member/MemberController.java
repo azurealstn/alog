@@ -75,7 +75,7 @@ public class MemberController {
         return "member/setting";
     }
 
-    @GetMapping("/api/v1/my-alog/{memberId}")
+    @GetMapping("/api/v1/auth/my-alog/{memberId}")
     public String myAlog(Model model, @PathVariable Long memberId) {
         MemberResponseDto member = memberService.findById(memberId);
         List<PostsResponseDto> postsListByMember = postsService.findAllByMember(memberId);
@@ -99,13 +99,16 @@ public class MemberController {
         }
 
         SessionMemberDto sessionMember = (SessionMemberDto) httpSession.getAttribute("member");
-        Boolean isMyPosts = memberService.isMyPosts(memberId, sessionMember);
-        MemberResponseDto sessionMemberDto = memberService.findById(sessionMember.getId());
+        if (sessionMember != null) {
+            Boolean isMyPosts = memberService.isMyPosts(memberId, sessionMember);
+            model.addAttribute("isMyPosts", isMyPosts);
+            MemberResponseDto sessionMemberDto = memberService.findById(sessionMember.getId());
+            model.addAttribute("sessionMemberDto", sessionMemberDto);
+
+        }
 
         model.addAttribute("member", member);
-        model.addAttribute("sessionMemberDto", sessionMemberDto);
         model.addAttribute("postsListByMember", postsListByMember);
-        model.addAttribute("isMyPosts", isMyPosts);
 
         return "member/my-alog";
     }

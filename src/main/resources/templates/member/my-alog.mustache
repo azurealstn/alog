@@ -68,7 +68,7 @@
     <script src="https://uicdn.toast.com/editor-plugin-color-syntax/latest/toastui-editor-plugin-color-syntax.min.js" defer></script>
     <script src="https://uicdn.toast.com/editor-plugin-code-syntax-highlight/latest/toastui-editor-plugin-code-syntax-highlight-all.min.js" defer></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js" defer></script>
-    <script src="/js/index.js" defer></script>
+    <script src="/js/header.js" defer></script>
     <script src="/js/my-alog.js" defer></script>
 
 </head>
@@ -96,7 +96,7 @@
                         </div>
                         <div class="menu hide">
                             <div class="menu-wrapper">
-                                <a href="/api/v1/my-alog/{{sessionMemberDto.id}}" class="menu-item">
+                                <a href="/api/v1/auth/my-alog/{{sessionMemberDto.id}}" class="menu-item">
                                     <div class="menu-name">
                                         내 에이로그
                                     </div>
@@ -137,7 +137,7 @@
                 </a>
                 <div class="member-name">
                     <div class="name">
-                        <a href="/api/v1/my-alog/{{member.id}}">{{member.name}}</a>
+                        <a href="/api/v1/auth/my-alog/{{member.id}}">{{member.name}}</a>
                     </div>
                     <div class="description">{{member.shortBio}}</div>
                 </div>
@@ -148,9 +148,9 @@
         <div class="my-alog-middle"></div>
         <div class="my-alog-bottom">
             <div class="category">
-                <a href="/api/v1/my-alog/{{member.id}}" class="lists active" id="public-posts">전체글</a>
+                <a href="/api/v1/auth/my-alog/{{member.id}}" class="lists active" id="public-posts">전체글</a>
                 {{#isMyPosts}}
-                <a href="/api/v1/my-alog/{{member.id}}/secret" class="lists" id="secret-posts">비밀글</a>
+                <a href="/api/v1/auth/my-alog/{{member.id}}/secret" class="lists" id="secret-posts">비밀글</a>
                 {{/isMyPosts}}
                 <div class="underline" style="left: 0%;"></div>
             </div>
@@ -194,7 +194,7 @@
 
     <!-- modal -->
     <div class="modal-bg" id="modal-bg-hide"></div>
-    <div class="modal-container" id="modal-container-hide">
+    <div class="modal-container-detail" id="modal-container-hide">
         <div class="wrapper">
             <div class="gray-block">
                 <div>
@@ -231,6 +231,9 @@
                                     </a>
                                     <a href="/oauth2/authorization/naver" class="social-link">
                                         <img src="/images/social-naver.png" alt="naver">
+                                    </a>
+                                    <a href="/oauth2/authorization/kakao" class="social-link" style="background: #FDDC00;">
+                                        <img src="/images/social-kakao.png" alt="kakao">
                                     </a>
                                 </div>
                             </section>
