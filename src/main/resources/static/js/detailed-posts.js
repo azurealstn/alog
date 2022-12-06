@@ -378,9 +378,12 @@ const postsMain = {
     }
   },
   commentModify: function(commentId) {
+    const subContentVal = $(`#sub-content-${commentId}`).val();
+    const contentVal = $(`#content-${commentId}`).val();
     const data = {
-        content: $(`#sub-content-${commentId}`).val(),
+        content: contentVal == undefined ? subContentVal : contentVal,
     };
+    console.log(data);
 
     $.ajax({
         type: 'PATCH',
