@@ -32,7 +32,10 @@ import java.util.UUID;
 @Component
 public class FileUtils {
 
-    private final String[] ALLOWED_EXT = {"jpg", "jpeg", "jpe", "png"};
+    private final String[] ALLOWED_EXT = {
+            "jpg", "jpeg", "jpe", "png",
+            "JPG", "JPEG", "JPE", "PNG"
+    };
 
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
