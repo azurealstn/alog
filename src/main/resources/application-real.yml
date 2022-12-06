@@ -63,4 +63,4 @@ cloud:
       instanceProfile: true
 
 domain:
-  location: ec2-43-200-218-143.ap-northeast-2.compute.amazonaws.com
+  location: http://azurelog.link/
