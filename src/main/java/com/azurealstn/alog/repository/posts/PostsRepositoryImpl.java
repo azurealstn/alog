@@ -49,8 +49,7 @@ public class PostsRepositoryImpl implements PostsRepositoryCustom {
         return jpaQueryFactory
                 .selectFrom(posts)
                 .leftJoin(postsLike)
-                .on(posts.id.eq(postsLike.posts.id),
-                        posts.member.id.eq(postsLike.member.id))
+                .on(posts.id.eq(postsLike.posts.id))
                 .limit(searchDto.getSize())
                 .offset(searchDto.getOffset())
                 .where(posts.secret.eq(false),
@@ -64,8 +63,7 @@ public class PostsRepositoryImpl implements PostsRepositoryCustom {
         return jpaQueryFactory
                 .selectFrom(posts)
                 .leftJoin(postsLike)
-                .on(posts.id.eq(postsLike.posts.id),
-                        posts.member.id.eq(postsLike.member.id))
+                .on(posts.id.eq(postsLike.posts.id))
                 .where(posts.secret.eq(false),
                         postsLike.member.id.eq(memberId))
                 .orderBy(posts.id.desc())
