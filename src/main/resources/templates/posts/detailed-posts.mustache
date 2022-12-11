@@ -10,6 +10,7 @@
         <input type="hidden" id="memberId" value="">
         {{/member}}
         <input type="hidden" id="secret" value="{{posts.secret}}">
+
         <div class="head-wrapper">
             <h1>{{posts.title}}</h1>
             {{#isAuthenticated}}
@@ -152,7 +153,15 @@
                         <div class="comment-reply">
                             <div class="reply-area" onclick="postsMain.commentShowAndHide({{id}})">
                                 <i class="fa-solid fa-square-plus" id="icon-{{id}}"></i>
+                                {{#hasSubCommentList}}
+                                <span class="show-reply" id="text-{{id}}">{{subCommentListCount}}개 답글 보기</span>
+                                <input type="hidden" id="hasSubCommentList-{{id}}" value="{{hasSubCommentList}}">
+                                <input type="hidden" id="subCommentListCount-{{id}}" value="{{subCommentListCount}}">
+                                {{/hasSubCommentList}}
+                                {{^hasSubCommentList}}
                                 <span class="show-reply" id="text-{{id}}">답글 작성</span>
+                                <input type="hidden" id="hasSubCommentList-{{id}}" value="false">
+                                {{/hasSubCommentList}}
                             </div>
                             <div class="reply-detail-list" id="detail-list-{{id}}">
                                 <div class="replay-margin"></div>

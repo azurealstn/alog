@@ -248,6 +248,8 @@ const postsMain = {
      const replyDetailList = document.querySelector(`#detail-list-${commentId}`);
      const icon = document.querySelector(`#icon-${commentId}`);
      const showText = document.querySelector(`#text-${commentId}`);
+     const hasSubCommentList = document.querySelector(`#hasSubCommentList-${commentId}`);
+     const subCommentListCount = document.querySelector(`#subCommentListCount-${commentId}`);
 
      replyDetailList.classList.toggle('reply-detail-show');
      if (replyDetailList.className.includes('reply-detail-show')) {
@@ -257,7 +259,11 @@ const postsMain = {
      } else {
          icon.classList.remove('fa-square-minus');
          icon.classList.add('fa-square-plus');
-         showText.innerText = '답글 작성';
+         if (hasSubCommentList.value === 'true') {
+            showText.innerText = subCommentListCount.value + '개 답글 보기';
+         } else {
+            showText.innerText = '답글 작성';
+         }
      }
 
   },

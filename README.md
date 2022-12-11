@@ -13,7 +13,7 @@ velog(벨로그)는 velopert님이 만든 개발자를 위한 블로그 서비�
 
 ## 🕒 프로젝트 개발 기간
 
-- 프로젝트 참여: 본인
+- 개인 프로젝트
 - 프로젝트 기간: 2022-10-08 ~ 2022-12-08 (두 달간 진행)
 
 ## 🎨 기술스택
@@ -27,7 +27,7 @@ velog(벨로그)는 velopert님이 만든 개발자를 위한 블로그 서비�
 - QueryDSL 5.0.0
 - H2 Database 2.1.214
 - MariaDB 10.6
-- Gradle
+- Gradle 7.5
 - Mustache
 - Git
 - Junit 5
@@ -83,18 +83,6 @@ velog(벨로그)는 velopert님이 만든 개발자를 위한 블로그 서비�
   - JPA를 이용한 객체지향적 테이블 관리 (ORM)
   - DTO를 통한 도메인 순수성 보장
 
-### 로그인
-
-![login](https://user-images.githubusercontent.com/55525868/197791392-a1b3880f-c14f-427b-afa9-0415b4583235.png)
-
-### 회원가입
-
-![create-member](https://user-images.githubusercontent.com/55525868/197791383-5dbaff23-8d67-4389-be9f-b9fc7d38017e.png)
-
-### 소셜로그인
-
-![sns-login](https://user-images.githubusercontent.com/55525868/197791402-8f0ab835-1d4c-4b36-98b9-19592a20cc06.png)
-
 ## 🎫 데이터베이스 구조
 
 ### 요구사항
@@ -108,12 +96,13 @@ velog(벨로그)는 velopert님이 만든 개발자를 위한 블로그 서비�
   - 글 작성을 완료하거나 임시저장한 글을 수정해서 글 작성이 완료되면 해당 임시저장은 사라진다.
   - 임시저장은 제목과 내용만 저장이 된다.
 - 로그인한 사용자는 게시글에 좋아요와 태그를 추가할 수 있다.
+  - 태그 저장시 `#`은 모두 제거되고 DB에 저장된다.
 - 태그를 클릭하면 태그 목록을 확인할 수 있다.
 - 메인 화면에는 최신순과 좋아요순으로 볼 수 있도록 정렬 기능을 추가한다.
 
-![erd](https://user-images.githubusercontent.com/55525868/205479698-ce5d78a7-b5c4-4e70-9da2-a3cdcc75f15d.png)
+![erd](https://user-images.githubusercontent.com/55525868/206889772-b3f6be96-4d97-444d-842a-f7e77046c6e4.png)
 
-## 🌊 패키지 구조 (도메인형 구조)
+## 🌊 패키지 구조 (계층형 구조)
 
 - 계층형 구조: 각 계층을 대표하는 디렉터리를 기준으로 구성
   - 장점: 전체적인 구조를 빠르게 파악할 수 있다. (프로젝트가 작은 경우에 사용하면 좋음)
@@ -189,7 +178,6 @@ velog(벨로그)는 velopert님이 만든 개발자를 위한 블로그 서비�
   │       ├── application-mail.yml
   │       ├── application-oauth.yml
   │       └── application-aws.yml
-
 ```
 
 ## 🗻 git 협업
@@ -262,11 +250,189 @@ velog(벨로그)는 velopert님이 만든 개발자를 위한 블로그 서비�
 - asciidoctor는 test를 실행 후 성공하면 build 폴더에 snippets, html을 생성
 - gradle build시 bootJar가 실행되면서 build 폴더에 있던 html을 /resources/static/docs 로 복사
 
+## 🧱 어려웠던 점 & 해결
+
+### 1. 강제 로그인 처리
+
+- 기본적으로 Spring Security를 이용하면 인증/인가/Principal(접근주체)/Credential(비밀번호) 이 네 가지를 확인하여 사용자가 우리 사이트에 접근할 수 있는지 확인해줍니다.
+- 하지만 이 프로젝트는 로그인이나 회원가입시에 **이메일 인증**을 통해서 진행하기 때문에 Credential(비밀번호) 부분이 필요가 없었습니다.
+- 따라서 저는 비밀번호 없이도 로그인폼 없이도 강제로 로그인 처리할 수 있도록 개발하는데 어려움이 있었습니다.
+
+<details>
+<summary><b>기존 로그인 코드</b></summary>
+<div markdown="1">
+
+```java
+@RequiredArgsConstructor
+@Service
+public class PrincipalDetailService implements UserDetailsService {
+
+    private final UserRepository userRepository;
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User principal =  userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("해당 사용자를 찾을 수 없습니다. " + username));
+        return new PrincipalDetail(principal);
+    }
+}
+```
+
+</div>
+</details>
+
+- `UserDetailsService` 인터페이스를 상속받고 `loadUserByUsername` 메서드를 구현하여 `UserDetails`를 반환하는 Principal 사용자 객체를 넘겨주면 인증처리가 완료가 됩니다.
+- 하지만 이는 강제 로그인에서는 처리할 수가 없었습니다.
+
+<details>
+<summary><b>강제 로그인 코드</b></summary>
+<div markdown="1">
+
+```java
+private void forceLoginAuth(Member member) {
+    List<GrantedAuthority> roles = new ArrayList<>();
+    roles.add(new SimpleGrantedAuthority(member.getRoleKey()));
+    Authentication authentication = new UsernamePasswordAuthenticationToken(member.getEmail(), null, roles);
+    SecurityContextHolder.getContext().setAuthentication(authentication);
+    httpSession.setAttribute("member", new SessionMemberDto(member));
+}
+```
+
+- 강제 로그인을 처리할 때는 `UsernamePasswordAuthenticationToken` 객체를 구현해서 `SecurityContextHolder` 클래스에 넘겨주면 됩니다.
+
+</div>
+</details>
+
+### 2. 페이징 처리 (QueryDSL)
+
+- Spring Data Jpa를 사용하면 기본적으로 페이징 처리에 많은 기능을 제공해주는 `Pageable` 인터페이스의 구현체인 `PageRequest` 클래스가 있습니다.
+- 하지만 `Pageable`을 사용하면 좀 더 복잡한 검색이나 정렬이 들어가는 경우 사용하기가 어렵기 때문에 직접 페이징을 구현하였습니다.
+- 페이징 구현은 QueryDSL 라이브러리를 사용하였습니다.
+
+<details>
+<summary><b>개선된 코드</b></summary>
+<div markdown="1">
+
+```java
+@Override
+public List<Posts> findAllBySearch(PostsSearchDto searchDto) {
+    return jpaQueryFactory
+      .selectFrom(posts)
+      .limit(searchDto.getSize())
+      .offset(searchDto.getOffset())
+      .where(eqTitleOrEqContent(searchDto.getSearchValue(), searchDto.getSearchValue()),
+            posts.secret.eq(false))
+      .orderBy(posts.likes.desc(), posts.id.desc())
+      .fetch();
+}
+
+private BooleanExpression eqTitleOrEqContent(String title, String content) {
+    if (StringUtils.hasLength(title) || StringUtils.hasLength(content)) {
+        return posts.title.contains(title).or(posts.content.contains(content));
+    }
+    return null;
+}
+```
+
+- 위 코드는 검색 페이지에서 사용하는 쿼리문입니다.
+- `offset`과 `limit`으로 페이징 처리를 하였고, `orderBy`를 이용하여 좋아요순, 최신순으로 나오도록 정렬을 하였습니다.
+- 그리고 `BooleanExpression`를 사용하여 검색시 복잡한 동적쿼리를 처리하는 메서드를 만들어서 사용했습니다.
+- 또한 페이징에서 `totalRowCount`나 `prevPage` 같은 공통 컬럼들은 다른데서도 쓰이므로 공통 클래스인 `BasePageDto` 클래스를 하나 만들어서 사용하였습니다. (아래 코드)
+
+```java
+@ToString
+@Getter
+public class PostsSearchDto {
+
+  private static final int MAX_SIZE = 200;
+
+  private Integer page; //현재 페이지 번호
+  private Integer size; //한 페이지당 데이터 수
+  private BasePageDto basePageDto;
+}
+
+//Service단
+int totalRowCount = postsRepository.findAllBySearchCount(searchDto);
+BasePageDto basePageDto = new BasePageDto(searchDto.getPage(), searchDto.getSize(), totalRowCount);
+searchDto.setBasePageDto(basePageDto);
+```
+
+</div>
+</details>
+
+### 3. 데이터 검증 & 예외처리
+
+- 블로그 서비스를 개발하다보면 제목을 입력 안했다던지 내용을 입력을 안했다면 사용자에게 친절하게 알려줄 필요성을 느꼈습니다.
+- 이러한 데이터 검증은 `BindingResult` 인터페이스를 컨트롤러마다 사용하여 처리할 수 있었습니다.
+- 하지만 매번 컨트롤러마다 이러한 반복 코드를 적는 것은 너무나 조잡하고 복잡했습니다.
+
+<details>
+<summary><b>기존 코드</b></summary>
+<div markdown="1">
+
+```java
+@PostMapping("/api/v1/posts")
+public Map<String, String> posts(@Valid @RequestBody PostsCreateRequestDto requestDto, BindingResult result) {
+    if (result.hasErrors()) {
+        List<FieldError> fieldErrors = result.getFieldErrors();
+        FieldError fieldError = fieldErrors.get(0);
+        String fieldName = fieldError.getField();
+        String defaultMessage = fieldError.getDefaultMessage();
+
+        Map<String, String> error = new HashMap<>();
+        error.put(fieldName, defaultMessage);
+        return error;
+    }
+    return Map.of();
+}
+```
+
+</div>
+</details>
+
+- 반복적인 코드를 줄이기 위해 `@RestControllerAdvice`를 사용하여 데이터 검증 예외가 발생하면 `@ExceptionHandler`가 붙은 메서드에서 처리할 수 있도록 전역에서 처리할 수 있도록 개선하였습니다.
+
+<details>
+<summary><b>개선된 코드</b></summary>
+<div markdown="1">
+
+```java
+@Slf4j
+@RestControllerAdvice
+public class ExceptionApiController {
+
+  /**
+   * 에러가 발생했을 때 이 클래스에서 정의한 예외가 아닌 다른 예외가 터지면 PostsNotFound 예외가 터진다.
+   * 하지만 PostsNotFound 예외는 RuntimeException을 상속받았기 때문에 무조건 서버에러(500)를 발생시킨다.
+   * 따라서 발생한 에러에 대한 정확한 HTTP 상태코드를 발생시켜줘야 한다.
+   * @ResponseStatus 대신에 ResponseEntity 클래스를 응답받는다.
+   */
+  @ExceptionHandler(GlobalException.class)
+  public ResponseEntity<ErrorResponseDto> globalException(GlobalException e) {
+    int statusCode = e.getStatusCode();
+    ErrorResponseDto errorResponseDto = ErrorResponseDto.builder()
+            .code(String.valueOf(statusCode))
+            .message(e.getMessage())
+            .build();
+
+    ResponseEntity<ErrorResponseDto> responseEntity = ResponseEntity.status(statusCode).body(errorResponseDto);
+
+    return responseEntity;
+  }
+}
+```
+
+- `PostsNotFound`나 `MemberNotFound` 같은 예외처리를 매번 `@ExceptionHandler` 메서드를 만들기에는 코드가 반복되기 때문에 `GlobalException`이라는 예외 클래스를 상속받게 만들어서 메서드 하나만 사용할 수 있게 하였습니다.
+- `GlobalException` 클래스를 추상클래스로 만든 이유는 상태코드(status code)를 필수로 구현할 수 있도록 하기 위해서입니다.
+- status code와 에러 Json 데이터를 세팅해주기 위해 `ResponseEntity`를 사용하였습니다.
+
+</div>
+</details>
+
 ## 💥 트러블 슈팅
 
 ### @ModelAttribute가 바인딩 되지 않는 문제
 
-첫번째. DTO 클래스에 `@NoArgsConstructor`와 `@AllArgsConstructor ` 둘 다 있는 경우 `NoArgsConstructor`를 호출하고, setter를 호출한 다음에 param을 필드에 각각 초기화를 한다.
+첫번째. DTO 클래스에 `@NoArgsConstructor`와 `@AllArgsConstructor` 둘 다 있는 경우 `NoArgsConstructor`를 호출하고, setter를 호출한 다음에 param을 필드에 각각 초기화를 한다.
 
 두번째. 하지만 `@AllArgsConstructor`만 있는 경우 `@AllArgsConstructor`를 호출하고 param을 각각 초기화한 뒤에야 setter를 호출하여 다시 param 초기화를 덮어씌운다.
 
@@ -442,3 +608,6 @@ spring.session.jdbc.initialize-schema=always
 
 `MockMvcRequestBuilders`가 아닌 `RestDocumentationRequestBuilders`를 사용해야 한다.
 
+## google 소셜로그인시 프로필 사진 403 에러
+
+이미지 속성에 `referrerpolicy="no-referrer"`를 추가한다.

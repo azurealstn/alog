@@ -330,8 +330,9 @@ const postsMain = {
 
           if (tagList.length !== 0) {
               tagList.forEach((tag, index) => {
+                  const name = tag.innerText.replace(/#/g, '');
                   const tagData = {
-                      name: tag.innerText,
+                      name: name,
                   };
 
                   $.ajax({
@@ -582,8 +583,9 @@ const postsMain = {
 
                     if (tagList.length !== 0) {
                         tagList.forEach((tag, index) => {
+                            const name = tag.innerText.replace(/#/g, '');
                             const tagData = {
-                                name: tag.innerText,
+                                name: name,
                             };
 
                             $.ajax({

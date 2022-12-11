@@ -8,6 +8,7 @@ import com.azurealstn.alog.dto.hashtag.HashTagResponseDto;
 import com.azurealstn.alog.dto.image.PostsImageResponseDto;
 import com.azurealstn.alog.dto.like.PostsLikeRequestDto;
 import com.azurealstn.alog.dto.like.PostsLikeResponseDto;
+import com.azurealstn.alog.dto.posts.PostsCreateRequestDto;
 import com.azurealstn.alog.dto.posts.PostsResponseDto;
 import com.azurealstn.alog.dto.tempsave.TempSaveResponseDto;
 import com.azurealstn.alog.service.comment.CommentService;
@@ -20,13 +21,16 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -97,6 +101,7 @@ public class PostsController {
                     .collect(Collectors.toList());
 
             commentResponseDto.addSubCommentList(commentList);
+            commentResponseDto.addSubCommentListCount(commentList.size());
 
             if (commentList.size() > 0) {
                 commentResponseDto.addHasSubCommentList(true);

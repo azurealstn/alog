@@ -25,6 +25,7 @@ public class CommentResponseDto implements Serializable {
     private List<Comment> subCommentList;
     private boolean isCommentMe;
     private boolean hasSubCommentList;
+    private int subCommentListCount;
 
     public CommentResponseDto(Comment entity) {
         this.id = entity.getId();
@@ -46,6 +47,10 @@ public class CommentResponseDto implements Serializable {
 
     public void addHasSubCommentList(boolean hasSubCommentList) {
         this.hasSubCommentList = hasSubCommentList;
+    }
+
+    public void addSubCommentListCount(int subCommentListCount) {
+        this.subCommentListCount = subCommentListCount;
     }
 
 }
