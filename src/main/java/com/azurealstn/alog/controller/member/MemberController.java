@@ -38,9 +38,6 @@ public class MemberController {
     private final CustomOAuth2UserService customOAuth2UserService;
     private final LoginService loginService;
     private final PostsService postsService;
-    private final HashTagService hashTagService;
-    private final PostsLikeService postsLikeService;
-    private final CommentService commentService;
     private final HttpSession httpSession;
 
     @GetMapping("/api/v1/auth/create-member")
@@ -80,23 +77,7 @@ public class MemberController {
         MemberResponseDto member = memberService.findById(memberId);
         List<PostsResponseDto> postsListByMember = postsService.findAllByMember(memberId);
 
-        for (PostsResponseDto postsResponseDto : postsListByMember) {
-            List<HashTagResponseDto> tags = hashTagService.findByTags(postsResponseDto.getId());
-            List<HashTag> hashTags = tags.stream()
-                    .map(tag -> HashTag.builder()
-                            .name(tag.getName())
-                            .build())
-                    .collect(Collectors.toList());
-
-            for (HashTag hashTag : hashTags) {
-                postsResponseDto.addHashTag(hashTag);
-            }
-
-            PostsLikeRequestDto postsLikeRequestDto = new PostsLikeRequestDto(postsResponseDto.getMember().getId(), postsResponseDto.getId());
-            PostsLikeResponseDto postsLikeInfo = postsLikeService.findPostsLikeInfo(postsLikeRequestDto);
-            postsResponseDto.addLikeCount(postsLikeInfo.getPostsLikeCount());
-            postsResponseDto.addCommentCount(commentService.commentCountByPosts(postsResponseDto.getId()));
-        }
+        postsService.setMemberPostsResponseDto(postsListByMember);
 
         SessionMemberDto sessionMember = (SessionMemberDto) httpSession.getAttribute("member");
         if (sessionMember != null) {

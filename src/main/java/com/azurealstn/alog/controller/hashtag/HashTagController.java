@@ -1,6 +1,7 @@
 package com.azurealstn.alog.controller.hashtag;
 
 import com.azurealstn.alog.domain.hashtag.HashTag;
+import com.azurealstn.alog.dto.PaginationDto;
 import com.azurealstn.alog.dto.auth.SessionMemberDto;
 import com.azurealstn.alog.dto.hashtag.HashTagResponseDto;
 import com.azurealstn.alog.dto.hashtag.HashTagSearchDto;
@@ -32,11 +33,7 @@ import java.util.stream.Collectors;
 @Controller
 public class HashTagController {
 
-    private final HashTagService hashTagService;
     private final PostsService postsService;
-    private final PostsImageService postsImageService;
-    private final PostsLikeService postsLikeService;
-    private final CommentService commentService;
     private final HttpSession httpSession;
 
     @GetMapping("/api/v1/auth/tags/{name}")
@@ -44,45 +41,9 @@ public class HashTagController {
         SessionMemberDto member = (SessionMemberDto) httpSession.getAttribute("member");
         List<PostsResponseDto> postsList = postsService.findAllJoinWithHashTag(name, searchDto);
 
-        for (PostsResponseDto postsResponseDto : postsList) {
-            List<HashTagResponseDto> tags = hashTagService.findByTags(postsResponseDto.getId());
-            List<HashTag> hashTags = tags.stream()
-                    .map(tag -> HashTag.builder()
-                            .name(tag.getName())
-                            .build())
-                    .collect(Collectors.toList());
+        postsService.setTagPostsResponseDto(postsList);
 
-            for (HashTag hashTag : hashTags) {
-                postsResponseDto.addHashTag(hashTag);
-            }
-
-            PostsLikeRequestDto postsLikeRequestDto = new PostsLikeRequestDto(postsResponseDto.getMember().getId(), postsResponseDto.getId());
-            PostsLikeResponseDto postsLikeInfo = postsLikeService.findPostsLikeInfo(postsLikeRequestDto);
-            postsResponseDto.addLikeCount(postsLikeInfo.getPostsLikeCount());
-            postsResponseDto.addCommentCount(commentService.commentCountByPosts(postsResponseDto.getId()));
-
-            PostsImageResponseDto postsImageResponseDto = postsImageService.findThumbnailByPosts(postsResponseDto.getId());
-            if (postsImageResponseDto != null) {
-                postsResponseDto.addStoreFilename(postsImageResponseDto.getStoreFilename());
-                postsResponseDto.addImageUrl(postsImageResponseDto.getImageUrl());
-            }
-        }
-
-        //==페이징 처리 start==//
-        List<Integer> pagination = new ArrayList<>();
-        int startPage = searchDto.getBasePageDto().getStartPage();
-        int endPage = searchDto.getBasePageDto().getEndPage();
-        for (int i = startPage; i <= endPage; i++) {
-            pagination.add(i);
-        }
-
-        boolean hasDoublePrevPage = (searchDto.getPage() / 10) > 0;
-        boolean hasDoubleNextPage = (searchDto.getPage() / 10) < (searchDto.getBasePageDto().getTotalPageCount() / 10);
-        int doublePrevPage = startPage - 10;
-        int doubleNextPage = startPage + 10;
-
-        //==페이징 처리 end==//
-        log.info("searchDto={}", searchDto.toString());
+        PaginationDto paginationDto = new PaginationDto(searchDto.getBasePageDto().getStartPage(), searchDto.getBasePageDto().getEndPage(), searchDto.getPage(), searchDto.getBasePageDto().getTotalPageCount());
 
         model.addAttribute("member", member);
         model.addAttribute("tagName", name);
@@ -90,13 +51,13 @@ public class HashTagController {
         model.addAttribute("postsList", postsList);
         model.addAttribute("postsSize", postsList.size());
 
-        model.addAttribute("movePrevPage", searchDto.getPage() - 1);
-        model.addAttribute("moveNextPage", searchDto.getPage() + 1);
-        model.addAttribute("pagination", pagination);
-        model.addAttribute("hasDoubleNextPage", hasDoubleNextPage);
-        model.addAttribute("doubleNextPage", doubleNextPage);
-        model.addAttribute("hasDoublePrevPage", hasDoublePrevPage);
-        model.addAttribute("doublePrevPage", doublePrevPage);
+        model.addAttribute("movePrevPage", paginationDto.getMovePrevPage());
+        model.addAttribute("moveNextPage", paginationDto.getMoveNextPage());
+        model.addAttribute("pagination", paginationDto.getPagination());
+        model.addAttribute("hasDoubleNextPage", paginationDto.isHasDoubleNextPage());
+        model.addAttribute("doubleNextPage", paginationDto.getDoubleNextPage());
+        model.addAttribute("hasDoublePrevPage", paginationDto.isHasDoublePrevPage());
+        model.addAttribute("doublePrevPage", paginationDto.getDoublePrevPage());
 
         return "hashtag/tags";
     }

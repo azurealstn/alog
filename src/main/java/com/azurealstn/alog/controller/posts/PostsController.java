@@ -86,37 +86,7 @@ public class PostsController {
 
         List<CommentResponseDto> commentLevel0 = commentService.findAllCommentLevel0(postsId);
 
-        for (CommentResponseDto commentResponseDto : commentLevel0) {
-            List<CommentResponseDto> commentResponseDtoList = commentService.findAllCommentLevel1(commentResponseDto.getId());
-            List<Comment> commentList = commentResponseDtoList.stream()
-                    .map(comment -> Comment.builder()
-                            .id(comment.getId())
-                            .content(comment.getContent())
-                            .member(comment.getMember())
-                            .posts(comment.getPosts())
-                            .level(comment.getLevel())
-                            .upCommentId(comment.getUpCommentId())
-                            .isCommentMe(comment.getMember().getId().equals((member != null) ? member.getId() : 0))
-                            .build())
-                    .collect(Collectors.toList());
-
-            commentResponseDto.addSubCommentList(commentList);
-            commentResponseDto.addSubCommentListCount(commentList.size());
-
-            if (commentList.size() > 0) {
-                commentResponseDto.addHasSubCommentList(true);
-            } else {
-                commentResponseDto.addHasSubCommentList(false);
-            }
-
-            if (member != null) {
-                if (commentResponseDto.getMember().getId().equals(member.getId())) {
-                    commentResponseDto.addIsCommentMe(true);
-                } else {
-                    commentResponseDto.addIsCommentMe(false);
-                }
-            }
-        }
+        postsService.setCommentResponseDto(commentLevel0, member);
 
         PostsImageResponseDto postsImage = postsImageService.findThumbnailByPosts(postsId);
 

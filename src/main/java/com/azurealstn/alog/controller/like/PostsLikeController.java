@@ -1,5 +1,6 @@
 package com.azurealstn.alog.controller.like;
 
+import com.azurealstn.alog.dto.PaginationDto;
 import com.azurealstn.alog.dto.auth.SessionMemberDto;
 import com.azurealstn.alog.dto.image.PostsImageResponseDto;
 import com.azurealstn.alog.dto.like.PostsLikeRequestDto;
@@ -30,10 +31,7 @@ import java.util.List;
 public class PostsLikeController {
 
     private final MemberService memberService;
-    private final PostsLikeService postsLikeService;
-    private final CommentService commentService;
     private final PostsService postsService;
-    private final PostsImageService postsImageService;
     private final HttpSession httpSession;
 
     @GetMapping("/api/v1/liked/{memberId}")
@@ -43,43 +41,19 @@ public class PostsLikeController {
 
         List<PostsResponseDto> postsList = postsService.findAllByLike(searchDto, memberId);
 
-        for (PostsResponseDto postsResponseDto : postsList) {
-            PostsLikeRequestDto postsLikeRequestDto = new PostsLikeRequestDto(postsResponseDto.getMember().getId(), postsResponseDto.getId());
-            PostsLikeResponseDto postsLikeInfo = postsLikeService.findPostsLikeInfo(postsLikeRequestDto);
-            postsResponseDto.addLikeCount(postsLikeInfo.getPostsLikeCount());
-            postsResponseDto.addCommentCount(commentService.commentCountByPosts(postsResponseDto.getId()));
+        postsService.setPostsLikeResponseDto(postsList);
 
-            PostsImageResponseDto postsImageResponseDto = postsImageService.findThumbnailByPosts(postsResponseDto.getId());
-            if (postsImageResponseDto != null) {
-                postsResponseDto.addStoreFilename(postsImageResponseDto.getStoreFilename());
-                postsResponseDto.addImageUrl(postsImageResponseDto.getImageUrl());
-            }
-        }
-
-        //==페이징 처리 start==//
-        List<Integer> pagination = new ArrayList<>();
-        int startPage = searchDto.getBasePageDto().getStartPage();
-        int endPage = searchDto.getBasePageDto().getEndPage();
-        for (int i = startPage; i <= endPage; i++) {
-            pagination.add(i);
-        }
-
-        boolean hasDoublePrevPage = (searchDto.getPage() / 10) > 0;
-        boolean hasDoubleNextPage = (searchDto.getPage() / 10) < (searchDto.getBasePageDto().getTotalPageCount() / 10);
-        int doublePrevPage = startPage - 10;
-        int doubleNextPage = startPage + 10;
-
-        //==페이징 처리 end==//
+        PaginationDto paginationDto = new PaginationDto(searchDto.getBasePageDto().getStartPage(), searchDto.getBasePageDto().getEndPage(), searchDto.getPage(), searchDto.getBasePageDto().getTotalPageCount());
 
         model.addAttribute("postsList", postsList);
         model.addAttribute("hasPostsList", postsList.size() > 0);
-        model.addAttribute("movePrevPage", searchDto.getPage() - 1);
-        model.addAttribute("moveNextPage", searchDto.getPage() + 1);
-        model.addAttribute("pagination", pagination);
-        model.addAttribute("hasDoubleNextPage", hasDoubleNextPage);
-        model.addAttribute("doubleNextPage", doubleNextPage);
-        model.addAttribute("hasDoublePrevPage", hasDoublePrevPage);
-        model.addAttribute("doublePrevPage", doublePrevPage);
+        model.addAttribute("movePrevPage", paginationDto.getMovePrevPage());
+        model.addAttribute("moveNextPage", paginationDto.getMoveNextPage());
+        model.addAttribute("pagination", paginationDto.getPagination());
+        model.addAttribute("hasDoubleNextPage", paginationDto.isHasDoubleNextPage());
+        model.addAttribute("doubleNextPage", paginationDto.getDoubleNextPage());
+        model.addAttribute("hasDoublePrevPage", paginationDto.isHasDoublePrevPage());
+        model.addAttribute("doublePrevPage", paginationDto.getDoublePrevPage());
 
         model.addAttribute("sessionMemberDto", sessionMemberDto);
 

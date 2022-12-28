@@ -1,9 +1,7 @@
 package com.azurealstn.alog.controller;
 
+import com.azurealstn.alog.dto.PaginationDto;
 import com.azurealstn.alog.dto.auth.SessionMemberDto;
-import com.azurealstn.alog.dto.image.PostsImageResponseDto;
-import com.azurealstn.alog.dto.like.PostsLikeRequestDto;
-import com.azurealstn.alog.dto.like.PostsLikeResponseDto;
 import com.azurealstn.alog.dto.member.MemberResponseDto;
 import com.azurealstn.alog.dto.posts.PostsResponseDto;
 import com.azurealstn.alog.dto.posts.PostsSearchDto;
@@ -30,10 +28,7 @@ public class IndexController {
 
     private final HttpSession httpSession;
     private final PostsService postsService;
-    private final PostsLikeService postsLikeService;
-    private final CommentService commentService;
     private final MemberService memberService;
-    private final PostsImageService postsImageService;
 
     @GetMapping("/")
     public String index(Model model, @ModelAttribute(name = "searchDto") PostsSearchDto searchDto) {
@@ -45,42 +40,18 @@ public class IndexController {
 
         List<PostsResponseDto> postsList = postsService.findAll(searchDto);
 
-        for (PostsResponseDto postsResponseDto : postsList) {
-            PostsLikeRequestDto postsLikeRequestDto = new PostsLikeRequestDto(postsResponseDto.getMember().getId(), postsResponseDto.getId());
-            PostsLikeResponseDto postsLikeInfo = postsLikeService.findPostsLikeInfo(postsLikeRequestDto);
-            postsResponseDto.addLikeCount(postsLikeInfo.getPostsLikeCount());
-            postsResponseDto.addCommentCount(commentService.commentCountByPosts(postsResponseDto.getId()));
+        postsService.setIndexPostsResponseDto(postsList);
 
-            PostsImageResponseDto postsImageResponseDto = postsImageService.findThumbnailByPosts(postsResponseDto.getId());
-            if (postsImageResponseDto != null) {
-                postsResponseDto.addStoreFilename(postsImageResponseDto.getStoreFilename());
-                postsResponseDto.addImageUrl(postsImageResponseDto.getImageUrl());
-            }
-        }
-
-        //==페이징 처리 start==//
-        List<Integer> pagination = new ArrayList<>();
-        int startPage = searchDto.getBasePageDto().getStartPage();
-        int endPage = searchDto.getBasePageDto().getEndPage();
-        for (int i = startPage; i <= endPage; i++) {
-            pagination.add(i);
-        }
-
-        boolean hasDoublePrevPage = (searchDto.getPage() / 10) > 0;
-        boolean hasDoubleNextPage = (searchDto.getPage() / 10) < (searchDto.getBasePageDto().getTotalPageCount() / 10);
-        int doublePrevPage = startPage - 10;
-        int doubleNextPage = startPage + 10;
-
-        //==페이징 처리 end==//
+        PaginationDto paginationDto = new PaginationDto(searchDto.getBasePageDto().getStartPage(), searchDto.getBasePageDto().getEndPage(), searchDto.getPage(), searchDto.getBasePageDto().getTotalPageCount());
 
         model.addAttribute("postsList", postsList);
-        model.addAttribute("movePrevPage", searchDto.getPage() - 1);
-        model.addAttribute("moveNextPage", searchDto.getPage() + 1);
-        model.addAttribute("pagination", pagination);
-        model.addAttribute("hasDoubleNextPage", hasDoubleNextPage);
-        model.addAttribute("doubleNextPage", doubleNextPage);
-        model.addAttribute("hasDoublePrevPage", hasDoublePrevPage);
-        model.addAttribute("doublePrevPage", doublePrevPage);
+        model.addAttribute("movePrevPage", paginationDto.getMovePrevPage());
+        model.addAttribute("moveNextPage", paginationDto.getMoveNextPage());
+        model.addAttribute("pagination", paginationDto.getPagination());
+        model.addAttribute("hasDoubleNextPage", paginationDto.isHasDoubleNextPage());
+        model.addAttribute("doubleNextPage", paginationDto.getDoubleNextPage());
+        model.addAttribute("hasDoublePrevPage", paginationDto.isHasDoublePrevPage());
+        model.addAttribute("doublePrevPage", paginationDto.getDoublePrevPage());
 
         return "index";
     }
@@ -95,43 +66,18 @@ public class IndexController {
 
         List<PostsResponseDto> postsList = postsService.findAllByIndexLiked(searchDto);
 
-        for (PostsResponseDto postsResponseDto : postsList) {
-            PostsLikeRequestDto postsLikeRequestDto = new PostsLikeRequestDto(postsResponseDto.getMember().getId(), postsResponseDto.getId());
-            PostsLikeResponseDto postsLikeInfo = postsLikeService.findPostsLikeInfo(postsLikeRequestDto);
-            postsResponseDto.addLikeCount(postsLikeInfo.getPostsLikeCount());
-            postsResponseDto.addCommentCount(commentService.commentCountByPosts(postsResponseDto.getId()));
+        postsService.setIndexPostsResponseDto(postsList);
 
-            PostsImageResponseDto postsImageResponseDto = postsImageService.findThumbnailByPosts(postsResponseDto.getId());
-            if (postsImageResponseDto != null) {
-                postsResponseDto.addStoreFilename(postsImageResponseDto.getStoreFilename());
-                postsResponseDto.addImageUrl(postsImageResponseDto.getImageUrl());
-
-            }
-        }
-
-        //==페이징 처리 start==//
-        List<Integer> pagination = new ArrayList<>();
-        int startPage = searchDto.getBasePageDto().getStartPage();
-        int endPage = searchDto.getBasePageDto().getEndPage();
-        for (int i = startPage; i <= endPage; i++) {
-            pagination.add(i);
-        }
-
-        boolean hasDoublePrevPage = (searchDto.getPage() / 10) > 0;
-        boolean hasDoubleNextPage = (searchDto.getPage() / 10) < (searchDto.getBasePageDto().getTotalPageCount() / 10);
-        int doublePrevPage = startPage - 10;
-        int doubleNextPage = startPage + 10;
-
-        //==페이징 처리 end==//
+        PaginationDto paginationDto = new PaginationDto(searchDto.getBasePageDto().getStartPage(), searchDto.getBasePageDto().getEndPage(), searchDto.getPage(), searchDto.getBasePageDto().getTotalPageCount());
 
         model.addAttribute("postsList", postsList);
-        model.addAttribute("movePrevPage", searchDto.getPage() - 1);
-        model.addAttribute("moveNextPage", searchDto.getPage() + 1);
-        model.addAttribute("pagination", pagination);
-        model.addAttribute("hasDoubleNextPage", hasDoubleNextPage);
-        model.addAttribute("doubleNextPage", doubleNextPage);
-        model.addAttribute("hasDoublePrevPage", hasDoublePrevPage);
-        model.addAttribute("doublePrevPage", doublePrevPage);
+        model.addAttribute("movePrevPage", paginationDto.getMovePrevPage());
+        model.addAttribute("moveNextPage", paginationDto.getMoveNextPage());
+        model.addAttribute("pagination", paginationDto.getPagination());
+        model.addAttribute("hasDoubleNextPage", paginationDto.isHasDoubleNextPage());
+        model.addAttribute("doubleNextPage", paginationDto.getDoubleNextPage());
+        model.addAttribute("hasDoublePrevPage", paginationDto.isHasDoublePrevPage());
+        model.addAttribute("doublePrevPage", paginationDto.getDoublePrevPage());
 
         return "popular";
     }

@@ -3,12 +3,14 @@ package com.azurealstn.alog.service.posts;
 import com.azurealstn.alog.Infra.exception.member.MemberNotFound;
 import com.azurealstn.alog.Infra.exception.posts.PostsNotFound;
 import com.azurealstn.alog.Infra.utils.DateUtils;
+import com.azurealstn.alog.domain.comment.Comment;
 import com.azurealstn.alog.domain.hashtag.HashTag;
 import com.azurealstn.alog.domain.image.PostsImage;
 import com.azurealstn.alog.domain.member.Member;
 import com.azurealstn.alog.domain.posts.Posts;
 import com.azurealstn.alog.dto.BasePageDto;
 import com.azurealstn.alog.dto.auth.SessionMemberDto;
+import com.azurealstn.alog.dto.comment.CommentResponseDto;
 import com.azurealstn.alog.dto.hashtag.HashTagResponseDto;
 import com.azurealstn.alog.dto.hashtag.HashTagSearchDto;
 import com.azurealstn.alog.dto.image.PostsImageResponseDto;
@@ -239,5 +241,115 @@ public class PostsService {
         return postsRepository.findAllJoinWithHashTag(name, searchDto).stream()
                 .map(posts -> new PostsResponseDto(posts))
                 .collect(Collectors.toList());
+    }
+
+    public void setPostsLikeResponseDto(List<PostsResponseDto> postsList) {
+        for (PostsResponseDto postsResponseDto : postsList) {
+            PostsLikeRequestDto postsLikeRequestDto = new PostsLikeRequestDto(postsResponseDto.getMember().getId(), postsResponseDto.getId());
+            PostsLikeResponseDto postsLikeInfo = postsLikeService.findPostsLikeInfo(postsLikeRequestDto);
+            postsResponseDto.addLikeCount(postsLikeInfo.getPostsLikeCount());
+            postsResponseDto.addCommentCount(commentService.commentCountByPosts(postsResponseDto.getId()));
+
+            PostsImageResponseDto postsImageResponseDto = postsImageService.findThumbnailByPosts(postsResponseDto.getId());
+            if (postsImageResponseDto != null) {
+                postsResponseDto.addStoreFilename(postsImageResponseDto.getStoreFilename());
+                postsResponseDto.addImageUrl(postsImageResponseDto.getImageUrl());
+            }
+        }
+    }
+
+    public void setMemberPostsResponseDto(List<PostsResponseDto> postsListByMember) {
+        for (PostsResponseDto postsResponseDto : postsListByMember) {
+            List<HashTagResponseDto> tags = hashTagService.findByTags(postsResponseDto.getId());
+            List<HashTag> hashTags = tags.stream()
+                    .map(tag -> HashTag.builder()
+                            .name(tag.getName())
+                            .build())
+                    .collect(Collectors.toList());
+
+            for (HashTag hashTag : hashTags) {
+                postsResponseDto.addHashTag(hashTag);
+            }
+
+            PostsLikeRequestDto postsLikeRequestDto = new PostsLikeRequestDto(postsResponseDto.getMember().getId(), postsResponseDto.getId());
+            PostsLikeResponseDto postsLikeInfo = postsLikeService.findPostsLikeInfo(postsLikeRequestDto);
+            postsResponseDto.addLikeCount(postsLikeInfo.getPostsLikeCount());
+            postsResponseDto.addCommentCount(commentService.commentCountByPosts(postsResponseDto.getId()));
+        }
+    }
+
+    public void setTagPostsResponseDto(List<PostsResponseDto> postsList) {
+        for (PostsResponseDto postsResponseDto : postsList) {
+            List<HashTagResponseDto> tags = hashTagService.findByTags(postsResponseDto.getId());
+            List<HashTag> hashTags = tags.stream()
+                    .map(tag -> HashTag.builder()
+                            .name(tag.getName())
+                            .build())
+                    .collect(Collectors.toList());
+
+            for (HashTag hashTag : hashTags) {
+                postsResponseDto.addHashTag(hashTag);
+            }
+
+            PostsLikeRequestDto postsLikeRequestDto = new PostsLikeRequestDto(postsResponseDto.getMember().getId(), postsResponseDto.getId());
+            PostsLikeResponseDto postsLikeInfo = postsLikeService.findPostsLikeInfo(postsLikeRequestDto);
+            postsResponseDto.addLikeCount(postsLikeInfo.getPostsLikeCount());
+            postsResponseDto.addCommentCount(commentService.commentCountByPosts(postsResponseDto.getId()));
+
+            PostsImageResponseDto postsImageResponseDto = postsImageService.findThumbnailByPosts(postsResponseDto.getId());
+            if (postsImageResponseDto != null) {
+                postsResponseDto.addStoreFilename(postsImageResponseDto.getStoreFilename());
+                postsResponseDto.addImageUrl(postsImageResponseDto.getImageUrl());
+            }
+        }
+    }
+
+    public void setIndexPostsResponseDto(List<PostsResponseDto> postsList) {
+        for (PostsResponseDto postsResponseDto : postsList) {
+            PostsLikeRequestDto postsLikeRequestDto = new PostsLikeRequestDto(postsResponseDto.getMember().getId(), postsResponseDto.getId());
+            PostsLikeResponseDto postsLikeInfo = postsLikeService.findPostsLikeInfo(postsLikeRequestDto);
+            postsResponseDto.addLikeCount(postsLikeInfo.getPostsLikeCount());
+            postsResponseDto.addCommentCount(commentService.commentCountByPosts(postsResponseDto.getId()));
+
+            PostsImageResponseDto postsImageResponseDto = postsImageService.findThumbnailByPosts(postsResponseDto.getId());
+            if (postsImageResponseDto != null) {
+                postsResponseDto.addStoreFilename(postsImageResponseDto.getStoreFilename());
+                postsResponseDto.addImageUrl(postsImageResponseDto.getImageUrl());
+            }
+        }
+    }
+
+    public void setCommentResponseDto(List<CommentResponseDto> commentLevel0, SessionMemberDto member) {
+        for (CommentResponseDto commentResponseDto : commentLevel0) {
+            List<CommentResponseDto> commentResponseDtoList = commentService.findAllCommentLevel1(commentResponseDto.getId());
+            List<Comment> commentList = commentResponseDtoList.stream()
+                    .map(comment -> Comment.builder()
+                            .id(comment.getId())
+                            .content(comment.getContent())
+                            .member(comment.getMember())
+                            .posts(comment.getPosts())
+                            .level(comment.getLevel())
+                            .upCommentId(comment.getUpCommentId())
+                            .isCommentMe(comment.getMember().getId().equals((member != null) ? member.getId() : 0))
+                            .build())
+                    .collect(Collectors.toList());
+
+            commentResponseDto.addSubCommentList(commentList);
+            commentResponseDto.addSubCommentListCount(commentList.size());
+
+            if (commentList.size() > 0) {
+                commentResponseDto.addHasSubCommentList(true);
+            } else {
+                commentResponseDto.addHasSubCommentList(false);
+            }
+
+            if (member != null) {
+                if (commentResponseDto.getMember().getId().equals(member.getId())) {
+                    commentResponseDto.addIsCommentMe(true);
+                } else {
+                    commentResponseDto.addIsCommentMe(false);
+                }
+            }
+        }
     }
 }
