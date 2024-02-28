@@ -38,6 +38,8 @@ velog(벨로그)는 velopert님이 만든 개발자를 위한 블로그 서비�
 
 ## 🎻 API
 
+현재는 접속할 수 없습니다.
+
 - http://azurelog.link/docs/member.html
 - http://azurelog.link/docs/posts.html
 - http://azurelog.link/docs/tempsave.html
